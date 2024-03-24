@@ -134,7 +134,9 @@ def write_jekyll_post(_template, _episode_path, _file_name, _title, _published_d
     formatted_published_date = time.strftime("%Y-%m-%d", _published_date)
     processed_title = escape_for_jekyll(_title)
     processed_category = escape_for_jekyll(_podcast_title)
-    processed_url = formatted_published_date.replace("-", "/") + "/" + processed_title + ".html"
+
+    date_path = formatted_published_date.replace('-', '/')
+    processed_url = f"{processed_category}/{date_path}/{processed_title}.html"
 
     template_data = {
         'title': processed_title,
