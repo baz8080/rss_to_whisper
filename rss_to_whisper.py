@@ -12,7 +12,7 @@ import requests
 import whisper
 from whisper.utils import WriteTXT, WriteJSON, WriteTSV, WriteSRT
 
-model_name = "tiny.en"
+model_name = "small.en"
 model = whisper.load_model(model_name)
 
 
@@ -129,7 +129,10 @@ def transcribe_if_required(_mp3_info, _episode_path):
 
 def write_jekyll_post(_template, _episode_path, _file_name, _title, _published_date, _podcast_title):
     with open(_episode_path / f"{_file_name}.txt", 'r') as transcript:
-        body = transcript.read().replace(".\n", ".\n\n")
+        body = transcript.read()
+
+    body = re.sub(r'(?<=[^.?])\n', ' ', body)
+    body = body.replace("\n", "\n\n")
 
     formatted_published_date = time.strftime("%Y-%m-%d", _published_date)
     processed_title = escape_for_jekyll(_title)
