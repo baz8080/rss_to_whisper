@@ -9,9 +9,11 @@ from urllib.parse import urlparse
 
 import feedparser
 import requests
+import torch
 import whisper
 from whisper.utils import WriteTXT, WriteJSON, WriteTSV, WriteSRT
 
+print(f"Cuda is available: {torch.cuda.is_available()}")
 model_name = "tiny.en"
 model = whisper.load_model(model_name)
 
@@ -167,7 +169,6 @@ def write_jekyll_post(_template, _episode_path, _file_name, _title, _published_d
 
 
 def main(feed_uri):
-
     if feed_uri is None:
         print("Processing default feeds")
         feed_uris = default_feeds()
@@ -202,18 +203,18 @@ def main(feed_uri):
 
 def default_feeds():
     return [
-        "http://feeds.libsyn.com/60664",                        # Ask a spaceman
-        "http://feeds.libsyn.com/189059/rss",                   # Origins
+        "http://feeds.libsyn.com/60664",  # Ask a spaceman
+        "http://feeds.libsyn.com/189059/rss",  # Origins
         "https://rss.art19.com/sean-carrolls-mindscape",
         "https://thecosmicsavannah.com/feed/podcast/",
         "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
-        "https://audioboom.com/channels/5014098.rss",           # Supermassive podcast
+        "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
         "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
         "https://www.nasa.gov/feeds/podcasts/curious-universe",
         "https://www.nasa.gov/feeds/podcasts/gravity-assist",
         "http://titaniumphysics.libsyn.com/rss",
         "https://www.spreaker.com/show/2458531/episodes/feed",  # Spacetime pod
-        "https://www.abc.net.au/feeds/8294152/podcast.xml",     # Cosmic vertigo
+        "https://www.abc.net.au/feeds/8294152/podcast.xml",  # Cosmic vertigo
         "https://astronomycast.libsyn.com/rss",
         "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
         "https://feeds.fireside.fm/universetoday/rss",
