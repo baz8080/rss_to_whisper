@@ -12,27 +12,39 @@ import requests
 import whisper
 from whisper.utils import WriteTXT, WriteJSON, WriteTSV, WriteSRT
 
-model_name = "small.en"
+model_name = "tiny.en"
 model = whisper.load_model(model_name)
 
 
 def get_feed(url):
-    _feed_response = requests.get(url)
-    if _feed_response.ok:
-        _feed = feedparser.parse(_feed_response.text)
-        return _feed
-    else:
-        print(f"Feed failed to load {_feed_response.status_code}")
-        return None
+    try:
+        _feed_response = requests.get(url)
+        if _feed_response.ok:
+            _feed = feedparser.parse(_feed_response.text)
+            return _feed
+        else:
+            print(f"Feed failed to load {_feed_response.status_code}")
+    except requests.exceptions.RequestException as e:
+        print("Failed to get feed:", e)
+
+    return None
 
 
 def create_pod_path(title):
+    if not title:
+        print("Missing podcast title.")
+        return None
+
     _pod_path = Path.home() / "rss_to_whisper" / escape_for_jekyll(title)
 
-    if not _pod_path.exists():
-        _pod_path.mkdir(parents=True)
+    try:
+        if not _pod_path.exists():
+            _pod_path.mkdir(parents=True)
+        return _pod_path
+    except OSError as e:
+        print("Failed to make podcast directory: ", e)
 
-    return _pod_path
+    return None
 
 
 def escape_for_jekyll(_filename):
@@ -155,22 +167,58 @@ def write_jekyll_post(_template, _episode_path, _file_name, _title, _published_d
 
 
 def main(feed_uri):
-    # 'http://feeds.libsyn.com/60664' - ask a spaceman
 
-    feed = get_feed(feed_uri)
-    if feed:
-        pod_path = create_pod_path(feed.feed.title)
+    if feed_uri is None:
+        print("Processing default feeds")
+        feed_uris = default_feeds()
+    else:
+        feed_uris = [feed_uri]
 
-        with open('jekyll_format.fmt', 'r') as template:
-            template = Template(template.read())
+    with open('jekyll_format.fmt', 'r') as template:
+        template = Template(template.read())
 
-        for entry in feed.entries:
-            episode_path = create_episode_path(pod_path, entry.title)
-            mp3_info = get_mp3_info(entry.links, episode_path)
-            download_file_if_required(mp3_info)
-            transcribe_if_required(mp3_info, episode_path)
-            write_jekyll_post(template, episode_path, mp3_info.file_name, entry.title, entry.published_parsed,
-                              feed.feed.title)
+    for feed_uri in feed_uris:
+        feed = get_feed(feed_uri)
+        print(f"Processing {feed_uri}")
+
+        if feed and feed.feed:
+            pod_path = create_pod_path(feed.feed.title)
+
+            if not pod_path:
+                print("Cannot find podcast title")
+                return
+
+            for entry in feed.entries:
+                try:
+                    episode_path = create_episode_path(pod_path, entry.title)
+                    mp3_info = get_mp3_info(entry.links, episode_path)
+                    download_file_if_required(mp3_info)
+                    transcribe_if_required(mp3_info, episode_path)
+                    write_jekyll_post(template, episode_path, mp3_info.file_name, entry.title, entry.published_parsed,
+                                      feed.feed.title)
+                except Exception as e:
+                    print("Couldn't process episode entry: ", e)
+
+
+def default_feeds():
+    return [
+        "http://feeds.libsyn.com/60664",                        # Ask a spaceman
+        "http://feeds.libsyn.com/189059/rss",                   # Origins
+        "https://rss.art19.com/sean-carrolls-mindscape",
+        "https://thecosmicsavannah.com/feed/podcast/",
+        "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
+        "https://audioboom.com/channels/5014098.rss",           # Supermassive podcast
+        "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
+        "https://www.nasa.gov/feeds/podcasts/curious-universe",
+        "https://www.nasa.gov/feeds/podcasts/gravity-assist",
+        "http://titaniumphysics.libsyn.com/rss",
+        "https://www.spreaker.com/show/2458531/episodes/feed",  # Spacetime pod
+        "https://www.abc.net.au/feeds/8294152/podcast.xml",     # Cosmic vertigo
+        "https://astronomycast.libsyn.com/rss",
+        "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
+        "https://feeds.fireside.fm/universetoday/rss",
+        "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
+    ]
 
 
 if __name__ == "__main__":
@@ -179,8 +227,8 @@ if __name__ == "__main__":
         description='Utils for downloading podcasts from libsyn and transcribing them',
         epilog='Have fun')
 
-    parser.add_argument("-f", "--feed", required=True,
+    parser.add_argument("-f", "--feed", required=False,
                         help="Provide a libsyn feed, e.g. http://feeds.libsyn.com/60664 ")
-    args = parser.parse_args()
 
+    args = parser.parse_args()
     main(args.feed)
