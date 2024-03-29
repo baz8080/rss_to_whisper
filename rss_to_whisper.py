@@ -1,8 +1,10 @@
 import argparse
 import os
 import re
+import sys
 import time
 from collections import namedtuple
+import logging
 from pathlib import Path
 from string import Template
 from urllib.parse import urlparse
@@ -13,9 +15,28 @@ import torch
 import whisper
 from whisper.utils import WriteTXT, WriteJSON, WriteTSV, WriteSRT
 
-print(f"Cuda is available: {torch.cuda.is_available()}")
-model_name = "tiny.en"
-model = whisper.load_model(model_name)
+logger = logging.getLogger(__name__)
+
+
+def initialise_whisper(model_name):
+    logger.info(f"Cuda available: {torch.cuda.is_available()}")
+    logger.debug(f"Using {model_name} model")
+    model = whisper.load_model(model_name)
+    return model
+
+
+def initialise_logging(verbose):
+    handler = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+
+    if verbose:
+        logger.level = logging.DEBUG
+        handler.setLevel(logging.DEBUG)
+    else:
+        logger.level = logging.INFO
+        handler.setLevel(logging.INFO)
 
 
 def get_feed(url):
@@ -25,16 +46,16 @@ def get_feed(url):
             _feed = feedparser.parse(_feed_response.text)
             return _feed
         else:
-            print(f"Feed failed to load {_feed_response.status_code}")
+            logger.error(f"Feed failed to load {_feed_response.status_code}")
     except requests.exceptions.RequestException as e:
-        print("Failed to get feed:", e)
+        logger.error("Failed to get feed:", e)
 
     return None
 
 
 def create_pod_path(title):
     if not title:
-        print("Missing podcast title.")
+        logger.error("Missing podcast title.")
         return None
 
     _pod_path = Path.home() / "rss_to_whisper" / escape_for_jekyll(title)
@@ -44,7 +65,7 @@ def create_pod_path(title):
             _pod_path.mkdir(parents=True)
         return _pod_path
     except OSError as e:
-        print("Failed to make podcast directory: ", e)
+        logger.error("Failed to make podcast directory: ", e)
 
     return None
 
@@ -99,20 +120,20 @@ def get_file_part(_url):
 
 def download_file_if_required(_mp3_info):
     if not _mp3_info.file_path.exists() or os.path.getsize(_mp3_info.file_path) != _mp3_info.length:
-        print(f"Downloading... {_mp3_info.file_name}")
+        logger.debug(f"Downloading... {_mp3_info.file_name}")
         _file_response = requests.get(_mp3_info.link)
         if _file_response.ok:
-            print(f"Writing... {_mp3_info.file_path}")
+            logger.debug(f"Writing... {_mp3_info.file_path}")
             with open(_mp3_info.file_path, 'wb') as _f:
                 _f.write(_file_response.content)
         else:
-            print(f"error saving file response: {_file_response.status_code}")
+            logger.error(f"error saving file response: {_file_response.status_code}")
     else:
-        print(f"{_mp3_info.file_name} is already downloaded")
+        logger.debug(f"{_mp3_info.file_name} is already downloaded")
 
 
 def write_transcripts(_result, _file_name, _episode_path):
-    print("\nWriting transcriptions...")
+    logger.debug("\nWriting transcriptions...")
     writer = WriteTXT(_episode_path)
     writer(_result, _episode_path / f"{_file_name}.txt")
 
@@ -128,17 +149,17 @@ def write_transcripts(_result, _file_name, _episode_path):
     Path(_episode_path / "transcribed").touch()
 
 
-def transcribe_if_required(_mp3_info, _episode_path):
+def transcribe_if_required(_model, _mp3_info, _episode_path):
     if not os.path.exists(_episode_path / "transcribed"):
         start = time.time()
-        result = model.transcribe(audio=str(_mp3_info.file_path), language="en", verbose=True)
+        result = _model.transcribe(audio=str(_mp3_info.file_path), language="en")
         write_transcripts(result, _mp3_info.file_name, _episode_path)
         end = time.time()
         elapsed = float(end - start)
         elapsed_minutes = str(round(elapsed / 60, 2))
-        print(f"\nProcessed {_mp3_info.file_name} With model: {model_name} in: {elapsed_minutes} Minutes")
+        logger.debug(f"\nProcessed {_mp3_info.file_name} in: {elapsed_minutes} Minutes")
     else:
-        print(f"{_mp3_info.file_name} is already transcribed.")
+        logger.debug(f"{_mp3_info.file_name} is already transcribed.")
 
 
 def write_jekyll_post(_template, _episode_path, _file_name, _title, _published_date, _podcast_title):
@@ -168,25 +189,29 @@ def write_jekyll_post(_template, _episode_path, _file_name, _title, _published_d
         jekyll_post.write(processed_template)
 
 
-def main(feed_uri):
+def main(feed_uri, verbose, model_name):
+    initialise_logging(verbose)
+
     if feed_uri is None:
-        print("Processing default feeds")
+        logger.info("Processing default feeds")
         feed_uris = default_feeds()
     else:
         feed_uris = [feed_uri]
+
+    whisper_model = initialise_whisper(model_name)
 
     with open('jekyll_format.fmt', 'r') as template:
         template = Template(template.read())
 
     for feed_uri in feed_uris:
         feed = get_feed(feed_uri)
-        print(f"Processing {feed_uri}")
+        logger.info(f"Processing {feed_uri}")
 
         if feed and feed.feed:
             pod_path = create_pod_path(feed.feed.title)
 
             if not pod_path:
-                print("Cannot find podcast title")
+                logger.error("Cannot find podcast title")
                 return
 
             for entry in feed.entries:
@@ -194,11 +219,11 @@ def main(feed_uri):
                     episode_path = create_episode_path(pod_path, entry.title)
                     mp3_info = get_mp3_info(entry.links, episode_path)
                     download_file_if_required(mp3_info)
-                    transcribe_if_required(mp3_info, episode_path)
+                    transcribe_if_required(whisper_model, mp3_info, episode_path)
                     write_jekyll_post(template, episode_path, mp3_info.file_name, entry.title, entry.published_parsed,
                                       feed.feed.title)
                 except Exception as e:
-                    print("Couldn't process episode entry: ", e)
+                    logger.error("Couldn't process episode entry: ", e)
 
 
 def default_feeds():
@@ -225,11 +250,13 @@ def default_feeds():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         prog='rss_to_whisper.py',
-        description='Utils for downloading podcasts from libsyn and transcribing them',
+        description='Utils for downloading podcasts from rss feeds and transcribing them',
         epilog='Have fun')
 
     parser.add_argument("-f", "--feed", required=False,
-                        help="Provide a libsyn feed, e.g. http://feeds.libsyn.com/60664 ")
+                        help="Provide an rss feed, e.g. http://feeds.libsyn.com/60664 ")
+    parser.add_argument("-v", "--verbose", action='store_true')
+    parser.add_argument("-m", "--model-name", required=False, default="medium")
 
     args = parser.parse_args()
-    main(args.feed)
+    main(feed_uri=args.feed, verbose=args.verbose, model_name=args.model_name)
