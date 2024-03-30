@@ -1,0 +1,4 @@
+feedparser==6.0.11
+openai-whisper==20231117
+requests==2.31.0
+torch==2.0.1
