@@ -58,7 +58,7 @@ def create_pod_path(title):
         logger.error("Missing podcast title.")
         return None
 
-    _pod_path = Path.home() / "rss_to_whisper" / escape_for_jekyll(title)
+    _pod_path = Path.home() / "rss_to_whisper/pods" / escape_for_jekyll(title)
 
     try:
         if not _pod_path.exists():
