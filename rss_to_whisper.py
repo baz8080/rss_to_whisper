@@ -133,7 +133,7 @@ def download_file_if_required(_mp3_info):
 
 
 def write_transcripts(_result, _file_name, _episode_path):
-    logger.debug("\nWriting transcriptions...")
+    logger.debug("Writing transcriptions...")
     writer = WriteTXT(_episode_path)
     writer(_result, _episode_path / f"{_file_name}.txt")
 
@@ -157,7 +157,7 @@ def transcribe_if_required(_model, _mp3_info, _episode_path):
         end = time.time()
         elapsed = float(end - start)
         elapsed_minutes = str(round(elapsed / 60, 2))
-        logger.debug(f"\nProcessed {_mp3_info.file_name} in: {elapsed_minutes} Minutes")
+        logger.debug(f"Processed {_mp3_info.file_name} in: {elapsed_minutes} Minutes")
     else:
         logger.debug(f"{_mp3_info.file_name} is already transcribed.")
 
@@ -218,10 +218,16 @@ def main(feed_uri, verbose, model_name):
                 try:
                     episode_path = create_episode_path(pod_path, entry.title)
                     mp3_info = get_mp3_info(entry.links, episode_path)
-                    download_file_if_required(mp3_info)
-                    transcribe_if_required(whisper_model, mp3_info, episode_path)
-                    write_jekyll_post(template, episode_path, mp3_info.file_name, entry.title, entry.published_parsed,
-                                      feed.feed.title)
+
+                    if mp3_info is None:
+                        logger.debug(f"{entry.title} has no mp3 link")
+                    else:
+                        download_file_if_required(mp3_info)
+                        transcribe_if_required(whisper_model, mp3_info, episode_path)
+                        write_jekyll_post(template, episode_path, mp3_info.file_name, entry.title,
+                                          entry.published_parsed,
+                                          feed.feed.title)
+
                 except Exception as e:
                     logger.error("Couldn't process episode entry: ", e)
 
@@ -229,9 +235,9 @@ def main(feed_uri, verbose, model_name):
 def default_feeds():
     return [
         "http://feeds.libsyn.com/60664",  # Ask a spaceman
-        "http://feeds.libsyn.com/189059/rss",  # Origins
-        "https://rss.art19.com/sean-carrolls-mindscape",
+        "https://podcasts.files.bbci.co.uk/b00snr0w.rss",  # Infinite monkey cage
         "https://thecosmicsavannah.com/feed/podcast/",
+        "https://rss.art19.com/sean-carrolls-mindscape",
         "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
         "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
         "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
