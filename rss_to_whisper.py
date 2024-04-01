@@ -1,4 +1,5 @@
 import argparse
+import hashlib
 import os
 import re
 import sys
@@ -169,18 +170,22 @@ def write_jekyll_post(_template, _episode_path, _file_name, _entry_title, _publi
     with open(_episode_path / f"{_file_name}.txt", 'r') as transcript:
         body = transcript.read()
 
+    # Optimise. For noguid, generate a deterministic alternative, then remove date from URL, title
+    # layout: post
+    # title: "2010-11-15-Apocalypse"
+    # category: "The-Infinite-Monkey-Cage"
+    # url: "The-Infinite-Monkey-Cage/2010/11/15/2010-11-15-Apocalypse-noguid.html"
+
     body = re.sub(r'(?<=[^.?])\n', ' ', body)
     body = body.replace("\n", "\n\n")
 
     processed_title = escape_for_jekyll(_entry_title)
     processed_category = escape_for_jekyll(_category)
 
-    date_path = _published_date.replace('-', '/')
-    processed_url = f"{processed_category}/{date_path}/{processed_title}.html"
+    guid_part = get_partial_guid(_entry_guid, _published_date + _entry_title)
 
-    guid_part = "noguid"
-    if _entry_guid and is_valid_uuid(_entry_guid):
-        guid_part = _entry_guid[0:8]
+    date_path = _published_date.replace('-', '/')
+    processed_url = f"{processed_category}/{date_path}/{processed_title}-{guid_part}.html"
 
     template_data = {
         'title': processed_title,
@@ -191,8 +196,20 @@ def write_jekyll_post(_template, _episode_path, _file_name, _entry_title, _publi
 
     processed_template = _template.substitute(template_data)
 
-    with open(_episode_path / f"{_published_date}-{processed_title}-{guid_part}.md", "w") as jekyll_post:
+    with open(_episode_path / f"{processed_title}-{guid_part}.md", "w") as jekyll_post:
         jekyll_post.write(processed_template)
+
+
+def get_partial_guid(_uuid_str, _content):
+    if _uuid_str and is_valid_uuid(_uuid_str):
+        return _uuid_str[0:8]
+    elif _content:
+        ha = hashlib.md5()
+        ha.update(_content.encode("utf-8"))
+        digest = ha.hexdigest()
+        return str(digest)[0:8]
+    else:
+        return "noguid"
 
 
 def is_valid_uuid(uuid_str):
@@ -203,22 +220,8 @@ def is_valid_uuid(uuid_str):
         return False
 
 
-def rename_directories(parent_dir):
-    for root, dirs, files in os.walk(parent_dir, topdown=False):
-        for name in dirs:
-            # Generate the new directory name by replacing spaces with "-"
-            new_name = os.path.join(root, escape_for_jekyll(name))
-            # Rename the directory
-
-            if name != new_name:
-                os.rename(os.path.join(root, name), new_name)
-                print(f"Renamed {os.path.join(root, name)} to {new_name}")
-
-
 def main(feed_uri, verbose, model_name):
     initialise_logging(verbose)
-    # rename_directories("/home/barry/rss_to_whisper/pods")
-    # exit(0)
 
     if feed_uri is None:
         logger.info("Processing default feeds")
@@ -245,9 +248,9 @@ def main(feed_uri, verbose, model_name):
             for entry in feed_response.entries:
                 try:
                     formatted_published_date = time.strftime("%Y-%m-%d", entry.published_parsed)
-                    entry_title = f"{formatted_published_date}-{entry.title}"
+                    entry_title_and_date = f"{formatted_published_date}-{entry.title}"
 
-                    episode_path = create_episode_path(pod_path, entry_title)
+                    episode_path = create_episode_path(pod_path, entry_title_and_date)
                     mp3_info = get_mp3_info(entry.links, episode_path)
 
                     if mp3_info is None:
@@ -255,7 +258,7 @@ def main(feed_uri, verbose, model_name):
                     else:
                         download_file_if_required(mp3_info)
                         transcribe_if_required(whisper_model, mp3_info, episode_path)
-                        write_jekyll_post(template, episode_path, mp3_info.file_name, entry_title,
+                        write_jekyll_post(template, episode_path, mp3_info.file_name, entry.title,
                                           formatted_published_date, feed_response.feed.title, entry.id)
 
                 except Exception as e:
@@ -264,22 +267,22 @@ def main(feed_uri, verbose, model_name):
 
 def default_feeds():
     return [
-        "http://feeds.libsyn.com/60664",  # Ask a spaceman
-        "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
-        "https://podcasts.files.bbci.co.uk/b00snr0w.rss",  # Infinite monkey cage
-        "https://thecosmicsavannah.com/feed/podcast/",
-        "https://rss.art19.com/sean-carrolls-mindscape",
-        "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
+        # "http://feeds.libsyn.com/60664",  # Ask a spaceman
+        # "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
+        # "https://podcasts.files.bbci.co.uk/b00snr0w.rss",  # Infinite monkey cage
+        # "https://thecosmicsavannah.com/feed/podcast/",
+        # "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
+        # "https://rss.art19.com/sean-carrolls-mindscape",
         "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
-        "https://www.nasa.gov/feeds/podcasts/curious-universe",
-        "https://www.nasa.gov/feeds/podcasts/gravity-assist",
-        "http://titaniumphysics.libsyn.com/rss",
-        "https://www.spreaker.com/show/2458531/episodes/feed",  # Spacetime pod
-        "https://www.abc.net.au/feeds/8294152/podcast.xml",  # Cosmic vertigo
-        "https://astronomycast.libsyn.com/rss",
-        "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
-        "https://feeds.fireside.fm/universetoday/rss",
-        "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
+        # "https://www.nasa.gov/feeds/podcasts/curious-universe",
+        # "https://www.nasa.gov/feeds/podcasts/gravity-assist",
+        # "http://titaniumphysics.libsyn.com/rss",
+        # "https://www.spreaker.com/show/2458531/episodes/feed",  # Spacetime pod
+        # "https://www.abc.net.au/feeds/8294152/podcast.xml",  # Cosmic vertigo
+        # "https://astronomycast.libsyn.com/rss",
+        # "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
+        # "https://feeds.fireside.fm/universetoday/rss",
+        # "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
     ]
 
 
