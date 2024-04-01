@@ -3,6 +3,7 @@ import os
 import re
 import sys
 import time
+import uuid
 from collections import namedtuple
 import logging
 from pathlib import Path
@@ -119,7 +120,9 @@ def get_file_part(_url):
 
 
 def download_file_if_required(_mp3_info):
-    if not _mp3_info.file_path.exists() or os.path.getsize(_mp3_info.file_path) != _mp3_info.length:
+    path_exists = _mp3_info.file_path.exists()
+    # length_mismatched = os.path.getsize(_mp3_info.file_path) != _mp3_info.length
+    if not path_exists:
         logger.debug(f"Downloading... {_mp3_info.file_name}")
         _file_response = requests.get(_mp3_info.link)
         if _file_response.ok:
@@ -162,19 +165,22 @@ def transcribe_if_required(_model, _mp3_info, _episode_path):
         logger.debug(f"{_mp3_info.file_name} is already transcribed.")
 
 
-def write_jekyll_post(_template, _episode_path, _file_name, _title, _published_date, _podcast_title):
+def write_jekyll_post(_template, _episode_path, _file_name, _entry_title, _published_date, _category, _entry_guid):
     with open(_episode_path / f"{_file_name}.txt", 'r') as transcript:
         body = transcript.read()
 
     body = re.sub(r'(?<=[^.?])\n', ' ', body)
     body = body.replace("\n", "\n\n")
 
-    formatted_published_date = time.strftime("%Y-%m-%d", _published_date)
-    processed_title = escape_for_jekyll(_title)
-    processed_category = escape_for_jekyll(_podcast_title)
+    processed_title = escape_for_jekyll(_entry_title)
+    processed_category = escape_for_jekyll(_category)
 
-    date_path = formatted_published_date.replace('-', '/')
+    date_path = _published_date.replace('-', '/')
     processed_url = f"{processed_category}/{date_path}/{processed_title}.html"
+
+    guid_part = "noguid"
+    if _entry_guid and is_valid_uuid(_entry_guid):
+        guid_part = _entry_guid[0:8]
 
     template_data = {
         'title': processed_title,
@@ -185,12 +191,34 @@ def write_jekyll_post(_template, _episode_path, _file_name, _title, _published_d
 
     processed_template = _template.substitute(template_data)
 
-    with open(_episode_path / f"{formatted_published_date}-{processed_title}.md", "w") as jekyll_post:
+    with open(_episode_path / f"{_published_date}-{processed_title}-{guid_part}.md", "w") as jekyll_post:
         jekyll_post.write(processed_template)
+
+
+def is_valid_uuid(uuid_str):
+    try:
+        uuid.UUID(uuid_str)
+        return True
+    except ValueError:
+        return False
+
+
+def rename_directories(parent_dir):
+    for root, dirs, files in os.walk(parent_dir, topdown=False):
+        for name in dirs:
+            # Generate the new directory name by replacing spaces with "-"
+            new_name = os.path.join(root, escape_for_jekyll(name))
+            # Rename the directory
+
+            if name != new_name:
+                os.rename(os.path.join(root, name), new_name)
+                print(f"Renamed {os.path.join(root, name)} to {new_name}")
 
 
 def main(feed_uri, verbose, model_name):
     initialise_logging(verbose)
+    # rename_directories("/home/barry/rss_to_whisper/pods")
+    # exit(0)
 
     if feed_uri is None:
         logger.info("Processing default feeds")
@@ -204,19 +232,22 @@ def main(feed_uri, verbose, model_name):
         template = Template(template.read())
 
     for feed_uri in feed_uris:
-        feed = get_feed(feed_uri)
+        feed_response = get_feed(feed_uri)
         logger.info(f"Processing {feed_uri}")
 
-        if feed and feed.feed:
-            pod_path = create_pod_path(feed.feed.title)
+        if feed_response and feed_response.feed:
+            pod_path = create_pod_path(feed_response.feed.title)
 
             if not pod_path:
                 logger.error("Cannot find podcast title")
                 return
 
-            for entry in feed.entries:
+            for entry in feed_response.entries:
                 try:
-                    episode_path = create_episode_path(pod_path, entry.title)
+                    formatted_published_date = time.strftime("%Y-%m-%d", entry.published_parsed)
+                    entry_title = f"{formatted_published_date}-{entry.title}"
+
+                    episode_path = create_episode_path(pod_path, entry_title)
                     mp3_info = get_mp3_info(entry.links, episode_path)
 
                     if mp3_info is None:
@@ -224,9 +255,8 @@ def main(feed_uri, verbose, model_name):
                     else:
                         download_file_if_required(mp3_info)
                         transcribe_if_required(whisper_model, mp3_info, episode_path)
-                        write_jekyll_post(template, episode_path, mp3_info.file_name, entry.title,
-                                          entry.published_parsed,
-                                          feed.feed.title)
+                        write_jekyll_post(template, episode_path, mp3_info.file_name, entry_title,
+                                          formatted_published_date, feed_response.feed.title, entry.id)
 
                 except Exception as e:
                     logger.error("Couldn't process episode entry: ", e)
@@ -235,10 +265,10 @@ def main(feed_uri, verbose, model_name):
 def default_feeds():
     return [
         "http://feeds.libsyn.com/60664",  # Ask a spaceman
+        "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
         "https://podcasts.files.bbci.co.uk/b00snr0w.rss",  # Infinite monkey cage
         "https://thecosmicsavannah.com/feed/podcast/",
         "https://rss.art19.com/sean-carrolls-mindscape",
-        "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
         "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
         "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
         "https://www.nasa.gov/feeds/podcasts/curious-universe",
