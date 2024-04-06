@@ -1,0 +1,1488 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" xmlns:slash="http://purl.org/rss/1.0/modules/slash/" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:podcast="https://podcastindex.org/namespace/1.0" xmlns:rawvoice="http://www.rawvoice.com/rawvoiceRssModule/" xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0" xmlns:rp="https://w3id.org/rp/v1" xmlns:spotify="https://www.spotify.com/ns/rss" xmlns:psc="https://podlove.org/simple-chapters/" >
+<channel>
+	<title>NASA&#039;s Curious Universe</title>
+	<link>https://www.nasa.gov/podcasts/curious-universe/</link>
+	<description>Come get curious with NASA. As an official NASA podcast, Curious Universe brings you mind-blowing science and space adventures you won&#039;t find anywhere else. Explore the cosmos alongside astronauts, scientists, engineers, and other top NASA experts who are achieving remarkable feats in science, space exploration, and aeronautics. Learn something new about the wild and wonderful universe we share. All you need to get started is a little curiosity. 
+
+NASA&#039;s Curious Universe is an official NASA podcast hosted by Padi Boyd and Jacob Pinter. Discover more original NASA shows at nasa.gov/podcasts</description>
+	<language>en-US</language>
+	<docs>https://cyber.harvard.edu/rss/rss.html</docs>
+	<image>
+		<url>https://www.nasa.gov/wp-content/uploads/2020/03/nasascuriousuniverselogo.png</url>
+		<title>NASA&#039;s Curious Universe</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/</link>
+		<width>4000</width>
+		<height>4000</height>
+	</image>
+	<managingEditor>katie.konans@nasa.gov</managingEditor>
+	<copyright>NASA</copyright>
+	<webMaster>katie.konans@nasa.gov</webMaster>
+	<atom:link href="https://www.nasa.gov/feeds/podcasts/curious-universe" rel="self" type="application/rss+xml" />
+	<atom:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
+	<itunes:subtitle>NASA&#039;s Curious Universe audio podcast episodes</itunes:subtitle>
+	<itunes:summary>Come get curious with NASA. As an official NASA podcast, Curious Universe brings you mind-blowing science and space adventures you won&#039;t find anywhere else. Explore the cosmos alongside astronauts, scientists, engineers, and other top NASA experts who are achieving remarkable feats in science, space exploration, and aeronautics. Learn something new about the wild and wonderful universe we share. All you need to get started is a little curiosity. 
+
+NASA&#039;s Curious Universe is an official NASA podcast hosted by Padi Boyd and Jacob Pinter. Discover more original NASA shows at nasa.gov/podcasts</itunes:summary>
+	<itunes:author>National Aeronautics and Space Administration (NASA)</itunes:author>
+	<itunes:explicit>false</itunes:explicit>
+	<itunes:image href="https://www.nasa.gov/wp-content/uploads/2020/03/nasascuriousuniverselogo.png" />
+	<itunes:owner>
+		<itunes:name>Katie Konans</itunes:name>
+		<itunes:email>katie.konans@nasa.gov</itunes:email>
+	</itunes:owner>
+	<itunes:category text="Science" />
+	<itunes:title>NASA&#039;s Curious Universe</itunes:title>
+	<itunes:type>serial</itunes:type>
+	<itunes:block>no</itunes:block>
+	<itunes:complete>no</itunes:complete>
+	<googleplay:author>Katie Konans</googleplay:author>
+	<googleplay:email>katie.konans@nasa.gov</googleplay:email>
+	<googleplay:image href="https://www.nasa.gov/wp-content/uploads/2020/03/nasascuriousuniverselogo.png" />
+	<googleplay:description>Come get curious with NASA. As an official NASA podcast, Curious Universe brings you mind-blowing science and space adventures you won&#039;t find anywhere else. Explore the cosmos alongside astronauts, scientists, engineers, and other top NASA experts who are achieving remarkable feats in science, space exploration, and aeronautics. Learn something new about the wild and wonderful universe we share. All you need to get started is a little curiosity. 
+
+NASA&#039;s Curious Universe is an official NASA podcast hosted by Padi Boyd and Jacob Pinter. Discover more original NASA shows at nasa.gov/podcasts</googleplay:description>
+	<googleplay:explicit>false</googleplay:explicit>
+	<googleplay:category text="Science &amp; Medicine" />
+	<spotify:limit recentCount="3" />
+	<spotify:countryOfOrigin>us</spotify:countryOfOrigin>
+	<lastBuildDate>Tue, 02 Apr 2024 14:02:01 EDT</lastBuildDate>
+	<pubDate>Tue, 02 Apr 2024 00:00:00 EDT</pubDate>
+	<item>
+		<title>Sun Series: You (Yes, You!) Can Help NASA Study the Sun</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/sun-series-you-yes-you-can-help-nasa-study-the-sun/</link>
+		<pubDate>Tue, 02 Apr 2024 00:00:00 EDT</pubDate>
+		<guid isPermaLink="false">b0d62e2f87756bfa47dce3e4d9f914fd</guid>
+		<description>How often do you think about your nearest star? Though it may not seem like it from here on Earth, our trusty Sun is a place of mystery. Take a good look at its influence on our planet – through the otherworldly experience of eclipse, maybe, or the aurora – and you might get &quot;sucked&quot; in... to a citizen science project, that is. Join NASA Sun scientists like Liz Macdonald and volunteers like Hanjie Tan to listen to crickets fooled by the false night of an eclipse, discover new colors in the aurora, and hunt for comets hiding in the plasma of our Sun’s atmosphere. And learn how you can get involved in NASA science while experiencing our nearest star firsthand. This is episode three of the Sun and Eclipse series from NASA’s Curious Universe, an official NASA podcast.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2024/04/helio-mini-ep-3-draft-4.mp3" length="64262022" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2024/03/curiousuniverse.png" />
+		<itunes:subtitle>How often do you think about your nearest star? Though it may not seem like it from here on Earth, our trusty Sun is a place of mystery. Take a good look at its influence on our planet – through the otherworldly experience of eclipse, maybe, or the aurora – and you might get &quot;sucked&quot; in... to a citizen science project, that is. Join NASA Sun scientists like Liz Macdonald and volunteers like Hanjie Tan to listen to crickets fooled by the false night of an eclipse, discover new colors in the aurora, and hunt for comets hiding in the plasma of our Sun’s atmosphere. And learn how you can get involved in NASA science while experiencing our nearest star firsthand. This is episode three of the Sun and Eclipse series from NASA’s Curious Universe, an official NASA podcast.</itunes:subtitle>
+		<itunes:summary>How often do you think about your nearest star? Though it may not seem like it from here on Earth, our trusty Sun is a place of mystery. Take a good look at its influence on our planet – through the otherworldly experience of eclipse, maybe, or the aurora – and you might get &quot;sucked&quot; in... to a citizen science project, that is. Join NASA Sun scientists like Liz Macdonald and volunteers like Hanjie Tan to listen to crickets fooled by the false night of an eclipse, discover new colors in the aurora, and hunt for comets hiding in the plasma of our Sun’s atmosphere. And learn how you can get involved in NASA science while experiencing our nearest star firsthand. This is episode three of the Sun and Eclipse series from NASA’s Curious Universe, an official NASA podcast.</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>2676</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Sun Series: You (Yes, You!) Can Help NASA Study the Sun</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>4</itunes:episode>
+		<itunes:season>7</itunes:season>
+		<googleplay:description>How often do you think about your nearest star? Though it may not seem like it from here on Earth, our trusty Sun is a place of mystery. Take a good look at its influence on our planet – through the otherworldly experience of eclipse, maybe, or the aurora – and you might get &quot;sucked&quot; in... to a citizen science project, that is. Join NASA Sun scientists like Liz Macdonald and volunteers like Hanjie Tan to listen to crickets fooled by the false night of an eclipse, discover new colors in the aurora, and hunt for comets hiding in the plasma of our Sun’s atmosphere. And learn how you can get involved in NASA science while experiencing our nearest star firsthand. This is episode three of the Sun and Eclipse series from NASA’s Curious Universe, an official NASA podcast.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Sun Series: How to Experience a Total Solar Eclipse</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/sun-series-how-to-experience-a-total-solar-eclipse/</link>
+		<pubDate>Tue, 26 Mar 2024 09:24:31 EDT</pubDate>
+		<guid isPermaLink="false">53f9469760c72ce4a2ecc75455f8e5c5</guid>
+		<description>On April 8, 2024, the Moon will pass in front of the Sun, casting a shadow across Mexico, the United States, and Canada. Total solar eclipses have fascinated human beings for thousands of years. Watching the Moon eclipse the Sun is a surreal, multi-sensory experience that you’re not likely to forget. But Eclipses also offer unique opportunities for NASA to study the relationship between our star and home planet. Join current and former NASA sun scientists Kelly Korreck, Fred “Mr. Eclipse” Espenak and Cherilynn Morrow on a journey through time and space to solve eclipse mysteries.  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2024/03/curiousuniversenasapodcasthowtoexperienceatotalsolareclipse.mp3" length="59366641" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2024/03/curiousuniverse.png" />
+		<itunes:subtitle>On April 8, 2024, the Moon will pass in front of the Sun, casting a shadow across Mexico, the United States, and Canada. Total solar eclipses have fascinated human beings for thousands of years. Watching the Moon eclipse the Sun is a surreal, multi-sensory experience that you’re not likely to forget. But Eclipses also offer unique opportunities for NASA to study the relationship between our star and home planet. Join current and former NASA sun scientists Kelly Korreck, Fred “Mr. Eclipse” Espenak and Cherilynn Morrow on a journey through time and space to solve eclipse mysteries.  </itunes:subtitle>
+		<itunes:summary>On April 8, 2024, the Moon will pass in front of the Sun, casting a shadow across Mexico, the United States, and Canada. Total solar eclipses have fascinated human beings for thousands of years. Watching the Moon eclipse the Sun is a surreal, multi-sensory experience that you’re not likely to forget. But Eclipses also offer unique opportunities for NASA to study the relationship between our star and home planet. Join current and former NASA sun scientists Kelly Korreck, Fred “Mr. Eclipse” Espenak and Cherilynn Morrow on a journey through time and space to solve eclipse mysteries.  </itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>2472</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Sun Series: How to Experience a Total Solar Eclipse</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>3</itunes:episode>
+		<itunes:season>7</itunes:season>
+		<googleplay:description>On April 8, 2024, the Moon will pass in front of the Sun, casting a shadow across Mexico, the United States, and Canada. Total solar eclipses have fascinated human beings for thousands of years. Watching the Moon eclipse the Sun is a surreal, multi-sensory experience that you’re not likely to forget. But Eclipses also offer unique opportunities for NASA to study the relationship between our star and home planet. Join current and former NASA sun scientists Kelly Korreck, Fred “Mr. Eclipse” Espenak and Cherilynn Morrow on a journey through time and space to solve eclipse mysteries.  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Sun Series: The Sun, Our Star</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/sun-series-the-sun-our-star/</link>
+		<pubDate>Tue, 19 Mar 2024 00:00:00 EDT</pubDate>
+		<guid isPermaLink="false">a0fcf7f9926a1ee2044e94df59f01eeb</guid>
+		<description>The Sun is our closest star. Billions of years ago, it shaped the formation of our home planet and the beginning of life on Earth. Today, it provides the heat and energy that powers our civilization, but it can also disrupt our technology and spacecraft through explosive outbursts of radiation. Join NASA Sun scientist Joe Westlake on a journey from the surface of Earth to the Sun’s core to learn how intricately we’re connected to our star and the progress we’ve made unraveling its mysteries. This is episode one of the Sun and Eclipse series from NASA&#039;s Curious Universe, an official NASA podcast.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2024/03/helio-miniseries-ep.-1-audio-final.mp3" length="52414401" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2024/03/helio-series-cu-project-file-16x9-1.png" />
+		<itunes:subtitle>The Sun is our closest star. Billions of years ago, it shaped the formation of our home planet and the beginning of life on Earth. Today, it provides the heat and energy that powers our civilization, but it can also disrupt our technology and spacecraft through explosive outbursts of radiation. Join NASA Sun scientist Joe Westlake on a journey from the surface of Earth to the Sun’s core to learn how intricately we’re connected to our star and the progress we’ve made unraveling its mysteries. This is episode one of the Sun and Eclipse series from NASA&#039;s Curious Universe, an official NASA podcast.</itunes:subtitle>
+		<itunes:summary>The Sun is our closest star. Billions of years ago, it shaped the formation of our home planet and the beginning of life on Earth. Today, it provides the heat and energy that powers our civilization, but it can also disrupt our technology and spacecraft through explosive outbursts of radiation. Join NASA Sun scientist Joe Westlake on a journey from the surface of Earth to the Sun’s core to learn how intricately we’re connected to our star and the progress we’ve made unraveling its mysteries. This is episode one of the Sun and Eclipse series from NASA&#039;s Curious Universe, an official NASA podcast.</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>2183</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Sun Series: The Sun, Our Star</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>2</itunes:episode>
+		<itunes:season>7</itunes:season>
+		<googleplay:description>The Sun is our closest star. Billions of years ago, it shaped the formation of our home planet and the beginning of life on Earth. Today, it provides the heat and energy that powers our civilization, but it can also disrupt our technology and spacecraft through explosive outbursts of radiation. Join NASA Sun scientist Joe Westlake on a journey from the surface of Earth to the Sun’s core to learn how intricately we’re connected to our star and the progress we’ve made unraveling its mysteries. This is episode one of the Sun and Eclipse series from NASA&#039;s Curious Universe, an official NASA podcast.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Here Comes the Sun Series</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/here-comes-the-sun-series/</link>
+		<pubDate>Mon, 11 Mar 2024 00:00:00 EDT</pubDate>
+		<guid isPermaLink="false">827e343285ebf8867974bc5e642b92b9</guid>
+		<description>Meet the Sun. Even if you think you know our star, our new mini series from NASA’s Curious Universe will show you why Sun science is heating up in 2024—and why NASA experts have so much more to discover. Get ready for the hair-raising experience of a total solar eclipse, and learn how anyone can pitch in through citizen science. See the vibrant and sometimes chaotic close-up details of the Sun, and hear how NASA keeps astronauts and spacecraft safe from solar outbursts. And go inside a pioneering mission to touch the Sun’s atmosphere and investigate some of its biggest unanswered questions. NASA’s Curious Universe is an official NASA podcast. Discover more adventures with NASA experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2024/03/nasapodcastcuriousuniverseherecomesthesunseries.mp3" length="3961594" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2024/03/helio-series-cu-project-file-16x9-1.png" />
+		<itunes:subtitle>Meet the Sun. Even if you think you know our star, our new mini series from NASA’s Curious Universe will show you why Sun science is heating up in 2024—and why NASA experts have so much more to discover. Get ready for the hair-raising experience of a total solar eclipse, and learn how anyone can pitch in through citizen science. See the vibrant and sometimes chaotic close-up details of the Sun, and hear how NASA keeps astronauts and spacecraft safe from solar outbursts. And go inside a pioneering mission to touch the Sun’s atmosphere and investigate some of its biggest unanswered questions. NASA’s Curious Universe is an official NASA podcast. Discover more adventures with NASA experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>Meet the Sun. Even if you think you know our star, our new mini series from NASA’s Curious Universe will show you why Sun science is heating up in 2024—and why NASA experts have so much more to discover. Get ready for the hair-raising experience of a total solar eclipse, and learn how anyone can pitch in through citizen science. See the vibrant and sometimes chaotic close-up details of the Sun, and hear how NASA keeps astronauts and spacecraft safe from solar outbursts. And go inside a pioneering mission to touch the Sun’s atmosphere and investigate some of its biggest unanswered questions. NASA’s Curious Universe is an official NASA podcast. Discover more adventures with NASA experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>164</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Here Comes the Sun Series</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>1</itunes:episode>
+		<itunes:season>7</itunes:season>
+		<googleplay:description>Meet the Sun. Even if you think you know our star, our new mini series from NASA’s Curious Universe will show you why Sun science is heating up in 2024—and why NASA experts have so much more to discover. Get ready for the hair-raising experience of a total solar eclipse, and learn how anyone can pitch in through citizen science. See the vibrant and sometimes chaotic close-up details of the Sun, and hear how NASA keeps astronauts and spacecraft safe from solar outbursts. And go inside a pioneering mission to touch the Sun’s atmosphere and investigate some of its biggest unanswered questions. NASA’s Curious Universe is an official NASA podcast. Discover more adventures with NASA experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Planet Hunting with Host Padi Boyd</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/planet-hunting-with-host-padi-boyd/</link>
+		<pubDate>Wed, 21 Feb 2024 00:00:00 EDT</pubDate>
+		<guid isPermaLink="false">4484a4cd3684c31afa322ac3aaadd2c6</guid>
+		<description>In this special episode, we turn the tables and put host Padi Boyd in the interview seat. Padi shares stories from her time with NASA’s groundbreaking Kepler mission, which showed us many more exoplanets—planets orbiting other stars—than we had previously discovered. She also tells us about her dream astronomical dinner companion and her go-to karaoke song. Plus, we&#039;ll wrap up another season of wild and wonderful adventures by answering questions from listeners like you and sharing behind-the-scenes tidbits from Season 6 episodes. For the first time, this episode of Curious Universe is also available as a video podcast. Check it out at nasa.gov/curiousuniverse and NASA’s YouTube channel: youtu.be/h0wLZJeYGxw</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2024/02/planet-hunting-with-host-padi-boyd.mp3" length="54409923" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/10/cu06-illustration-16x9-v01.png" />
+		<itunes:subtitle>In this special episode, we turn the tables and put host Padi Boyd in the interview seat. Padi shares stories from her time with NASA’s groundbreaking Kepler mission, which showed us many more exoplanets—planets orbiting other stars—than we had previously discovered. She also tells us about her dream astronomical dinner companion and her go-to karaoke song. Plus, we&#039;ll wrap up another season of wild and wonderful adventures by answering questions from listeners like you and sharing behind-the-scenes tidbits from Season 6 episodes. For the first time, this episode of Curious Universe is also available as a video podcast. Check it out at nasa.gov/curiousuniverse and NASA’s YouTube channel: youtu.be/h0wLZJeYGxw</itunes:subtitle>
+		<itunes:summary>In this special episode, we turn the tables and put host Padi Boyd in the interview seat. Padi shares stories from her time with NASA’s groundbreaking Kepler mission, which showed us many more exoplanets—planets orbiting other stars—than we had previously discovered. She also tells us about her dream astronomical dinner companion and her go-to karaoke song. Plus, we&#039;ll wrap up another season of wild and wonderful adventures by answering questions from listeners like you and sharing behind-the-scenes tidbits from Season 6 episodes. For the first time, this episode of Curious Universe is also available as a video podcast. Check it out at nasa.gov/curiousuniverse and NASA’s YouTube channel: youtu.be/h0wLZJeYGxw</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>2265</itunes:duration>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:title>Planet Hunting with Host Padi Boyd</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>8</itunes:episode>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>In this special episode, we turn the tables and put host Padi Boyd in the interview seat. Padi shares stories from her time with NASA’s groundbreaking Kepler mission, which showed us many more exoplanets—planets orbiting other stars—than we had previously discovered. She also tells us about her dream astronomical dinner companion and her go-to karaoke song. Plus, we&#039;ll wrap up another season of wild and wonderful adventures by answering questions from listeners like you and sharing behind-the-scenes tidbits from Season 6 episodes. For the first time, this episode of Curious Universe is also available as a video podcast. Check it out at nasa.gov/curiousuniverse and NASA’s YouTube channel: youtu.be/h0wLZJeYGxw</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>A Year in Mars Dune Alpha</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/a-year-in-mars-dune-alpha/</link>
+		<pubDate>Tue, 19 Dec 2023 08:56:24 EDT</pubDate>
+		<guid isPermaLink="false">2eaf0a55fe63649c2f385b71175f4452</guid>
+		<description>To prepare for the day when humans travel to Mars, NASA is conducting a one-year experiment in a Mars simulation environment. So what’s it like to spend a year in CHAPEA, the Crew Health and Performance Exploration Analog? In this season finale episode, travel through the airlock with voice recordings made by the four-person crew, including what it feels like—and smells like—inside their realistic 3-D printed habitat and how virtual reality gives them the sensation of walking on the Red Planet. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/12/ayearinmarsdunealphacuriousuniversechapea.mp3" length="36976471" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/10/cu06-illustration-16x9-v01.png" />
+		<itunes:subtitle>To prepare for the day when humans travel to Mars, NASA is conducting a one-year experiment in a Mars simulation environment. So what’s it like to spend a year in CHAPEA, the Crew Health and Performance Exploration Analog? In this season finale episode, travel through the airlock with voice recordings made by the four-person crew, including what it feels like—and smells like—inside their realistic 3-D printed habitat and how virtual reality gives them the sensation of walking on the Red Planet. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>To prepare for the day when humans travel to Mars, NASA is conducting a one-year experiment in a Mars simulation environment. So what’s it like to spend a year in CHAPEA, the Crew Health and Performance Exploration Analog? In this season finale episode, travel through the airlock with voice recordings made by the four-person crew, including what it feels like—and smells like—inside their realistic 3-D printed habitat and how virtual reality gives them the sensation of walking on the Red Planet. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>1536</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>A Year in Mars Dune Alpha</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>7</itunes:episode>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>To prepare for the day when humans travel to Mars, NASA is conducting a one-year experiment in a Mars simulation environment. So what’s it like to spend a year in CHAPEA, the Crew Health and Performance Exploration Analog? In this season finale episode, travel through the airlock with voice recordings made by the four-person crew, including what it feels like—and smells like—inside their realistic 3-D printed habitat and how virtual reality gives them the sensation of walking on the Red Planet. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Exploring the Early Universe with Webb</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/exploring-the-early-universe-with-webb/</link>
+		<pubDate>Tue, 12 Dec 2023 08:56:03 EDT</pubDate>
+		<guid isPermaLink="false">90f1bfbb7ed715620cd74b3a8584035a</guid>
+		<description>The James Webb Space Telescope promised to show us “baby pictures” of the universe. Now in its second year of science, Webb is fulfilling that promise—and more. NASA scientists Jane Rigby, Taylor Hutchison, and Gerónimo Villanueva explain how they use Webb to peer back to the earliest stages of the universe and examine stunning plumes of water in our own solar system. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/12/exploring-the-early-universe-with-webb-final.mp3" length="40325484" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/12/cu06-illustration-episode-webb.png" />
+		<itunes:subtitle>The James Webb Space Telescope promised to show us “baby pictures” of the universe. Now in its second year of science, Webb is fulfilling that promise—and more. NASA scientists Jane Rigby, Taylor Hutchison, and Gerónimo Villanueva explain how they use Webb to peer back to the earliest stages of the universe and examine stunning plumes of water in our own solar system. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>The James Webb Space Telescope promised to show us “baby pictures” of the universe. Now in its second year of science, Webb is fulfilling that promise—and more. NASA scientists Jane Rigby, Taylor Hutchison, and Gerónimo Villanueva explain how they use Webb to peer back to the earliest stages of the universe and examine stunning plumes of water in our own solar system. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>1677</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Exploring the Early Universe with Webb</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>6</itunes:episode>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>The James Webb Space Telescope promised to show us “baby pictures” of the universe. Now in its second year of science, Webb is fulfilling that promise—and more. NASA scientists Jane Rigby, Taylor Hutchison, and Gerónimo Villanueva explain how they use Webb to peer back to the earliest stages of the universe and examine stunning plumes of water in our own solar system. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Special Delivery from Outer Space</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/special-delivery-from-outer-space/</link>
+		<pubDate>Tue, 05 Dec 2023 09:03:40 EDT</pubDate>
+		<guid isPermaLink="false">9e9024cc25732f0e3adc867b0787cd70</guid>
+		<description>On September 24, 2023, a capsule from space parachuted down into the Utah desert. Tucked inside it were 4.5-billion-year-old bits of rock and dust from a faraway asteroid named Bennu collected by the OSIRIS-REx spacecraft. These pristine space rocks, which contain carbon and other building blocks of life, could rewrite scientists’ understanding of our solar system. In this episode, sit in mission control and ride aboard helicopters with asteroid mission leaders like Dante Lauretta and Mike Moreau for a behind-the-scenes look at the OSIRIS-REx sample return mission’s epic conclusion.  NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/12/specialdeliveryfromouterspace.mp3" length="54997589" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/10/cu06-illustration-16x9-v01.png" />
+		<itunes:subtitle>On September 24, 2023, a capsule from space parachuted down into the Utah desert. Tucked inside it were 4.5-billion-year-old bits of rock and dust from a faraway asteroid named Bennu collected by the OSIRIS-REx spacecraft. These pristine space rocks, which contain carbon and other building blocks of life, could rewrite scientists’ understanding of our solar system. In this episode, sit in mission control and ride aboard helicopters with asteroid mission leaders like Dante Lauretta and Mike Moreau for a behind-the-scenes look at the OSIRIS-REx sample return mission’s epic conclusion.  NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>On September 24, 2023, a capsule from space parachuted down into the Utah desert. Tucked inside it were 4.5-billion-year-old bits of rock and dust from a faraway asteroid named Bennu collected by the OSIRIS-REx spacecraft. These pristine space rocks, which contain carbon and other building blocks of life, could rewrite scientists’ understanding of our solar system. In this episode, sit in mission control and ride aboard helicopters with asteroid mission leaders like Dante Lauretta and Mike Moreau for a behind-the-scenes look at the OSIRIS-REx sample return mission’s epic conclusion.  NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>2290</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Special Delivery from Outer Space</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>5</itunes:episode>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>On September 24, 2023, a capsule from space parachuted down into the Utah desert. Tucked inside it were 4.5-billion-year-old bits of rock and dust from a faraway asteroid named Bennu collected by the OSIRIS-REx spacecraft. These pristine space rocks, which contain carbon and other building blocks of life, could rewrite scientists’ understanding of our solar system. In this episode, sit in mission control and ride aboard helicopters with asteroid mission leaders like Dante Lauretta and Mike Moreau for a behind-the-scenes look at the OSIRIS-REx sample return mission’s epic conclusion.  NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Tiny but Mighty</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/tiny-but-mighty/</link>
+		<pubDate>Tue, 28 Nov 2023 10:02:54 EDT</pubDate>
+		<guid isPermaLink="false">a7099fca0bcf505afa3f9e120ae2a74f</guid>
+		<description>What do air pollution, thunder clouds and climate change have in common? Aerosols! These tiny particles, generated by everything from desert dust storms to car exhaust, play a huge role in our atmosphere, affecting our health when we breathe them in and even changing the weather. Globally, they play an even bigger role, changing how much sunlight gets through to Earth’s surface and heating or cooling our entire planet. Through new satellite missions, NASA atmospheric scientists like Kirk Knobelspiesse and public health experts like Susan Anenberg are working together to untangle aerosol mysteries. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/11/tinybutmightycuriousuniverse.mp3" length="45013181" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/10/cu06-illustration-16x9-v01.png" />
+		<itunes:subtitle>What do air pollution, thunder clouds and climate change have in common? Aerosols! These tiny particles, generated by everything from desert dust storms to car exhaust, play a huge role in our atmosphere, affecting our health when we breathe them in and even changing the weather. Globally, they play an even bigger role, changing how much sunlight gets through to Earth’s surface and heating or cooling our entire planet. Through new satellite missions, NASA atmospheric scientists like Kirk Knobelspiesse and public health experts like Susan Anenberg are working together to untangle aerosol mysteries. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>What do air pollution, thunder clouds and climate change have in common? Aerosols! These tiny particles, generated by everything from desert dust storms to car exhaust, play a huge role in our atmosphere, affecting our health when we breathe them in and even changing the weather. Globally, they play an even bigger role, changing how much sunlight gets through to Earth’s surface and heating or cooling our entire planet. Through new satellite missions, NASA atmospheric scientists like Kirk Knobelspiesse and public health experts like Susan Anenberg are working together to untangle aerosol mysteries. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>1875</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Tiny but Mighty</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>4</itunes:episode>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>What do air pollution, thunder clouds and climate change have in common? Aerosols! These tiny particles, generated by everything from desert dust storms to car exhaust, play a huge role in our atmosphere, affecting our health when we breathe them in and even changing the weather. Globally, they play an even bigger role, changing how much sunlight gets through to Earth’s surface and heating or cooling our entire planet. Through new satellite missions, NASA atmospheric scientists like Kirk Knobelspiesse and public health experts like Susan Anenberg are working together to untangle aerosol mysteries. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>How You (Yes, You!) Can Do Science With NASA</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/how-you-can-do-science-with-nasa/</link>
+		<pubDate>Tue, 21 Nov 2023 00:00:00 EDT</pubDate>
+		<guid isPermaLink="false">194b4b878c26188bd4d860eb393923e2</guid>
+		<description>Anyone can participate in the process of NASA science and engineering through what we call citizen science, regardless of your citizenship. You might have heard it called “participatory science” or “community science.” It all means that thousands of people around the world are helping the professionals make discoveries about our planet, our solar system, and our universe at large, through these projects. Meet three volunteers whose perspectives have changed by participating in citizen science. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/11/citizensciencecuriousuniverse-1.mp3" length="40871710" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/11/cu06-illustration-episode-extra-citienscience.png" />
+		<itunes:subtitle>Anyone can participate in the process of NASA science and engineering through what we call citizen science, regardless of your citizenship. You might have heard it called “participatory science” or “community science.” It all means that thousands of people around the world are helping the professionals make discoveries about our planet, our solar system, and our universe at large, through these projects. Meet three volunteers whose perspectives have changed by participating in citizen science. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>Anyone can participate in the process of NASA science and engineering through what we call citizen science, regardless of your citizenship. You might have heard it called “participatory science” or “community science.” It all means that thousands of people around the world are helping the professionals make discoveries about our planet, our solar system, and our universe at large, through these projects. Meet three volunteers whose perspectives have changed by participating in citizen science. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>1699</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>How You (Yes, You!) Can Do Science With NASA</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>3</itunes:episode>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>Anyone can participate in the process of NASA science and engineering through what we call citizen science, regardless of your citizenship. You might have heard it called “participatory science” or “community science.” It all means that thousands of people around the world are helping the professionals make discoveries about our planet, our solar system, and our universe at large, through these projects. Meet three volunteers whose perspectives have changed by participating in citizen science. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Hum of the Sun</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/the-hum-of-the-sun/</link>
+		<pubDate>Tue, 14 Nov 2023 09:05:15 EDT</pubDate>
+		<guid isPermaLink="false">e938b15b9a56a447b3ba05ff3c967cf5</guid>
+		<description>What does space sound like? It’s a question that has fascinated composers and scientists alike throughout history. Through a process called data sonification, heliophysicists are using NASA satellites like audio recorders to listen to the electromagnetic symphony our Sun plays, and making new discoveries along the way. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/11/thehumofthesun.mp3" length="46159652" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/11/cu06-illustration-episode-sun.png" />
+		<itunes:subtitle>What does space sound like? It’s a question that has fascinated composers and scientists alike throughout history. Through a process called data sonification, heliophysicists are using NASA satellites like audio recorders to listen to the electromagnetic symphony our Sun plays, and making new discoveries along the way. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>What does space sound like? It’s a question that has fascinated composers and scientists alike throughout history. Through a process called data sonification, heliophysicists are using NASA satellites like audio recorders to listen to the electromagnetic symphony our Sun plays, and making new discoveries along the way. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>1922</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Hum of the Sun</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>2</itunes:episode>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>What does space sound like? It’s a question that has fascinated composers and scientists alike throughout history. Through a process called data sonification, heliophysicists are using NASA satellites like audio recorders to listen to the electromagnetic symphony our Sun plays, and making new discoveries along the way. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Welcome to the Dark Side</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/welcome-to-the-dark-side/</link>
+		<pubDate>Tue, 07 Nov 2023 09:07:29 EDT</pubDate>
+		<guid isPermaLink="false">31067150d32a4df8cc35216a6d71d358</guid>
+		<description>Normal matter—the kind that makes up our home planet and everything we can see—adds up to just five percent of the known universe. The other 95 percent is dark matter and dark energy, a tag team that ranks among the biggest mysteries in all of science. NASA astrophysicists Jason Rhodes and Ami Choi explain how we study this dark side and why it’s making scientists reconsider what we think we know about the universe. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/11/welcome-to-the-dark-side-final-mix-20231106.mp3" length="36560709" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/11/cu06-illustration-episode-genericnasa.png" />
+		<itunes:subtitle>Normal matter—the kind that makes up our home planet and everything we can see—adds up to just five percent of the known universe. The other 95 percent is dark matter and dark energy, a tag team that ranks among the biggest mysteries in all of science. NASA astrophysicists Jason Rhodes and Ami Choi explain how we study this dark side and why it’s making scientists reconsider what we think we know about the universe. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>Normal matter—the kind that makes up our home planet and everything we can see—adds up to just five percent of the known universe. The other 95 percent is dark matter and dark energy, a tag team that ranks among the biggest mysteries in all of science. NASA astrophysicists Jason Rhodes and Ami Choi explain how we study this dark side and why it’s making scientists reconsider what we think we know about the universe. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1520</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Welcome to the Dark Side</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>1</itunes:episode>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>Normal matter—the kind that makes up our home planet and everything we can see—adds up to just five percent of the known universe. The other 95 percent is dark matter and dark energy, a tag team that ranks among the biggest mysteries in all of science. NASA astrophysicists Jason Rhodes and Ami Choi explain how we study this dark side and why it’s making scientists reconsider what we think we know about the universe. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Introducing Season Six</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/introducing-season-six/</link>
+		<pubDate>Tue, 31 Oct 2023 09:04:41 EDT</pubDate>
+		<guid isPermaLink="false">8c20957969fc960995cd9528c711ba9c</guid>
+		<description>In season six, meet researchers who are using sounds from the Sun to unlock new details about our star, explore the “dark side” of the universe with scientists who study dark matter and dark energy, and get a behind-the-scenes look at the first NASA mission to deliver an asteroid sample to Earth. A new episode drops every Tuesday. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/10/introducingseasonsixcuriousuniverse.mp3" length="2774173" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>In season six, meet researchers who are using sounds from the Sun to unlock new details about our star, explore the “dark side” of the universe with scientists who study dark matter and dark energy, and get a behind-the-scenes look at the first NASA mission to deliver an asteroid sample to Earth. A new episode drops every Tuesday. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:subtitle>
+		<itunes:summary>In season six, meet researchers who are using sounds from the Sun to unlock new details about our star, explore the “dark side” of the universe with scientists who study dark matter and dark energy, and get a behind-the-scenes look at the first NASA mission to deliver an asteroid sample to Earth. A new episode drops every Tuesday. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</itunes:summary>
+		<itunes:author>Katie Konans</itunes:author>
+		<itunes:duration>114</itunes:duration>
+		<itunes:episodeType>trailer</itunes:episodeType>
+		<itunes:title>Introducing Season Six</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>6</itunes:season>
+		<googleplay:description>In season six, meet researchers who are using sounds from the Sun to unlock new details about our star, explore the “dark side” of the universe with scientists who study dark matter and dark energy, and get a behind-the-scenes look at the first NASA mission to deliver an asteroid sample to Earth. A new episode drops every Tuesday. NASA&#039;s Curious Universe is an official NASA podcast. Discover more adventures with NASA astronauts, engineers, scientists, and other experts at nasa.gov/curiousuniverse</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>To the Stars with Jessica Watkins</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/to-the-stars-with-astronaut-jessica-watkins/</link>
+		<pubDate>Tue, 11 Apr 2023 09:16:00 EDT</pubDate>
+		<guid isPermaLink="false">ef394d2748a0e18fac8e237e33a8f387</guid>
+		<description>In this special season five finale episode, join NASA astronaut Jessica Watkins, self-proclaimed “rock nerd” on a journey to the stars.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/to_the_stars_audio.mp3" length="25622104" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/06/s5cu-0.png" />
+		<itunes:subtitle>In this special season five finale episode, join NASA astronaut Jessica Watkins, self-proclaimed “rock nerd” on a journey to the stars.</itunes:subtitle>
+		<itunes:summary>In this special season five finale episode, join NASA astronaut Jessica Watkins, self-proclaimed “rock nerd” on a journey to the stars.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1062</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>To the Stars with Jessica Watkins</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>8</itunes:episode>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>In this special season five finale episode, join NASA astronaut Jessica Watkins, self-proclaimed “rock nerd” on a journey to the stars.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Suiting up for Space</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/suiting-up-for-space/</link>
+		<pubDate>Tue, 04 Apr 2023 08:36:00 EDT</pubDate>
+		<guid isPermaLink="false">61e11a35cf5bd7efbf173885338209a1</guid>
+		<description>Spacesuits are more than just garments – in the airless vacuum of space or on the freezing surface of the moon, they keep astronauts alive. Explore how NASA engineers like Amy Ross and Paromita Mitra have contributed to the development of the next generation of spacesuits. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/suiting_up_for_spaceflight.mp3" length="39684779" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/06/s5cu-0.png" />
+		<itunes:subtitle>Spacesuits are more than just garments – in the airless vacuum of space or on the freezing surface of the moon, they keep astronauts alive. Explore how NASA engineers like Amy Ross and Paromita Mitra have contributed to the development of the next generation of spacesuits. </itunes:subtitle>
+		<itunes:summary>Spacesuits are more than just garments – in the airless vacuum of space or on the freezing surface of the moon, they keep astronauts alive. Explore how NASA engineers like Amy Ross and Paromita Mitra have contributed to the development of the next generation of spacesuits. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1645</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Suiting up for Space</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>7</itunes:episode>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>Spacesuits are more than just garments – in the airless vacuum of space or on the freezing surface of the moon, they keep astronauts alive. Explore how NASA engineers like Amy Ross and Paromita Mitra have contributed to the development of the next generation of spacesuits. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Field Notes: Nhulunbuy, Australia</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/field-notes-nhulunbuy-australia/</link>
+		<pubDate>Tue, 28 Mar 2023 09:18:00 EDT</pubDate>
+		<guid isPermaLink="false">2785c7935408bf135dff9a1df29305d2</guid>
+		<description>Tropical rainforests, snowy mountain peaks, even the Australian outback – NASA experts travel to a wide range of environments right here on Earth to better understand our universe. Miles Hatfield, NASA heliophysics science writer, recaps a recent reporting trip to cover a sounding rocket launch in Australia’s remote Northern Territories. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/field_notes_nhulunbuy_australia.mp3" length="26418246" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/06/s5cu-0.png" />
+		<itunes:subtitle>Tropical rainforests, snowy mountain peaks, even the Australian outback – NASA experts travel to a wide range of environments right here on Earth to better understand our universe. Miles Hatfield, NASA heliophysics science writer, recaps a recent reporting trip to cover a sounding rocket launch in Australia’s remote Northern Territories. </itunes:subtitle>
+		<itunes:summary>Tropical rainforests, snowy mountain peaks, even the Australian outback – NASA experts travel to a wide range of environments right here on Earth to better understand our universe. Miles Hatfield, NASA heliophysics science writer, recaps a recent reporting trip to cover a sounding rocket launch in Australia’s remote Northern Territories. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1090</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Field Notes: Nhulunbuy, Australia</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>6</itunes:episode>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>Tropical rainforests, snowy mountain peaks, even the Australian outback – NASA experts travel to a wide range of environments right here on Earth to better understand our universe. Miles Hatfield, NASA heliophysics science writer, recaps a recent reporting trip to cover a sounding rocket launch in Australia’s remote Northern Territories. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>How to Build A Spacecraft</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/how-to-build-a-spacecraft/</link>
+		<pubDate>Tue, 21 Mar 2023 12:32:00 EDT</pubDate>
+		<guid isPermaLink="false">d851b4ccb3fe6d9dd42de58c992d6041</guid>
+		<description>Spacecraft go through a lot - exploring dangerous worlds across the cold expanse of space. Not to mention the chaos of a launch! So how do we build a mission that can take on dangerous environments and the harrowing trip to reach them? Explore the world of mission-building with scientists from Venus’ DAVINCI mission.  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/how_to_build_a_spacecraft.mp3" length="29960995" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/03/cus05_illustration_venus_16x9_final.png" />
+		<itunes:subtitle>Spacecraft go through a lot - exploring dangerous worlds across the cold expanse of space. Not to mention the chaos of a launch! So how do we build a mission that can take on dangerous environments and the harrowing trip to reach them? Explore the world of mission-building with scientists from Venus’ DAVINCI mission.  </itunes:subtitle>
+		<itunes:summary>Spacecraft go through a lot - exploring dangerous worlds across the cold expanse of space. Not to mention the chaos of a launch! So how do we build a mission that can take on dangerous environments and the harrowing trip to reach them? Explore the world of mission-building with scientists from Venus’ DAVINCI mission.  </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1241</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>How to Build A Spacecraft</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>5</itunes:episode>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>Spacecraft go through a lot - exploring dangerous worlds across the cold expanse of space. Not to mention the chaos of a launch! So how do we build a mission that can take on dangerous environments and the harrowing trip to reach them? Explore the world of mission-building with scientists from Venus’ DAVINCI mission.  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Stargazers Welcome</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/stargazers-welcome/</link>
+		<pubDate>Tue, 14 Mar 2023 12:30:00 EDT</pubDate>
+		<guid isPermaLink="false">5dfe08e873fa997eadaeeeaab559782b</guid>
+		<description>The night sky isn’t just for experts, it belongs to all of us! And we here at NASA love to encourage people to go out and take a look. Amateur astronomer Kevin Hartnett, Hubble Social Media Lead Elizabeth Tammi, and the Astronomical Society of Greenbelt take us on a tour of the stars and share how you can join from your own backyard.   </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/stargazers_welcome.mp3" length="28627099" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/06/s5cu-0.png" />
+		<itunes:subtitle>The night sky isn’t just for experts, it belongs to all of us! And we here at NASA love to encourage people to go out and take a look. Amateur astronomer Kevin Hartnett, Hubble Social Media Lead Elizabeth Tammi, and the Astronomical Society of Greenbelt take us on a tour of the stars and share how you can join from your own backyard.   </itunes:subtitle>
+		<itunes:summary>The night sky isn’t just for experts, it belongs to all of us! And we here at NASA love to encourage people to go out and take a look. Amateur astronomer Kevin Hartnett, Hubble Social Media Lead Elizabeth Tammi, and the Astronomical Society of Greenbelt take us on a tour of the stars and share how you can join from your own backyard.   </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1184</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Stargazers Welcome</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>4</itunes:episode>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>The night sky isn’t just for experts, it belongs to all of us! And we here at NASA love to encourage people to go out and take a look. Amateur astronomer Kevin Hartnett, Hubble Social Media Lead Elizabeth Tammi, and the Astronomical Society of Greenbelt take us on a tour of the stars and share how you can join from your own backyard.   </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Wildfires from Space</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/wildfires-from-space/</link>
+		<pubDate>Tue, 07 Mar 2023 14:47:00 EDT</pubDate>
+		<guid isPermaLink="false">5f2f7bce41422a65b7578b21ade17f5b</guid>
+		<description>Wherever you live on Earth, wildfires touch your life. Explore how NASA scientist Doug Morton and Canadian firefighter-turned-researcher Josh Johnston use satellites to track the changing landscape of wildfires from space. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cuwildfiresfromspace.mp3" length="32252716" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/03/cus05_illustration_firefighter_16x9_final.png" />
+		<itunes:subtitle>Wherever you live on Earth, wildfires touch your life. Explore how NASA scientist Doug Morton and Canadian firefighter-turned-researcher Josh Johnston use satellites to track the changing landscape of wildfires from space. </itunes:subtitle>
+		<itunes:summary>Wherever you live on Earth, wildfires touch your life. Explore how NASA scientist Doug Morton and Canadian firefighter-turned-researcher Josh Johnston use satellites to track the changing landscape of wildfires from space. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1337</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Wildfires from Space</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>3</itunes:episode>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>Wherever you live on Earth, wildfires touch your life. Explore how NASA scientist Doug Morton and Canadian firefighter-turned-researcher Josh Johnston use satellites to track the changing landscape of wildfires from space. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>The Invisible World of Gravitational Waves</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/the-invisible-world-of-gravitational-waves/</link>
+		<pubDate>Tue, 28 Feb 2023 13:35:00 EDT</pubDate>
+		<guid isPermaLink="false">cccd0cb6f1c9a1a64c2be6967e4fdee0</guid>
+		<description>Information about the universe is all around us. But there’s more than meets the eye! Gravitational waves are the invisible ripples in spacetime caused by supermassive interstellar activity. Join astrophysicists Ira Thorpe and Judy Racusin on an exploration of how NASA studies these unseen bends in time and space.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cutheinvisibleworldofgravitationalwaves.mp3" length="31945366" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/06/s5cu-0.png" />
+		<itunes:subtitle>Information about the universe is all around us. But there’s more than meets the eye! Gravitational waves are the invisible ripples in spacetime caused by supermassive interstellar activity. Join astrophysicists Ira Thorpe and Judy Racusin on an exploration of how NASA studies these unseen bends in time and space.</itunes:subtitle>
+		<itunes:summary>Information about the universe is all around us. But there’s more than meets the eye! Gravitational waves are the invisible ripples in spacetime caused by supermassive interstellar activity. Join astrophysicists Ira Thorpe and Judy Racusin on an exploration of how NASA studies these unseen bends in time and space.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1327</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>The Invisible World of Gravitational Waves</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>2</itunes:episode>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>Information about the universe is all around us. But there’s more than meets the eye! Gravitational waves are the invisible ripples in spacetime caused by supermassive interstellar activity. Join astrophysicists Ira Thorpe and Judy Racusin on an exploration of how NASA studies these unseen bends in time and space.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Defending the Planet from Asteroids</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/defending-the-planet-from-asteroids/</link>
+		<pubDate>Tue, 21 Feb 2023 13:30:00 EDT</pubDate>
+		<guid isPermaLink="false">384d54f74c70c4ccf6528fdbce67e17b</guid>
+		<description>Our solar system contains millions of asteroids, orbiting our sun and rocketing through the night sky!  Join scientists Kelly Fast, Tom Statler, and Davide Farnocchia as we discover what we can learn from these building blocks of the universe, and how NASA would respond if one were ever headed our way. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cudefendingtheplanetfromasteroids.mp3" length="40041948" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/06/s5cu-0.png" />
+		<itunes:subtitle>Our solar system contains millions of asteroids, orbiting our sun and rocketing through the night sky!  Join scientists Kelly Fast, Tom Statler, and Davide Farnocchia as we discover what we can learn from these building blocks of the universe, and how NASA would respond if one were ever headed our way. </itunes:subtitle>
+		<itunes:summary>Our solar system contains millions of asteroids, orbiting our sun and rocketing through the night sky!  Join scientists Kelly Fast, Tom Statler, and Davide Farnocchia as we discover what we can learn from these building blocks of the universe, and how NASA would respond if one were ever headed our way. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1659</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Defending the Planet from Asteroids</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>1</itunes:episode>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>Our solar system contains millions of asteroids, orbiting our sun and rocketing through the night sky!  Join scientists Kelly Fast, Tom Statler, and Davide Farnocchia as we discover what we can learn from these building blocks of the universe, and how NASA would respond if one were ever headed our way. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Introducing Season Five</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/introducing-season-five/</link>
+		<pubDate>Mon, 13 Feb 2023 14:00:00 EDT</pubDate>
+		<guid isPermaLink="false">16b852058e77121f4b9ffff3a077dd21</guid>
+		<description>In season five, join us as we fight wildfires, defend the Earth from asteroids, and explore the invisible world of gravitational waves! New episodes every Tuesday.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/introducingseasonfivecu.mp3" length="2994042" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2023/02/s5cu.png" />
+		<itunes:subtitle>In season five, join us as we fight wildfires, defend the Earth from asteroids, and explore the invisible world of gravitational waves! New episodes every Tuesday.</itunes:subtitle>
+		<itunes:summary>In season five, join us as we fight wildfires, defend the Earth from asteroids, and explore the invisible world of gravitational waves! New episodes every Tuesday.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>122</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Introducing Season Five</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>5</itunes:season>
+		<googleplay:description>In season five, join us as we fight wildfires, defend the Earth from asteroids, and explore the invisible world of gravitational waves! New episodes every Tuesday.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Bonus: Happy Holidays from NASA!</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/bonus-happy-holidays-from-nasa/</link>
+		<pubDate>Mon, 12 Dec 2022 20:01:00 EDT</pubDate>
+		<guid isPermaLink="false">363aafdfe40abbab9c762ef627fbbefd</guid>
+		<description>Before we return with season five in 2023, celebrate the holidays with us! Join Goddard news chief Rob Garner, NASA social media lead Stephanie L. Smith, and astronaut Shannon Walker on this special, holiday-themed bonus episode. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cu5_bonus_holidays_at_nasa_mixdown7.mp3" length="29152890" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>Before we return with season five in 2023, celebrate the holidays with us! Join Goddard news chief Rob Garner, NASA social media lead Stephanie L. Smith, and astronaut Shannon Walker on this special, holiday-themed bonus episode. </itunes:subtitle>
+		<itunes:summary>Before we return with season five in 2023, celebrate the holidays with us! Join Goddard news chief Rob Garner, NASA social media lead Stephanie L. Smith, and astronaut Shannon Walker on this special, holiday-themed bonus episode. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1210</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Bonus: Happy Holidays from NASA!</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Before we return with season five in 2023, celebrate the holidays with us! Join Goddard news chief Rob Garner, NASA social media lead Stephanie L. Smith, and astronaut Shannon Walker on this special, holiday-themed bonus episode. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Webb’s First Images</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/webbs-first-images/</link>
+		<pubDate>Tue, 12 Jul 2022 14:16:00 EDT</pubDate>
+		<guid isPermaLink="false">dff1d3657243928cb6db76ce85196704</guid>
+		<description>On July 12, 2022, a fundamentally new era of exploring our universe begins. This special season finale episode features an overview of the James Webb Space Telescope’s first detailed cosmic images. Learn what this historic moment means from astronomer Michelle Thaller.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/05/webbfirstimagesunfoldingtheuniverse.mp3" length="28817110" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/07/cuwebbimagebannerep.png" />
+		<itunes:subtitle>On July 12, 2022, a fundamentally new era of exploring our universe begins. This special season finale episode features an overview of the James Webb Space Telescope’s first detailed cosmic images. Learn what this historic moment means from astronomer Michelle Thaller.</itunes:subtitle>
+		<itunes:summary>On July 12, 2022, a fundamentally new era of exploring our universe begins. This special season finale episode features an overview of the James Webb Space Telescope’s first detailed cosmic images. Learn what this historic moment means from astronomer Michelle Thaller.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1197</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Webb’s First Images</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>8</itunes:episode>
+		<itunes:season>4</itunes:season>
+		<googleplay:description>On July 12, 2022, a fundamentally new era of exploring our universe begins. This special season finale episode features an overview of the James Webb Space Telescope’s first detailed cosmic images. Learn what this historic moment means from astronomer Michelle Thaller.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Field Notes: Astronaut Shannon Walker</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/field-notes-astronaut-shannon-walker/</link>
+		<pubDate>Tue, 05 Jul 2022 13:18:00 EDT</pubDate>
+		<guid isPermaLink="false">4b13b71c9572ca3744d76e88e26ceae0</guid>
+		<description>From dusty deserts to icy mountain tops, NASA experts visit incredible places along their career path. But what about our explorers who take their work off the Earth? Join astronaut Shannon Walker on a look back at her excursions into space.  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cu_4_field_notes_shannon_walker_master_mixdown4.mp3" length="24265220" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/07/cus4_banner_art.png" />
+		<itunes:subtitle>From dusty deserts to icy mountain tops, NASA experts visit incredible places along their career path. But what about our explorers who take their work off the Earth? Join astronaut Shannon Walker on a look back at her excursions into space.  </itunes:subtitle>
+		<itunes:summary>From dusty deserts to icy mountain tops, NASA experts visit incredible places along their career path. But what about our explorers who take their work off the Earth? Join astronaut Shannon Walker on a look back at her excursions into space.  </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1007</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Field Notes: Astronaut Shannon Walker</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>7</itunes:episode>
+		<itunes:season>4</itunes:season>
+		<googleplay:description>From dusty deserts to icy mountain tops, NASA experts visit incredible places along their career path. But what about our explorers who take their work off the Earth? Join astronaut Shannon Walker on a look back at her excursions into space.  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Up &amp; Away with Sounding Rockets</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/up-and-away-with-sounding-rockets/</link>
+		<pubDate>Tue, 28 Jun 2022 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">d7c3188b1812bd2796ad46aee90f1270</guid>
+		<description>Explore sounding rockets, and the experiments they take to the skies, with space physicist Alexa Halford and sounding rocket program assistant chief Cathy Hesh. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/up_and_away_with_sounding_rockets.mp3" length="36568692" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/06/cus04-helio_16x9_final.png" />
+		<itunes:subtitle>Explore sounding rockets, and the experiments they take to the skies, with space physicist Alexa Halford and sounding rocket program assistant chief Cathy Hesh. </itunes:subtitle>
+		<itunes:summary>Explore sounding rockets, and the experiments they take to the skies, with space physicist Alexa Halford and sounding rocket program assistant chief Cathy Hesh. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1518</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Up &amp; Away with Sounding Rockets</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>6</itunes:episode>
+		<itunes:season>4</itunes:season>
+		<googleplay:description>Explore sounding rockets, and the experiments they take to the skies, with space physicist Alexa Halford and sounding rocket program assistant chief Cathy Hesh. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>The Search For Life: Are We Alone?</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/the-search-for-life-are-we-alone/</link>
+		<pubDate>Tue, 21 Jun 2022 12:33:00 EDT</pubDate>
+		<guid isPermaLink="false">245a1a4ee15fa5860288ad0d27ccd4ea</guid>
+		<description>Are we alone in the universe? It&#039;s a question studied in science fiction, but also by teams here at NASA. Join us as we search for signs of life outside of Earth with scientists Aki Roberge, Ravi Kopparapu, and Shawn Domagal-Goldman.  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/the_search_for_life_are_we_alone.mp3" length="36201769" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/07/cus4_banner_art.png" />
+		<itunes:subtitle>Are we alone in the universe? It&#039;s a question studied in science fiction, but also by teams here at NASA. Join us as we search for signs of life outside of Earth with scientists Aki Roberge, Ravi Kopparapu, and Shawn Domagal-Goldman.  </itunes:subtitle>
+		<itunes:summary>Are we alone in the universe? It&#039;s a question studied in science fiction, but also by teams here at NASA. Join us as we search for signs of life outside of Earth with scientists Aki Roberge, Ravi Kopparapu, and Shawn Domagal-Goldman.  </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1502</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>The Search For Life: Are We Alone?</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>5</itunes:episode>
+		<itunes:season>4</itunes:season>
+		<googleplay:description>Are we alone in the universe? It&#039;s a question studied in science fiction, but also by teams here at NASA. Join us as we search for signs of life outside of Earth with scientists Aki Roberge, Ravi Kopparapu, and Shawn Domagal-Goldman.  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>How to Grow Plants in Space</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/how-to-grow-plants-in-space/</link>
+		<pubDate>Tue, 14 Jun 2022 12:11:00 EDT</pubDate>
+		<guid isPermaLink="false">00cff3e192407f534187bf02be360177</guid>
+		<description>As humanity sets its sights on longer-term life in space, we’re going to need ways to sustain ourselves. That’s where plants come into play! Take a tour of Kennedy Space Center’s lush Plant Processing Area with Ray Wheeler, Ralph Fritsche, and Gioia Massa - the scientists studying how to grow food in space! </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/how_to_grow_plants_in_space.mp3" length="34114726" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/07/cus4_banner_art.png" />
+		<itunes:subtitle>As humanity sets its sights on longer-term life in space, we’re going to need ways to sustain ourselves. That’s where plants come into play! Take a tour of Kennedy Space Center’s lush Plant Processing Area with Ray Wheeler, Ralph Fritsche, and Gioia Massa - the scientists studying how to grow food in space! </itunes:subtitle>
+		<itunes:summary>As humanity sets its sights on longer-term life in space, we’re going to need ways to sustain ourselves. That’s where plants come into play! Take a tour of Kennedy Space Center’s lush Plant Processing Area with Ray Wheeler, Ralph Fritsche, and Gioia Massa - the scientists studying how to grow food in space! </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1416</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>How to Grow Plants in Space</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>4</itunes:episode>
+		<itunes:season>4</itunes:season>
+		<googleplay:description>As humanity sets its sights on longer-term life in space, we’re going to need ways to sustain ourselves. That’s where plants come into play! Take a tour of Kennedy Space Center’s lush Plant Processing Area with Ray Wheeler, Ralph Fritsche, and Gioia Massa - the scientists studying how to grow food in space! </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Going Supersonic!</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/going-supersonic/</link>
+		<pubDate>Tue, 07 Jun 2022 12:13:00 EDT</pubDate>
+		<guid isPermaLink="false">8e87828757574b6ddcd1e0e95ed7b2ec</guid>
+		<description>When a plane flies faster than the speed of sound, you get a sonic boom! But what if we could change those physics? Join NASA test pilot Nils Larson and aerospace engineer Lori Ozoroski to hear how we’re flying faster than the speed of sound, and making that supersonic flight quieter, too. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cus4ep3goingsupersonic.mp3" length="32235636" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/06/cus04-aero_16x9_final.png" />
+		<itunes:subtitle>When a plane flies faster than the speed of sound, you get a sonic boom! But what if we could change those physics? Join NASA test pilot Nils Larson and aerospace engineer Lori Ozoroski to hear how we’re flying faster than the speed of sound, and making that supersonic flight quieter, too. </itunes:subtitle>
+		<itunes:summary>When a plane flies faster than the speed of sound, you get a sonic boom! But what if we could change those physics? Join NASA test pilot Nils Larson and aerospace engineer Lori Ozoroski to hear how we’re flying faster than the speed of sound, and making that supersonic flight quieter, too. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1336</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Going Supersonic!</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>3</itunes:episode>
+		<itunes:season>4</itunes:season>
+		<googleplay:description>When a plane flies faster than the speed of sound, you get a sonic boom! But what if we could change those physics? Join NASA test pilot Nils Larson and aerospace engineer Lori Ozoroski to hear how we’re flying faster than the speed of sound, and making that supersonic flight quieter, too. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Earth’s Weather Watchers</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/earths-weather-watchers/</link>
+		<pubDate>Tue, 31 May 2022 12:16:00 EDT</pubDate>
+		<guid isPermaLink="false">942fc4627ff9709f5bb5403135250b30</guid>
+		<description>Planets throughout the universe are full of fascinating weather, including Earth! Hear how NASA and NOAA work together to predict, monitor, and respond to Earth’s ever-changing weather. Explore Earth’s weather with Dalia Kirschbaum, Marangelly Fuentes, and Dan Lindsey.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/earths_weather_watchers.mp3" length="34635464" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/05/earth_weather_illustration.png" />
+		<itunes:subtitle>Planets throughout the universe are full of fascinating weather, including Earth! Hear how NASA and NOAA work together to predict, monitor, and respond to Earth’s ever-changing weather. Explore Earth’s weather with Dalia Kirschbaum, Marangelly Fuentes, and Dan Lindsey.</itunes:subtitle>
+		<itunes:summary>Planets throughout the universe are full of fascinating weather, including Earth! Hear how NASA and NOAA work together to predict, monitor, and respond to Earth’s ever-changing weather. Explore Earth’s weather with Dalia Kirschbaum, Marangelly Fuentes, and Dan Lindsey.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1439</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Earth’s Weather Watchers</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>2</itunes:episode>
+		<itunes:season>4</itunes:season>
+		<googleplay:description>Planets throughout the universe are full of fascinating weather, including Earth! Hear how NASA and NOAA work together to predict, monitor, and respond to Earth’s ever-changing weather. Explore Earth’s weather with Dalia Kirschbaum, Marangelly Fuentes, and Dan Lindsey.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Mysteries of the Moon</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/mysteries-of-the-moon/</link>
+		<pubDate>Tue, 24 May 2022 12:12:00 EDT</pubDate>
+		<guid isPermaLink="false">3a0fd9829a2607128d1b92ec5224ae67</guid>
+		<description>The Moon is our constant cosmic companion and the only planetary body outside of Earth where humans have set foot. As we prepare to head back to the Moon with the Artemis program, let&#039;s take a look at what we know about this wonderful and mysterious natural satellite.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/mysteries_of_the_moon.mp3" length="35490662" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/05/cu-s04_seasonbanner_16x9_final.png" />
+		<itunes:subtitle>The Moon is our constant cosmic companion and the only planetary body outside of Earth where humans have set foot. As we prepare to head back to the Moon with the Artemis program, let&#039;s take a look at what we know about this wonderful and mysterious natural satellite.</itunes:subtitle>
+		<itunes:summary>The Moon is our constant cosmic companion and the only planetary body outside of Earth where humans have set foot. As we prepare to head back to the Moon with the Artemis program, let&#039;s take a look at what we know about this wonderful and mysterious natural satellite.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1472</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Mysteries of the Moon</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:episode>1</itunes:episode>
+		<itunes:season>4</itunes:season>
+		<googleplay:description>The Moon is our constant cosmic companion and the only planetary body outside of Earth where humans have set foot. As we prepare to head back to the Moon with the Artemis program, let&#039;s take a look at what we know about this wonderful and mysterious natural satellite.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Introducing Season Four</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/introducing-season-four/</link>
+		<pubDate>Tue, 17 May 2022 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">3ea8b1962afcc34dab88141584e7b9c9</guid>
+		<description>In season four, explore the lifesaving systems of space suits, break through the sound barrier, and search for life among the stars. First-time space explorers welcome. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/season_4_trailer.mp3" length="2753263" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>In season four, explore the lifesaving systems of space suits, break through the sound barrier, and search for life among the stars. First-time space explorers welcome. </itunes:subtitle>
+		<itunes:summary>In season four, explore the lifesaving systems of space suits, break through the sound barrier, and search for life among the stars. First-time space explorers welcome. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>112</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Introducing Season Four</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>In season four, explore the lifesaving systems of space suits, break through the sound barrier, and search for life among the stars. First-time space explorers welcome. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Bonus: Still Curious?</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/bonus-still-curious/</link>
+		<pubDate>Tue, 29 Mar 2022 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">f3b1f8f2fc7768014b8bcf58ce203b0f</guid>
+		<description>At NASA, we are driven by curiosity, and we know you are too! Join us as we hear from our previous episode experts about what they’re interested in and answer some questions from listeners like you.  What are you still curious about?</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cubonusstillcurious.mp3" length="32397790" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>At NASA, we are driven by curiosity, and we know you are too! Join us as we hear from our previous episode experts about what they’re interested in and answer some questions from listeners like you.  What are you still curious about?</itunes:subtitle>
+		<itunes:summary>At NASA, we are driven by curiosity, and we know you are too! Join us as we hear from our previous episode experts about what they’re interested in and answer some questions from listeners like you.  What are you still curious about?</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1345</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Bonus: Still Curious?</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>At NASA, we are driven by curiosity, and we know you are too! Join us as we hear from our previous episode experts about what they’re interested in and answer some questions from listeners like you.  What are you still curious about?</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Webb Space Telescope: Go for Launch with ESA Expert</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/webb-space-telescope-go-for-launch-with-esas-ariane-5-expert/</link>
+		<pubDate>Tue, 14 Dec 2021 14:00:00 EDT</pubDate>
+		<guid isPermaLink="false">d1b09ce54bc08e9342c804241772e4b0</guid>
+		<description>After years of preparation and anticipation, it’s time to send the world’s most powerful telescope to space. Ariane 5 rocket expert Rudi Albat (ESA) takes you through launch day and describes why the launcher that will carry Webb to its final destination is one of a kind. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/webb_space_telescope_go_for_launch.mp3" length="30442480" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>After years of preparation and anticipation, it’s time to send the world’s most powerful telescope to space. Ariane 5 rocket expert Rudi Albat (ESA) takes you through launch day and describes why the launcher that will carry Webb to its final destination is one of a kind. </itunes:subtitle>
+		<itunes:summary>After years of preparation and anticipation, it’s time to send the world’s most powerful telescope to space. Ariane 5 rocket expert Rudi Albat (ESA) takes you through launch day and describes why the launcher that will carry Webb to its final destination is one of a kind. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1261</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Webb Space Telescope: Go for Launch with ESA Expert</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>After years of preparation and anticipation, it’s time to send the world’s most powerful telescope to space. Ariane 5 rocket expert Rudi Albat (ESA) takes you through launch day and describes why the launcher that will carry Webb to its final destination is one of a kind. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Webb Space Telescope: The Global Village</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/webb-space-telescope-the-global-village/</link>
+		<pubDate>Tue, 07 Dec 2021 14:00:00 EDT</pubDate>
+		<guid isPermaLink="false">682c1599429bc0f9222365e6febd8096</guid>
+		<description>A scientist from Italy who studies baby stars. A Californian spacecraft refrigeration pioneer. A Dominican-American engineer who saw space as her refuge from a tough life at home. Meet three people who represent a small slice of the thousands who have worked on Webb worldwide.  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/webb_space_telescope_the_global_village.mp3" length="28551406" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>A scientist from Italy who studies baby stars. A Californian spacecraft refrigeration pioneer. A Dominican-American engineer who saw space as her refuge from a tough life at home. Meet three people who represent a small slice of the thousands who have worked on Webb worldwide.  </itunes:subtitle>
+		<itunes:summary>A scientist from Italy who studies baby stars. A Californian spacecraft refrigeration pioneer. A Dominican-American engineer who saw space as her refuge from a tough life at home. Meet three people who represent a small slice of the thousands who have worked on Webb worldwide.  </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1182</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Webb Space Telescope: The Global Village</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>A scientist from Italy who studies baby stars. A Californian spacecraft refrigeration pioneer. A Dominican-American engineer who saw space as her refuge from a tough life at home. Meet three people who represent a small slice of the thousands who have worked on Webb worldwide.  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Webb Space Telescope: Building the Next Discovery Machine</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/webb-space-telescope-building-the-next-discovery-machine/</link>
+		<pubDate>Tue, 30 Nov 2021 14:00:00 EDT</pubDate>
+		<guid isPermaLink="false">da31a7b9e83f2e8b3692dcd9d6ca11c7</guid>
+		<description>Webb is preparing for a million-mile journey to its lookout point over the universe. Engineers have been hard at work designing, installing, and testing the world’s next discovery machine that will change astronomy for years to come. Join Kenneth Harris, Joe Sprofera, and Rene Doyon as they explain what it took to engineer Webb</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/webb_space_telescope_building_the_next_discovery_machine.mp3" length="28644777" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>Webb is preparing for a million-mile journey to its lookout point over the universe. Engineers have been hard at work designing, installing, and testing the world’s next discovery machine that will change astronomy for years to come. Join Kenneth Harris, Joe Sprofera, and Rene Doyon as they explain what it took to engineer Webb</itunes:subtitle>
+		<itunes:summary>Webb is preparing for a million-mile journey to its lookout point over the universe. Engineers have been hard at work designing, installing, and testing the world’s next discovery machine that will change astronomy for years to come. Join Kenneth Harris, Joe Sprofera, and Rene Doyon as they explain what it took to engineer Webb</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1186</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Webb Space Telescope: Building the Next Discovery Machine</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Webb is preparing for a million-mile journey to its lookout point over the universe. Engineers have been hard at work designing, installing, and testing the world’s next discovery machine that will change astronomy for years to come. Join Kenneth Harris, Joe Sprofera, and Rene Doyon as they explain what it took to engineer Webb</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Webb Space Telescope: Into the Unknown</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/webb-space-telescope-into-the-unknown/</link>
+		<pubDate>Tue, 23 Nov 2021 14:00:00 EDT</pubDate>
+		<guid isPermaLink="false">c2c56830f49a4ddba0440abf0e762ba5</guid>
+		<description>The James Webb Space Telescope is going to open a new window into the universe. It will show us stars, galaxies, planets, and other objects as we’ve never seen them before. In the first of four episodes of our mini-series, we focus on the great science that Webb will do.   </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/webb_space_telescope_into_the_unknown.mp3" length="29240060" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>The James Webb Space Telescope is going to open a new window into the universe. It will show us stars, galaxies, planets, and other objects as we’ve never seen them before. In the first of four episodes of our mini-series, we focus on the great science that Webb will do.   </itunes:subtitle>
+		<itunes:summary>The James Webb Space Telescope is going to open a new window into the universe. It will show us stars, galaxies, planets, and other objects as we’ve never seen them before. In the first of four episodes of our mini-series, we focus on the great science that Webb will do.   </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1210</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Webb Space Telescope: Into the Unknown</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>The James Webb Space Telescope is going to open a new window into the universe. It will show us stars, galaxies, planets, and other objects as we’ve never seen them before. In the first of four episodes of our mini-series, we focus on the great science that Webb will do.   </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Curious Universe: Introducing the Webb Space Telescope Mini-Series</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/introducing-the-webb-space-telescope-mini-series/</link>
+		<pubDate>Tue, 16 Nov 2021 14:00:00 EDT</pubDate>
+		<guid isPermaLink="false">ec9dd5bf032a3989148b0b7e4b8e387e</guid>
+		<description>NASA is preparing to launch the largest and most powerful space telescope ever constructed. Join us for a special James Webb Space Telescope mini-series as we explore the science, engineering, people, and launch of this historic mission.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/introducingwebbminiseries.mp3" length="3566767" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>NASA is preparing to launch the largest and most powerful space telescope ever constructed. Join us for a special James Webb Space Telescope mini-series as we explore the science, engineering, people, and launch of this historic mission.</itunes:subtitle>
+		<itunes:summary>NASA is preparing to launch the largest and most powerful space telescope ever constructed. Join us for a special James Webb Space Telescope mini-series as we explore the science, engineering, people, and launch of this historic mission.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>144</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Curious Universe: Introducing the Webb Space Telescope Mini-Series</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>NASA is preparing to launch the largest and most powerful space telescope ever constructed. Join us for a special James Webb Space Telescope mini-series as we explore the science, engineering, people, and launch of this historic mission.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>A Day in Space</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/a-day-in-space/</link>
+		<pubDate>Mon, 30 Aug 2021 04:01:00 EDT</pubDate>
+		<guid isPermaLink="false">6a809c2f6949614917bba543055bfe69</guid>
+		<description>Have you ever dreamed of spending a day in space? Join astronauts Shane Kimbrough, Megan McArthur, and Thomas Pesquet throughout their day living and working on the International Space Station.    </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/a_day_in_space_0.mp3" length="31833353" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>Have you ever dreamed of spending a day in space? Join astronauts Shane Kimbrough, Megan McArthur, and Thomas Pesquet throughout their day living and working on the International Space Station.    </itunes:subtitle>
+		<itunes:summary>Have you ever dreamed of spending a day in space? Join astronauts Shane Kimbrough, Megan McArthur, and Thomas Pesquet throughout their day living and working on the International Space Station.    </itunes:summary>
+		<itunes:author>Michael Bock</itunes:author>
+		<itunes:duration>1321</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>A Day in Space</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Have you ever dreamed of spending a day in space? Join astronauts Shane Kimbrough, Megan McArthur, and Thomas Pesquet throughout their day living and working on the International Space Station.    </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Journey to Venus</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/journey-to-venus/</link>
+		<pubDate>Mon, 23 Aug 2021 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">cc2336a568ada1bf327ff8abcfad5c28</guid>
+		<description>Let’s go to Venus! This year, two NASA missions were chosen to explore Earth’s “twin” planet, Venus. But with extreme temperatures and toxic clouds, these missions have to prepare for a difficult journey. Join Venus experts Jim Garvin, Sue Smrekar, and Giada Arney on a tour of Earth’s “twisted sister”.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/journey_to_venus.mp3" length="32698767" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>Let’s go to Venus! This year, two NASA missions were chosen to explore Earth’s “twin” planet, Venus. But with extreme temperatures and toxic clouds, these missions have to prepare for a difficult journey. Join Venus experts Jim Garvin, Sue Smrekar, and Giada Arney on a tour of Earth’s “twisted sister”.</itunes:subtitle>
+		<itunes:summary>Let’s go to Venus! This year, two NASA missions were chosen to explore Earth’s “twin” planet, Venus. But with extreme temperatures and toxic clouds, these missions have to prepare for a difficult journey. Join Venus experts Jim Garvin, Sue Smrekar, and Giada Arney on a tour of Earth’s “twisted sister”.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1358</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Journey to Venus</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Let’s go to Venus! This year, two NASA missions were chosen to explore Earth’s “twin” planet, Venus. But with extreme temperatures and toxic clouds, these missions have to prepare for a difficult journey. Join Venus experts Jim Garvin, Sue Smrekar, and Giada Arney on a tour of Earth’s “twisted sister”.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Rocket Assembly Required</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/rocket-assembly-required/</link>
+		<pubDate>Mon, 16 Aug 2021 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">ff9118a1f1940453402a5dadc915ead2</guid>
+		<description>Twenty-four American astronauts went to the moon between 1968 and 1972. In the next few years, we are going back. To get there, we’ll need a dedicated team, and a powerful new rocket. NASA’s Sharon Cobb and Abdiel Santos Galindo take us through the many, many steps involved in preparing for launch. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/rocket_assembly_required.mp3" length="31571690" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>Twenty-four American astronauts went to the moon between 1968 and 1972. In the next few years, we are going back. To get there, we’ll need a dedicated team, and a powerful new rocket. NASA’s Sharon Cobb and Abdiel Santos Galindo take us through the many, many steps involved in preparing for launch. </itunes:subtitle>
+		<itunes:summary>Twenty-four American astronauts went to the moon between 1968 and 1972. In the next few years, we are going back. To get there, we’ll need a dedicated team, and a powerful new rocket. NASA’s Sharon Cobb and Abdiel Santos Galindo take us through the many, many steps involved in preparing for launch. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1312</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Rocket Assembly Required</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Twenty-four American astronauts went to the moon between 1968 and 1972. In the next few years, we are going back. To get there, we’ll need a dedicated team, and a powerful new rocket. NASA’s Sharon Cobb and Abdiel Santos Galindo take us through the many, many steps involved in preparing for launch. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Plasma, Plasma, Everywhere!</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/plasma-plasma-everywhere/</link>
+		<pubDate>Mon, 09 Aug 2021 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">986f8e92add117e0a04be977f1e60d28</guid>
+		<description>The night sky is full of planets, satellites, and cosmic objects we can see with our eyes and telescopes. In between all that material there’s a huge amount of invisible matter and the vast majority of it is called plasma. Follow along with scientists Doug Rowland and Don Gurnett, as we journey through this mysterious and electrifying substance. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/plasma_plasma_everywhere.mp3" length="27315129" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>The night sky is full of planets, satellites, and cosmic objects we can see with our eyes and telescopes. In between all that material there’s a huge amount of invisible matter and the vast majority of it is called plasma. Follow along with scientists Doug Rowland and Don Gurnett, as we journey through this mysterious and electrifying substance. </itunes:subtitle>
+		<itunes:summary>The night sky is full of planets, satellites, and cosmic objects we can see with our eyes and telescopes. In between all that material there’s a huge amount of invisible matter and the vast majority of it is called plasma. Follow along with scientists Doug Rowland and Don Gurnett, as we journey through this mysterious and electrifying substance. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1134</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Plasma, Plasma, Everywhere!</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>The night sky is full of planets, satellites, and cosmic objects we can see with our eyes and telescopes. In between all that material there’s a huge amount of invisible matter and the vast majority of it is called plasma. Follow along with scientists Doug Rowland and Don Gurnett, as we journey through this mysterious and electrifying substance. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Curious Universe: Building Highways in the Sky</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/building-highways-in-the-sky/</link>
+		<pubDate>Mon, 02 Aug 2021 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">e1945e2d0a99177c8144d18737657a0d</guid>
+		<description>When you think of NASA, you probably think about outer space.  But the first “A” in NASA  - aeronautics - means we’re busy crafting a lot closer to home.  Aerospace engineers Shivanjli Sharma, David Zahn, and Mike Guminsky are hard at work inventing and testing new ways to fly.  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/building_highways_in_the_sky.mp3" length="27735170" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>When you think of NASA, you probably think about outer space.  But the first “A” in NASA  - aeronautics - means we’re busy crafting a lot closer to home.  Aerospace engineers Shivanjli Sharma, David Zahn, and Mike Guminsky are hard at work inventing and testing new ways to fly.  </itunes:subtitle>
+		<itunes:summary>When you think of NASA, you probably think about outer space.  But the first “A” in NASA  - aeronautics - means we’re busy crafting a lot closer to home.  Aerospace engineers Shivanjli Sharma, David Zahn, and Mike Guminsky are hard at work inventing and testing new ways to fly.  </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1150</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Curious Universe: Building Highways in the Sky</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>When you think of NASA, you probably think about outer space.  But the first “A” in NASA  - aeronautics - means we’re busy crafting a lot closer to home.  Aerospace engineers Shivanjli Sharma, David Zahn, and Mike Guminsky are hard at work inventing and testing new ways to fly.  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Curious Universe: Earth’s Expanding Oceans</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/earths-expanding-oceans/</link>
+		<pubDate>Mon, 26 Jul 2021 04:01:00 EDT</pubDate>
+		<guid isPermaLink="false">9369d967d48b98faddd47f5007eb3297</guid>
+		<description>With Earth’s recent record-breaking temperatures, the pace of sea level rise has accelerated. NASA scientists take us on a trip into their research right here on our home planet. Join us as we fly over Antarctic ice sheets and consult with orbiting satellites on this exploration of our changing Earth.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/earths_expanding_oceans.mp3" length="26394871" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>With Earth’s recent record-breaking temperatures, the pace of sea level rise has accelerated. NASA scientists take us on a trip into their research right here on our home planet. Join us as we fly over Antarctic ice sheets and consult with orbiting satellites on this exploration of our changing Earth.</itunes:subtitle>
+		<itunes:summary>With Earth’s recent record-breaking temperatures, the pace of sea level rise has accelerated. NASA scientists take us on a trip into their research right here on our home planet. Join us as we fly over Antarctic ice sheets and consult with orbiting satellites on this exploration of our changing Earth.</itunes:summary>
+		<itunes:author>Michael Bock</itunes:author>
+		<itunes:duration>1093</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Curious Universe: Earth’s Expanding Oceans</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>With Earth’s recent record-breaking temperatures, the pace of sea level rise has accelerated. NASA scientists take us on a trip into their research right here on our home planet. Join us as we fly over Antarctic ice sheets and consult with orbiting satellites on this exploration of our changing Earth.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Curious Universe: Interpreting Our Universe</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/interpreting-our-universe/</link>
+		<pubDate>Mon, 19 Jul 2021 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">80bfcf8ed7e3b7279dd22b01ae9e9379</guid>
+		<description>You’ve probably seen beautiful images of space taken from telescopes around the world and out in orbit.  But how does a bunch of intergalactic information become a vibrant photograph?  And what else can we see, feel, and hear from that data? Scientists Kenneth Carpenter, Kimberly Arcand, and Denna Lambert help us translate the universe.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/interpreting_our_universe.mp3" length="32302465" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>You’ve probably seen beautiful images of space taken from telescopes around the world and out in orbit.  But how does a bunch of intergalactic information become a vibrant photograph?  And what else can we see, feel, and hear from that data? Scientists Kenneth Carpenter, Kimberly Arcand, and Denna Lambert help us translate the universe.</itunes:subtitle>
+		<itunes:summary>You’ve probably seen beautiful images of space taken from telescopes around the world and out in orbit.  But how does a bunch of intergalactic information become a vibrant photograph?  And what else can we see, feel, and hear from that data? Scientists Kenneth Carpenter, Kimberly Arcand, and Denna Lambert help us translate the universe.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1338</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Curious Universe: Interpreting Our Universe</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>You’ve probably seen beautiful images of space taken from telescopes around the world and out in orbit.  But how does a bunch of intergalactic information become a vibrant photograph?  And what else can we see, feel, and hear from that data? Scientists Kenneth Carpenter, Kimberly Arcand, and Denna Lambert help us translate the universe.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Curious Universe: Let’s Go Planet-Hunting!</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/lets-go-planet-hunting/</link>
+		<pubDate>Mon, 12 Jul 2021 15:06:00 EDT</pubDate>
+		<guid isPermaLink="false">a61b22978cb9c0f8d516d91da7561131</guid>
+		<description>What do we know about the planets outside our solar system? NASA planet hunters Jessie Christiansen and Knicole Colon take us beyond...into the exciting world of exoplanets.  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/lets_go_planet_hunting.mp3" length="27656809" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>What do we know about the planets outside our solar system? NASA planet hunters Jessie Christiansen and Knicole Colon take us beyond...into the exciting world of exoplanets.  </itunes:subtitle>
+		<itunes:summary>What do we know about the planets outside our solar system? NASA planet hunters Jessie Christiansen and Knicole Colon take us beyond...into the exciting world of exoplanets.  </itunes:summary>
+		<itunes:author>Michael Bock</itunes:author>
+		<itunes:duration>1147</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Curious Universe: Let’s Go Planet-Hunting!</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>What do we know about the planets outside our solar system? NASA planet hunters Jessie Christiansen and Knicole Colon take us beyond...into the exciting world of exoplanets.  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Introducing Season Three of Curious Universe</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/introducing-season-three/</link>
+		<pubDate>Wed, 07 Jul 2021 14:36:00 EDT</pubDate>
+		<guid isPermaLink="false">4c35c18c0804eb8bc48846cb8dd70d7a</guid>
+		<description>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/introducings3.mp3" length="2167989" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity.</itunes:subtitle>
+		<itunes:summary>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity.</itunes:summary>
+		<itunes:author>Michael Bock</itunes:author>
+		<itunes:duration>89</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Introducing Season Three of Curious Universe</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Sounds of Mars</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/sounds-of-mars/</link>
+		<pubDate>Mon, 22 Feb 2021 17:58:00 EDT</pubDate>
+		<guid isPermaLink="false">549ad105a8aaa3ee8a3c499e7c0c40da</guid>
+		<description>On February 18, 2021, NASA’s Mars Perseverance rover completed its 300 million mile journey and landed safely on the Red Planet. Here’s what it heard. This special episode of NASA’s Curious Universe features the first-ever raw recorded sounds from Mars. Jim Green, David Gruel and Erisa Stilley explain what you&#039;re hearing.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/02_22_thefirstsoundsofmars_curiousuniverse_01.mp3" length="22777024" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>On February 18, 2021, NASA’s Mars Perseverance rover completed its 300 million mile journey and landed safely on the Red Planet. Here’s what it heard. This special episode of NASA’s Curious Universe features the first-ever raw recorded sounds from Mars. Jim Green, David Gruel and Erisa Stilley explain what you&#039;re hearing.</itunes:subtitle>
+		<itunes:summary>On February 18, 2021, NASA’s Mars Perseverance rover completed its 300 million mile journey and landed safely on the Red Planet. Here’s what it heard. This special episode of NASA’s Curious Universe features the first-ever raw recorded sounds from Mars. Jim Green, David Gruel and Erisa Stilley explain what you&#039;re hearing.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>948</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Sounds of Mars</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>On February 18, 2021, NASA’s Mars Perseverance rover completed its 300 million mile journey and landed safely on the Red Planet. Here’s what it heard. This special episode of NASA’s Curious Universe features the first-ever raw recorded sounds from Mars. Jim Green, David Gruel and Erisa Stilley explain what you&#039;re hearing.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Inside a Black Hole</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/inside-a-black-hole/</link>
+		<pubDate>Mon, 23 Nov 2020 13:02:00 EDT</pubDate>
+		<guid isPermaLink="false">5a8751ff0c7db8985d8b0f81c8f57de2</guid>
+		<description>Don&#039;t let the name fool you: a black hole is anything but empty space. Black holes are some of the most extreme, bizarre and fascinating objects in the universe. Regina Caputo and Jeremy Schnittman describe what it might be like to go hunting for one.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/insideablackhole_curiousuniverse.mp3" length="28548136" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Don&#039;t let the name fool you: a black hole is anything but empty space. Black holes are some of the most extreme, bizarre and fascinating objects in the universe. Regina Caputo and Jeremy Schnittman describe what it might be like to go hunting for one.</itunes:subtitle>
+		<itunes:summary>Don&#039;t let the name fool you: a black hole is anything but empty space. Black holes are some of the most extreme, bizarre and fascinating objects in the universe. Regina Caputo and Jeremy Schnittman describe what it might be like to go hunting for one.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1190</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Inside a Black Hole</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Don&#039;t let the name fool you: a black hole is anything but empty space. Black holes are some of the most extreme, bizarre and fascinating objects in the universe. Regina Caputo and Jeremy Schnittman describe what it might be like to go hunting for one.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>The Crawlers</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/the-crawlers/</link>
+		<pubDate>Mon, 16 Nov 2020 13:56:00 EDT</pubDate>
+		<guid isPermaLink="false">eb924675d08311cc8488f4c80c6be9e6</guid>
+		<description>A pair of behemoth machines called crawler-trans­porters have carried the load of taking rockets and spacecraft to the launchpad for more than 50 years at NASA’s Kennedy Space Center in Florida. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cu_thecrawlers.mp3" length="28452358" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>A pair of behemoth machines called crawler-trans­porters have carried the load of taking rockets and spacecraft to the launchpad for more than 50 years at NASA’s Kennedy Space Center in Florida. </itunes:subtitle>
+		<itunes:summary>A pair of behemoth machines called crawler-trans­porters have carried the load of taking rockets and spacecraft to the launchpad for more than 50 years at NASA’s Kennedy Space Center in Florida. </itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1186</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>The Crawlers</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>A pair of behemoth machines called crawler-trans­porters have carried the load of taking rockets and spacecraft to the launchpad for more than 50 years at NASA’s Kennedy Space Center in Florida. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Seasons of the Sun</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/seasons-of-the-sun/</link>
+		<pubDate>Mon, 09 Nov 2020 14:00:00 EDT</pubDate>
+		<guid isPermaLink="false">f043e1ea45fb01f0ee747b3ad00ff4a6</guid>
+		<description>As Earth makes its annual trip around the Sun, we feel the impacts of its journey in the form of seasons. Our planet’s tilt in relation to the Sun determines what season we experience here on Earth. But, did you know that the Sun goes through seasons too?  Delores Knipp, Dean Pesnell and Sabrina Savage explain.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/seasonsofthesun_cu.mp3" length="29549117" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>As Earth makes its annual trip around the Sun, we feel the impacts of its journey in the form of seasons. Our planet’s tilt in relation to the Sun determines what season we experience here on Earth. But, did you know that the Sun goes through seasons too?  Delores Knipp, Dean Pesnell and Sabrina Savage explain.</itunes:subtitle>
+		<itunes:summary>As Earth makes its annual trip around the Sun, we feel the impacts of its journey in the form of seasons. Our planet’s tilt in relation to the Sun determines what season we experience here on Earth. But, did you know that the Sun goes through seasons too?  Delores Knipp, Dean Pesnell and Sabrina Savage explain.</itunes:summary>
+		<itunes:author>Gary Daines</itunes:author>
+		<itunes:duration>1229</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Seasons of the Sun</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>As Earth makes its annual trip around the Sun, we feel the impacts of its journey in the form of seasons. Our planet’s tilt in relation to the Sun determines what season we experience here on Earth. But, did you know that the Sun goes through seasons too?  Delores Knipp, Dean Pesnell and Sabrina Savage explain.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>From Space to Farm</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/from-space-to-farm/</link>
+		<pubDate>Mon, 02 Nov 2020 14:04:00 EDT</pubDate>
+		<guid isPermaLink="false">2f4b6520119c5b8ea4c9434d2ba548b7</guid>
+		<description>Farmers rely on the accuracy of a crucial NASA and USGS mission, Landsat, to make decisions about crops. Those decisions have far-reaching implications that can impact what you see on your dinner plate! </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/cu_fromspacetofarm.mp3" length="29748807" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Farmers rely on the accuracy of a crucial NASA and USGS mission, Landsat, to make decisions about crops. Those decisions have far-reaching implications that can impact what you see on your dinner plate! </itunes:subtitle>
+		<itunes:summary>Farmers rely on the accuracy of a crucial NASA and USGS mission, Landsat, to make decisions about crops. Those decisions have far-reaching implications that can impact what you see on your dinner plate! </itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>1237</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>From Space to Farm</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Farmers rely on the accuracy of a crucial NASA and USGS mission, Landsat, to make decisions about crops. Those decisions have far-reaching implications that can impact what you see on your dinner plate! </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Our Cosmic Time Machine, The James Webb Space Telescope</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/our-cosmic-time-machine-the-james-webb-space-telescope/</link>
+		<pubDate>Mon, 26 Oct 2020 13:00:00 EDT</pubDate>
+		<guid isPermaLink="false">c22376dacd0e80c3a0cb99a1a728b4c1</guid>
+		<description>The James Webb Space Telescope will explore every phase of cosmic history: from the formation of the very first galaxies in the early universe, to our cosmic backyard of the Solar System. Webb is the largest space telescope NASA has ever built and it is almost ready to make its journey about one million miles from Earth.  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/our_cosmic_time_machine_cu.mp3" length="27455140" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>The James Webb Space Telescope will explore every phase of cosmic history: from the formation of the very first galaxies in the early universe, to our cosmic backyard of the Solar System. Webb is the largest space telescope NASA has ever built and it is almost ready to make its journey about one million miles from Earth.  </itunes:subtitle>
+		<itunes:summary>The James Webb Space Telescope will explore every phase of cosmic history: from the formation of the very first galaxies in the early universe, to our cosmic backyard of the Solar System. Webb is the largest space telescope NASA has ever built and it is almost ready to make its journey about one million miles from Earth.  </itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>1144</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Our Cosmic Time Machine, The James Webb Space Telescope</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>The James Webb Space Telescope will explore every phase of cosmic history: from the formation of the very first galaxies in the early universe, to our cosmic backyard of the Solar System. Webb is the largest space telescope NASA has ever built and it is almost ready to make its journey about one million miles from Earth.  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Asteroid Hunting</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/asteroid-hunting/</link>
+		<pubDate>Mon, 19 Oct 2020 16:47:00 EDT</pubDate>
+		<guid isPermaLink="false">ea773e74e1c0896c79158508c6c5890f</guid>
+		<description>NASA&#039;s OSIRIS-REx spacecraft will attempt a daring feat: to briefly reach out its mechanical arm and grab a sample from an asteroid’s surface. Dante Lauretta, Heather Enos, and Ron Mink introduce you to NASA’s asteroid hunter and what this sample return mission means for us here on Earth. </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/asteroidhuntingorex_cu.mp3" length="30643835" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>NASA&#039;s OSIRIS-REx spacecraft will attempt a daring feat: to briefly reach out its mechanical arm and grab a sample from an asteroid’s surface. Dante Lauretta, Heather Enos, and Ron Mink introduce you to NASA’s asteroid hunter and what this sample return mission means for us here on Earth. </itunes:subtitle>
+		<itunes:summary>NASA&#039;s OSIRIS-REx spacecraft will attempt a daring feat: to briefly reach out its mechanical arm and grab a sample from an asteroid’s surface. Dante Lauretta, Heather Enos, and Ron Mink introduce you to NASA’s asteroid hunter and what this sample return mission means for us here on Earth. </itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>1275</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Asteroid Hunting</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>NASA&#039;s OSIRIS-REx spacecraft will attempt a daring feat: to briefly reach out its mechanical arm and grab a sample from an asteroid’s surface. Dante Lauretta, Heather Enos, and Ron Mink introduce you to NASA’s asteroid hunter and what this sample return mission means for us here on Earth. </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Our Laboratory in Space</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/our-laboratory-in-space/</link>
+		<pubDate>Mon, 12 Oct 2020 13:35:00 EDT</pubDate>
+		<guid isPermaLink="false">3b0cf33747db951a883a62078356cbdc</guid>
+		<description>Orbiting 250 miles above Earth, astronauts aboard the International Space Station explore farther into our solar system and work on thousands of studies that will help us back here on Earth. Join ESA (European Space Agency) astronaut Samantha Cristoforetti and NASA scientist Sharmila Bhattacharya on an adventure to our “orbiting laboratory.”  </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2022/04/cu_ourlaboratoryinspace.mp3" length="27365875" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Orbiting 250 miles above Earth, astronauts aboard the International Space Station explore farther into our solar system and work on thousands of studies that will help us back here on Earth. Join ESA (European Space Agency) astronaut Samantha Cristoforetti and NASA scientist Sharmila Bhattacharya on an adventure to our “orbiting laboratory.”  </itunes:subtitle>
+		<itunes:summary>Orbiting 250 miles above Earth, astronauts aboard the International Space Station explore farther into our solar system and work on thousands of studies that will help us back here on Earth. Join ESA (European Space Agency) astronaut Samantha Cristoforetti and NASA scientist Sharmila Bhattacharya on an adventure to our “orbiting laboratory.”  </itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>1138</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Our Laboratory in Space</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Orbiting 250 miles above Earth, astronauts aboard the International Space Station explore farther into our solar system and work on thousands of studies that will help us back here on Earth. Join ESA (European Space Agency) astronaut Samantha Cristoforetti and NASA scientist Sharmila Bhattacharya on an adventure to our “orbiting laboratory.”  </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Introducing NASA’s Curious Universe Season Two</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/introducing-nasas-curious-universe-season-two/</link>
+		<pubDate>Mon, 05 Oct 2020 13:35:00 EDT</pubDate>
+		<guid isPermaLink="false">1342afbbe91e0ec35fe74da63116f1ff</guid>
+		<description>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity. Go asteroid hunting, explore faraway galaxies, and watch a black hole as it begins to form. First-time space explorers welcome.   </description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/curiousuniverse_seasontwoteaser.mp3" length="2712416" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity. Go asteroid hunting, explore faraway galaxies, and watch a black hole as it begins to form. First-time space explorers welcome.   </itunes:subtitle>
+		<itunes:summary>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity. Go asteroid hunting, explore faraway galaxies, and watch a black hole as it begins to form. First-time space explorers welcome.   </itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>113</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Introducing NASA’s Curious Universe Season Two</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity. Go asteroid hunting, explore faraway galaxies, and watch a black hole as it begins to form. First-time space explorers welcome.   </googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>We&#039;re Going to Mars!</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/were-going-to-mars/</link>
+		<pubDate>Tue, 21 Jul 2020 15:27:00 EDT</pubDate>
+		<guid isPermaLink="false">f264d68656d8100ae3f94cad55ec3ce8</guid>
+		<description>In this episode of our Curious Universe podcast, join us on a journey to the Red Planet.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/curiousuniverse_mars.mp3" length="27500616" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2022/12/nasascuriousuniverselogo-3000.png" />
+		<itunes:subtitle>In this episode of our Curious Universe podcast, join us on a journey to the Red Planet.</itunes:subtitle>
+		<itunes:summary>In this episode of our Curious Universe podcast, join us on a journey to the Red Planet.</itunes:summary>
+		<itunes:author>Brian Dunbar</itunes:author>
+		<itunes:duration>1144</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>We&#039;re Going to Mars!</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>In this episode of our Curious Universe podcast, join us on a journey to the Red Planet.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>The Star in Our Backyard</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/the-star-in-our-backyard/</link>
+		<pubDate>Sun, 17 May 2020 16:12:00 EDT</pubDate>
+		<guid isPermaLink="false">2103ff530f566008bf6c3445b0f07580</guid>
+		<description>Our Sun holds the solar system together and is responsible for life as we know it.  Though it may seem calm and unchanging, the Sun is dynamic. Join NASA solar  scientists on a trip around the Sun, our lively and mysterious neighborhood star.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/episode6_thestarinourbackyard.mp3" length="20949944" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Our Sun holds the solar system together and is responsible for life as we know it.  Though it may seem calm and unchanging, the Sun is dynamic. Join NASA solar  scientists on a trip around the Sun, our lively and mysterious neighborhood star.</itunes:subtitle>
+		<itunes:summary>Our Sun holds the solar system together and is responsible for life as we know it.  Though it may seem calm and unchanging, the Sun is dynamic. Join NASA solar  scientists on a trip around the Sun, our lively and mysterious neighborhood star.</itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>870</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>The Star in Our Backyard</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Our Sun holds the solar system together and is responsible for life as we know it.  Though it may seem calm and unchanging, the Sun is dynamic. Join NASA solar  scientists on a trip around the Sun, our lively and mysterious neighborhood star.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Field Notes: Grand Mesa, Colorado</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/field-notes-grand-mesa-colorado/</link>
+		<pubDate>Mon, 11 May 2020 13:25:00 EDT</pubDate>
+		<guid isPermaLink="false">1668e63841e2d14b1ba42fe309006e6a</guid>
+		<description>Snowmobile rides. Deep-sea dives. Forest treks. NASA experts travel to some amazing environments, from the very hot to the very cold, to learn more about our planet. Jessica Merzdorf, Earth science writer, recaps a February field campaign in Grand Mesa, Colorado.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/ep5fieldnotesgrandmesacolorado.mp3" length="12275149" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Snowmobile rides. Deep-sea dives. Forest treks. NASA experts travel to some amazing environments, from the very hot to the very cold, to learn more about our planet. Jessica Merzdorf, Earth science writer, recaps a February field campaign in Grand Mesa, Colorado.</itunes:subtitle>
+		<itunes:summary>Snowmobile rides. Deep-sea dives. Forest treks. NASA experts travel to some amazing environments, from the very hot to the very cold, to learn more about our planet. Jessica Merzdorf, Earth science writer, recaps a February field campaign in Grand Mesa, Colorado.</itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>510</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Field Notes: Grand Mesa, Colorado</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Snowmobile rides. Deep-sea dives. Forest treks. NASA experts travel to some amazing environments, from the very hot to the very cold, to learn more about our planet. Jessica Merzdorf, Earth science writer, recaps a February field campaign in Grand Mesa, Colorado.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Sewing for Spaceflight</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/sewing-for-spaceflight/</link>
+		<pubDate>Sun, 03 May 2020 16:00:00 EDT</pubDate>
+		<guid isPermaLink="false">ebc0799b79c60cee00679c6c4a6bbe32</guid>
+		<description>Sewing machines, tape, scissors. Just like you might visit a tailor to get your pants hemmed or your suit fitted, NASA calls on a group of very creative problem-solvers to custom-make protective shields for our space missions.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/ep4_sewingforspaceflight_01.mp3" length="21805161" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Sewing machines, tape, scissors. Just like you might visit a tailor to get your pants hemmed or your suit fitted, NASA calls on a group of very creative problem-solvers to custom-make protective shields for our space missions.</itunes:subtitle>
+		<itunes:summary>Sewing machines, tape, scissors. Just like you might visit a tailor to get your pants hemmed or your suit fitted, NASA calls on a group of very creative problem-solvers to custom-make protective shields for our space missions.</itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>906</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Sewing for Spaceflight</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Sewing machines, tape, scissors. Just like you might visit a tailor to get your pants hemmed or your suit fitted, NASA calls on a group of very creative problem-solvers to custom-make protective shields for our space missions.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>The Astronaut Training Pool</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/the-astronaut-training-pool/</link>
+		<pubDate>Mon, 27 Apr 2020 13:30:00 EDT</pubDate>
+		<guid isPermaLink="false">8bd67988c4ef5a096dfa3a611a02f661</guid>
+		<description>Before astronauts head to space, they have to dive into the Neutral Buoyancy Lab. Take a swim in NASA&#039;s underwater training ground with astronaut Nick Hague.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/ep3theastronauttrainingpool.mp3" length="25212698" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Before astronauts head to space, they have to dive into the Neutral Buoyancy Lab. Take a swim in NASA&#039;s underwater training ground with astronaut Nick Hague.</itunes:subtitle>
+		<itunes:summary>Before astronauts head to space, they have to dive into the Neutral Buoyancy Lab. Take a swim in NASA&#039;s underwater training ground with astronaut Nick Hague.</itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>1047</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>The Astronaut Training Pool</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Before astronauts head to space, they have to dive into the Neutral Buoyancy Lab. Take a swim in NASA&#039;s underwater training ground with astronaut Nick Hague.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Our Window to the Stars</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/our-window-to-the-stars/</link>
+		<pubDate>Sun, 19 Apr 2020 16:45:00 EDT</pubDate>
+		<guid isPermaLink="false">f5aa82e80538418192cbf4dc785ada81</guid>
+		<description>Decades of planning. One heart-pounding setback. Over a million mesmerizing images of space. This is the story of the Hubble Space Telescope, our window to the stars.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/our_window_to_the_stars.mp3" length="23932211" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>Decades of planning. One heart-pounding setback. Over a million mesmerizing images of space. This is the story of the Hubble Space Telescope, our window to the stars.</itunes:subtitle>
+		<itunes:summary>Decades of planning. One heart-pounding setback. Over a million mesmerizing images of space. This is the story of the Hubble Space Telescope, our window to the stars.</itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>996</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Our Window to the Stars</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Decades of planning. One heart-pounding setback. Over a million mesmerizing images of space. This is the story of the Hubble Space Telescope, our window to the stars.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Only on Earth</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/only-on-earth/</link>
+		<pubDate>Sun, 12 Apr 2020 16:40:00 EDT</pubDate>
+		<guid isPermaLink="false">02a10ec28db0bfc834a6552d0f824727</guid>
+		<description>When you think of NASA, you might think of all the incredible mysteries of outer space. But we’re also pretty invested in another very special place … our home. In this episode, join us as we celebrate all the ways NASA keeps an eye on our home planet.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2023/07/ep1_onlyonearth_curiousuniverse_01.mp3" length="25770372" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2017/08/nasascuriousuniverselogo-3000_0.png" />
+		<itunes:subtitle>When you think of NASA, you might think of all the incredible mysteries of outer space. But we’re also pretty invested in another very special place … our home. In this episode, join us as we celebrate all the ways NASA keeps an eye on our home planet.</itunes:subtitle>
+		<itunes:summary>When you think of NASA, you might think of all the incredible mysteries of outer space. But we’re also pretty invested in another very special place … our home. In this episode, join us as we celebrate all the ways NASA keeps an eye on our home planet.</itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>1070</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Only on Earth</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>When you think of NASA, you might think of all the incredible mysteries of outer space. But we’re also pretty invested in another very special place … our home. In this episode, join us as we celebrate all the ways NASA keeps an eye on our home planet.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+	<item>
+		<title>Introducing NASA’s Curious Universe</title>
+		<link>https://www.nasa.gov/podcasts/curious-universe/introducing-nasas-curious-universe/</link>
+		<pubDate>Tue, 31 Mar 2020 20:14:00 EDT</pubDate>
+		<guid isPermaLink="false">ea3ea389f87b6b3001a657c090c3c346</guid>
+		<description>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity. First-time space explorers welcome.</description>
+		<enclosure url="https://www.nasa.gov/wp-content/uploads/2020/03/introducingnasascuriousuniverseteaser.mp3" length="2427529" type="audio/mpeg" />
+		<source url="https://www.nasa.gov/feeds/podcasts/curious-universe">NASA&#039;s Curious Universe</source>
+		<itunes:image href="https://www.nasa.gov/wp-content/uploads/2020/03/nasascuriousuniverselogo.png" />
+		<itunes:subtitle>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity. First-time space explorers welcome.</itunes:subtitle>
+		<itunes:summary>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity. First-time space explorers welcome.</itunes:summary>
+		<itunes:author>Sarah A. Loff</itunes:author>
+		<itunes:duration>100</itunes:duration>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:title>Introducing NASA’s Curious Universe</itunes:title>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:block>no</itunes:block>
+		<itunes:season>1</itunes:season>
+		<googleplay:description>Our universe is a wild and wonderful place. Join NASA astronauts, scientists and engineers on a new adventure each week — all you need is your curiosity. First-time space explorers welcome.</googleplay:description>
+		<googleplay:explicit>false</googleplay:explicit>
+		<googleplay:block>no</googleplay:block>
+	</item>
+</channel>
+</rss>

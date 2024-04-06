@@ -1,0 +1,16 @@
+http://feeds.libsyn.com/60664 ask-a-spaceman.rss
+https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss daniel-and-jorge.rss
+https://podcasts.files.bbci.co.uk/b00snr0w.rss infinite-monkey-cage.rss
+https://thecosmicsavannah.com/feed/podcast/ cosmic-savannah.rss
+https://audioboom.com/channels/5014098.rss supermassive.rss
+https://rss.art19.com/sean-carrolls-mindscape mindscape.rss
+https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss planetary.rss
+https://www.nasa.gov/feeds/podcasts/curious-universe curious-universe.rss
+https://www.nasa.gov/feeds/podcasts/gravity-assist gravity-assist.rss
+http://titaniumphysics.libsyn.com/rss titanium-physics.rs
+https://www.spreaker.com/show/2458531/episodes/feed spacetime.rss
+https://www.abc.net.au/feeds/8294152/podcast.xml cosmic-vertigo.rss
+https://astronomycast.libsyn.com/rss astronomy-cast.rss
+https://feed.podbean.com/conversationsattheperimeter/feed.xml perimeter.rss
+https://feeds.fireside.fm/universetoday/rss universe-today.rss
+https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss interplanetary.rss

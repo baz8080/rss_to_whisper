@@ -1,0 +1,2269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd"
+xmlns:podcast="https://podcastindex.org/namespace/1.0"
+xmlns:rawvoice="http://www.rawvoice.com/rawvoiceRssModule/"
+xmlns:googleplay="http://www.google.com/schemas/play-podcasts/1.0"
+>
+<channel>
+	<title>The Cosmic Savannah</title>
+	<atom:link href="https://thecosmicsavannah.com/feed/podcast/" rel="self" type="application/rss+xml" />
+	<link>https://thecosmicsavannah.com/</link>
+	<description>A podcast showcasing world-class astronomy under African skies.</description>
+	<lastBuildDate>Thu, 29 Feb 2024 07:29:02 +0000</lastBuildDate>
+	<language>en-GB</language>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+		<generator>https://wordpress.org/?v=6.5</generator>
+
+<image>
+	<url>https://thecosmicsavannah.com/wp-content/uploads/2021/07/cropped-TCS-Apple-Podcast-32x32.png</url>
+	<title>The Cosmic Savannah</title>
+	<link>https://thecosmicsavannah.com/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<atom:link rel="hub" href="https://pubsubhubbub.appspot.com/" />
+	<itunes:summary>Welcome to The Cosmic Savannah, a podcast giving you a behind-the-scenes peek into the world-class astronomy and astrophysics happening in Africa. Each episode, hosts Dr Jacinta Delhaize and Dr Daniel Cunnama chat to different guests and introduce you to the people, the technology, the science and the fascinating discoveries emerging from African astronomy. No matter who you are or where you&#039;re from, we welcome you to join us on a safari through the skies!</itunes:summary>
+	<itunes:author>The Cosmic Savannah</itunes:author>
+	<itunes:explicit>false</itunes:explicit>
+	<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+	<itunes:type>episodic</itunes:type>
+	<itunes:owner>
+		<itunes:name>The Cosmic Savannah</itunes:name>
+		<itunes:email>thecosmicsavannah@gmail.com</itunes:email>
+	</itunes:owner>
+	<podcast:medium>podcast</podcast:medium>
+	<itunes:subtitle>A behind-the-scenes look at world class astronomy under African skies</itunes:subtitle>
+	<image>
+		<title>The Cosmic Savannah</title>
+		<url>https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png</url>
+		<link>https://thecosmicsavannah.com</link>
+	</image>
+	<itunes:category text="Science">
+		<itunes:category text="Astronomy" />
+	</itunes:category>
+	<googleplay:category text="Science &amp; Medicine"/>
+	<itunes:category text="Science">
+		<itunes:category text="Physics" />
+	</itunes:category>
+	<itunes:category text="Technology" />
+	<rawvoice:rating>TV-G</rawvoice:rating>
+	<rawvoice:location>Cape Town</rawvoice:location>
+	<podcast:location>Cape Town</podcast:location>
+	<rawvoice:frequency>Fortnightly</rawvoice:frequency>
+	<podcast:podping usesPodping="true" />
+	<podcast:guid>f0809469-0a17-502e-9ea8-a12f9b86e916</podcast:guid>
+	<rawvoice:subscribe feed="https://thecosmicsavannah.com/feed/podcast/" html="https://thecosmicsavannah.com/subscribe-to-podcast/" itunes="https://itunes.apple.com/au/podcast/the-cosmic-savannah/id1455791934" tunein="https://tunein.com/podcasts/Technology-Podcasts/The-Cosmic-Savannah-p1210747/" spotify="https://open.spotify.com/show/1vKKBFmOLdW9ufodgyhBJE?si=-eUR3sNFTRG9fZTyLXd3aA"></rawvoice:subscribe>
+	<item>
+		<title>Episode 70: Season 5 in Review</title>
+		<link>https://thecosmicsavannah.com/episode-70-season-5-in-review/</link>
+		<pubDate>Thu, 29 Feb 2024 07:29:01 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=4106</guid>
+		<comments>https://thecosmicsavannah.com/episode-70-season-5-in-review/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-70-season-5-in-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Conservation]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;The band is back together! In this episode Jacinta, Tshia and Dan sit together in the cupboard once again to catch up and to reflect on Season 5.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-70-season-5-in-review/&quot;&gt;Episode 70: Season 5 in Review&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/070_The_Cosmic_Savannah-Season_5_in_Review.mp3" length="28433079" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>70</itunes:episode>
+		<podcast:episode>70</podcast:episode>
+		<itunes:title>Episode 70: Season 5 in Review</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>29:36</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode: Big data, big IDIA</title>
+		<link>https://thecosmicsavannah.com/mini-episode-big-data-big-idia/</link>
+		<pubDate>Fri, 22 Dec 2023 12:20:17 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=4091</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-big-data-big-idia/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-big-data-big-idia/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Data Science]]></category>
+		<category><![CDATA[Development]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Machine Learning]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[Radio Astronomy]]></category>
+		<category><![CDATA[Simulations]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;In this mini episode Jacinta has a quick interview with Professor Russ Taylor, one of the founders of IDIA ( The Inter-University Institute for Data Intensive Astronomy).&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-big-data-big-idia/&quot;&gt;Mini Episode: Big data, big IDIA&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/The_Cosmic_Savannah_Mini_IDIA.mp3" length="11009668" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>70</itunes:episode>
+		<podcast:episode>70</podcast:episode>
+		<itunes:title>Mini Episode: Big Data, big IDIA</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>13:48</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 69: Into the Matrix &#8211; Visualising Polar Ring Galaxies</title>
+		<link>https://thecosmicsavannah.com/episode-69-into-the-matrix-visualising-polar-ring-galaxies/</link>
+		<pubDate>Thu, 07 Dec 2023 09:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=4078</guid>
+		<comments>https://thecosmicsavannah.com/episode-69-into-the-matrix-visualising-polar-ring-galaxies/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-69-into-the-matrix-visualising-polar-ring-galaxies/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conservation]]></category>
+		<category><![CDATA[Data Science]]></category>
+		<category><![CDATA[Development]]></category>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Instrumentation]]></category>
+		<category><![CDATA[Simulations]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;In the second part of the Polar ring galaxy series, Jacinta and Tshia drop in on Dr Lucia Marchetti and Alex Sivitilli in the IDIA (The Inter-university Institute for Data Intensive Astronomy)  Visualisation Laboratory at UCT (The University of Cape Town) where they learn how Virtual Reality (VR) can be used to model astronomical data in three dimensions. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-69-into-the-matrix-visualising-polar-ring-galaxies/&quot;&gt;Episode 69: Into the Matrix – Visualising Polar Ring Galaxies&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/069_The_Cosmic_Savannah-Into_the_Matrix-Visualising_Polar_Ring_Galaxies.mp3" length="46755466" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>69</itunes:episode>
+		<podcast:episode>69</podcast:episode>
+		<itunes:title>Episode 69: Into the Matrix - Visualising Polar Ring Galaxies</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>53:26</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 68: Untangling the Origins of Polar Ring Galaxies</title>
+		<link>https://thecosmicsavannah.com/episode-68-untangling-the-origins-of-polar-ring-galaxies/</link>
+		<pubDate>Thu, 23 Nov 2023 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=4051</guid>
+		<comments>https://thecosmicsavannah.com/episode-68-untangling-the-origins-of-polar-ring-galaxies/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-68-untangling-the-origins-of-polar-ring-galaxies/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Data Science]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Radio Astronomy]]></category>
+		<category><![CDATA[Simulations]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;This week Dr Nathan Deg returns to The Cosmic Savannah to discuss Polar-ring galaxies and how he models these incredible structures. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-68-untangling-the-origins-of-polar-ring-galaxies/&quot;&gt;Episode 68: Untangling the Origins of Polar Ring Galaxies&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/068_The_Cosmic_Savannah-Untangling_the_Origins_of_Polar_Ring_Galaxies.mp3" length="43493466" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>68</itunes:episode>
+		<podcast:episode>68</podcast:episode>
+		<itunes:title>Episode 68: Untangling the Origins of Polar Ring Galaxies</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>52:45</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 67: A Stroll to the Edge of The Universe</title>
+		<link>https://thecosmicsavannah.com/episode-67-a-stroll-to-the-edge-of-the-universe/</link>
+		<pubDate>Tue, 07 Nov 2023 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=4034</guid>
+		<comments>https://thecosmicsavannah.com/episode-67-a-stroll-to-the-edge-of-the-universe/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-67-a-stroll-to-the-edge-of-the-universe/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Conservation]]></category>
+		<category><![CDATA[Development]]></category>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<description>&lt;p&gt;In this “unplugged” episode, we hear from our own! New host Tshiamiso Makwela tells us about her research and we introduce you to our new podcast manager, Francois Campher.&lt;/p&gt;
+&lt;p&gt;Tshiamiso (Tshia) discusses her work in the field of Astronomy Education Research. She asks us &quot;how big is big&quot; and &quot;how far is far&quot;? Tshia explains why these concepts so difficult, yet so important, to comprehend.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-67-a-stroll-to-the-edge-of-the-universe/&quot;&gt;Episode 67: A Stroll to the Edge of The Universe&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/067_The_Cosmic_Savannah-Astronomy_Education_and_The_Cupboard_Behind_the_Files.mp3" length="48731830" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>67</itunes:episode>
+		<podcast:episode>67</podcast:episode>
+		<itunes:title>Episode 67: A Stroll to the Edge of The Universe</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>1:00:25</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 66: Meertime Mysteries &#8211; Pulsars and Prizes</title>
+		<link>https://thecosmicsavannah.com/episode-66-meertime-mysteries-pulsars-and-prizes/</link>
+		<pubDate>Thu, 19 Oct 2023 12:07:11 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=4025</guid>
+		<comments>https://thecosmicsavannah.com/episode-66-meertime-mysteries-pulsars-and-prizes/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-66-meertime-mysteries-pulsars-and-prizes/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[Fast Radio Bursts]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Pulsars]]></category>
+		<category><![CDATA[Radio Astronomy]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Stars]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[Uncategorized]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[meertime]]></category>
+		<category><![CDATA[neutron star]]></category>
+		<category><![CDATA[pulsar]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[Shaw Prize]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;In this new exciting episode Professor Matthew Bailes returns to discuss his recent work on Pulsars as well as his thoughts and feelings on winning the 2023 Shaw Prize for the discovery of Fast Radio Bursts. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-66-meertime-mysteries-pulsars-and-prizes/&quot;&gt;Episode 66: Meertime Mysteries – Pulsars and Prizes&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/066_The_Cosmic_Savannah-Meertime_Mysteries_Pulsars_and_Prizes.mp3" length="48504202" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>66</itunes:episode>
+		<podcast:episode>66</podcast:episode>
+		<itunes:title>Episode 66: Meertime Mysteries - Pulsars and Prizes</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>51:11</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 65: Zombies of the Cosmos (Re-run)</title>
+		<link>https://thecosmicsavannah.com/episode-65-zombies-of-the-cosmos-re-run/</link>
+		<pubDate>Thu, 05 Oct 2023 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=4021</guid>
+		<comments>https://thecosmicsavannah.com/episode-65-zombies-of-the-cosmos-re-run/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-65-zombies-of-the-cosmos-re-run/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[Celestial Events]]></category>
+		<category><![CDATA[Conservation]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Pulsars]]></category>
+		<category><![CDATA[Radio Astronomy]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Stars]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;This is a re-run of episode 29 of The Cosmic Savannah in anticipation of an upcoming interview with Prof Matthew Bailes so all our listeners can get up to speed about everything to do with Neutron Stars!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-65-zombies-of-the-cosmos-re-run/&quot;&gt;Episode 65: Zombies of the Cosmos (Re-run)&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/065_The_Cosmic_Savannah-E29_Rerun_Zombies_of_the_Cosmos.mp3" length="45638888" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>65</itunes:episode>
+		<podcast:episode>65</podcast:episode>
+		<itunes:title>Episode 65: Zombies of the Cosmos (Re-run)</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>51:24</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 64: Bursts from Space</title>
+		<link>https://thecosmicsavannah.com/episode-64-bursts-from-space/</link>
+		<pubDate>Thu, 07 Sep 2023 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3987</guid>
+		<comments>https://thecosmicsavannah.com/episode-64-bursts-from-space/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-64-bursts-from-space/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[Citizen Science]]></category>
+		<category><![CDATA[Data Science]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Radio Astronomy]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Transients]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;In this episode, Tshiamiso and Dan have a discussion with Alexander Andersson from Oxford University about Zooniverse, citizen science projects and how citizens can contribute to the work that Astronomers do. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-64-bursts-from-space/&quot;&gt;Episode 64: Bursts from Space&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/064_The_Cosmic_Savannah-Bursts_form_Space.mp3" length="5242880" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>64</itunes:episode>
+		<podcast:episode>64</podcast:episode>
+		<itunes:title>Episode 64: Bursts from Space</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+	</item>
+	<item>
+		<title>Episode 63: How Galaxies Evolve &#8211; The Quest for Cold Gas</title>
+		<link>https://thecosmicsavannah.com/episode-63-how-galaxies-evolve-the-quest-for-cold-gas/</link>
+		<pubDate>Thu, 24 Aug 2023 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3956</guid>
+		<comments>https://thecosmicsavannah.com/episode-63-how-galaxies-evolve-the-quest-for-cold-gas/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-63-how-galaxies-evolve-the-quest-for-cold-gas/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Celestial Events]]></category>
+		<category><![CDATA[Cosmology]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Instrumentation]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Stars]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;In this episode, Jacinta sits down with Dr. Sthabile Kolwa to discuss the ways in which galaxies change over cosmic time, how astronomers are able to study these changes and what these studies can tell us about the cosmos as a whole. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-63-how-galaxies-evolve-the-quest-for-cold-gas/&quot;&gt;Episode 63: How Galaxies Evolve – The Quest for Cold Gas&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/063_The_Cosmic_Savannah-How_Galaxies_Evolve_The_Quest_for_Cold_Gas.mp3" length="45796167" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>63</itunes:episode>
+		<podcast:episode>63</podcast:episode>
+		<itunes:title>Episode 63: How Galaxies Evolve - The Quest for Cold Gas</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>54:21</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 62: Behind the Scenes of the SKAO with Phil Diamond</title>
+		<link>https://thecosmicsavannah.com/episode-62-behind-the-scenes-of-the-skao-with-phil-diamond/</link>
+		<pubDate>Thu, 10 Aug 2023 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3916</guid>
+		<comments>https://thecosmicsavannah.com/episode-62-behind-the-scenes-of-the-skao-with-phil-diamond/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-62-behind-the-scenes-of-the-skao-with-phil-diamond/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[Conservation]]></category>
+		<category><![CDATA[Instrumentation]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[Australia]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[SKA-Low]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<description>&lt;p&gt;In the third and final part of the SKAO Construction Commencement Ceremony series, Jacinta sits down with Professor Phil Diamond, the Director-General of the SKAO to discuss his thoughts and feelings around the construction commencement ceremony in Australia and on the future of the project as a whole.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-62-behind-the-scenes-of-the-skao-with-phil-diamond/&quot;&gt;Episode 62: Behind the Scenes of the SKAO with Phil Diamond&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/062_The_Cosmic_Savannah-Behind_the_scenes_of_the_SKAO_with_Phil_Diamond.mp3" length="30468503" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>62</itunes:episode>
+		<podcast:episode>62</podcast:episode>
+		<itunes:title>Episode 62: Behind the Scenes of the SKAO with Phil Diamond</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>36:58</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 61: Part 2 – SKAO Construction Commencement Ceremony – Australia</title>
+		<link>https://thecosmicsavannah.com/episode-61-part-2-skao-construction-commencement-ceremony-australia/</link>
+		<pubDate>Thu, 03 Aug 2023 12:50:37 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3897</guid>
+		<comments>https://thecosmicsavannah.com/episode-61-part-2-skao-construction-commencement-ceremony-australia/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-61-part-2-skao-construction-commencement-ceremony-australia/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[Ethnoastronomy]]></category>
+		<category><![CDATA[Instrumentation]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;In the second part of Episode 61, Jacinta takes us on a journey to the SKA-low site in Western Australia and shares her experience of the Construction Commencement Ceremony for the Square Kilometre Array that took place in December.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-61-part-2-skao-construction-commencement-ceremony-australia/&quot;&gt;Episode 61: Part 2 – SKAO Construction Commencement Ceremony – Australia&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/061_2_The_Cosmic_Savannah-Part_2-SKAO_Construction_Commencement_Ceremony_Australia.mp3" length="27934067" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>60</itunes:episode>
+		<podcast:episode>60</podcast:episode>
+		<itunes:title>Episode 60: Part 2 - SKAO Construction Commencement Ceremony - Australia</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>35:02</itunes:duration>
+	</item>
+	<item>
+		<title>Part 1 - SKAO Construction Commencement Ceremony - South Africa</title>
+		<link>https://thecosmicsavannah.com/episode-61-part-1-skao-construction-commencement-ceremony-south-africa/</link>
+		<pubDate>Thu, 27 Jul 2023 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3884</guid>
+		<comments>https://thecosmicsavannah.com/episode-61-part-1-skao-construction-commencement-ceremony-south-africa/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-61-part-1-skao-construction-commencement-ceremony-south-africa/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[Exploring Africa]]></category>
+		<category><![CDATA[Instrumentation]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;Join Episode 61 as Dan reminisces about visiting the SKAO site in South Africa. He shares highlights from the Construction Commencement Ceremony for the Square Kilometre Array. Exciting memories unfold!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-61-part-1-skao-construction-commencement-ceremony-south-africa/&quot;&gt;Episode 61: Part 1 – SKAO Construction Commencement Ceremony – South Africa&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/061_The_Cosmic_Savannah-Part_1-SKAO_Construction_Commencement_Ceremony_South_Africa.mp3" length="15595761" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>61</itunes:episode>
+		<podcast:episode>61</podcast:episode>
+		<itunes:title>Part 1 - SKAO Construction Commencement Ceremony - South Africa</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>19:02</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 60: Pulsars and possibilities &#8211; a conversation with Jocelyn Bell-Burnell</title>
+		<link>https://thecosmicsavannah.com/episode-60-pulsars-and-possibilities/</link>
+		<pubDate>Wed, 12 Jul 2023 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3874</guid>
+		<comments>https://thecosmicsavannah.com/episode-60-pulsars-and-possibilities/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-60-pulsars-and-possibilities/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[Pulsars]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;In the world of astrophysics, few names shine as brightly as Professor Jocelyn Bell-Burnell. In today&#039;s episode, we are very privileged to welcome Jocelyn as a guest on The Cosmic Savannah. Jocelyn shares with us the full story behind her groundbreaking discovery of pulsars in the 1960s, how she overcame numerous obstacles as a woman in a male-dominated field, and her initiatives for improving diversity in physics and astronomy.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-60-pulsars-and-possibilities/&quot;&gt;Episode 60: Pulsars and possibilities – a conversation with Jocelyn Bell-Burnell&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/060_2_The_Cosmic_Savannah-Pulsars_and_possibilities.mp3" length="46541876" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>60</itunes:episode>
+		<podcast:episode>60</podcast:episode>
+		<itunes:title>Episode 60: Pulars and possibilities - a conversation with Jocelyn Bell-Burnell</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>59:09</itunes:duration>
+	</item>
+	<item>
+		<title>Pre-season special: What&#8217;s been happening?</title>
+		<link>https://thecosmicsavannah.com/pre-season-special-whats-been-happening/</link>
+		<pubDate>Thu, 01 Jun 2023 05:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3826</guid>
+		<comments>https://thecosmicsavannah.com/pre-season-special-whats-been-happening/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/pre-season-special-whats-been-happening/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[SKA]]></category>
+		<description>&lt;p&gt;The Cosmic Savannah Podcast returns for its 5th season, taking listeners on another captivating cosmic journey. Explore distant galaxies, enigmatic black holes, and groundbreaking research in Africa. Engaging interviews, discussions, and unravelling the universe&#039;s complexities await. Stay tuned for updates on our website and social media platforms. In this pre-season special, Jacinta and Dan sit down to chat about what we&#039;ve both been up to over the past few months and what we&#039;re looking forward to in the new season, including the SKA Commencement of Construction Ceremonies, the James Webb Space Telescope and Jacinta&#039;s rockstar performance at TEDxMandurah!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/pre-season-special-whats-been-happening/&quot;&gt;Pre-season special: What’s been happening?&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/060_1_The_Cosmic_Savannah-Pre-season_special_What_s_been_happening.mp3" length="5242880" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>60</itunes:episode>
+		<podcast:episode>60</podcast:episode>
+		<itunes:title>Pre-season special: What&#039;s been happening?</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>24:28</itunes:duration>
+		<podcast:transcript url="https://thecosmicsavannah.com/wp-content/uploads/2023/05/Pre-season-special.srt" language="en" type="application/srt" rel="captions" />
+	</item>
+	<item>
+		<title>Episode 59: Construction of the SKA commences!</title>
+		<link>https://thecosmicsavannah.com/episode-59-construction-of-the-ska-commences/</link>
+		<pubDate>Sun, 04 Dec 2022 23:05:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3801</guid>
+		<comments>https://thecosmicsavannah.com/episode-59-construction-of-the-ska-commences/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-59-construction-of-the-ska-commences/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Development]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;The 5th of December 2022 sees the commencement of construction of the long-awaited Square Kilometre Array (SKA)!&lt;br /&gt;
+We are honoured to be joined by the SKA Observatory Council Chairperson, Dr Catherine Cesarsky to talk about this momentous occasion.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-59-construction-of-the-ska-commences/&quot;&gt;Episode 59: Construction of the SKA commences!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/059_The_Cosmic_Savannah-Construction_of_the_SKA_commences_.mp3" length="50015573" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>5</itunes:season>
+		<podcast:season>5</podcast:season>
+		<itunes:episode>59</itunes:episode>
+		<podcast:episode>59</podcast:episode>
+		<itunes:title>Episode 59: Construction of the SKA commences!</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>52:05</itunes:duration>
+		<podcast:transcript url="https://thecosmicsavannah.com/wp-content/uploads/2022/12/Transcript-E59.txt" language="en-za" type="text/plain" rel="captions" />
+	</item>
+	<item>
+		<title>Episode 58: Season 4 in Review</title>
+		<link>https://thecosmicsavannah.com/episode-58-season-4-in-review/</link>
+		<pubDate>Tue, 21 Jun 2022 07:19:34 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3772</guid>
+		<comments>https://thecosmicsavannah.com/episode-58-season-4-in-review/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-58-season-4-in-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Other]]></category>
+		<description>&lt;p&gt;In this week&#039;s episode, Jacinta and Dan take a step back to review the past year of the Cosmic Savannah podcast. We chat about some of the highlights of the past year in astronomy and also some of our favourite episodes of the season.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-58-season-4-in-review/&quot;&gt;Episode 58: Season 4 in Review&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/058_The_Cosmic_Savannah-Season_4_in_Review.mp3" length="41314786" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>58</itunes:episode>
+		<podcast:episode>58</podcast:episode>
+		<itunes:title>Episode 58: Season 4 in Review</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>49:42</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 57: From dust to dust</title>
+		<link>https://thecosmicsavannah.com/episode-57-from-dust-to-dust/</link>
+		<pubDate>Tue, 07 Jun 2022 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3748</guid>
+		<comments>https://thecosmicsavannah.com/episode-57-from-dust-to-dust/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-57-from-dust-to-dust/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Astrochemistry]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Simulations]]></category>
+		<description>&lt;p&gt;In this episode we are joined by Dr Omima Osman who studies the lifecycles of cosmic dust. Omima explains how she is using computer simulations to understand how dust is created, grows and is destroyed in interstellar space.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-57-from-dust-to-dust/&quot;&gt;Episode 57: From dust to dust&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/057_The_Cosmic_Savannah-From_dust_to_dust.mp3" length="36059985" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>57</itunes:episode>
+		<podcast:episode>57</podcast:episode>
+		<itunes:title>Episode 57: From dust to dust </itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>44:40</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 56: Our supermassive black hole</title>
+		<link>https://thecosmicsavannah.com/episode-56-our-supermassive-black-hole/</link>
+		<pubDate>Thu, 26 May 2022 15:10:53 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3730</guid>
+		<comments>https://thecosmicsavannah.com/episode-56-our-supermassive-black-hole/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-56-our-supermassive-black-hole/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Milky Way]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;The Event Horizon Telescope (EHT) Collaboration has unveiled the first image of the supermassive black hole at the centre of our own Milky Way galaxy! &lt;/p&gt;
+&lt;p&gt;We are joined by Dr Iniyan Natarajan who is a postdoctoral fellow at the University of Witwatersrand and who was part of the team of over 300 astronomers who made this possible.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-56-our-supermassive-black-hole/&quot;&gt;Episode 56: Our supermassive black hole&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/056_The_Cosmic_Savannah-Our_supermassive_black_hole_v2.mp3" length="92747934" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>56</itunes:episode>
+		<podcast:episode>56</podcast:episode>
+		<itunes:title>Episode 56: Our supermassive black hole</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>38:38</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 55: A Trip Down Under (Re-run)</title>
+		<link>https://thecosmicsavannah.com/episode-55-a-trip-down-under-re-run/</link>
+		<pubDate>Tue, 10 May 2022 11:33:56 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3710</guid>
+		<comments>https://thecosmicsavannah.com/episode-55-a-trip-down-under-re-run/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-55-a-trip-down-under-re-run/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;An oldie but a goodie - re-run of Episode 11. Jacinta takes us on a tour of her homeland, into the Australian bush, and chats about pathfinders, precursor telescopes and exciting collaborations between South Africa and Australia in the lead up to the Square Kilometre Array!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-55-a-trip-down-under-re-run/&quot;&gt;Episode 55: A Trip Down Under (Re-run)&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/055_The_Cosmic_Savannah-A_Trip_Down_Under_Re-run_.mp3" length="48532103" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>55</itunes:episode>
+		<podcast:episode>55</podcast:episode>
+		<itunes:title>Episode 55: A Trip Down Under (Re-run)</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>57:50</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 54: The African Network of Women in Astronomy</title>
+		<link>https://thecosmicsavannah.com/episode-54-the-african-network-of-women-in-astronomy/</link>
+		<pubDate>Tue, 26 Apr 2022 12:50:19 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3682</guid>
+		<comments>https://thecosmicsavannah.com/episode-54-the-african-network-of-women-in-astronomy/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-54-the-african-network-of-women-in-astronomy/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[People]]></category>
+		<description>&lt;p&gt;In this week&#039;s episode we are joined by fours members of the board of the recently established African Network of Women in Astronomy (AfNWA).&lt;br /&gt;
+AfNWA is an initiative that aims to connect women working in astronomy and related fields in Africa. AfNWA aims to guarantee the future participation of girls and women at all levels in astronomy and science developments in Africa. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-54-the-african-network-of-women-in-astronomy/&quot;&gt;Episode 54: The African Network of Women in Astronomy&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/054_The_Cosmic_Savannah-The_African_Network_of_Women_in_Astronomy.mp3" length="107814936" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>54</itunes:episode>
+		<podcast:episode>54</podcast:episode>
+		<itunes:title>Episode 54: The African Network of Women in Astronomy</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>44:55</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 53: Space lasers!</title>
+		<link>https://thecosmicsavannah.com/episode-53-space-lasers/</link>
+		<pubDate>Tue, 12 Apr 2022 13:53:12 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3656</guid>
+		<comments>https://thecosmicsavannah.com/episode-53-space-lasers/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-53-space-lasers/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<description>&lt;p&gt;A powerful, naturally occurring “space laser”, called a megamaser, has been discovered with South Africa’s MeerKAT radio telescope in a galaxy nearly five billion light-years away. &lt;/p&gt;
+&lt;p&gt;We speak with the lead researcher Dr. Marcin Glowacki and team-lead Associate Professor Sarah Blyth.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-53-space-lasers/&quot;&gt;Episode 53: Space lasers!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/053_The_Cosmic_Savannah-Space_lasers_.mp3" length="125255981" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>53</itunes:episode>
+		<podcast:episode>53</podcast:episode>
+		<itunes:title>Episode 53: Space Lasers!</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>52:11</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 52: Head Space</title>
+		<link>https://thecosmicsavannah.com/episode-52-head-space/</link>
+		<pubDate>Tue, 29 Mar 2022 12:32:37 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3635</guid>
+		<comments>https://thecosmicsavannah.com/episode-52-head-space/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-52-head-space/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Other]]></category>
+		<category><![CDATA[People]]></category>
+		<description>&lt;p&gt;In this week’s episode, we take a step back from astronomy and focus on mental health in academia and beyond. We are joined by Dr Jack Radcliffe, an astronomer from the University of Pretoria who speaks to us about his work on galaxy evolution, as well his recent efforts to speak out about mental health challenges facing academics in particular.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-52-head-space/&quot;&gt;Episode 52: Head Space&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/052_The_Cosmic_Savannah-Head_Space.mp3" length="141917165" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>52</itunes:episode>
+		<podcast:episode>52</podcast:episode>
+		<itunes:title>Episode 52: Head Space</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>59:08</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 51: No Planet B</title>
+		<link>https://thecosmicsavannah.com/episode-51-no-planet-b/</link>
+		<pubDate>Tue, 15 Mar 2022 05:32:25 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3614</guid>
+		<comments>https://thecosmicsavannah.com/episode-51-no-planet-b/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-51-no-planet-b/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[Conservation]]></category>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[People]]></category>
+		<description>&lt;p&gt;We are joined by Prof Travis Rector, co-founder of Astronomers for Planet Earth, who chats about why and how astronomers can teach climate change!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-51-no-planet-b/&quot;&gt;Episode 51: No Planet B&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/051_The_Cosmic_Savannah-No_Planet_B.mp3" length="117386318" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>51</itunes:episode>
+		<podcast:episode>51</podcast:episode>
+		<itunes:title>Episode 51: No Planet B</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>48:54</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 50: Titans of Astronomy</title>
+		<link>https://thecosmicsavannah.com/episode-50-titans-of-astronomy/</link>
+		<pubDate>Thu, 03 Mar 2022 04:43:59 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3583</guid>
+		<comments>https://thecosmicsavannah.com/episode-50-titans-of-astronomy/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-50-titans-of-astronomy/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[All episodes]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;In celebration of our 50th Episode, we are joined by a Titan of Astronomy, Dr Bernie Fanaroff, who speaks with us about his illustrious career and his vision for the future of astronomy in Africa&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-50-titans-of-astronomy/&quot;&gt;Episode 50: Titans of Astronomy&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/050_The_Cosmic_Savannah-Titans_of_Astronomy.mp3" length="127308502" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>50</itunes:episode>
+		<podcast:episode>50</podcast:episode>
+		<itunes:title>Episode 50: Titans of Astronomy</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>53:02</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 49: SALT Spectroscopy</title>
+		<link>https://thecosmicsavannah.com/episode-49-salt-spectroscopy/</link>
+		<pubDate>Mon, 14 Feb 2022 23:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3552</guid>
+		<comments>https://thecosmicsavannah.com/episode-49-salt-spectroscopy/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-49-salt-spectroscopy/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Instrumentation]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;This episode is in celebration of the IAU Women and Girls in Astronomy Month in February. We speak with Dr Elizabeth Naluminsa who is one of the first Ugandan women to obtain her PhD in astronomy is now working with instrumentation on the Southern African Large Telescope (SALT).&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-49-salt-spectroscopy/&quot;&gt;Episode 49: SALT Spectroscopy&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/049_The_Cosmic_Savannah-SALT_Spectroscopy.mp3" length="124231832" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>49</itunes:episode>
+		<podcast:episode>49</podcast:episode>
+		<itunes:title>Episode 49: SALT Spectroscopy</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>51:46</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 48: ATLAS &#8211; Holding up the Heavens!</title>
+		<link>https://thecosmicsavannah.com/episode-48-atlas-holding-up-the-heavens/</link>
+		<pubDate>Tue, 01 Feb 2022 18:01:44 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3530</guid>
+		<comments>https://thecosmicsavannah.com/episode-48-atlas-holding-up-the-heavens/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-48-atlas-holding-up-the-heavens/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Asteroids]]></category>
+		<category><![CDATA[Instrumentation]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;We&#039;re joined by SAAO Astronomer Dr Nic Erasmus who has been responsible for the newest telescope on the SAAO site (And he&#039;s just had a comet named after him!)&lt;/p&gt;
+&lt;p&gt;Sutherland has become the latest observatory to host an asteroid tracking system funded by NASA!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-48-atlas-holding-up-the-heavens/&quot;&gt;Episode 48: ATLAS – Holding up the Heavens!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/048_The_Cosmic_Savannah-ATLAS-Holding_up_the_Heavens_.mp3" length="98721812" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>48</itunes:episode>
+		<podcast:episode>48</podcast:episode>
+		<itunes:title>Episode 48: ATLAS - Holding up the Heavens!</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>41:08</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 47: SALT and Near-Earth Asteroids (re-run)</title>
+		<link>https://thecosmicsavannah.com/episode-47-salt-and-near-earth-asteroids-re-run/</link>
+		<pubDate>Thu, 27 Jan 2022 09:23:19 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3525</guid>
+		<comments>https://thecosmicsavannah.com/episode-47-salt-and-near-earth-asteroids-re-run/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-47-salt-and-near-earth-asteroids-re-run/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Asteroids]]></category>
+		<category><![CDATA[Solar System]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;This is a re-run of the very first episode of The Cosmic Savannah! We&#039;re re-running it in preparation for our next episode where we&#039;ll be speaking again with Nic for some exciting updates. In Episode 1, we introduce ourselves and our vision for the podcast. SALT Astronomer Dr Moses Mogotsi then describes what it&#039;s like to use the biggest optical telescope in the Southern Hemisphere (from 00:12m). Lastly, Dr Nicolas Erasmus tells us about the hunt for near-earth asteroids (from 00:23m) using the ATLAS network. Nic explains how another ATLAS telescope is being installed in South Africa in order to achieve continuous coverage of the Southern night sky.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-47-salt-and-near-earth-asteroids-re-run/&quot;&gt;Episode 47: SALT and Near-Earth Asteroids (re-run)&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/047_The_Cosmic_Savannah-SALT_and_Near-Earth_Asteroids.mp3" length="36547126" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>47</itunes:episode>
+		<podcast:episode>47</podcast:episode>
+		<itunes:title>Episode 47: SALT and Near-Earth Asteroids (re-run)</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>42:08</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 46: A crash of clusters</title>
+		<link>https://thecosmicsavannah.com/episode-46-a-crash-of-clusters/</link>
+		<pubDate>Mon, 06 Dec 2021 07:05:22 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3492</guid>
+		<comments>https://thecosmicsavannah.com/episode-46-a-crash-of-clusters/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-46-a-crash-of-clusters/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Clusters]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[SKA]]></category>
+		<description>&lt;p&gt;In this episode, we are joined by Dr Kenda Knowles. Kenda has just released a beautiful new dataset called the MeerKAT Galaxy Cluster Legacy Survey (MGCLS). The survey contains images of the radio emission from 115 clusters of galaxies!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-46-a-crash-of-clusters/&quot;&gt;Episode 46: A crash of clusters&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/046_The_Cosmic_Savannah-A_crash_of_clusters.mp3" length="106317818" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>46</itunes:episode>
+		<podcast:episode>46</podcast:episode>
+		<itunes:title>Episode 46: A crash of clusters</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>44:18</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 45: The James Webb Space Telescope</title>
+		<link>https://thecosmicsavannah.com/episode-45-the-james-webb-space-telescope/</link>
+		<pubDate>Mon, 22 Nov 2021 06:04:49 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3482</guid>
+		<comments>https://thecosmicsavannah.com/episode-45-the-james-webb-space-telescope/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-45-the-james-webb-space-telescope/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Cosmology]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;The long-awaited James Webb Space Telescope will finally launch into space on December 18 2021! In this episode we are joined by Prof Christy Tremonti who is a professor at the University of Wisconsin, Madison. She is an observational astronomer who works on galaxy evolution and stellar feedback processes. Christy speaks with us about her work, the JWST and the exciting future that awaits!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-45-the-james-webb-space-telescope/&quot;&gt;Episode 45: The James Webb Space Telescope&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/045_The_Cosmic_Savannah-The_James_Webb_Space_Telescope.mp3" length="26273702" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>45</itunes:episode>
+		<podcast:episode>45</podcast:episode>
+		<itunes:title>Episode 45: The James Webb Space Telescope</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>35:53</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 44: Stars behaving badly! (Re-run)</title>
+		<link>https://thecosmicsavannah.com/episode-44-stars-behaving-badly-re-run/</link>
+		<pubDate>Mon, 08 Nov 2021 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3477</guid>
+		<comments>https://thecosmicsavannah.com/episode-44-stars-behaving-badly-re-run/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-44-stars-behaving-badly-re-run/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[Stars]]></category>
+		<description>&lt;p&gt;We are joined by two experts in stellar astronomy, Priscilla Muheki from Mbarara University of Science and Technology, Uganda and Distinguished Professor Hakeem Oluseyi from the Florida Institute of Technology. Priscilla talks about her PhD research in Uganda studying violent outbursts, known as coronal mass ejections, from certain types of stars. Hakeem then goes on the explain these coronal mass ejections and the violent magnetic fields associated with them, and what effect they may have on both our technology and our entire planet!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-44-stars-behaving-badly-re-run/&quot;&gt;Episode 44: Stars behaving badly! (Re-run)&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/The_CS_ep44.mp3" length="124106672" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>44</itunes:episode>
+		<podcast:episode>44</podcast:episode>
+		<itunes:title>Episode 44: Stars behaving badly! (Re-run)</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>51:43</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 43: The search for hidden hydrogen</title>
+		<link>https://thecosmicsavannah.com/episode-43-the-search-for-hidden-hydrogen/</link>
+		<pubDate>Mon, 25 Oct 2021 05:52:07 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3454</guid>
+		<comments>https://thecosmicsavannah.com/episode-43-the-search-for-hidden-hydrogen/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-43-the-search-for-hidden-hydrogen/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<description>&lt;p&gt;In this episode, we are joined by Dr Tariq Blecher and Shilpa Ranchod who talk to us about the clever ways they are trying to capture the elusive signals of hydrogen gas in the distant Universe. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-43-the-search-for-hidden-hydrogen/&quot;&gt;Episode 43: The search for hidden hydrogen&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/043_The_Cosmic_Savannah-The_search_for_hidden_hydrogen.mp3" length="108225217" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>43</itunes:episode>
+		<podcast:episode>43</podcast:episode>
+		<itunes:title>Episode 43: The search for hidden hyrogen</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>45:05</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 42: Rockin&#8217; all over the World</title>
+		<link>https://thecosmicsavannah.com/episode-42-rockin-all-over-the-world/</link>
+		<pubDate>Mon, 11 Oct 2021 00:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3438</guid>
+		<comments>https://thecosmicsavannah.com/episode-42-rockin-all-over-the-world/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-42-rockin-all-over-the-world/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Astrobiology]]></category>
+		<category><![CDATA[Astrochemistry]]></category>
+		<category><![CDATA[Geology]]></category>
+		<category><![CDATA[Solar System]]></category>
+		<description>&lt;p&gt;We are joined by Dr Eugene Grosch who is a geologist and petrologist at Rhodes University in South Africa to discuss how planets create the building blocks for life!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-42-rockin-all-over-the-world/&quot;&gt;Episode 42: Rockin’ all over the World&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/042_The_Cosmic_Savannah-Rockin_All_Over_the_World.mp3" length="118232996" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>42</itunes:episode>
+		<podcast:episode>42</podcast:episode>
+		<itunes:title>Episode 42: Rockin&#039; all over the World</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>49:16</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 41: How to Train Your Galaxy</title>
+		<link>https://thecosmicsavannah.com/episode-41-how-to-train-your-galaxy/</link>
+		<pubDate>Mon, 27 Sep 2021 02:39:35 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3430</guid>
+		<comments>https://thecosmicsavannah.com/episode-41-how-to-train-your-galaxy/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-41-how-to-train-your-galaxy/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Astrochemistry]]></category>
+		<category><![CDATA[Cosmology]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Simulations]]></category>
+		<description>&lt;p&gt;We are joined by Dr Rob Yates, from the University of Surrey, who chats with us about how to recreate the formation of galaxies inside a supercomputer!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-41-how-to-train-your-galaxy/&quot;&gt;Episode 41: How to Train Your Galaxy&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/041_The_Cosmic_Savannah-How_to_train_your_galaxy.mp3" length="99398191" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>41</itunes:episode>
+		<podcast:episode>41</podcast:episode>
+		<itunes:title>Episode 41: How to train your galaxy</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>41:25</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 40: The mystery of the Fast Radio Burst</title>
+		<link>https://thecosmicsavannah.com/episode-40-the-mystery-of-the-fast-radio-burst/</link>
+		<pubDate>Mon, 13 Sep 2021 02:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3364</guid>
+		<comments>https://thecosmicsavannah.com/episode-40-the-mystery-of-the-fast-radio-burst/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-40-the-mystery-of-the-fast-radio-burst/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Fast Radio Bursts]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Pulsars]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;This episode we speak with Dr Marisa Geyer. She is a pulsar astronomer and Commissioning Scientist at the South African Radio Astronomy Observatory (SARAO) in Cape Town, South Africa.  MeerKAT telescope. She also explains her research on pulsars and mysterious Fast Radio Bursts (FRBs). We don&#039;t yet know what causes FRBs, but Marisa reveals some enticing clues!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-40-the-mystery-of-the-fast-radio-burst/&quot;&gt;Episode 40: The mystery of the Fast Radio Burst&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/040_The_Cosmic_Savannah-The_mystery_of_the_fast_radio_burst.mp3" length="51613014" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>40</itunes:episode>
+		<podcast:episode>40</podcast:episode>
+		<itunes:title>Episode 30: The mystery of the Fast Radio Burst</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>53:45</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 39: Erupting novae</title>
+		<link>https://thecosmicsavannah.com/episode-39-erupting-novae/</link>
+		<pubDate>Mon, 30 Aug 2021 03:56:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3367</guid>
+		<comments>https://thecosmicsavannah.com/episode-39-erupting-novae/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-39-erupting-novae/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Stars]]></category>
+		<category><![CDATA[Transients]]></category>
+		<description>&lt;p&gt;In this week&#039;s episode, we are joined by Dr Miriam Nyamai who studies thermonuclear eruptions on the surface of white dwarf stars! Miriam explains how these &quot;novae&quot; eruptions occur and what we can learn from them. She also describes her role as a postdoctoral researcher hunting for transient events in the sky using radio telescopes such as MeerKAT. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-39-erupting-novae/&quot;&gt;Episode 39: Erupting novae&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/039_The_Cosmic_Savannah-Erupting_novae_v2.mp3" length="80117589" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>39</itunes:episode>
+		<podcast:episode>39</podcast:episode>
+		<itunes:title>Episode 39: Erupting novae</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>33:23</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 38: Rise of the machines</title>
+		<link>https://thecosmicsavannah.com/episode-38-rise-of-the-machines/</link>
+		<pubDate>Mon, 16 Aug 2021 08:31:51 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3344</guid>
+		<comments>https://thecosmicsavannah.com/episode-38-rise-of-the-machines/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-38-rise-of-the-machines/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Machine Learning]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[Transients]]></category>
+		<description>&lt;p&gt;We are joined by Dr Michelle Lochner who is a senior lecturer at the University of the Western Cape, Cape Town, South Africa.&lt;br /&gt;
+Michelle is developing new machine learning and artificial intelligence (AI) tools to analyse the massive astronomical datasets of next- generation telescopes.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-38-rise-of-the-machines/&quot;&gt;Episode 38: Rise of the machines&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/038_The_Cosmic_Savannah-Rise_of_the_machines.mp3" length="104309143" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>38</itunes:episode>
+		<podcast:episode>38</podcast:episode>
+		<itunes:title>Episode 38: Rise of the machines</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>43:27</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 37: Square Kilometre Array telescope is go for construction!</title>
+		<link>https://thecosmicsavannah.com/episode-37-square-kilometre-array-telescope-is-go-for-construction/</link>
+		<pubDate>Mon, 02 Aug 2021 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3235</guid>
+		<comments>https://thecosmicsavannah.com/episode-37-square-kilometre-array-telescope-is-go-for-construction/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-37-square-kilometre-array-telescope-is-go-for-construction/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;Welcome to Season Four! We start with a bang and speak with the Director General of the Square Kilometre Array Telescope, Prof Phil Diamond! Phil tells us how it feels to finally have the green light for construction of this giant telescope, after nearly 30 years of preparation.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-37-square-kilometre-array-telescope-is-go-for-construction/&quot;&gt;Episode 37: Square Kilometre Array telescope is go for construction!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/037_The_Cosmic_Savannah-Square_Kilometre_Array_Telescope_is_go_for_construction_.mp3" length="51437867" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>4</itunes:season>
+		<podcast:season>4</podcast:season>
+		<itunes:episode>37</itunes:episode>
+		<podcast:episode>37</podcast:episode>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>53:34</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 36: A Year in Review</title>
+		<link>https://thecosmicsavannah.com/episode-36-another-year-in-review/</link>
+		<pubDate>Thu, 01 Apr 2021 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3204</guid>
+		<comments>https://thecosmicsavannah.com/episode-36-another-year-in-review/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-36-another-year-in-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Other]]></category>
+		<description>&lt;p&gt;Episode 36 marks the second anniversary of The Cosmic Savannah. We take the opportunity to reflect on what has been a very different year, but not without some great fun and highlights. Jacinta and Dan talk through some of their favourite moments from the past year.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-36-another-year-in-review/&quot;&gt;Episode 36: Another Year in Review&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/036_The_Cosmic_Savannah-Another_Year_in_Review.mp3" length="27330028" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>36</itunes:episode>
+		<podcast:episode>36</podcast:episode>
+		<itunes:title>Episode 36: A Year in Review</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>30:32</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 35: Rising Stars</title>
+		<link>https://thecosmicsavannah.com/episode-35-rising-stars/</link>
+		<pubDate>Thu, 18 Mar 2021 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3181</guid>
+		<comments>https://thecosmicsavannah.com/episode-35-rising-stars/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-35-rising-stars/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[People]]></category>
+		<description>&lt;p&gt;This week we feature some rising stars in African Astronomy! We&#039;re joined by high school learners Indiphile Madletyana and Thabo Maliea who both show great promise as aspiring astronomers, as well as Masters students Sumari Hattingh and Reikantseone Diretse who discuss studies of galaxy clusters using the Hubble Space Telescope. Check out the show notes at www.thecosmicsavannah.com for related links, pics, info and the full transcript.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-35-rising-stars/&quot;&gt;Episode 35: Rising Stars&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/035_The_Cosmic_Savannah-Rising_Stars.mp3" length="37002469" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>35</itunes:episode>
+		<podcast:episode>35</podcast:episode>
+		<itunes:title>Episode 35: Rising Stars</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>43:18</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 34: The Life Cycle of Galaxies</title>
+		<link>https://thecosmicsavannah.com/episode-34-the-life-cycle-of-galaxies/</link>
+		<pubDate>Thu, 04 Mar 2021 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3166</guid>
+		<comments>https://thecosmicsavannah.com/episode-34-the-life-cycle-of-galaxies/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-34-the-life-cycle-of-galaxies/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;This episode we hear from a familiar voice! SALT Astronomer Dr Moses Mogotsi was our first ever guest on The Cosmic Savannah. He joins us again to explain what it&#039;s like to observe in the time of COVID and to tell us more about his research on galaxies. We learn about how observing galaxies in different wavelengths and with different telescopes can add to our overall understanding of how galaxies evolve. Check out the show notes at www.thecosmicsavannah.com for related links, pics, info and the full transcript.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-34-the-life-cycle-of-galaxies/&quot;&gt;Episode 34: The Life Cycle of Galaxies&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/034_The_Cosmic_Savannah-The_life_cycle_of_galaxies.mp3" length="36491746" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>34</itunes:episode>
+		<podcast:episode>34</podcast:episode>
+		<itunes:title>Episode 34: The Life Cycle of Galaxies</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>43:58</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 33: Mars Rovers and the South African National Space Agency</title>
+		<link>https://thecosmicsavannah.com/episode-33-mars-rovers-and-the-south-african-national-space-agency/</link>
+		<pubDate>Tue, 16 Feb 2021 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3154</guid>
+		<comments>https://thecosmicsavannah.com/episode-33-mars-rovers-and-the-south-african-national-space-agency/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-33-mars-rovers-and-the-south-african-national-space-agency/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Mars]]></category>
+		<category><![CDATA[Perseverance]]></category>
+		<category><![CDATA[Rover]]></category>
+		<category><![CDATA[SANSA]]></category>
+		<description>&lt;p&gt;with Tiaan Strydom February 18 2021 will see NASA’s latest Mars Rover, Perseverance, land on the red planet. We are joined by Tiaan Strydom, the Business Development Manager at the […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-33-mars-rovers-and-the-south-african-national-space-agency/&quot;&gt;Episode 33: Mars Rovers and the South African National Space Agency&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/033_The_Cosmic_Savannah-Mars_Rovers_and_the_South_African_National_Space_Agency.mp3" length="25831642" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>33</itunes:episode>
+		<podcast:episode>33</podcast:episode>
+		<itunes:title>Episode 33: Mars Rovers and the South African National Space Agency</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>30:17</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 32: The MeerKAT Fornax Survey</title>
+		<link>https://thecosmicsavannah.com/episode-32-the-meerkat-fornax-survey/</link>
+		<pubDate>Thu, 04 Feb 2021 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3134</guid>
+		<comments>https://thecosmicsavannah.com/episode-32-the-meerkat-fornax-survey/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-32-the-meerkat-fornax-survey/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Galaxies]]></category>
+		<description>&lt;p&gt;In this episode we will be discussing some more exciting work being conducted with the MeerKAT radio telescope. We&#039;re joined by Dr Paola Serra from the Cagliari Astronomical Observatory in Italy. He chats with us about the MeerKAT Fornax Survey and the search for the missing gas in the Fornax galaxy cluster.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-32-the-meerkat-fornax-survey/&quot;&gt;Episode 32: The MeerKAT Fornax Survey&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/032_The_Cosmic_Savannah-The_MeerKAT_Fornax_Survey.mp3" length="25195672" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>32</itunes:episode>
+		<podcast:episode>32</podcast:episode>
+		<itunes:title>Episode 32: The MeerKAT Fornax Survey</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>27:49</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 31: Cosmic Beasts and Where to Find Them</title>
+		<link>https://thecosmicsavannah.com/cosmic-beasts-and-where-to-find-them/</link>
+		<pubDate>Mon, 18 Jan 2021 06:00:35 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3108</guid>
+		<comments>https://thecosmicsavannah.com/cosmic-beasts-and-where-to-find-them/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/cosmic-beasts-and-where-to-find-them/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<description>&lt;p&gt;This year we get off with a bang as our very own Jacinta has a new paper out and takes her turn in the hot seat to tell us all about it! Along with her colleagues, she has been part of the discovery of two giant radio galaxies using South Africa&#039;s powerful MeerKAT telescope. These galaxies are amongst the largest single objects in the Universe and are thought to be quite rare. The fact that MeerKAT detected two of these monsters in a relatively small patch of the sky suggests that giant radio galaxies may actually be much more common than previously thought.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/cosmic-beasts-and-where-to-find-them/&quot;&gt;Episode 31: Cosmic Beasts and Where to Find Them&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/031_The_Cosmic_Savannah-Cosmic_Beasts_and_Where_to_Find_Them_.mp3" length="32383628" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>31</itunes:episode>
+		<podcast:episode>31</podcast:episode>
+		<itunes:title>Episode 31: Cosmic Beasts and Where to Find Them</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>37:00</itunes:duration>
+	</item>
+	<item>
+		<title>Bonus: Rerun &#8211; Event Horizon Telescope</title>
+		<link>https://thecosmicsavannah.com/bonus-rerun-event-horizon-telescope/</link>
+		<pubDate>Wed, 23 Dec 2020 10:54:54 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3102</guid>
+		<comments>https://thecosmicsavannah.com/bonus-rerun-event-horizon-telescope/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/bonus-rerun-event-horizon-telescope/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;This holiday bonus episode is a re-run of Episode 5 from Season 1. We chat about about supermassive black holes, the Event Horizon Telescope and the African Millimetre Telescope. This bonus episode is in celebration of the 2020 Nobel Prize in Physics which was awarded to three astrophysicists for their black hole-related research.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/bonus-rerun-event-horizon-telescope/&quot;&gt;Bonus: Rerun – Event Horizon Telescope&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/030_5_The_Cosmic_Savannah-Rerun_Event_Horizon_Telescope.mp3" length="40410900" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:title>Bonus: Rerun - Event Horizon Telescope</itunes:title>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>49:20</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 30: Pretty Planetary Nebulae</title>
+		<link>https://thecosmicsavannah.com/episode-30-pretty-planetary-nebulae/</link>
+		<pubDate>Thu, 10 Dec 2020 04:00:31 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3082</guid>
+		<comments>https://thecosmicsavannah.com/episode-30-pretty-planetary-nebulae/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-30-pretty-planetary-nebulae/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Stars]]></category>
+		<category><![CDATA[nassp]]></category>
+		<category><![CDATA[Planetary nebula]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[SALT]]></category>
+		<category><![CDATA[tess]]></category>
+		<description>&lt;p&gt;Kelebogile Bonokwane talks with us about her MSc project investigating potential binary stars hiding in the centres of magnificent planetary nebulae. Her work utilises the Southern African Large Telescope (SALT) as well as NASA’s Transiting Exoplanet Survey Satellite (TESS).&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-30-pretty-planetary-nebulae/&quot;&gt;Episode 30: Pretty Planetary Nebulae&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/030_The_Cosmic_Savannah-Pretty_Planetrary_Nebulae.mp3" length="23542922" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>30</itunes:episode>
+		<podcast:episode>30</podcast:episode>
+		<itunes:title>Episode 30: Pretty Planetary Nebulae</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>28:00</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 29: Zombies of the Cosmos</title>
+		<link>https://thecosmicsavannah.com/episode-29-zombies-of-the-cosmos/</link>
+		<pubDate>Thu, 26 Nov 2020 04:00:04 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3049</guid>
+		<comments>https://thecosmicsavannah.com/episode-29-zombies-of-the-cosmos/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-29-zombies-of-the-cosmos/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[Pulsars]]></category>
+		<category><![CDATA[Stars]]></category>
+		<category><![CDATA[gravitational-waves]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[meertime]]></category>
+		<category><![CDATA[Neutron-star]]></category>
+		<category><![CDATA[pulsar]]></category>
+		<category><![CDATA[zombie]]></category>
+		<description>&lt;p&gt;This week we learn all about neutron stars and pulsars, which can be thought of as the &quot;corpses&quot; of dead giant stars. We are firstly joined by Prof Matthew Bailes who tells us all about using the MeerKAT telescope to study pulsars. We then hear from award-winning science journalist Katia Moskvitch about her new book &quot;Neutron stars: The Quest to Understand the Zombies of the Cosmos.&quot;&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-29-zombies-of-the-cosmos/&quot;&gt;Episode 29: Zombies of the Cosmos&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/029_The_Cosmic_Savannah-Zombies_of_the_Cosmos.mp3" length="43865271" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>29</itunes:episode>
+		<podcast:episode>29</podcast:episode>
+		<itunes:title>Episode 29: Zombies of the Cosmos</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>50:24</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 28: Under a Shared Sky</title>
+		<link>https://thecosmicsavannah.com/episode-28-under-a-shared-sky/</link>
+		<pubDate>Thu, 12 Nov 2020 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3029</guid>
+		<comments>https://thecosmicsavannah.com/episode-28-under-a-shared-sky/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-28-under-a-shared-sky/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Ethnoastronomy]]></category>
+		<description>&lt;p&gt;Join us this week as we explore the &#039;Intimate Cosmology&#039; of the indigenous people of South Africa, and the importance of preserving these stories for future generations. Check out the full show notes at www.thecosmicsavannah.com for more info, pictures, related links and the full transcript.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-28-under-a-shared-sky/&quot;&gt;Episode 28: Under a Shared Sky&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/028_The_Cosmic_Savannah-Under_a_Shared_Sky.mp3" length="5242880" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>28</itunes:episode>
+		<podcast:episode>28</podcast:episode>
+		<itunes:title>Episode 28: Under a Shared Sky</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>40:26</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 27: A Bamboo Planetarium</title>
+		<link>https://thecosmicsavannah.com/episode-27-a-bamboo-planetarium/</link>
+		<pubDate>Thu, 29 Oct 2020 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=3002</guid>
+		<comments>https://thecosmicsavannah.com/episode-27-a-bamboo-planetarium/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-27-a-bamboo-planetarium/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Exploring Africa]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[africa]]></category>
+		<category><![CDATA[astronomers without borders]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[bamboo]]></category>
+		<category><![CDATA[outreach]]></category>
+		<category><![CDATA[Planetarium]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[sustainability]]></category>
+		<category><![CDATA[telescope]]></category>
+		<description>&lt;p&gt;This week&#039;s episode sees us celebrate SAAO&#039;s 200th anniversary, Dan premiering a full-length planetarium show, and the inspiring work being done by The Travelling Telescope in Kenya.&lt;br /&gt;
+Check out the full show notes at www.thecosmicsavannah.com for more info, pictures, related links and the full transcript.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-27-a-bamboo-planetarium/&quot;&gt;Episode 27: A Bamboo Planetarium&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/027_The_Cosmic_Savannah-A_Bamboo_Planetarium.mp3" length="33850609" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>27</itunes:episode>
+		<podcast:episode>27</podcast:episode>
+		<itunes:title>Episode 27: A Bamboo Telescope</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>39:35</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 26: Beyond 200 years of astronomy in South Africa</title>
+		<link>https://thecosmicsavannah.com/episode-26-beyond-200-years-of-astronomy-in-south-africa/</link>
+		<pubDate>Thu, 15 Oct 2020 04:00:42 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2979</guid>
+		<comments>https://thecosmicsavannah.com/episode-26-beyond-200-years-of-astronomy-in-south-africa/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-26-beyond-200-years-of-astronomy-in-south-africa/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Development]]></category>
+		<category><![CDATA[History]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Stars]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[-compact-binary]]></category>
+		<category><![CDATA[#womeninscience]]></category>
+		<category><![CDATA[astrofest]]></category>
+		<category><![CDATA[IAU]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Neutron-star]]></category>
+		<category><![CDATA[OAD]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[SALT]]></category>
+		<category><![CDATA[UCT]]></category>
+		<category><![CDATA[Vanessa McBride]]></category>
+		<category><![CDATA[xray-binary]]></category>
+		<category><![CDATA[Zooniverse]]></category>
+		<description>&lt;p&gt;Welcome to Season 3 of The Cosmic Savannah! This week we get up to speed with all the activities over the break, hear from Assoc Prof Vanessa McBride joins about the Office of Astronomy for Development (OAD) and her role as Head of Research at the SAAO, and her own research in the field of compact binary stars. We also discuss the objectives of the OAD, acknowledging South Africa&#039;s difficult past, in striving for an equal and inclusive future for all, in astronomy and beyond.&lt;br /&gt;
+Check out the show notes at www.thecosmicsavannah.com for more info, pictures, links, and the transcript of this episode.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-26-beyond-200-years-of-astronomy-in-south-africa/&quot;&gt;Episode 26: Beyond 200 years of astronomy in South Africa&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/026_1_The_Cosmic_Savannah-Beyond_200_years_of_astronomy_in_South_Africa.mp3" length="40282592" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>3</itunes:season>
+		<podcast:season>3</podcast:season>
+		<itunes:episode>26</itunes:episode>
+		<podcast:episode>26</podcast:episode>
+		<itunes:title>Episode 26: Beyond 200 years of astronomy in South Africa</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>46:27</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode 8: Capturing the whispers of hydrogen</title>
+		<link>https://thecosmicsavannah.com/mini-episode-8-capturing-the-whispers-of-hydrogen/</link>
+		<pubDate>Fri, 02 Oct 2020 04:09:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2958</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-8-capturing-the-whispers-of-hydrogen/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-8-capturing-the-whispers-of-hydrogen/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[SNR]]></category>
+		<category><![CDATA[Spectral line]]></category>
+		<description>&lt;p&gt;In this mini episode, we chat to Andrew “Andy” Firth, a Masters students at the South African Astronomical Observatory and the University of Cape Town. Andrew tries to detect the faint signals of hydrogen gas in distant galaxies. He is creating an algorithm for stacking data cubes of these galaxies. This clever new technique will be used alongside high-quality MeerKAT radio telescope data. Check out the show notes at www.thecosmicsavannah.com for more info, pictures, links and the transcript of this episode.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-8-capturing-the-whispers-of-hydrogen/&quot;&gt;Mini Episode 8: Capturing the whispers of hydrogen&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/mini_episode_VIII_the-cosmic-savannah_Capturing_the_whispers_of_hydrogen_Tshiamiso_Andrew_Firth_.mp3" length="8098920" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>2</itunes:season>
+		<podcast:season>2</podcast:season>
+		<itunes:episode>8</itunes:episode>
+		<podcast:episode>8</podcast:episode>
+		<itunes:title> Mini Episode: Capturing the whispers of hydrogen</itunes:title>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>14:10</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode 7: Beyond the zone of avoidance</title>
+		<link>https://thecosmicsavannah.com/mini-episode-beyond-the-zone-of-avoidance/</link>
+		<pubDate>Thu, 24 Sep 2020 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2915</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-beyond-the-zone-of-avoidance/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-beyond-the-zone-of-avoidance/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Clusters]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[galactic plane survey]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[Vela supercluster]]></category>
+		<category><![CDATA[Zone of Avoidance]]></category>
+		<description>&lt;p&gt;Today we chat with Sambatriniaina Rajohnson about her work on the Galactic Plane Survey and the Zone of Avoidance.&lt;br /&gt;
+Check out the full show notes at www.thecosmicsavannah for more info, pictures, related links and the full transcript.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-beyond-the-zone-of-avoidance/&quot;&gt;Mini Episode 7: Beyond the zone of avoidance&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/mini_007_the-cosmic-savannah_beyond-the-zone-of-avoidance_tim_sambatra.mp3" length="8622856" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>12:17</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode: The Universe evolves too</title>
+		<link>https://thecosmicsavannah.com/mini-episode-the-universe-evolves-too/</link>
+		<pubDate>Thu, 17 Sep 2020 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2896</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-the-universe-evolves-too/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-the-universe-evolves-too/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Cosmology]]></category>
+		<category><![CDATA[Dark matter]]></category>
+		<category><![CDATA[Universe]]></category>
+		<description>&lt;p&gt;In this week’s mini-episode, we chat with Liantsoa Finaritra Randrianjanahary who is a PhD candidate at the University of the Western Cape (UWC). Liantsoa works in the field of cosmology which means he is researching the whole universe as one entity rather than focusing on the individual contents of the universe such as stars and galaxies. Check out the full show notes at www.thecosmicsavannah.com for more info, pictures, related links and the full transcript.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-the-universe-evolves-too/&quot;&gt;Mini Episode 6: The Universe evolves too&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/mini_006_the-cosmic-savannah_the-universe-evolves-too_robbie_liantsoa.mp3" length="20454921" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>2</itunes:season>
+		<podcast:season>2</podcast:season>
+		<itunes:title>Mini Episode: The Universe Evolves Too</itunes:title>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>8:31</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode: &quot;From Hospitality to aspiring Astronomer&quot;</title>
+		<link>https://thecosmicsavannah.com/mini-episode-from-hospitality-to-aspiring-astronomer/</link>
+		<pubDate>Thu, 10 Sep 2020 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2714</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-from-hospitality-to-aspiring-astronomer/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-from-hospitality-to-aspiring-astronomer/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[cape town]]></category>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[iziko planetarium]]></category>
+		<category><![CDATA[passion]]></category>
+		<category><![CDATA[student]]></category>
+		<category><![CDATA[teaching]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<category><![CDATA[University of Cape Town]]></category>
+		<description>&lt;p&gt;In this mini-episode, we talk with Bret Yotti a student and teaching assistant from the University of Cape Town (UCT) as well as a presenter at the Iziko Planetarium in Cape Town. We look at Bret&#039;s journey in astronomy and why he chose this path. We also find out about his life as a teaching assistant whilst being a student as well at UCT and the work he is doing for the planetarium. Check out the full show notes at www.thecosmicsavannah.com for more info, pictures, transcript and related links.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-from-hospitality-to-aspiring-astronomer/&quot;&gt;Mini Episode 5: “From Hospitality to aspiring Astronomer”&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/mini_005_the-cosmic-savannah_from-hospitality-to-aspiring-astronomer_brandon_brett.mp3" length="6986298" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>2</itunes:season>
+		<podcast:season>2</podcast:season>
+		<itunes:title>Mini Episode: &quot;From Hospitality to aspiring Astronomer&quot;</itunes:title>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>9:11</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode: &quot;But How Does Astronomy Benefit Humanity?!&quot;</title>
+		<link>https://thecosmicsavannah.com/mini-episode-but-how-does-astronomy-benefit-humanity/</link>
+		<pubDate>Thu, 03 Sep 2020 04:00:42 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2702</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-but-how-does-astronomy-benefit-humanity/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-but-how-does-astronomy-benefit-humanity/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[#womeninscience]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[Indigenous Knowledge]]></category>
+		<category><![CDATA[Learning]]></category>
+		<category><![CDATA[Parsec]]></category>
+		<description>&lt;p&gt;In this mini-episode we talk with PhD candidate Tshiamiso Makwela from the University of Cape Town. She shared with us some interesting results from studies answering pressing questions in the field of Astronomy Education Research. Why do students struggle with Astronomy? How can Astronomy be beneficial to society at large? Check out the full show notes at www.thecosmicsavannah.com for more info, pictures, related links and the full transcript.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-but-how-does-astronomy-benefit-humanity/&quot;&gt;Mini Episode 4: “But How Does Astronomy Benefit Humanity?!”&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/mini_004_the-cosmic-savannah_but-how-does-astronomy-benefit-humanity_Andrew-Firth_Tshiamiso-Makwela.mp3" length="7545448" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:title>Mini Episode: &quot;But How Does Astronomy Benefit Humanity?!&quot;</itunes:title>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>9:57</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode: The Most Powerful Explosion Ever Recorded</title>
+		<link>https://thecosmicsavannah.com/mini-episode-the-most-powerful-explosion-ever-recorded/</link>
+		<pubDate>Thu, 27 Aug 2020 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2723</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-the-most-powerful-explosion-ever-recorded/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-the-most-powerful-explosion-ever-recorded/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Transients]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[explosions]]></category>
+		<category><![CDATA[gamma ray burst]]></category>
+		<category><![CDATA[GRB190114C]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[University of Cape Town]]></category>
+		<description>&lt;p&gt;In this mini episode we talk with Reikantseone Diretse. Reika is a Master&#039;s student from the University of Cape Town. He talks about his involvement with the ThunderKAT project to spot mysterious &quot;transient&quot; objects. Reika also tells us about his work with the most powerful gamma-ray burst that has ever been recorded! Check out the full show notes at www.thecosmicsavannah.com for more info, pictures, related links and the full transcript.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-the-most-powerful-explosion-ever-recorded/&quot;&gt;Mini Episode 3: The Most Powerful Explosion Ever Recorded&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/mini_003_the-cosmic-savannah_the-most-powerful-explosion-ever-recorded_Sumari-Hattingh_Reikantseone-Diretse.mp3" length="12464424" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:title>Mini Episode: The Most Powerful Explosion Ever Recorded</itunes:title>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>16:28</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode: Seeing Beyond the Satellites</title>
+		<link>https://thecosmicsavannah.com/mini-episode-seeing-beyond-the-satellites/</link>
+		<pubDate>Thu, 20 Aug 2020 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2721</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-seeing-beyond-the-satellites/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-seeing-beyond-the-satellites/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Cosmology]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Other]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;In this mini-episode we talk with PhD student Brandon Engelbrecht from the University of Western Cape (UWC). We discuss his current work in removing radio frequency interference (RFI) from MeerKAT and how he came to work with one of the largest radio telescope in the world. Check out the full show notes at www.thecosmicsavannah.com for more info, pictures, transcript and related links.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-seeing-beyond-the-satellites/&quot;&gt;Mini Episode 2: Seeing Beyond the Satellites&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/mini_002_the-cosmic-savannah_seeing-beyond-the-satellites_bret-yotti_brandon-engelbrecht.mp3" length="14145228" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:title>Mini Episode: Seeing Beyond the Satellites</itunes:title>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>14:24</itunes:duration>
+	</item>
+	<item>
+		<title>Mini Episode: Watching the watchers</title>
+		<link>https://thecosmicsavannah.com/mini-episode-watching-the-watchers/</link>
+		<pubDate>Thu, 13 Aug 2020 04:00:00 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2743</guid>
+		<comments>https://thecosmicsavannah.com/mini-episode-watching-the-watchers/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/mini-episode-watching-the-watchers/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Data Science]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;In this special mini episode of the Cosmic Savannah, we are joined by Timothy Roelf who is a Masters student at the University of Cape Town. Tim talks about his project which is going to contribute a lot to improving the performance of astronomical telescopes such as MeerLICHT and BlackGEM.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/mini-episode-watching-the-watchers/&quot;&gt;Mini Episode 1: Watching the Watchers&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/Mini_episode_Tim_Sambatra_mono_final.mp3" length="11543917" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:title>Mini Episode: Watching the watchers</itunes:title>
+		<itunes:episodeType>bonus</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>15:14</itunes:duration>
+	</item>
+	<item>
+		<title>Special Episode: Annular Solar Eclipse 21 June 2020</title>
+		<link>https://thecosmicsavannah.com/special-episode-annular-solar-eclipse-21-june-2020/</link>
+		<pubDate>Wed, 17 Jun 2020 11:23:07 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2684</guid>
+		<comments>https://thecosmicsavannah.com/special-episode-annular-solar-eclipse-21-june-2020/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/special-episode-annular-solar-eclipse-21-june-2020/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Celestial Events]]></category>
+		<category><![CDATA[Eclipses]]></category>
+		<category><![CDATA[Solar System]]></category>
+		<description>&lt;p&gt;In this special bonus episode we discuss the upcoming Annular Solar Eclipse occurring on 21 June 2020 across much of Africa and Asia! &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/special-episode-annular-solar-eclipse-21-june-2020/&quot;&gt;Special Episode: Annular Solar Eclipse 21 June 2020&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/026_0_The_Cosmic_Savannah-Annular_Solar_Eclipse_21_June_2020.mp3" length="20361137" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>2</itunes:season>
+		<podcast:season>2</podcast:season>
+		<itunes:episode>26</itunes:episode>
+		<podcast:episode>26</podcast:episode>
+		<itunes:title>Special Episode: Annular Solar Eclipse 21 June 2020</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>28:46</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 25: A Year in Review</title>
+		<link>https://thecosmicsavannah.com/episode-25-a-year-in-review/</link>
+		<pubDate>Thu, 23 Apr 2020 10:23:27 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2659</guid>
+		<comments>https://thecosmicsavannah.com/episode-25-a-year-in-review/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-25-a-year-in-review/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Other]]></category>
+		<description>&lt;p&gt;In this the final episode of Season 2 of The Cosmic Savannah podcast, Dan and Jacinta look back on the past year and some of their favourite episodes. They discuss asteroids, aliens, black holes, giant Galactic bubbles and much more. We also look forward to the year ahead and some of the exciting events to to come in 2020/21 including the launch of the James Webb Space Telescopes and a new Mars Rover! &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-25-a-year-in-review/&quot;&gt;Episode 25: A Year in Review&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/025_The_Cosmic_Savannah-A_Year_in_Review.mp3" length="34013494" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>2</itunes:season>
+		<podcast:season>2</podcast:season>
+		<itunes:episode>25</itunes:episode>
+		<podcast:episode>25</podcast:episode>
+		<itunes:title>Episode 25: A Year in Review</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>41:17</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 24: HIRAX</title>
+		<link>https://thecosmicsavannah.com/episode-24-hirax/</link>
+		<pubDate>Fri, 10 Apr 2020 13:02:08 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2644</guid>
+		<comments>https://thecosmicsavannah.com/episode-24-hirax/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-24-hirax/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Cosmology]]></category>
+		<category><![CDATA[Dark Energy]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;Episode 24 features Professor Kavilan Moodley who joins us to discuss another exciting project in radio astronomy in South Africa, HIRAX! HIRAX is a radio telescope array that will detect remnant ripples in the distribution of galaxies that originate from primordial sound waves that existed in the early universe. This can be used for charting the expansion history of the universe and for shedding light on the nature of dark energy.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-24-hirax/&quot;&gt;Episode 24: HIRAX&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/024_The_Cosmic_Savannah-HIRAX.mp3" length="33124072" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:season>2</itunes:season>
+		<podcast:season>2</podcast:season>
+		<itunes:episode>24</itunes:episode>
+		<podcast:episode>24</podcast:episode>
+		<itunes:title>Episode 24: HIRAX with Prof Kavilan Moodley</itunes:title>
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>35:53</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 23: ThunderKAT</title>
+		<link>https://thecosmicsavannah.com/episode-23-thunderkat/</link>
+		<pubDate>Mon, 30 Mar 2020 08:51:46 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2629</guid>
+		<comments>https://thecosmicsavannah.com/episode-23-thunderkat/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-23-thunderkat/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[Transients]]></category>
+		<description>&lt;p&gt;In Episode 23 of The Cosmic Savannah podcast, we are joined by the Head of Astronomy at the University of Cape Town, Professor Patrick Woudt. Patrick talks about the exciting ThunderKAT project which has recently observed a black hole ejecting material at close to the speed of light out to some of the largest angular distances (separations) ever seen!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-23-thunderkat/&quot;&gt;Episode 23: ThunderKAT&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/023_The_Cosmic_Savannah-ThunderKAT.mp3" length="35206810" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>39:45</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 22: Milky Way blowing bubbles!</title>
+		<link>https://thecosmicsavannah.com/episode-22-milky-way-blowing-bubbles/</link>
+		<pubDate>Thu, 12 Mar 2020 04:00:26 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2618</guid>
+		<comments>https://thecosmicsavannah.com/episode-22-milky-way-blowing-bubbles/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-22-milky-way-blowing-bubbles/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Milky Way]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;This week on The Cosmic Savannah Podcast week we are joined by Dr Fernando Camilo who is the  South African Radio Astronomy Observatory (SARAO) Chief Scientist. We chat with Fernando about MeerKAT and the recent discovery of enormous balloon-like structures that tower hundreds of light-years above and below the centre of the Milky Way galaxy.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-22-milky-way-blowing-bubbles/&quot;&gt;Episode 22: Milky Way blowing bubbles!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/022_The_Cosmic_Savannah-Milky_Way_blowing_bubbles_.mp3" length="34800536" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>40:08</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 21: X-ray binaries and Astrocomms!</title>
+		<link>https://thecosmicsavannah.com/episode-21-x-ray-binaries-and-astrocomms/</link>
+		<pubDate>Thu, 27 Feb 2020 13:07:05 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2603</guid>
+		<comments>https://thecosmicsavannah.com/episode-21-x-ray-binaries-and-astrocomms/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-21-x-ray-binaries-and-astrocomms/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[Stars]]></category>
+		<description>&lt;p&gt;This week on The Cosmic Savannah Podcast we are joined by South African Astronomer, Dr Tana Joseph. Tana is currently based at the University of Manchester. She studies X-ray binaries which are a type of star system that emit X-rays because of interactions with a black hole or neutron star! Tana is also paving her own path and has started a company called AstroComms. It is a Science, Technology, Engineering and Mathematics (STEM) consulting and communications company.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-21-x-ray-binaries-and-astrocomms/&quot;&gt;Episode 21: X-Ray Binaries and Astrocomms!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/021_The_Cosmic_Savannah-X-ray_binaries_and_Astrocomms_.mp3" length="42950461" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>47:30</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 20: Cosmic Chemistry</title>
+		<link>https://thecosmicsavannah.com/episode-20-cosmic-chemistry/</link>
+		<pubDate>Thu, 13 Feb 2020 04:00:36 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2585</guid>
+		<comments>https://thecosmicsavannah.com/episode-20-cosmic-chemistry/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-20-cosmic-chemistry/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Astrochemistry]]></category>
+		<category><![CDATA[Other]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[Solar System]]></category>
+		<description>&lt;p&gt;In our first episode of the 2020s and Episode 20 we are honoured to be joined by Prof Ewine van Dishoeck who is a Dutch astronomer and chemist. We learn how molecules form in space, combine with dust and eventually grow into the massive planets we observe and indeed inhabit. Ewine also tells us what it&#039;s like to be the President of the largest organisation of astronomers in the world and what she&#039;s been up to during her visit to Cape Town!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-20-cosmic-chemistry/&quot;&gt;Episode 20: Cosmic Chemistry&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/020_The_Cosmic_Savannah-Cosmic_Chemistry.mp3" length="32572953" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>40:52</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 19: Astro Molo Mhlaba</title>
+		<link>https://thecosmicsavannah.com/episode-19-astro-molo-mhlaba/</link>
+		<pubDate>Thu, 19 Dec 2019 05:07:36 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2561</guid>
+		<comments>https://thecosmicsavannah.com/episode-19-astro-molo-mhlaba/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-19-astro-molo-mhlaba/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Development]]></category>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[development]]></category>
+		<category><![CDATA[diversity]]></category>
+		<category><![CDATA[IAU]]></category>
+		<category><![CDATA[inclusivity]]></category>
+		<category><![CDATA[International Astronomical Union]]></category>
+		<category><![CDATA[Khayelitsha]]></category>
+		<category><![CDATA[molo mhlaba]]></category>
+		<category><![CDATA[OAD]]></category>
+		<category><![CDATA[Office of Astronomy for Development]]></category>
+		<description>&lt;p&gt;In Episode 19 we learn all about the inspirational Astro Molo Mhlaba programme in Khayelitsha (Cape Town). This project targets the issues of inclusivity and diversity in South African astronomy by engaging the most underrepresented group - black girls from under-served communities. We hear from the project coordinators, the student facilitators and the school girls themselves.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-19-astro-molo-mhlaba/&quot;&gt;Episode 19: Astro Molo Mhlaba&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/019_The_Cosmic_Savannah-Astro_Molo_Mhlaba.mp3" length="53966476" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>1:07:04</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 18: Dark skies over Africa</title>
+		<link>https://thecosmicsavannah.com/episode-18-dark-skies-over-africa/</link>
+		<pubDate>Thu, 05 Dec 2019 13:40:51 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2548</guid>
+		<comments>https://thecosmicsavannah.com/episode-18-dark-skies-over-africa/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-18-dark-skies-over-africa/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conservation]]></category>
+		<category><![CDATA[Development]]></category>
+		<category><![CDATA[Ethnoastronomy]]></category>
+		<category><![CDATA[Exploring Africa]]></category>
+		<category><![CDATA[Other]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[africa]]></category>
+		<category><![CDATA[astronomers without borders]]></category>
+		<category><![CDATA[Kenya]]></category>
+		<category><![CDATA[nigeria]]></category>
+		<category><![CDATA[outreach]]></category>
+		<description>&lt;p&gt;Carringtone Kinyanjui and Olayinka Fagbemiro join us to talk about incredible astronomy outreach projects happening in Kenya and Nigeria. We talk about traditional interpretations of the night sky, the Sayari astro-tourism project, the Nigerian Space Agency and Astronomers Without Borders: Nigeria.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-18-dark-skies-over-africa/&quot;&gt;Episode 18: Dark skies over Africa&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/018_The_Cosmic_Savannah-Dark_skies_over_Africa_extended.mp3" length="34625812" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>42:00</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 17: Space Telescopes!</title>
+		<link>https://thecosmicsavannah.com/episode-17-space-telescopes/</link>
+		<pubDate>Thu, 21 Nov 2019 04:00:42 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2536</guid>
+		<comments>https://thecosmicsavannah.com/episode-17-space-telescopes/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-17-space-telescopes/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Art]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[Space Science]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[Hubble]]></category>
+		<category><![CDATA[JWST]]></category>
+		<category><![CDATA[optical astronomy]]></category>
+		<category><![CDATA[SALT]]></category>
+		<category><![CDATA[Space Telescope]]></category>
+		<description>&lt;p&gt;In Episode 17 of The Cosmic Savannah, we discuss space telescopes! We talk about the amazing Hubble Space Telescope and the upcoming James Webb Space Telescope (JWST). We also learn how the incredibly beautiful &#039;photos&#039; of space are made.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-17-space-telescopes/&quot;&gt;Episode 17: Space Telescopes!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/017_The_Cosmic_Savannah-Space_Telescopes_.mp3" length="52504860" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>59:51</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 16: Transit of Mercury, 11 November 2019</title>
+		<link>https://thecosmicsavannah.com/episode-16-transit-of-mercury-11-november-2019/</link>
+		<pubDate>Wed, 06 Nov 2019 05:00:02 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2513</guid>
+		<comments>https://thecosmicsavannah.com/episode-16-transit-of-mercury-11-november-2019/#comments</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-16-transit-of-mercury-11-november-2019/feed/</wfw:commentRss>
+		<slash:comments>1</slash:comments>
+		<category><![CDATA[Celestial Events]]></category>
+		<category><![CDATA[Eclipses]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[Solar System]]></category>
+		<category><![CDATA[mercury]]></category>
+		<category><![CDATA[transit]]></category>
+		<category><![CDATA[transit of mercury]]></category>
+		<category><![CDATA[transit of mercury 2019]]></category>
+		<description>&lt;p&gt;On the 11th of November 2019, the planet Mercury will pass between Earth and the Sun. This transit of Mercury will be visible across all of Africa by simply using a small telescope. In this special episode, we speak with Dr Niruj Ramanujam from the South African Radio Astronomy Observatory (SARAO) about the importance of these events and how you can see the transit.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-16-transit-of-mercury-11-november-2019/&quot;&gt;Episode 16: Transit of Mercury, 11 November 2019&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/016_The_Cosmic_Savannah-Transit_of_Mercury_11_November_2019.mp3" length="30453376" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>34:43</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 15: The Vatican Observatory and more!</title>
+		<link>https://thecosmicsavannah.com/episode-15-the-vatican-observatory-and-more/</link>
+		<pubDate>Thu, 31 Oct 2019 08:00:10 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2493</guid>
+		<comments>https://thecosmicsavannah.com/episode-15-the-vatican-observatory-and-more/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-15-the-vatican-observatory-and-more/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Other]]></category>
+		<category><![CDATA[Lindau]]></category>
+		<category><![CDATA[Nobel]]></category>
+		<category><![CDATA[Specola Vaticana]]></category>
+		<category><![CDATA[Vatican]]></category>
+		<description>&lt;p&gt;Dan visits the Vatican Observatory and chats with the Director Brother Guy Consolmagno about how to reconcile faith and the Big Bang! We also talk to PhD Student Julia Healy about her work on galaxy clusters and what happened behind the scenes at the Lindau meeting of Nobel Laureates. &lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-15-the-vatican-observatory-and-more/&quot;&gt;Episode 15: The Vatican Observatory and more!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/015_The_Cosmic_Savannah-The_Vatican_Observatory_and_more_.mp3" length="54712989" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>1:02:17</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 14: Modeling Meerkats</title>
+		<link>https://thecosmicsavannah.com/episode-14-modeling-meerkats/</link>
+		<pubDate>Thu, 17 Oct 2019 07:24:07 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2462</guid>
+		<comments>https://thecosmicsavannah.com/episode-14-modeling-meerkats/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-14-modeling-meerkats/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Exploring Africa]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Simulations]]></category>
+		<category><![CDATA[Kruger]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[MIGHTEE]]></category>
+		<category><![CDATA[Nobel]]></category>
+		<description>&lt;p&gt;Welcome to season 2 of The Cosmic Savannah! We take you on a trip to the African Savannah to the Kruger National Park and take a peek behind-the-scenes of an astronomy conference.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-14-modeling-meerkats/&quot;&gt;Episode 14: Modeling Meerkats!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/014_The_Cosmic_Savannah-Modeling_Meerkats.mp3" length="43474766" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>49:45</itunes:duration>
+	</item>
+	<item>
+		<title>Inter-Season Bonus: Soapbox Science</title>
+		<link>https://thecosmicsavannah.com/inter-season-bonus-soapbox-science/</link>
+		<pubDate>Fri, 20 Sep 2019 21:14:52 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2447</guid>
+		<comments>https://thecosmicsavannah.com/inter-season-bonus-soapbox-science/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/inter-season-bonus-soapbox-science/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Other]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[People]]></category>
+		<description>&lt;p&gt;Season Two of The Cosmic Savannah is on it&#039;s way! But in the meantime, our science-savvy listeners can get their fix at a very exciting live event happening soon in Cape Town! Soapbox Science South Africa is happening on Saturday 28th September 2019 at the Pierhead V&amp;A Waterfront in Cape Town from 12pm until 3pm. Join us!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/inter-season-bonus-soapbox-science/&quot;&gt;Inter-Season Bonus: Soapbox Science&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/014_The_Cosmic_Savannah-Inter-Season_Bonus-Soapbox_Science.mp3" length="15399478" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>19:04</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 13: The South African Astronomical Observatory</title>
+		<link>https://thecosmicsavannah.com/episode-13-the-south-african-astronomical-observatory/</link>
+		<pubDate>Thu, 01 Aug 2019 04:00:33 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2430</guid>
+		<comments>https://thecosmicsavannah.com/episode-13-the-south-african-astronomical-observatory/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-13-the-south-african-astronomical-observatory/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Outreach]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;In our final episode for Season 1, we are joined by Professor Petri Vaisanen, Director of the South African Astronomical Observatory (SAAO). Petri discusses the path to his current role including his research on galaxy evolution and some of the exciting discoveries along the way. Petri also explains his current role, his vision for astronomy in South Africa, and some of the exciting developments occurring at SAAO and around the world! We are then joined by Allen Versfeld who runs the Urban Astronomer podcast and who does an excellent job of highlighting the astronomy in South Africa. For more info, links and pics see the show notes at www.thecosmicsavannah.com!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-13-the-south-african-astronomical-observatory/&quot;&gt;Episode 13: The South African Astronomical Observatory&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/013_The_Cosmic_Savannah-The_South_African_Astronomical_Observatory.mp3" length="44442107" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>49:28</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 12: Further Adventures in Oz</title>
+		<link>https://thecosmicsavannah.com/episode-12-further-adventures-in-oz/</link>
+		<pubDate>Thu, 18 Jul 2019 04:00:51 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2416</guid>
+		<comments>https://thecosmicsavannah.com/episode-12-further-adventures-in-oz/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-12-further-adventures-in-oz/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<description>&lt;p&gt;Jacinta continues her visit to Australia, this week chatting with Dr Jeff Wagg about the Square Kilometer Array (SKA) and Ahmed Elagali about his work on superclusters, neutral hydrogen and ring galaxies.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-12-further-adventures-in-oz/&quot;&gt;Episode 12: Further Adventures in Oz&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/012_The_Cosmic_Savannah-Further_Adventures_in_Oz.mp3" length="41313435" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>46:52</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 11: A Trip Down Under</title>
+		<link>https://thecosmicsavannah.com/episode-11-a-trip-down-under/</link>
+		<pubDate>Thu, 04 Jul 2019 04:00:36 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2389</guid>
+		<comments>https://thecosmicsavannah.com/episode-11-a-trip-down-under/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-11-a-trip-down-under/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[askap]]></category>
+		<category><![CDATA[HERA]]></category>
+		<category><![CDATA[HI]]></category>
+		<category><![CDATA[icrar]]></category>
+		<category><![CDATA[KAT7]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[MWA]]></category>
+		<category><![CDATA[PHISCC]]></category>
+		<category><![CDATA[ska]]></category>
+		<description>&lt;p&gt;Jacinta takes us on a tour of her homeland, into the Australian bush, and chats about pathfinders, precursor telescopes and exciting collaborations between South Africa and Australia in the lead up to the Square Kilometre Array!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-11-a-trip-down-under/&quot;&gt;Episode 11: A Trip Down Under&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/011_The_Cosmic_Savannah-A_Trip_Down_Under.mp3" length="54685066" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>54:59</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 10: Stars behaving badly!</title>
+		<link>https://thecosmicsavannah.com/episode-10-stars-behaving-badly/</link>
+		<pubDate>Thu, 20 Jun 2019 04:00:51 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2369</guid>
+		<comments>https://thecosmicsavannah.com/episode-10-stars-behaving-badly/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-10-stars-behaving-badly/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conferences]]></category>
+		<category><![CDATA[Education]]></category>
+		<category><![CDATA[Stars]]></category>
+		<description>&lt;p&gt;We are joined by two experts in stellar astronomy, Priscilla Muheki from Mbarara University of Science and Technology, Uganda and Distinguished Professor Hakeem Oluseyi from the Florida Institute of Technology. Priscilla talks about her PhD research in Uganda studying violent outbursts, known as coronal mass ejections, from certain types of stars. Hakeem then goes on the explain these coronal mass ejections and the violent magnetic fields associated with them, and what effect they may have on both our technology and our entire planet!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-10-stars-behaving-badly/&quot;&gt;Episode 10: Stars behaving badly!&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/010_The_Cosmic_Savannah-Stars_Behaving_Badly.mp3" length="50180429" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>50:45</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 9: Simulating the Universe - Part 2</title>
+		<link>https://thecosmicsavannah.com/episode-9-simulating-the-universe-part-2/</link>
+		<pubDate>Thu, 06 Jun 2019 04:00:15 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2336</guid>
+		<comments>https://thecosmicsavannah.com/episode-9-simulating-the-universe-part-2/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-9-simulating-the-universe-part-2/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Simulations]]></category>
+		<category><![CDATA[Active Galactic Nuclei]]></category>
+		<category><![CDATA[AGN]]></category>
+		<category><![CDATA[coding]]></category>
+		<category><![CDATA[Galaxy Formation]]></category>
+		<category><![CDATA[Nathan Deg]]></category>
+		<category><![CDATA[Nicole Thomas]]></category>
+		<category><![CDATA[supercomputing]]></category>
+		<description>&lt;p&gt;We continue our discussion from Episode 8 on simulating the Universe, this week focusing on the simulation of actual galaxies. Nicole explains the SIMBA suite of simulations she is working on. SIMBA is a set of simulations which look at how the super-massive black holes at the centre of galaxies affect the galaxy they live in. &lt;/p&gt;
+&lt;p&gt;Nathan chats with us about his work creating individual galaxies within a computer using a new code he has just published. Using this we can learn more about how galaxies change over time and interact with their environments.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-9-simulating-the-universe-part-2/&quot;&gt;Episode 9: Simulating the Universe – Part 2&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/009_The_Cosmic_Savannah-Simulating_the_Universe-Part_2.mp3" length="38215114" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>41:31</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 8: Simulating the Universe</title>
+		<link>https://thecosmicsavannah.com/episode-8-simulating-the-universe/</link>
+		<pubDate>Thu, 23 May 2019 04:00:22 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2320</guid>
+		<comments>https://thecosmicsavannah.com/episode-8-simulating-the-universe/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-8-simulating-the-universe/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Cosmology]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Simulations]]></category>
+		<category><![CDATA[AIMS]]></category>
+		<category><![CDATA[Galaxy Formation]]></category>
+		<category><![CDATA[Hydrodynamics]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Romeel Dave]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[SALT]]></category>
+		<category><![CDATA[UWC]]></category>
+		<description>&lt;p&gt;Prof Romeel Davé, from the Royal Observatory Edinburgh, and who spent 5 years working in Cape Town, introduces us to simulations! He explains how we can use simulations to perform experiments to test our understanding of the physics of the Universe.&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-8-simulating-the-universe/&quot;&gt;Episode 8: Simulating the Universe&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/008_The_Cosmic_Savannah-Simulating_the_Universe.mp3" length="46397029" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>49:19</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 7: Under African Skies</title>
+		<link>https://thecosmicsavannah.com/episode-7-under-african-skies/</link>
+		<pubDate>Thu, 09 May 2019 06:51:03 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2305</guid>
+		<comments>https://thecosmicsavannah.com/episode-7-under-african-skies/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-7-under-african-skies/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Conservation]]></category>
+		<category><![CDATA[Exploring Africa]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Other]]></category>
+		<category><![CDATA[People]]></category>
+		<category><![CDATA[Egypt]]></category>
+		<category><![CDATA[Ethiopia]]></category>
+		<category><![CDATA[gamma ray]]></category>
+		<category><![CDATA[hess]]></category>
+		<category><![CDATA[Kenya]]></category>
+		<category><![CDATA[Malawi]]></category>
+		<category><![CDATA[Namibia]]></category>
+		<category><![CDATA[neutral hydrogen]]></category>
+		<category><![CDATA[Rwanda]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[Sudan]]></category>
+		<category><![CDATA[Tanzania]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<category><![CDATA[Uganda]]></category>
+		<category><![CDATA[vla]]></category>
+		<category><![CDATA[Zambia]]></category>
+		<description>&lt;p&gt;In Episode 7 of the Cosmic Savannah we chat with Tanya and Simon about their astronomy at Namibia&#039;s HESS Telescope and the VLA in the USA.&lt;br /&gt;
+We also chat about their incredible journey through Africa on bicycles and their experience of the magnificent cosmic savannah!&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-7-under-african-skies/&quot;&gt;Episode 7: Under African Skies&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/007_The_Cosmic_Savannah-Under_African_Skies.mp3" length="48462398" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>46:55</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 6: Galactic Neighbourhoods</title>
+		<link>https://thecosmicsavannah.com/episode-6-galactic-neighbourhoods/</link>
+		<pubDate>Fri, 26 Apr 2019 14:06:09 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2279</guid>
+		<comments>https://thecosmicsavannah.com/episode-6-galactic-neighbourhoods/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-6-galactic-neighbourhoods/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Clusters]]></category>
+		<category><![CDATA[Environments]]></category>
+		<category><![CDATA[Eric Wilcots]]></category>
+		<category><![CDATA[Groups]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Neighbourhood]]></category>
+		<category><![CDATA[SALT]]></category>
+		<category><![CDATA[Sinenhlanhla Precious Sikhosana]]></category>
+		<description>&lt;p&gt;with Prof Eric Wilcots and Sinenhlanhla Precious Sikhosana In this episode, we speak with Prof Eric Wilcots and Sinenhlanhla Precious Sikhosana about galaxies and the environments they live in. We […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-6-galactic-neighbourhoods/&quot;&gt;Episode 6:  Galactic Neighbourhoods&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/006_The_Cosmic_Savannah-Galactic_Neighbourhoods.mp3" length="58110769" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>40:21</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 5 (Special Edition): Event Horizon Telescope - First Results</title>
+		<link>https://thecosmicsavannah.com/episode-5-special-edition-event-horizon-telescope-first-results/</link>
+		<pubDate>Fri, 12 Apr 2019 08:37:10 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2260</guid>
+		<comments>https://thecosmicsavannah.com/episode-5-special-edition-event-horizon-telescope-first-results/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-5-special-edition-event-horizon-telescope-first-results/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[Black Hole]]></category>
+		<category><![CDATA[EHT]]></category>
+		<category><![CDATA[Event Horizon]]></category>
+		<category><![CDATA[Event Horizon Telescope]]></category>
+		<category><![CDATA[Radio Telescopes]]></category>
+		<category><![CDATA[Rhodri Evans]]></category>
+		<category><![CDATA[Roger Deane]]></category>
+		<description>&lt;p&gt;with Dr Roger Deane and Dr Rhodri Evans On 10 April 2019 six simultaneous press conferences around the world broadcast the first results from the Event Horizon Telescope – a […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-5-special-edition-event-horizon-telescope-first-results/&quot;&gt;Episode 5 (Special Edition): Event Horizon Telescope – First Results&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/005_The_Cosmic_Savannah-Event_Horizon_Telescope-First_Results.mp3" length="52509140" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>46:22</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 4: Black holes and radio jets</title>
+		<link>https://thecosmicsavannah.com/episode-4-black-holes-and-radio-jets/</link>
+		<pubDate>Thu, 11 Apr 2019 04:00:29 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2156</guid>
+		<comments>https://thecosmicsavannah.com/episode-4-black-holes-and-radio-jets/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-4-black-holes-and-radio-jets/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Black Holes]]></category>
+		<category><![CDATA[Galaxies]]></category>
+		<category><![CDATA[Active Galactic Nuclei]]></category>
+		<category><![CDATA[AGN]]></category>
+		<category><![CDATA[blackholes]]></category>
+		<category><![CDATA[Cygnus A]]></category>
+		<category><![CDATA[Imogen Whittam]]></category>
+		<category><![CDATA[Lerato Sebokolodi]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[Radio Jets]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[SARAO]]></category>
+		<category><![CDATA[super-massive blackholes]]></category>
+		<description>&lt;p&gt;with Dr Imogen Whittam and Lerato Sebokolodi Episode 4 features Dr Imogen Whittam, a SARAO Postdoctoral Fellow at the University of the Western Cape and Lerato Sebokolodi a PhD student, […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-4-black-holes-and-radio-jets/&quot;&gt;Episode 4: Black holes and Radio Jets&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/004_The_Cosmic_Savannah-Black_holes_and_radio_jets.mp3" length="109918600" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>45:48</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 3: SETI with MeerKAT</title>
+		<link>https://thecosmicsavannah.com/episode-3-seti-with-meerkat/</link>
+		<pubDate>Fri, 29 Mar 2019 00:00:39 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2073</guid>
+		<comments>https://thecosmicsavannah.com/episode-3-seti-with-meerkat/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-3-seti-with-meerkat/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Aliens]]></category>
+		<category><![CDATA[MeerKAT]]></category>
+		<category><![CDATA[SKA]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[aliens]]></category>
+		<category><![CDATA[Breakthrough Listen]]></category>
+		<category><![CDATA[extra-terrestrial intelligence]]></category>
+		<category><![CDATA[Griffin Foster]]></category>
+		<category><![CDATA[radio astronomy]]></category>
+		<category><![CDATA[SETI]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[telescope]]></category>
+		<description>&lt;p&gt;with Dr Griffin Foster In this episode Dr Griffin Foster describes the planned hunt for extraterrestrial intelligence with South Africa’s MeerKAT telescope! Griffin is from the University of Oxford and […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-3-seti-with-meerkat/&quot;&gt;Episode 3: SETI with MeerKAT&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/003_The_Cosmic_Savannah-SETI_with_MeerKAT.mp3" length="100274384" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>35:36</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 2: Instruments and Singing Asteroids</title>
+		<link>https://thecosmicsavannah.com/episode-2-instruments-and-singing-asteroids/</link>
+		<pubDate>Thu, 28 Mar 2019 23:00:36 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2071</guid>
+		<comments>https://thecosmicsavannah.com/episode-2-instruments-and-singing-asteroids/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-2-instruments-and-singing-asteroids/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Art]]></category>
+		<category><![CDATA[Asteroids]]></category>
+		<category><![CDATA[Instrumentation]]></category>
+		<category><![CDATA[Other]]></category>
+		<category><![CDATA[Solar System]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[Amanda Sickafoose]]></category>
+		<category><![CDATA[art]]></category>
+		<category><![CDATA[artist-in-residence]]></category>
+		<category><![CDATA[Hybridoa]]></category>
+		<category><![CDATA[instrumentation]]></category>
+		<category><![CDATA[pluto]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[science]]></category>
+		<category><![CDATA[solar system]]></category>
+		<category><![CDATA[stellar occultation]]></category>
+		<category><![CDATA[Sutherland]]></category>
+		<category><![CDATA[Vanessa Lorenzo]]></category>
+		<description>&lt;p&gt;with Dr Amanda Sickafoose and Vanessa Lorenzo In Episode 2, we hear from Dr Amanda Sickafoose who tells us about the complicated instrumentation her team are building for South African […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-2-instruments-and-singing-asteroids/&quot;&gt;Episode 2: Instruments and Singing Asteroids&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/002_The_Cosmic_Savannah-Instruments_and_Singing_Asteroids.mp3" length="118514300" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>43:12</itunes:duration>
+	</item>
+	<item>
+		<title>Episode 1: SALT and Near-Earth Asteroids</title>
+		<link>https://thecosmicsavannah.com/episode-1-salt-and-near-earth-asteroids/</link>
+		<pubDate>Fri, 15 Mar 2019 09:35:30 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2067</guid>
+		<comments>https://thecosmicsavannah.com/episode-1-salt-and-near-earth-asteroids/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/episode-1-salt-and-near-earth-asteroids/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Asteroids]]></category>
+		<category><![CDATA[Observatories]]></category>
+		<category><![CDATA[Solar System]]></category>
+		<category><![CDATA[Telescopes]]></category>
+		<category><![CDATA[asteroids]]></category>
+		<category><![CDATA[astronomy]]></category>
+		<category><![CDATA[ATLAS]]></category>
+		<category><![CDATA[Moses Mogotsi]]></category>
+		<category><![CDATA[near-earth asteroids]]></category>
+		<category><![CDATA[Nicolas Erasmus]]></category>
+		<category><![CDATA[optical astronomy]]></category>
+		<category><![CDATA[SAAO]]></category>
+		<category><![CDATA[SALT]]></category>
+		<category><![CDATA[South Africa]]></category>
+		<category><![CDATA[Sutherland]]></category>
+		<category><![CDATA[the cosmic savannah]]></category>
+		<description>&lt;p&gt;with Dr Moses Mogotsi and Dr Nicolas Erasmus Welcome to the very first episode of The Cosmic Savannah! In this episode, we introduce ourselves and our vision for the podcast, […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/episode-1-salt-and-near-earth-asteroids/&quot;&gt;Episode 1: SALT and Near-Earth Asteroids&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/001_The_Cosmic_Savannah-SALT_and_Near-Earth_Asteroids.mp3" length="109952460" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>39:38</itunes:duration>
+	</item>
+	<item>
+		<title>Ep 0: The Cosmic Savannah teaser</title>
+		<link>https://thecosmicsavannah.com/ep-0-the-cosmic-savannah-teaser/</link>
+		<pubDate>Sun, 10 Mar 2019 17:24:54 +0000</pubDate>
+		<guid isPermaLink="false">https://thecosmicsavannah.com/?p=2078</guid>
+		<comments>https://thecosmicsavannah.com/ep-0-the-cosmic-savannah-teaser/#respond</comments>
+		<wfw:commentRss>https://thecosmicsavannah.com/ep-0-the-cosmic-savannah-teaser/feed/</wfw:commentRss>
+		<slash:comments>0</slash:comments>
+		<category><![CDATA[Other]]></category>
+		<description>&lt;p&gt;Welcome to The Cosmic Savannah! The Cosmic Savannah is a new podcast giving you a behind-the-scenes peek into the realm of world-class astronomy and astrophysics happening in Africa. Each episode, […]&lt;/p&gt;
+&lt;p&gt;The post &lt;a href=&quot;https://thecosmicsavannah.com/ep-0-the-cosmic-savannah-teaser/&quot;&gt;Episode 0: The Cosmic Savannah teaser&lt;/a&gt; appeared first on &lt;a href=&quot;https://thecosmicsavannah.com&quot;&gt;The Cosmic Savannah&lt;/a&gt;.&lt;/p&gt;</description>
+		<enclosure url="https://media.blubrry.com/thecosmicsavannah/content.blubrry.com/thecosmicsavannah/Ep0_TheCosmicSavannah_Teaser.mp3" length="539056" type="audio/mpeg" />
+			<itunes:image href="https://thecosmicsavannah.com/wp-content/uploads/2022/02/TCS-Apple-Podcast-fullsize-2021.png" />
+		<itunes:episodeType>full</itunes:episodeType>
+		<itunes:explicit>false</itunes:explicit>
+		<itunes:duration>41</itunes:duration>
+	</item>
+</channel>
+</rss>

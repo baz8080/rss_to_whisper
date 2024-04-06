@@ -1,0 +1,1777 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="https://audioboom.com/feeds.xsl" media="screen" ?>
+<rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:media="http://search.yahoo.com/mrss/" xmlns:georss="http://www.georss.org/georss" xmlns:audioboom="https://audioboom.com/rss/1.0" xmlns:podcast="https://podcastindex.org/namespace/1.0" version="2.0" xml:base="https://audioboom.com/">
+<!--
+
+      ***************************************************************
+      * Hi! You're looking at an RSS feed. If you're not sure what  *
+      * to do here, you can visit our help center to find out more: *
+      *                https://support.audioboom.com                *
+      ***************************************************************
+
+-->
+<channel>
+<title>The Supermassive Podcast</title>
+<description>This is The Supermassive Podcast from the Royal Astronomical Society. Every month, science journalist Izzie Clarke and astrophysicist Dr Becky Smethurst take you through the universe with the latest research, history from the society’s archives and astronomy you can do from your own home.
+
+Support the team by buying their book, The Year in Space - https://geni.us/jNcrw
+
+You can send your questions to the team via podcast@ras.ac.uk or follow them on Instagram @SupermassivePod.
+
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham.</description>
+<link>https://audioboom.com/channels/5014098-the-supermassive-podcast</link>
+<atom:link href="https://audioboom.com/channels/5014098-the-supermassive-podcast" rel="alternate" type="text/html" />
+<atom:link href="https://pubsubhubbub.appspot.com/" rel="hub" />
+<atom:link href="https://audioboom.com/channels/5014098.rss" rel="self" type="application/rss+xml" />
+<pubDate>Tue, 26 Mar 2024 02:00:00 +0000</pubDate>
+<language>en</language>
+<image>
+  <url>https://audioboom.com/i/37555436/s=1400x1400/el=1/rt=fill.png</url>
+  <title>The Supermassive Podcast</title>
+  <link>https://audioboom.com/channels/5014098-the-supermassive-podcast</link>
+</image>
+<itunes:image href="https://audioboom.com/i/37555436/s=1400x1400/el=1/rt=fill.png" />
+<audioboom:banner-image href="https://audioboom.com/i/35960377.png" />
+<itunes:category text="Science"><itunes:category text="Astronomy" /></itunes:category>
+<itunes:category text="Science"><itunes:category text="Physics" /></itunes:category>
+<itunes:category text="History" />
+<itunes:explicit>no</itunes:explicit>
+<itunes:summary>This is The Supermassive Podcast from the Royal Astronomical Society. Every month, science journalist Izzie Clarke and astrophysicist Dr Becky Smethurst take you through the universe with the latest research, history from the society’s archives and astronomy you can do from your own home.
+
+Support the team by buying their book, The Year in Space - https://geni.us/jNcrw
+
+You can send your questions to the team via podcast@ras.ac.uk or follow them on Instagram @SupermassivePod.
+
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham.</itunes:summary>
+<itunes:author>The Royal Astronomical Society</itunes:author>
+<itunes:owner>
+  <itunes:name></itunes:name>
+  <itunes:email>podcast@ras.ac.uk</itunes:email>
+</itunes:owner>
+  <podcast:guid>976004f0-28d1-50db-8178-c4d6d26b64de</podcast:guid>
+<copyright>The Royal Astronomical Society</copyright>
+<itunes:new-feed-url>https://audioboom.com/channels/5014098.rss</itunes:new-feed-url>
+<itunes:type>episodic</itunes:type>
+
+<item>
+  <title>51: Into The Interstellar</title>
+  <link>https://audioboom.com/posts/8478305</link>
+  <itunes:episode>51</itunes:episode>
+  <itunes:title>Into The Interstellar</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8478305.mp3?modified=1711359594&amp;sid=5014098&amp;source=rss" length="43935013" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8478305.mp3?modified=1711359594&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2745" lang="en-GB" fileSize="43935013" />
+  <itunes:duration>2745</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie and Dr Becky are venturing into interstellar space. What is it? Where is it? And what do we know about it? <br>
+<br>
+With special thanks to Professor Martin Barstow from University of Leicester and Professor Chris Lintott from the University of Oxford. Chris' new book "<a href="https://www.penguin.co.uk/books/444666/our-accidental-universe-by-lintott-chris/9781911709183">Our Accidental Universe</a>" is out now. <br>
+<br>
+Check out the RAS's video on Pons Brooks here: <a href="https://ras.ac.uk/news-and-press/news/12ppons-brooks-how-and-when-see-devil-comet">https://ras.ac.uk/news-and-press/news/12ppons-brooks-how-and-when-see-devil-comet</a><br>
+<br>
+The Supermassive Podcast is a Boffin Media production for the Royal Astronomical Society. The producers are Izzie Clarke and Richard Hollingham. <br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Tue, 26 Mar 2024 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2024-03-25:/posts/8478305</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>50: BONUS - Dust, stars and alien streetlights</title>
+  <link>https://audioboom.com/posts/8472395</link>
+  <itunes:episode>50</itunes:episode>
+  <itunes:title>BONUS - Dust, stars and alien streetlights</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8472395.mp3?modified=1710275384&amp;sid=5014098&amp;source=rss" length="11798077" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8472395.mp3?modified=1710275384&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="737" lang="en-GB" fileSize="11798077" />
+  <itunes:duration>737</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>What is cosmic dust? Could we reignite a dying Sun with a nuclear weapon? How do we know what galaxies stars are in, and can the JWST see streetlights on alien worlds?<br>
+<br>
+ If you have a question for the Supermassive team, send them to <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> or find us on Instagram, <a href="https://www.instagram.com/supermassivepod">@SupermassivePod</a>.<br>
+ <br>
+ The Supermassive Podcast is a <a href="https://www.boffinmedia.co.uk/">Boffin Media</a> production for the <a href="https://ras.ac.uk/">Royal Astronomical Society</a>. The producers are Izzie Clarke and Richard Hollingham. <br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Wed, 13 Mar 2024 00:01:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2024-03-12:/posts/8472395</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>50: Quakes in Space</title>
+  <link>https://audioboom.com/posts/8464974</link>
+  <itunes:episode>50</itunes:episode>
+  <itunes:title>Quakes in Space</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8464974.mp3?modified=1709067294&amp;sid=5014098&amp;source=rss" length="51533196" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8464974.mp3?modified=1709067294&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3220" lang="en-GB" fileSize="51533196" />
+  <itunes:duration>3220</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie and Dr Becky are exploring shaky ground, whether that’s on Earth, other planets and even on our neighbour the Moon. This month is all about quakes.  <br>
+<br>
+With special thanks to Mark Panning, the project scientist for NASA's InSight mission, and Dr Jess Johnson from the University of East Anglia. <br>
+<br>
+Join Izzie and the UK Space Education Office for <strong>Mars Day on Tuesday 5th March</strong>, sign up to the <a href="https://marsday.org.uk/">virtual event here</a>.  <br>
+<br>
+Explore the <a href="https://northtynesidesolartrail.co.uk/">North Tyneside Solar Trail</a> and discover models representing planets from our solar system, 16 &amp; 17 March 2024<br>
+<br>
+The Supermassive Podcast is a <a href="https://www.boffinmedia.co.uk/">Boffin Media </a>production for the Royal Astronomical Society. The producers are Izzie Clarke and Richard Hollingham. <br>
+<br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Wed, 28 Feb 2024 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2024-02-27:/posts/8464974</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>49: BONUS - Double Yolker Galaxies</title>
+  <link>https://audioboom.com/posts/8455510</link>
+  <itunes:episode>49</itunes:episode>
+  <itunes:title>BONUS - Double Yolker Galaxies</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8455510.mp3?modified=1707482621&amp;sid=5014098&amp;source=rss" length="12793689" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8455510.mp3?modified=1707482621&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="799" lang="en-GB" fileSize="12793689" />
+  <itunes:duration>799</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>Do we see black hole mergers as a result of galaxy mergers? What did the night sky look like to the dinosaurs? Is a gas giant just a rocky planet with a huge and dense atmosphere? Do all orbits eventually end up in resonance? <br>
+<br>
+The Supermassive Team is back with the first bonus episode for 2024! Send in your questions to <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> or find us on Instagram, <a href="https://www.instagram.com/supermassivepod">@SupermassivePod</a>.<br>
+<br>
+The Supermassive Podcast is a <a href="https://www.boffinmedia.co.uk/">Boffin Media</a> production for the <a href="https://ras.ac.uk/">Royal Astronomical Society</a>. The producers are Izzie Clarke and Richard Hollingham. <br>
+<br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Mon, 12 Feb 2024 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2024-02-09:/posts/8455510</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>49: The End of the World</title>
+  <link>https://audioboom.com/posts/8448672</link>
+  <itunes:episode>49</itunes:episode>
+  <itunes:title>The End of the World</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8448672.mp3?modified=1706562811&amp;sid=5014098&amp;source=rss" length="45962543" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8448672.mp3?modified=1706562811&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2872" lang="en-GB" fileSize="45962543" />
+  <itunes:duration>2872</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>The Supermassive Podcast is back for 2024 and putting the "happy" in Happy New Year! What could be a cheerier start to the year than an episode about the End of the World… Astronomically speaking!?<br>
+<br>
+From supernova explosions, to super volcanoes, Izzie Clarke, Dr Becky Smethurst and Dr Robert Massey are running through the checklist of big bad things that put our planet at risk. Special thanks goes to Professor Chris Impey from the University of Arizona and author of How It Ends, and Dr Mike Cassidy from the University of Birmingham. <strong><br>
+</strong><br>
+<strong>Things we promised we'd put in the show notes: </strong><br>
+NASA worksheet - <a href="https://spacemath.gsfc.nasa.gov/earth/10Page5.pdf">https://spacemath.gsfc.nasa.gov/earth/10Page5.pdf</a><br>
+Recent Betelgeuse paper - Saio et al. (2023; Betelgeuse in carbon fusion stage) - <a href="https://arxiv.org/pdf/2306.00287.pdf">https://arxiv.org/pdf/2306.00287.pdf</a> <br>
+<br>
+Don't forget to leave us a review, send in your questions ,or share your astrophotography using <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> or find us on Instagram @SupermassivePod. <br>
+<br>
+The Supermassive Podcast is a Boffin Media production for The Royal Astronomical Society. The producers are Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Tue, 30 Jan 2024 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2024-01-29:/posts/8448672</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>48: Do We Live In A Multiverse? </title>
+  <link>https://audioboom.com/posts/8420475</link>
+  <itunes:episode>48</itunes:episode>
+  <itunes:title>Do We Live In A Multiverse? </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8420475.mp3?modified=1703177673&amp;sid=5014098&amp;source=rss" length="46152655" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8420475.mp3?modified=1703177673&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2884" lang="en-GB" fileSize="46152655" />
+  <itunes:duration>2884</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie Clarke and Dr Becky Smethurst are rounding off 2023 with a biggie. Arguably the biggest of them all. This episode is ALL about the Multiverse. What is it? What does it mean? Does it even exist?  <br>
+<br>
+A big thank you to Andrew Pontzen from UCL and author of "Universe in a Box" for explaining the basics, Katie Mack from The Perimeter Institute for going from physicist to film reviewer, and to listener Wendy Entwistle who suggested the Supermassive team cover this topic.<br>
+<br>
+The Supermassive Podcast is a Boffin Media production for the Royal Astronomical Society. The producers are Izzie Clarke and Richard Hollingham. <br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 22 Dec 2023 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-12-21:/posts/8420475</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>47: BONUS - Could Space Junk Block JWST's View?</title>
+  <link>https://audioboom.com/posts/8420299</link>
+  <itunes:episode>47</itunes:episode>
+  <itunes:title>BONUS - Could Space Junk Block JWST's View?</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8420299.mp3?modified=1703159082&amp;sid=5014098&amp;source=rss" length="13133803" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8420299.mp3?modified=1703159082&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="820" lang="en-GB" fileSize="13133803" />
+  <itunes:duration>820</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>From barbie dolls, to birds baths, what will happen to all the stuff we have made between now and the end of time? Could a large black hole spaghettify a small black hole? Could more satellites block JWST's view? And what came first, the Big Bang or Inflation?<br>
+<br>
+It's time for another deep dive into The Supermassive Mailbox with Izzie Clarke, Dr Becky Smethurst and Dr Robert Massey. <br>
+<br>
+The Supermassive Podcast is a Boffin Media Production for the Royal Astronomical Society. The producers are Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Thu, 21 Dec 2023 11:44:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-12-21:/posts/8420299</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>47: Neptune... At Last! </title>
+  <link>https://audioboom.com/posts/8406669</link>
+  <itunes:episode>47</itunes:episode>
+  <itunes:title>Neptune... At Last! </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8406669.mp3?modified=1701078110&amp;sid=5014098&amp;source=rss" length="47779273" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8406669.mp3?modified=1701078110&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2986" lang="en-GB" fileSize="47779273" />
+  <itunes:duration>2986</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>They've done it. It has taken them all year but Izzie Clarke and Dr Becky Smethurst have reached the final planet in our solar system; Neptune.<br>
+<br>
+Dr Leigh Fletcher from the University of Leicester is back to cover the basics of the planet and Carolyn Kennett, Chair of the Society for the History of Astronomy, tells Izzie about its controversial discovery. Plus, Dr Robert Massey is on hand for some winter stargazing. <strong><br>
+</strong><br>
+The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham for the Royal Astronomical Society. <br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Tue, 28 Nov 2023 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-11-27:/posts/8406669</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>46: BONUS -  Space News Bulletin </title>
+  <link>https://audioboom.com/posts/8399885</link>
+  <itunes:episode>46</itunes:episode>
+  <itunes:title>BONUS -  Space News Bulletin </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8399885.mp3?modified=1699903094&amp;sid=5014098&amp;source=rss" length="27511881" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8399885.mp3?modified=1699903094&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="1719" lang="en-GB" fileSize="27511881" />
+  <itunes:duration>1719</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>Bizarre free-floating planets in space, the retrieval mission from a 4.6 billion year old asteroid, and the first images from our dark universe. Join Izzie Clarke, Dr Becky Smethurst, and Dr Robert Massey as they take you through the latest space news. <br>
+<br>
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. Follow or subscribe for free so you never miss an episode. </div>
+]]></description>
+  <pubDate>Tue, 14 Nov 2023 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-11-13:/posts/8399885</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>46: Q&amp;A - Spice Girls, Black Holes, and Ice-Cream in Space</title>
+  <link>https://audioboom.com/posts/8389967</link>
+  <itunes:episode>46</itunes:episode>
+  <itunes:title>Q&amp;A - Spice Girls, Black Holes, and Ice-Cream in Space</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8389967.mp3?modified=1698226174&amp;sid=5014098&amp;source=rss" length="38562590" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8389967.mp3?modified=1698226174&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2410" lang="en-GB" fileSize="38562590" />
+  <itunes:duration>2410</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>It's been a while, so Izzie, Dr Becky and Robert dive into The Supermassive Mailbox for a Q&amp;A Special. How is the mass of a star determined? Does JWST have fuel to come back? And is it possible for Voyager 1 or 2 to switch their cameras back on?<br>
+<br>
+Here's the link for space-related jobs that Becky mentioned: <a href="https://jobregister.aas.org/">https://jobregister.aas.org/</a><br>
+<br>
+Got a question for the team? Email it to <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> or find us on Instagram, <a href="https://www.instagram.com/supermassivepod/?hl=en-gb">@SupermassivePod</a>.<br>
+<em><br>
+The Supermassive Podcast is a Boffin Media Production for the Royal Astronomical Society. The producers are Izzie Clarke and Richard Hollingham. </em><br>
+<br>
+<br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 27 Oct 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-10-25:/posts/8389967</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>45: BONUS - Have you heard of &quot;Ploonets&quot;? </title>
+  <link>https://audioboom.com/posts/8379829</link>
+  <itunes:episode>45</itunes:episode>
+  <itunes:title>BONUS - Have you heard of &quot;Ploonets&quot;? </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8379829.mp3?modified=1696600499&amp;sid=5014098&amp;source=rss" length="18017900" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8379829.mp3?modified=1696600499&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="1125" lang="en-GB" fileSize="18017900" />
+  <itunes:duration>1125</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>What is the furthest distance away we’ve ever observed? Why hasn't Venus lost its atmosphere from solar winds? Is Mercury a Ploonet? And how stable is the moon's orbit? It's another bonus episode with Izzie Clarke, Dr Becky Smethurst and Dr Robert Massey. <br>
+<br>
+See Micheal Brill's brilliant photos from Antarctica <a href="https://www.instagram.com/supermassivepod/?hl=en-gb">here</a>.<br>
+<br>
+Read listener Andrew Street's article of Cassini's final moments: </div>
+<h1><a href="https://www.theguardian.com/science/2017/sep/16/tracing-cassinis-fiery-death-was-like-seeing-a-heart-monitor-flatline"><em>Tracing Cassini's fiery death was like seeing a heart monitor flatline</em></a></h1>
+<div>
+<br>
+Send in your questions to The Supermassive Mailbox by emailing podcast@ras.ac.uk, tweet @RoyalAstroSoc or find us on Instagram @SupermassivePod. <br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 13 Oct 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-10-06:/posts/8379829</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>45: Uranus the Oddball</title>
+  <link>https://audioboom.com/posts/8375381</link>
+  <itunes:episode>45</itunes:episode>
+  <itunes:title>Uranus the Oddball</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8375381.mp3?modified=1695911374&amp;sid=5014098&amp;source=rss" length="50600810" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8375381.mp3?modified=1695911374&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3162" lang="en-GB" fileSize="50600810" />
+  <itunes:duration>3162</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie and Dr Becky have done episodes on Mars, gas giants, Saturn <em>and</em> Jupiter individually, so it’s about time that Uranus gets its own episode. And just so we're clear, it's UranUs, not UrAnus. <br>
+<br>
+Professor Leigh Fletcher from the University of Leicester takes the team through the basics. Plus, Izzie pays a visit to the Royal Astronomical Society’s archive to see the Herschels' notebooks from when the planet was discovered. <br>
+<br>
+<strong>Recommends <br>
+</strong>Late Prom 15: Moon and Stars <a href="https://www.bbc.co.uk/events/en8fbp">https://www.bbc.co.uk/events/en8fbp</a><br>
+<br>
+Public Service Broadcasting - The Race for Space - <a href="https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ?autoplay=true">https://open.spotify.com/album/4ZaAM16hw3xpp680FJahJJ?autoplay=true</a><br>
+<br>
+<br>
+Our next main episode is a Q&amp;A, so please send your questions to podcast@ras.ac.uk, tweet <a href="https://twitter.com/RoyalAstroSoc">@RoyalAstroSoc</a> or message us on Insta <a href="https://www.instagram.com/supermassivepod/?hl=en-gb">@SupermassivePod</a><br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 29 Sep 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-09-28:/posts/8375381</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>44: BONUS - Team Enceladus or Team Europa? </title>
+  <link>https://audioboom.com/posts/8368372</link>
+  <itunes:episode>44</itunes:episode>
+  <itunes:title>BONUS - Team Enceladus or Team Europa? </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8368372.mp3?modified=1694778650&amp;sid=5014098&amp;source=rss" length="12644138" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8368372.mp3?modified=1694778650&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="790" lang="en-GB" fileSize="12644138" />
+  <itunes:duration>790</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>What does Saturn look like? Why is Venus hotter than Mercury? Can the solar wind generate electricity on the Moon? Izzie, Dr Becky and Robert dive into The Supermassive Mailbox and answer your questions. <br>
+<br>
+The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham.</div>
+]]></description>
+  <pubDate>Mon, 18 Sep 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-09-15:/posts/8368372</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>44: Here Comes the Sun...with NASA's Head of Science</title>
+  <link>https://audioboom.com/posts/8357645</link>
+  <itunes:episode>44</itunes:episode>
+  <itunes:title>Here Comes the Sun...with NASA's Head of Science</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8357645.mp3?modified=1694778994&amp;sid=5014098&amp;source=rss" length="48338507" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8357645.mp3?modified=1694778994&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3021" lang="en-GB" fileSize="48338507" />
+  <itunes:duration>3021</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>
+<em>This month, Izzie and Dr Becky are off to the Sun…Partly because the UK summer has been rubbish but mostly because there are a lot of things we still don’t know about our local star. </em><br>
+<br>
+<em>Joining them on their voyage is the Head of Science at NASA, Dr Nicola Fox, to explain the latest efforts to study the sun, the Project Scientist for Solar Orbiter, Dr Daniel Mueller, and Dr Robert Massey is on hand to answer your questions. </em><br>
+<br>
+<em>Watch ESA's Solar Orbiter video, featuring the Supermassive's editor Richard Hollingham. </em><a href="https://www.esa.int/ESA_Multimedia/Videos/2022/05/Solar_Orbiter_s_first_close_encounter"><em><a href="https://www.esa.int/ESA_Multimedia/Videos/2022/05/Solar_Orbiter_s_first_close_encounter">https://www.esa.int/ESA_Multimedia/Videos/2022/05/Solar_Orbiter_s_first_close_encounter</a></em></a><br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham.</em>
+</div>
+]]></description>
+  <pubDate>Mon, 28 Aug 2023 23:01:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-08-28:/posts/8357645</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>43: BONUS - Aimless telescopes &amp; beyond the Milky Way</title>
+  <link>https://audioboom.com/posts/8348030</link>
+  <itunes:episode>43</itunes:episode>
+  <itunes:title>BONUS - Aimless telescopes &amp; beyond the Milky Way</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8348030.mp3?modified=1691681922&amp;sid=5014098&amp;source=rss" length="10727946" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8348030.mp3?modified=1691681922&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="670" lang="en-GB" fileSize="10727946" />
+  <itunes:duration>670</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>Could we detect exoplanets outside of the Milky Way? Could the Euclid Telescope disprove what we know about dark energy and matter? Are we just pointing telescopes aimlessly at patches of space? And is it possible for two black holes to merge and separate into two branches? Izzie Clarke, Dr Becky Smethurst and Dr Robert Massey tackle your burning questions. <br>
+<br>
+Still, have an unanswered question? Send it to podcast@ras.ac.uk, tweet @RoyalAstroSoc, or find us on Instagram @SupermassivePod.<br>
+<br>
+The Supermassive Podcast from the Royal Astronomical Society is a Boffin Media Production. The producers are Izzie Clarke and Richard Hollingham.<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 11 Aug 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-08-10:/posts/8348030</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>43: Most of the Universe is missing...</title>
+  <link>https://audioboom.com/posts/8340536</link>
+  <itunes:episode>43</itunes:episode>
+  <itunes:title>Most of the Universe is missing...</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8340536.mp3?modified=1690364982&amp;sid=5014098&amp;source=rss" length="44309262" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8340536.mp3?modified=1690364982&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2769" lang="en-GB" fileSize="44309262" />
+  <itunes:duration>2769</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>The Supermassive Team have spent the last three years attempting to talk about ALL the stuff in space. But that only makes up 5% of our universe. Where the heck is the rest? <br>
+<br>
+This month, Izzie and Dr Becky dive into the topic of Dark Matter and Dark Energy... The stuff that makes up that missing 95% of the universe. With special thanks to Dr Alex Hall from the University of Edinburgh for covering the basics, and to Dr Stephen Wilkins from the University of Sussex for explaining how ESA's new space telescope Euclid will give us new insights to the field. <br>
+<br>
+If you enjoy The Supermassive Podcast, please rate, review and follow us. Even better, why not vote for us at The British Podcast Awards?! <a href="https://www.britishpodcastawards.com/voting">https://www.britishpodcastawards.com/voting</a><br>
+<br>
+The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Fri, 28 Jul 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-07-26:/posts/8340536</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>42: BONUS – White holes, astrology and why is Venus so hot?</title>
+  <link>https://audioboom.com/posts/8329744</link>
+  <itunes:episode>42</itunes:episode>
+  <itunes:title>BONUS – White holes, astrology and why is Venus so hot?</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8329744.mp3?modified=1688639644&amp;sid=5014098&amp;source=rss" length="16876496" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8329744.mp3?modified=1688639644&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="1054" lang="en-GB" fileSize="16876496" />
+  <itunes:duration>1054</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>What’s a white hole and could one appear above the Earth tomorrow? Do different cultures sort stars into similar patterns? Why is Venus so hot and how do the Supermassive team cope when someone calls them an astrologer?<br>
+<br>
+Dr Becky Smethurst and Dr Robert Massey take on your questions from the Supermassive mailbox. <br>
+<br>
+Send your questions to podcast@ras.ac.uk, tweet @RoyalAstroSoc, or find us on Instagram @SupermassivePod.<br>
+<br>
+The Supermassive Podcast from the Royal Astronomical Society is a Boffin Media Production. The producers are Izzie Clarke and Richard Hollingham. <br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Thu, 06 Jul 2023 23:01:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-07-06:/posts/8329744</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>42: A (brief) History of Astronomy</title>
+  <link>https://audioboom.com/posts/8321387</link>
+  <itunes:episode>42</itunes:episode>
+  <itunes:title>A (brief) History of Astronomy</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8321387.mp3?modified=1687356793&amp;sid=5014098&amp;source=rss" length="46745560" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8321387.mp3?modified=1687356793&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2921" lang="en-GB" fileSize="46745560" />
+  <itunes:duration>2921</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Dr Becky and Izzie dust-down the Supermassive Tardis to explore the history of astronomy. From fossilised baboon bones and baby lamas to Einstein and black holes, the Supermassive team discovers how we came to understand the Universe the way we do today. Editor Richard talks to astronomer and science writer, Dr Stuart Clark, who reveals where the phrase ‘the dog days of summer’ comes from. And Izzie chats to President of the Royal Astronomical Society, Professor Mike Edmunds, about the amazing Antikythera astronomical calculator. As usual, Dr Robert Massey is on hand to take on your questions. <br>
+<br>
+Stuart’s latest book is Beneath the Night:<br>
+<a href="https://www.amazon.co.uk/Beneath-Night-Stuart-Clark/dp/1783351535">https://www.amazon.co.uk/Beneath-Night-Stuart-Clark/dp/1783351535</a><br>
+<br>
+Send your questions or astrophotography to podcast@ras.ac.uk, tweet @RoyalAstroSoc, or find us on Instagram @SupermassivePod. <br>
+<br>
+The Supermassive Podcast is a Boffin Media production for The Royal Astronomical Society. The producers are Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Thu, 22 Jun 2023 23:01:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-06-21:/posts/8321387</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>41: BONUS - Why do Gas Giants exist?</title>
+  <link>https://audioboom.com/posts/8315052</link>
+  <itunes:episode>41</itunes:episode>
+  <itunes:title>BONUS - Why do Gas Giants exist?</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8315052.mp3?modified=1686321813&amp;sid=5014098&amp;source=rss" length="14251800" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8315052.mp3?modified=1686321813&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="890" lang="en-GB" fileSize="14251800" />
+  <itunes:duration>890</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>Can JWST see galaxies at different life stages? What is a "former" constellation?  And why do we see Jupiter in monochrome? This month, Izzie Clarke, Dr Becky Smethurst and Dr Robert Massey take on your questions from The Supermassive Mailbox.<br>
+<br>
+Want to support The Supermassive Podcast? Why not buy our book <em>The Year In Space</em> - <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+The Supermassive Podcast from the Royal Astronomical Society is a Boffin Media Production. The producers are Izzie Clarke and Richard Hollingham.</div>
+]]></description>
+  <pubDate>Tue, 13 Jun 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-06-09:/posts/8315052</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>41: BIG Observatories</title>
+  <link>https://audioboom.com/posts/8307662</link>
+  <itunes:episode>41</itunes:episode>
+  <itunes:title>BIG Observatories</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8307662.mp3?modified=1685102605&amp;sid=5014098&amp;source=rss" length="43968161" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8307662.mp3?modified=1685102605&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2747" lang="en-GB" fileSize="43968161" />
+  <itunes:duration>2747</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>We love stargazing on The Supermassive Podcast, so we thought it was about time we had an episode on the future of ground-based telescopes. From the brilliant named Extremely Large Telescope to the Square Kilometre Array Observatory, Dr Aprajita Verma from Oxford University and science journalist, Sarah Wild, tell Izzie and Dr Becky about the observatories that will transform our understanding of the universe. <br>
+<br>
+<strong>Searching African Skies by Sarah Wild</strong> - <a href="https://www.waterstones.com/book/searching-african-skies/sarah-wild/9781431404728">https://www.waterstones.com/book/searching-african-skies/sarah-wild/9781431404728</a><br>
+<br>
+Send your questions or astrophotography to podcast@ras.ac.uk, tweet @RoyalAstroSoc, or find us on Instagram @SupermassivePod. <br>
+<br>
+The Supermassive Podcast is a Boffin Media production for The Royal Astronomical Society. The producers are Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Sat, 27 May 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-05-26:/posts/8307662</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>40:  BONUS - Are Lunar Poles Arbitrary?</title>
+  <link>https://audioboom.com/posts/8300063</link>
+  <itunes:episode>40</itunes:episode>
+  <itunes:title> BONUS - Are Lunar Poles Arbitrary?</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8300063.mp3?modified=1683913193&amp;sid=5014098&amp;source=rss" length="14921790" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8300063.mp3?modified=1683913193&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="932" lang="en-GB" fileSize="14921790" />
+  <itunes:duration>932</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>What's the most efficient way of space travel? How does longitude change your night sky view? Why does M87* look different? This month, Izzie Clarke, Dr Becky Smethurst and Dr Robert Massey take on your questions in The Supermassive Mailbox.<br>
+<br>
+Want to support The Supermassive Podcast? Why not buy our book The Year In Space - <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+The Supermassive Podcast from the Royal Astronomical Society is a Boffin Media Production. The producers are Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Sat, 13 May 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-05-12:/posts/8300063</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>40: Becky Loves Saturn </title>
+  <link>https://audioboom.com/posts/8290046</link>
+  <itunes:episode>40</itunes:episode>
+  <itunes:title>Becky Loves Saturn </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8290046.mp3?modified=1683031375&amp;sid=5014098&amp;source=rss" length="48313880" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8290046.mp3?modified=1683031375&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3019" lang="en-GB" fileSize="48313880" />
+  <itunes:duration>3019</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>It's FINALLY happening. Izzie is letting Dr Becky have an entire episode about her favourite planet, Saturn. <br>
+<br>
+Professor Geraint Jones from UCL's Mullard Space Science Laboratory tells the Supermassive Team about the Saturnian system. Plus, Professor John Zarnecki shares his experiences of being involved with the Cassini-Huygens mission. And, as always, Dr Robert Massey is on hand to take on listener questions and share his stargazing tips for the month. <br>
+<br>
+The Supermassive Podcast is a Boffin Media production for The Royal Astronomical Society by Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Sat, 29 Apr 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-04-28:/posts/8290046</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>39: BONUS - Do black holes stop time? </title>
+  <link>https://audioboom.com/posts/8276715</link>
+  <itunes:episode>39</itunes:episode>
+  <itunes:title>BONUS - Do black holes stop time? </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8276715.mp3?modified=1680793223&amp;sid=5014098&amp;source=rss" length="13369086" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8276715.mp3?modified=1680793223&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="835" lang="en-GB" fileSize="13369086" />
+  <itunes:duration>835</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>Are gravitational waves destructive?  Will the universe ever expand faster than the speed of light? Should we only send robots to space? This month, Izzie Clarke, Dr Becky Smethurst and Dr Robert Massey take on the BIG questions in The Supermassive Mailbox. <br>
+<br>
+Want to support The Supermassive Podcast? Why not buy our book <em>The Year In Space</em> - <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+The Supermassive Podcast from the Royal Astronomical Society is a Boffin Media Production. The producers are Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Fri, 07 Apr 2023 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-04-06:/posts/8276715</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>39: Jupiter The Monster</title>
+  <link>https://audioboom.com/posts/8268986</link>
+  <itunes:episode>39</itunes:episode>
+  <itunes:title>Jupiter The Monster</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8268986.mp3?modified=1679905519&amp;sid=5014098&amp;source=rss" length="45540466" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8268986.mp3?modified=1679905519&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2846" lang="en-GB" fileSize="45540466" />
+  <itunes:duration>2846</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie and Dr Becky explore the largest planet in our solar system, Jupiter. What do we know about this big ol’ planet? And what are the missions that will find out even more? The team is joined by Scott Boulton, Principal Investigator of NASA's Juno mission, and Professor Emma Bunce from the University of Leicester, also involved with ESA's Jupiter Icy Moons Explorer (aka JUICE). Plus Robert Massey shares his top stargazing tips for spring. <br>
+<br>
+<strong>Everyday STEM Science - Space! by Izzie Clarke</strong><br>
+<a href="https://www.panmacmillan.com/authors/izzie-clarke/everyday-stem-science-space/9780753447963">https://www.panmacmillan.com/authors/izzie-clarke/everyday-stem-science-space/9780753447963</a><br>
+<br>
+<strong>The Year in Space by The Supermassive Podcast</strong><br>
+<a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham. </em><br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 24 Mar 2023 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-03-23:/posts/8268986</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>38: BONUS - More Comets, Less Asteroids</title>
+  <link>https://audioboom.com/posts/8261142</link>
+  <itunes:episode>38</itunes:episode>
+  <itunes:title>BONUS - More Comets, Less Asteroids</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8261142.mp3?modified=1678383215&amp;sid=5014098&amp;source=rss" length="12004364" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8261142.mp3?modified=1678383215&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="750" lang="en-GB" fileSize="12004364" />
+  <itunes:duration>750</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>Is there a Cosmological Horizon? Can we change a comet's orbit to see more of them? What's the most distant human-made object in space? Izzie, Dr Becky and Robert dive into The Supermassive Mailbox to answer your questions. <br>
+<br>
+Want to support The Supermassive Podcast? Why not buy our book The Year In Space - <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. <br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 10 Mar 2023 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-03-09:/posts/8261142</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>38: Gettin' Gravitational Wave-y</title>
+  <link>https://audioboom.com/posts/8252376</link>
+  <itunes:episode>38</itunes:episode>
+  <itunes:title>Gettin' Gravitational Wave-y</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8252376.mp3?modified=1677173169&amp;sid=5014098&amp;source=rss" length="42383693" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8252376.mp3?modified=1677173169&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2648" lang="en-GB" fileSize="42383693" />
+  <itunes:duration>2648</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>The Supermassive team take on their toughest challenge (and most tenuous title) yet…Gravitational Waves. Izzie and Dr Becky explore what they are and ask how the heck to detect something so small? With special thanks to Prof. Mark Hannam from Cardiff University and Prof Sheila Rowan, Director of the Institute for Gravitational Research at the University of Glasgow. Plus Dr Robert Massey takes on your questions and shares his stargazing tips for spring. <br>
+<br>
+Get your copy of our book, The Year in Space, here: <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+To add to the Supermassive Mailbox, email questions to podcast@ras.ac.uk, tweet @RoyalAstroSoc or slide into the DMs on Instagram, @SupermassivePod. <br>
+<br>
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham for the Royal Astronomical Society. </div>
+]]></description>
+  <pubDate>Fri, 24 Feb 2023 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-02-23:/posts/8252376</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>37: BONUS - The Supermassive Mailbox</title>
+  <link>https://audioboom.com/posts/8245513</link>
+  <itunes:episode>37</itunes:episode>
+  <itunes:title>BONUS - The Supermassive Mailbox</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8245513.mp3?modified=1676054786&amp;sid=5014098&amp;source=rss" length="13344786" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8245513.mp3?modified=1676054786&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="833" lang="en-GB" fileSize="13344786" />
+  <itunes:duration>833</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>bonus</itunes:episodeType>
+  <description><![CDATA[<div>You spoke. We listened. We're releasing more episodes! Izzie, Dr Becky and Robert answer your questions in this first bonus episode of The Supermassive Podcast. <br>
+<br>
+How hard is life for an astronomer that's a morning person? How do we know if a star is really red or just red-shifted? And more. <br>
+<br>
+To add your questions, photos, messages to The Supermassive Mailbox then email podcast@ras.ac.uk, tweet @RoyalAstroSoc or find us on Instagram @SupermassivePod. <br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Sat, 11 Feb 2023 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-02-10:/posts/8245513</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>37: Q&amp;A - Black Hole Burps and Space Station Pacman</title>
+  <link>https://audioboom.com/posts/8238985</link>
+  <itunes:episode>37</itunes:episode>
+  <itunes:title>Q&amp;A - Black Hole Burps and Space Station Pacman</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8238985.mp3?modified=1675115184&amp;sid=5014098&amp;source=rss" length="46347041" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8238985.mp3?modified=1675115184&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2896" lang="en-GB" fileSize="46347041" />
+  <itunes:duration>2896</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Can a black hole eat a black hole, whole? Is there a Universal now? Which household appliances wouldn't work on the International Space Station? Izzie Clarke puts your questions to Dr Becky Smethurst, Dr Robert Massey and Richard Hollingham. <br>
+<br>
+Here are the websites to help find Comet C/2022 E3 (ZTF)<br>
+<a href="https://theskylive.com/">https://theskylive.com/</a><br>
+<a href="https://in-the-sky.org/">https://in-the-sky.org/</a> <br>
+<br>
+If you have a burning question for the team email it to <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a>, tweet @RoyalAstrocSoc or finds us on Instagram <a href="https://www.instagram.com/supermassivepod/">@SupermassivePod</a><br>
+<br>
+<em>This is a Boffin Media Production by Izzie Clarke and Richard Hollingham.  </em><br>
+<br>
+<br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Tue, 31 Jan 2023 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2023-01-30:/posts/8238985</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>36: Stargazing with Team Supermassive </title>
+  <link>https://audioboom.com/posts/8217834</link>
+  <itunes:episode>36</itunes:episode>
+  <itunes:title>Stargazing with Team Supermassive </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8217834.mp3?modified=1671531621&amp;sid=5014098&amp;source=rss" length="45177980" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8217834.mp3?modified=1671531621&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2823" lang="en-GB" fileSize="45177980" />
+  <itunes:duration>2823</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Find out what happened when Izzie Clarke and Dr Robert Massey used a 12 tonne telescope at an observatory in Herstmonceux, Sussex. Plus, Dr Becky Smethurst explains the benefit of using space telescopes and takes on your questions. <br>
+<br>
+With special to Dr Sandra Voss at The Observatory Science Centre in Hertsmonceux: <a href="https://www.the-observatory.org/">https://www.the-observatory.org/</a><br>
+<br>
+Get The Year In Space for a month-by-month guide to the night sky: <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+If you have a question for the team, email podcast@ras.ac.uk or tweet @RoyalAstroSoc. <br>
+<br>
+The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham. <br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Wed, 21 Dec 2022 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-12-20:/posts/8217834</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>35: Astronaut Special: Returning to the Moon </title>
+  <link>https://audioboom.com/posts/8202054</link>
+  <itunes:episode>35</itunes:episode>
+  <itunes:title>Astronaut Special: Returning to the Moon </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8202054.mp3?modified=1669304372&amp;sid=5014098&amp;source=rss" length="48896890" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8202054.mp3?modified=1669304372&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3055" lang="en-GB" fileSize="48896890" />
+  <itunes:duration>3055</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>The Astronaut Alarm is in overdrive... Izzie, Dr Becky, and his excellency Richard Hollingham have not one but TWO astronauts on this month's episode. <br>
+<br>
+From the archive, Richard speaks to NASA astronaut Gene Cernan about Apollo 17 and being the last man on the Moon. ESA Astronaut Matthias Maurer talks about the upcoming Artemis missions which will see humans (hopefully, Matthias himself) return to our rocky neighbour. Plus, Robert Massey is on hand to answer your questions and share his stargazing tips for the month. <br>
+<br>
+Read the full interview with the Last Man on the Moon, Gene Cernan, and find out more about Artemis in our book, <strong>The Year In Space</strong>. <br>
+<br>
+Order here (it's an excellent Christmas present): <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+What cheese is the Moon made of? Email podcast@ras.ac.uk or tweet @RoyalAstroSoc with your thoughts on the debate. <br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham. </em><br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 25 Nov 2022 02:36:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-11-24:/posts/8202054</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>34: How to Deflect an Asteroid</title>
+  <link>https://audioboom.com/posts/8183368</link>
+  <itunes:episode>34</itunes:episode>
+  <itunes:title>How to Deflect an Asteroid</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8183368.mp3?modified=1667321844&amp;sid=5014098&amp;source=rss" length="44358826" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8183368.mp3?modified=1667321844&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2772" lang="en-GB" fileSize="44358826" />
+  <itunes:duration>2772</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Terrified that an asteroid could wipe out the planet? Don’t panic…the Supermassive team are here to help. Izzie and Dr Becky talk to Professor Alan Fitzsimmons about the results of the DART asteroid deflection mission and Samuel L Jackson (who knew he’s studying for a Phd at the Open University?) tells us how scientists plan to track and tackle threatening space rocks. Plus why the Deep Impact movie terrifies both Izzie and Dr Becky, but for very different reasons, and Dr Robert Massey takes us through the November night sky.<br>
+<br>
+The Year in Space from the Supermassive Podcast is out now: <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+Send in your questions to <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a><br>
+<br>
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham for the Royal Astronomical Society. <br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Thu, 27 Oct 2022 23:01:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-10-27:/posts/8183368</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>33: Q&amp;A - The Year in Space</title>
+  <link>https://audioboom.com/posts/8166331</link>
+  <itunes:episode>33</itunes:episode>
+  <itunes:title>Q&amp;A - The Year in Space</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8166331.mp3?modified=1664478806&amp;sid=5014098&amp;source=rss" length="51857449" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8166331.mp3?modified=1664478806&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3240" lang="en-GB" fileSize="51857449" />
+  <itunes:duration>3240</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>It's been an exciting time for space exploration, so Izzie and Dr Becky celebrate the year in space.... co-incidentally the title of The Supermassive Podcast's book which is out in October. How do plants grow in the ISS? Has JWST changed ideas about cosmology? And when will we get a home gravitational wave detector? The honourable Izzie Clarke, Dr Becky Smethurst, Dr Robert Massey, and (his excellency) space and science journalist Richard Hollingham take on your questions.<br>
+<br>
+Pre-order our upcoming book <strong>The Year In Space</strong> for a run down of the most exciting space news and a look to the year ahead: <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+Listen to Space Boffins: <a href="https://www.thenakedscientists.com/podcasts/astronomy-podcasts/space-boffins/apollo-remastered">https://www.thenakedscientists.com/podcasts/astronomy-podcasts/space-boffins/apollo-remastered</a><br>
+<br>
+Listen to Gardeners of the Galaxy: <a href="https://gardenersofthegalaxy.podbean.com/">https://gardenersofthegalaxy.podbean.com/</a><br>
+<br>
+<strong>Bookclub: </strong><br>
+The Year in Space - The Supermassive Podcast (that's us!) <br>
+Apollo Remastered - Andy Saunders <br>
+Star Names: Their Lore and Meaning - Richard Hinckley Allen<br>
+A Responsibility to Awe - Rebecca Elson <br>
+A Brief History of Black Holes - Dr Becky Smethurst</div>
+]]></description>
+  <pubDate>Fri, 30 Sep 2022 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-09-29:/posts/8166331</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>32: JWST First Images... FINALLY! </title>
+  <link>https://audioboom.com/posts/8146555</link>
+  <itunes:episode>32</itunes:episode>
+  <itunes:title>JWST First Images... FINALLY! </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8146555.mp3?modified=1662116032&amp;sid=5014098&amp;source=rss" length="52816236" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8146555.mp3?modified=1662116032&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3300" lang="en-GB" fileSize="52816236" />
+  <itunes:duration>3300</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie and Dr Becky freak out over the first images from the James Webb Space Telescope. From seeing the deep (not so deep) field with Steve Wilkins from the University of Sussex, to exploring exoplanet atmospheres with Dr Hannah Wakeford from the University of Bristol. Plus, Dr Robert Massey takes the team through the September night sky. <br>
+<br>
+Pre-order The Year in Space, out October 27th 2022<br>
+<a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+Send in your questions for next month's Year in Space Q&amp;A to podcast@ras.ac.uk<br>
+<br>
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham for the Royal Astronomical Society. <br>
+<br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Sat, 27 Aug 2022 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-08-26:/posts/8146555</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>31: Life on Mars - LIVE from Standon Calling</title>
+  <link>https://audioboom.com/posts/8128789</link>
+  <itunes:episode>31</itunes:episode>
+  <itunes:title>Life on Mars - LIVE from Standon Calling</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8128789.mp3?modified=1662116010&amp;sid=5014098&amp;source=rss" length="41228305" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8128789.mp3?modified=1662116010&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2576" lang="en-GB" fileSize="41228305" />
+  <itunes:duration>2576</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>The Supermassive team dust off their wellies and peg down their tents for Standon Calling. And to celebrate 10 years of NASA's Curiosity rover landing on Mars, Izzie and Dr Becky are asking the question everyone at the festival wants answered... Is there life on Mars? <br>
+<br>
+With special thanks to Dr Robert Massey, David Rothery, Professor of Planetary Geosciences at the Open University, and Alice Armstrong from Agile Rabbit. <br>
+<br>
+Pre-order our book, The Year In Space, out October 2022: <br>
+<a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<em><br>
+The Supermassive Podcast is a Boffin Media Production, by Izzie Clarke and Richard Hollingham. </em><br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 29 Jul 2022 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-07-28:/posts/8128789</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>30: Rocky Planets Rock</title>
+  <link>https://audioboom.com/posts/8112462</link>
+  <itunes:episode>30</itunes:episode>
+  <itunes:title>Rocky Planets Rock</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8112462.mp3?modified=1662116003&amp;sid=5014098&amp;source=rss" length="49749672" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8112462.mp3?modified=1662116003&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3109" lang="en-GB" fileSize="49749672" />
+  <itunes:duration>3109</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie and Dr Becky are flying closer to home to look at the Rocky Planets; Mercury, Venus, Earth and Mars. How are they different? How are they similar? And can understanding their past tell us anything about Earth’s future? Plus, Dr Robert Massey has his stargazing tips for summer. <br>
+<br>
+With special thanks to Dr Suzie Imber from the University of Leicester, and Sian Prosser from the Royal Astronomical Society. <br>
+<br>
+Thank you to Brilliant for sponsoring this episode.  Head to <a href="http://brilliant.org/supermassive">brilliant.org/supermassive</a> to start free courses in maths, science, and computer science. The first 200 subscribers will get 20% off.<br>
+ <br>
+Our book, <strong>The Year In Space 2023, </strong>will be out in Oct 2022. Pre-order here: <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+<br>
+We'll be LIVE at Standon Calling, Friday 22nd July 2022 at 2pm. Find out more: <a href="https://standon-calling.com/">https://standon-calling.com/</a><br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. </em>
+</div>
+]]></description>
+  <pubDate>Fri, 01 Jul 2022 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-06-30:/posts/8112462</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>29: Gas Giants are Weird</title>
+  <link>https://audioboom.com/posts/8092004</link>
+  <itunes:episode>29</itunes:episode>
+  <itunes:title>Gas Giants are Weird</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8092004.mp3?modified=1662115962&amp;sid=5014098&amp;source=rss" length="47207761" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8092004.mp3?modified=1662115962&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2950" lang="en-GB" fileSize="47207761" />
+  <itunes:duration>2950</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>From hexagonal shaped storms to spinning sideways, Izzie and Dr Becky are exploring our weird and wonderful Gas Giants. Joining them are Dr Tom Stallard from the University of Leicester and Dr Robert Massey, Deputy Director of the Royal Astronomical Society. Plus editor, Richard Hollingham, takes a trip to the Royal Astronomical Society’s library to see Galileo’s first observations of Saturn’s rings and William Herschel’s notebook from when he discovered Uranus.<br>
+ <br>
+See Jupiter's fast rotation (thanks to Dr James O'Donoghue) <a href="https://twitter.com/physicsJ/status/1519023430053818368">https://twitter.com/physicsJ/status/1519023430053818368</a><br>
+ <br>
+Thank you to Brilliant for sponsoring this episode.  Head to <a href="http://brilliant.org/supermassive">brilliant.org/supermassive</a> to start free courses in maths, science, and computer science. The first 200 subscribers will get 20% off.<br>
+ <br>
+<strong><em>The Year In Space 2023</em></strong> by The Supermassive Team will be out on Oct 2022. Pre-order here: <a href="https://geni.us/jNcrw">https://geni.us/jNcrw</a><br>
+ <br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. Edited by Sarah Moore. </em><br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Tue, 31 May 2022 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-05-30:/posts/8092004</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>28: How to Kill a Galaxy</title>
+  <link>https://audioboom.com/posts/8075364</link>
+  <itunes:episode>28</itunes:episode>
+  <itunes:title>How to Kill a Galaxy</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8075364.mp3?modified=1651583717&amp;sid=5014098&amp;source=rss" length="42010354" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8075364.mp3?modified=1651583717&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2625" lang="en-GB" fileSize="42010354" />
+  <itunes:duration>2625</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>How does a galaxy evolve and die? Izzie and Dr Becky find out with help from Tim Davis at Cardiff University. Plus, Dr Robert Massey from the Royal Astronomical Society answers your questions and explains how to spot galaxies in the night sky. <br>
+<br>
+Thank you to Brilliant for sponsoring this episode.  Head to <a href="http://brilliant.org/supermassive">brilliant.org/supermassive</a> to start free courses in maths, science, and computer science. The first 200 subscribers will get 20% off.<br>
+<br>
+The link below has more information on the RAS Public Talk with Astronomer Royal Martin Rees, <em>Space exploration and the search for extraterrestrial life</em> - <em>with humans and with robots. <br>
+</em><a href="https://ras.ac.uk/events-and-meetings/ras-public-lectures-and-events/space-exploration-and-search-extraterrestrial">https://ras.ac.uk/events-and-meetings/ras-public-lectures-and-events/space-exploration-and-search-extraterrestrial</a><em><br>
+<br>
+</em><br>
+<strong><em>A Year In Space</em></strong> by The Supermassive Team will be out on Oct 13th 2022. Pre-order here:<br>
+<a href="https://www.amazon.co.uk/Year-Space-Supermassive-Podcast-Astronomical/dp/1472299507/ref=sr_1_3?crid=1O3PS3QUCPP2A&amp;keywords=the+year+in+space&amp;qid=1650904438&amp;s=books&amp;sprefix=the+year+in+space%2Cstripbooks%2C94&amp;sr=1-3">https://www.amazon.co.uk/Year-Space-Supermassive-Podcast-Astronomical/dp/1472299507/ref=sr_1_3?crid=1O3PS3QUCPP2A&amp;keywords=the+year+in+space&amp;qid=1650904438&amp;s=books&amp;sprefix=the+year+in+space%2Cstripbooks%2C94&amp;sr=1-3</a><br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. </em>
+</div>
+]]></description>
+  <pubDate>Sat, 30 Apr 2022 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-04-29:/posts/8075364</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>27: How to Build a Galaxy </title>
+  <link>https://audioboom.com/posts/8054036</link>
+  <itunes:episode>27</itunes:episode>
+  <itunes:title>How to Build a Galaxy </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8054036.mp3?modified=1651583739&amp;sid=5014098&amp;source=rss" length="42851457" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8054036.mp3?modified=1651583739&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2678" lang="en-GB" fileSize="42851457" />
+  <itunes:duration>2678</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie and Dr Becky are attempting to tackle the massive subject of building a galaxy.  <br>
+<br>
+Professor Mike Merrifield from The University of Nottingham explains how galaxies form and our very own galaxy expert, Dr Becky, tells us why they come in different shapes and sizes. Plus, Dr Robert Massey has his top tips for stargazing in spring.  <br>
+<br>
+<strong>Thank you to Brilliant for sponsoring this episode</strong>.  Head to <a href="http://brilliant.org/supermassive">brilliant.org/supermassive</a> to start free courses in maths, science, and computer science. The first 200 subscribers will get 20% off.<br>
+<br>
+<strong>Explore the Galaxy Zoo here:</strong> <br>
+<a href="https://www.zooniverse.org/projects/zookeeper/galaxy-zoo/">https://www.zooniverse.org/projects/zookeeper/galaxy-zoo/</a><br>
+<br>
+<strong>Space Book Club recommendations... <br>
+</strong>Back to Earth - Nicole Stott <strong><br>
+</strong>The End of Astronauts - Donald Goldsmith &amp; Martin Rees</div>
+<div>The Disordered Cosmos - Chanda Prescod-Weinstein<br>
+"A Year In Space" by The Supermassive Team will be out on Oct 13th 2022. Pre-order here: <br>
+<a href="https://www.amazon.co.uk/Year-Space-Supermassive-Podcast-Astronomical/dp/1472299507/ref=sr_1_3?crid=1O3PS3QUCPP2A&amp;keywords=the+year+in+space&amp;qid=1650904438&amp;s=books&amp;sprefix=the+year+in+space%2Cstripbooks%2C94&amp;sr=1-3">https://www.amazon.co.uk/Year-Space-Supermassive-Podcast-Astronomical/dp/1472299507/ref=sr_1_3?crid=1O3PS3QUCPP2A&amp;keywords=the+year+in+space&amp;qid=1650904438&amp;s=books&amp;sprefix=the+year+in+space%2Cstripbooks%2C94&amp;sr=1-3</a> <br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. Editing this month is by Sarah Moore. </em><br>
+<br>
+
+</div>
+<div>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 25 Mar 2022 03:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-03-24:/posts/8054036</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>26: The Marvellous Moon</title>
+  <link>https://audioboom.com/posts/8037521</link>
+  <itunes:episode>26</itunes:episode>
+  <itunes:title>The Marvellous Moon</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8037521.mp3?modified=1645730316&amp;sid=5014098&amp;source=rss" length="50110979" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8037521.mp3?modified=1645730316&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="3131" lang="en-GB" fileSize="50110979" />
+  <itunes:duration>3131</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Who doesn’t love looking up at the moon?! Joining Izzie and Dr Becky, Professor Katherine Joy from the University of Manchester explains what past and future lunar missions can tell us, and Dr Megan Barford from Royal Museums Greenwich gives us a tour of two stunning moon maps from the 17th century. Plus, Dr Robert Massey takes on your questions and shares his top tips for moon-gazing. <br>
+<br>
+See the moon maps here...<br>
+By Riccioli &amp; Grimaldi, 1651: <a href="https://www.sciencephoto.com/media/1179815/view">https://www.sciencephoto.com/media/1179815/view</a>
+</div>
+<div>By Cassini, 1679: <a href="https://www.sciencephoto.com/media/1093522/view">https://www.sciencephoto.com/media/1093522/view</a><br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham. </em>
+</div>
+]]></description>
+  <pubDate>Fri, 25 Feb 2022 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-02-24:/posts/8037521</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>25: A Supermassive Q&amp;A!</title>
+  <link>https://audioboom.com/posts/8020300</link>
+  <itunes:episode>25</itunes:episode>
+  <itunes:title>A Supermassive Q&amp;A!</itunes:title>
+  <enclosure url="https://audioboom.com/posts/8020300.mp3?modified=1643303000&amp;sid=5014098&amp;source=rss" length="42404066" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8020300.mp3?modified=1643303000&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2650" lang="en-GB" fileSize="42404066" />
+  <itunes:duration>2650</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>The Supermassive team is <em>finally</em> doing something about all the questions that have been sent in. It’s Q&amp;A time! From "fluffy" planets, to cake on the moon, join Izzie Clarke as she puts your questions to Dr Becky Smethurst, Dr Robert Massey and science and space journalist Richard Hollingham. </div>
+]]></description>
+  <pubDate>Fri, 28 Jan 2022 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2022-01-27:/posts/8020300</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>24: Eclipses &amp; Expeditions </title>
+  <link>https://audioboom.com/posts/8002066</link>
+  <itunes:episode>24</itunes:episode>
+  <itunes:title>Eclipses &amp; Expeditions </itunes:title>
+  <enclosure url="https://audioboom.com/posts/8002066.mp3?modified=1640185384&amp;sid=5014098&amp;source=rss" length="38544407" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/8002066.mp3?modified=1640185384&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2408" lang="en-GB" fileSize="38544407" />
+  <itunes:duration>2408</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Join Dr Becky Smethurst and Dr Robert Massey as they explore eclipses; what are they and how have they been studied throughout history? Plus Izzie Clarke visits the Royal Astronomical Society Library to discover what the society has in the archives, and astronaut Nicole Stott and her husband, Fellow of the RAS, Chris Stott send us their eclipse audio diary from Antarctica.<br>
+<br>
+The RAS Bicentenary Timeline can be found here: <a href="https://ras.ac.uk/timeline">https://ras.ac.uk/timeline</a><br>
+<br>
+The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Fri, 24 Dec 2021 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-12-22:/posts/8002066</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>23: The End of the Universe</title>
+  <link>https://audioboom.com/posts/7986295</link>
+  <itunes:episode>23</itunes:episode>
+  <itunes:title>The End of the Universe</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7986295.mp3?modified=1637920228&amp;sid=5014098&amp;source=rss" length="41992143" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7986295.mp3?modified=1637920228&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2624" lang="en-GB" fileSize="41992143" />
+  <itunes:duration>2624</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>What will the end of days actually look like? And how will it happen? This month, Izzie and Dr Becky explore the end of the Universe with cosmologist Dr Katie Mack - author of The End of Everything (Astrophysically Speaking). They also chat to astronomy journalist and author of The Unknown Universe, Dr Stuart Clark, who explains the role of dark energy. Plus, Dr Robert Massey takes on your questions and shares when it is best to see Jupiter, Saturn and Venus in December.<br>
+<br>
+Send your astronomy questions for January's Q&amp;A to podcast[@]<a href="http://ras.ac.uk">ras.ac.uk</a> or tweet @RoyalAstroSoc. <br>
+<br>
+<strong>Book Club recommendations: </strong>
+</div>
+<ul>
+<li>The Red Planet - Simon Morden </li>
+<li>Apollo’s Muse - Mia Fineman and Beth Saunders </li>
+<li>Fire and Ice - Natalie Starkey</li>
+<li>The Invisible Universe - Matt Bothwell</li>
+<li>The Mysteries of the Universe - Will Gater</li>
+</ul>
+<div>
+<br>
+<em>The Supermassive podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham. </em>
+</div>
+]]></description>
+  <pubDate>Fri, 26 Nov 2021 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-11-25:/posts/7986295</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>22: JWST - Seeing the First Stars</title>
+  <link>https://audioboom.com/posts/7969300</link>
+  <itunes:episode>22</itunes:episode>
+  <itunes:title>JWST - Seeing the First Stars</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7969300.mp3?modified=1635441049&amp;sid=5014098&amp;source=rss" length="37992031" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7969300.mp3?modified=1635441049&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2374" lang="en-GB" fileSize="37992031" />
+  <itunes:duration>2374</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Finally, Izzie and Dr Becky are talking about the James Webb Space Telescope but why is this telescope so impressive? NASA’s Keith Parrish, the observatory manager for Webb, covers the basics and Professor Gillian Wright, the principal investigator for the mid-infrared instrument (MIRI), explains how it will help us see stars and planets born from clouds of dust. Plus Dr Robert Massey takes on your questions and shares his top stargazing tips for the month. <br>
+<br>
+Thank you to the UK Space Agency for sponsoring this episode.<br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. Editing by Phil Sansom. </em><br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 29 Oct 2021 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-10-28:/posts/7969300</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>21: Icy Worlds</title>
+  <link>https://audioboom.com/posts/7952086</link>
+  <itunes:episode>21</itunes:episode>
+  <itunes:title>Icy Worlds</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7952086.mp3?modified=1633096253&amp;sid=5014098&amp;source=rss" length="38045931" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7952086.mp3?modified=1633096253&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2377" lang="en-GB" fileSize="38045931" />
+  <itunes:duration>2377</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Wrap up warm, because this month Izzie and Dr Becky are exploring the icy worlds in the solar system. To help, they're joined by Caroline Harper, Head of Space Science at the UK Space Agency, to discuss the new mission heading to explore Jupiter’s icy moons. And they hear from Professor Michele Dougherty from Imperial College London, who sent Cassini to investigate Saturn’s moon Enceladus. Plus Dr Robert Massey takes on your questions and shares his latest stargazing tips for autumn. <br>
+<br>
+Join the Royal Astronomical Society's livestream of Uranus, 8th-10th October 2021: <a href="https://www.eventbrite.co.uk/e/the-weird-and-wonderful-world-of-uranus-world-space-week-tickets-183281298297">https://www.eventbrite.co.uk/e/the-weird-and-wonderful-world-of-uranus-world-space-week-tickets-183281298297</a><br>
+<br>
+Thank you to the UK Space Agency for sponsoring this episode. <br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. </em><br>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 01 Oct 2021 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-09-30:/posts/7952086</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>20: Firey Worlds</title>
+  <link>https://audioboom.com/posts/7930952</link>
+  <itunes:episode>20</itunes:episode>
+  <itunes:title>Firey Worlds</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7930952.mp3?modified=1629996819&amp;sid=5014098&amp;source=rss" length="41615181" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7930952.mp3?modified=1629996819&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2600" lang="en-GB" fileSize="41615181" />
+  <itunes:duration>2600</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie and Dr Becky are turning up the heat and exploring the fiery worlds in our solar system. From planets close to the Sun to a distant world of volcanoes and lava. <br>
+<br>
+Joining them are planetary scientist Professor David Rothery from the Open University and Professor Alfred McEwen from the University of Arizona, who wants to send a mission to Jupiter’s moon Io. Plus Dr Robert Massey takes on your questions and has his monthly guide to stargazing.<br>
+<br>
+<em>This is a Boffin Media production by Izzie Clarke and Richard Hollingham.</em>
+</div>
+]]></description>
+  <pubDate>Fri, 27 Aug 2021 01:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-08-26:/posts/7930952</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>19: Radiation Belts and Billionaires </title>
+  <link>https://audioboom.com/posts/7914285</link>
+  <itunes:episode>19</itunes:episode>
+  <itunes:title>Radiation Belts and Billionaires </itunes:title>
+  <enclosure url="https://audioboom.com/posts/7914285.mp3?modified=1627570100&amp;sid=5014098&amp;source=rss" length="39120776" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7914285.mp3?modified=1627570100&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2444" lang="en-GB" fileSize="39120776" />
+  <itunes:duration>2444</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>This month it’s all about the trapped charged particles around our planet - the Van Allen radiation belts. Izzie and Dr Becky find out all about them with the help of Dr Maria Theresia Walach from Lancaster University, and Dr David Devorkin from the Smithsonian National Air and Space Museum explains how Explorer 1 discovered the belts in 1958. Plus, Dr Robert Massey joins to take on your questions and shares his top stargazing tips for July. </div>
+<div><br>
+</div>
+<div>The podcast is looking for sponsorship to keep the series running. It'll help fund the recording, editing and time needed to bring you the latest from space. If you have a business that would be interested in supporting the series - or just a single episode - then email <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> with the subject “sponsorship” for more information.<br>
+<br>
+<em>This is a Boffin Media production by Izzie Clarke and Richard Hollingham </em>
+</div>
+]]></description>
+  <pubDate>Fri, 30 Jul 2021 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-07-29:/posts/7914285</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>18: A Hunk of Space Junk</title>
+  <link>https://audioboom.com/posts/7893003</link>
+  <itunes:episode>18</itunes:episode>
+  <itunes:title>A Hunk of Space Junk</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7893003.mp3?modified=1624556341&amp;sid=5014098&amp;source=rss" length="42816326" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7893003.mp3?modified=1624556341&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2675" lang="en-GB" fileSize="42816326" />
+  <itunes:duration>2675</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Grab your dustpan and brush… This month, Izzie and Dr Becky get to grips with the leftovers from space activity, it's all about space junk. Joining them are engineer Dr Hugh Lewis from the University of Southampton, who models how the debris builds up over time, and space archaeologist Dr Alice Gorman explains its historical significance. Plus, Robert Massey joins in to take on your questions and shares his top stargazing tips. <br>
+<br>
+The podcast is looking for sponsorship to keep the series running. It'll help fund the recording, editing and time needed to bring you the latest from space. If you have a business that would be interested in supporting the series - or just a single episode - then email podcast@ras.ac.uk with the subject “sponsorship” for more information.<br>
+<br>
+<em>This is a Boffin Media production by Izzie Clarke and Richard Hollingham </em>
+</div>
+]]></description>
+  <pubDate>Fri, 25 Jun 2021 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-06-24:/posts/7893003</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>17: Hunting for Planet 9 </title>
+  <link>https://audioboom.com/posts/7875538</link>
+  <itunes:episode>17</itunes:episode>
+  <itunes:title>Hunting for Planet 9 </itunes:title>
+  <enclosure url="https://audioboom.com/posts/7875538.mp3?modified=1622197898&amp;sid=5014098&amp;source=rss" length="41202145" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7875538.mp3?modified=1622197898&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2574" lang="en-GB" fileSize="41202145" />
+  <itunes:duration>2574</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Is it a planet? Is it a black hole? Is it even real? This month, Izzie and Dr Becky try and get to the bottom of the mysterious planet nine - an enigmatic - and so far invisible - ninth planet in our solar system. Helping them are the scientists that have made headlines trying to solve this puzzle, Mike Brown from the California Institute of Technology, and Jakub Scholtz from the University of Turin. Plus, Robert Massey joins in to take on your questions and explains how to see the upcoming eclipse. <br>
+<br>
+The Supermassive podcast reached 100k listens this month - thank you to everyone who has listened so far. If you’re interested in sponsoring the series (or an episode or two) then please email podcast@ras.ac.uk with the subject “sponsorship”.<br>
+<br>
+<em>This is a Boffin Media production by Izzie Clarke and Richard Hollingham </em>
+</div>
+]]></description>
+  <pubDate>Fri, 28 May 2021 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-05-27:/posts/7875538</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>16: Mysteries of the Kuiper Belt</title>
+  <link>https://audioboom.com/posts/7849921</link>
+  <itunes:episode>16</itunes:episode>
+  <itunes:title>Mysteries of the Kuiper Belt</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7849921.mp3?modified=1619021928&amp;sid=5014098&amp;source=rss" length="39558882" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7849921.mp3?modified=1619021928&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2472" lang="en-GB" fileSize="39558882" />
+  <itunes:duration>2472</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>“It’s like the evidence left over after a crime.”</div>
+<div> </div>
+<div>This month Izzie and Dr Becky venture into the outer Solar System to explore a sea of weird rocks, a squashed snowman and ice volcanoes on a demoted planet. </div>
+<div> </div>
+<div>They are joined by Dr Meg Schwamb from Queen’s University Belfast and Alice Bowman, Mission Operations Manager for the New Horizons mission at the Johns Hopkins Applied Physics Laboratory in Laurel, Maryland.</div>
+<div> </div>
+<div>Becky also explains the science behind a possible ‘fifth force of nature’ and Dr Robert Massey takes on your questions and tells us what to look out for in the spring night sky. </div>
+<div> </div>
+<div>You can send your questions or space book club recommendations to podcast@ras.ac.uk or tweet @RoyalAstroSoc using #RASSupermassive. <br>
+ <br>
+ <em>The Supermassive Podcast</em> is a Boffin Media Production by Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Fri, 23 Apr 2021 02:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-04-21:/posts/7849921</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>15: Neutron Stars - with Jocelyn Bell Burnell</title>
+  <link>https://audioboom.com/posts/7830606</link>
+  <itunes:episode>15</itunes:episode>
+  <itunes:title>Neutron Stars - with Jocelyn Bell Burnell</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7830606.mp3?modified=1616699251&amp;sid=5014098&amp;source=rss" length="40724734" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7830606.mp3?modified=1616699251&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2545" lang="en-GB" fileSize="40724734" />
+  <itunes:duration>2545</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>"I was tracking down every signal that it picked up, and there was one signal that I couldn't make sense of." <br>
+<br>
+Professor Dame Jocelyn Bell Burnell gives Izzie and Dr Becky a neutron star 101 and tells them how she discovered pulsars in the 1960s. Plus, Dr Robert Massey takes on your questions and tells us what to look out for in the spring night sky. <br>
+<br>
+<strong>Book Club Recommendations </strong>
+</div>
+<ul>
+<li>Forgotten Women: The Scientists - Zing Tsjeng </li>
+<li>Six Impossible Things - John Gribbin </li>
+<li>The End of Everything (Astrophysically Speaking) - Katie Mack </li>
+<li>Vera Rubin: A Life - Jacqueline and Simon Mitton</li>
+<li>Cosmos - Carl Sagan</li>
+<li>The Book Nobody Read - Owen Gingerich</li>
+</ul>
+<div>
+<br>
+Don't forget to send your questions or space book club recommendations to podcast@ras.ac.uk or tweet @RoyalAstroSoc using #RASSupermassive. <br>
+<br>
+<em>The Supermassive Podcast</em> is a Boffin Media Production by Izzie Clarke and Richard Hollingham. 
+</div>
+<div>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 26 Mar 2021 03:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-03-25:/posts/7830606</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>14: A Star Is Born </title>
+  <link>https://audioboom.com/posts/7809745</link>
+  <itunes:episode>14</itunes:episode>
+  <itunes:title>A Star Is Born </itunes:title>
+  <enclosure url="https://audioboom.com/posts/7809745.mp3?modified=1614268906&amp;sid=5014098&amp;source=rss" length="39037840" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7809745.mp3?modified=1614268906&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2411" lang="en-GB" fileSize="39037840" />
+  <itunes:image href="https://audioboom.com/i/37722739/s=1400x1400/el=1/rt=fill.png" />
+  <media:content url="https://audioboom.com/i/37722739/s=1400x1400/el=1/rt=fill.png" type="image/png" medium="image"  />
+  <itunes:duration>2411</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>This month, Izzie and Dr Becky are shining a light on the first stars in the Universe. When did they form? And could any still exist today? Plus, they explore the life of Cecelia Payne Gaposchkin, the astrophysicist who discovered the structure of stars, and Dr Robert Massey joins them to discuss the latest NASA rover on Mars. </div>
+<div><br>
+</div>
+<div>With special thanks to Dr Emma Chapman from Imperial College London, author of First Light, and Donovan Moore, author of What Stars Are Made Of: The Life of Cecilia Payne-Gaposchkin.</div>
+<div><br>
+</div>
+<div>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham. </div>
+]]></description>
+  <pubDate>Fri, 26 Feb 2021 03:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-02-25:/posts/7809745</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>13: New Year, New Universe</title>
+  <link>https://audioboom.com/posts/7778677</link>
+  <itunes:episode>13</itunes:episode>
+  <itunes:title>New Year, New Universe</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7778677.mp3?modified=1613045984&amp;sid=5014098&amp;source=rss" length="37975017" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7778677.mp3?modified=1613045984&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2373" lang="en-GB" fileSize="37975017" />
+  <itunes:duration>2373</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie Clarke and Dr Becky Smethurst are kicking off the new year with the beginning of everything, the Big Bang. They speak with Professor David Wands who explains how our universe began, and dive into the historical debate behind this model with Professor Thomas Hertog. And, as always, astronomer Dr Robert Massey shares his top tips for stargazing this month. </div>
+<div><br>
+</div>
+<div>Send the team your questions, photos and science book recommendations on social media using #RASSupermassive or email <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a>
+</div>
+<div><br>
+</div>
+<div><em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham.</em></div>
+]]></description>
+  <pubDate>Fri, 22 Jan 2021 05:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2021-01-21:/posts/7778677</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>12: Gamma Rays &amp; Christmas Stars</title>
+  <link>https://audioboom.com/posts/7753463</link>
+  <itunes:episode>12</itunes:episode>
+  <itunes:title>Gamma Rays &amp; Christmas Stars</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7753463.mp3?modified=1608221457&amp;sid=5014098&amp;source=rss" length="40869911" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7753463.mp3?modified=1608221457&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2554" lang="en-GB" fileSize="40869911" />
+  <itunes:duration>2554</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>This month, Izzie &amp; Becky are taking astronomy to the extremes with gamma ray expert, Professor Paula Chadwick, and Professor Julian Osborne from the SWIFT Observatory. </div>
+<div><br>
+</div>
+<div>Plus, Robert Massey shares his top tips for stargazing at home and how best to see the conjunction of Jupiter and Saturn on December 21st. Send your pictures and questions to <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> or tweet @RoyalAstroSoc using #RASSupermassive. <br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham</em>
+</div>
+<div>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 18 Dec 2020 05:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-12-17:/posts/7753463</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>11: Radio Skies &amp; Strange Signals </title>
+  <link>https://audioboom.com/posts/7733881</link>
+  <itunes:episode>11</itunes:episode>
+  <itunes:title>Radio Skies &amp; Strange Signals </itunes:title>
+  <enclosure url="https://audioboom.com/posts/7733881.mp3?modified=1605804563&amp;sid=5014098&amp;source=rss" length="38675688" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7733881.mp3?modified=1605804563&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2417" lang="en-GB" fileSize="38675688" />
+  <itunes:duration>2417</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>It’s about time we gave optical telescopes a break! This month, Izzie Clarke and Dr Becky Smethurst explore radio astronomy with Professor Tim O'Brien from the UK's Jodrell Bank Telescope and Professor Lisa Harvey-Smith, former project scientist for the Australian Square Kilometre Array.<br>
+<br>
+Plus, Robert Massey shares his top tips for stargazing at home and choosing the right telescope for you. Send you pictures and questions to podcast@ras.ac.uk or tweet @RoyalAstroSoc.<br>
+<br>
+<strong>Space Book Club Recommendations: </strong>
+</div>
+<ul>
+<li>When Galaxies Collide - Lisa Harvey-Smith  </li>
+<li>Space: 10 Things You Should Know - Becky Smethurst </li>
+<li>Moon: Art, Science, Culture - Robert Massey &amp; Alex Loske</li>
+<li>No Shadow of a Doubt - Daniel Kennefick </li>
+<li>How To Be An Astronaut and Other Space Jobs - Sheila Kanani</li>
+<li>The End of Everything (Astrophysically Speaking) - Katie Mack</li>
+</ul>
+<div>
+<em><br>
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham</em><br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Fri, 20 Nov 2020 04:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-11-19:/posts/7733881</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>10: Humans In Space - with Astronaut Samantha Cristoforetti</title>
+  <link>https://audioboom.com/posts/7712263</link>
+  <itunes:episode>10</itunes:episode>
+  <itunes:title>Humans In Space - with Astronaut Samantha Cristoforetti</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7712263.mp3?modified=1651583875&amp;sid=5014098&amp;source=rss" length="39890668" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7712263.mp3?modified=1651583875&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2493" lang="en-GB" fileSize="39890668" />
+  <itunes:duration>2493</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Why do we need astronauts? And where are we hoping to send them in the future? This month, Dr Becky Smethurst and Izzie Clarke explore the role of humans in space exploration and are joined by European Space Agency Astronaut Samantha Cristoforetti. <br>
+<br>
+Plus, the team celebrate 20 years of human presence on the International Space Station and Robert Massey shares his top tips for stargazing in November. <br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham</em>
+</div>
+]]></description>
+  <pubDate>Fri, 23 Oct 2020 05:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-10-22:/posts/7712263</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>9: The Power of Space Probes</title>
+  <link>https://audioboom.com/posts/7690577</link>
+  <itunes:episode>9</itunes:episode>
+  <itunes:title>The Power of Space Probes</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7690577.mp3?modified=1600965442&amp;sid=5014098&amp;source=rss" length="39422090" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7690577.mp3?modified=1600965442&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2463" lang="en-GB" fileSize="39422090" />
+  <itunes:duration>2463</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie Clarke and Dr Becky Smethurst travel through our solar system; where exactly have we sent probes and rovers? Plus, they speak with Professor Jane Greaves, the scientist behind <em>that</em> Venus discovery, and Robert Massey joins to chat about all things stargazing.</div>
+<div>
+<br>
+With special thanks also to Professor Emma Bunce from the University of Leicester.  </div>
+<div><em><br>
+The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham</em></div>
+]]></description>
+  <pubDate>Fri, 25 Sep 2020 04:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-09-24:/posts/7690577</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>8: Journey to the Centre of the Earth</title>
+  <link>https://audioboom.com/posts/7668786</link>
+  <itunes:episode>8</itunes:episode>
+  <itunes:title>Journey to the Centre of the Earth</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7668786.mp3?modified=1598539460&amp;sid=5014098&amp;source=rss" length="33714977" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7668786.mp3?modified=1598539460&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2107" lang="en-GB" fileSize="33714977" />
+  <itunes:duration>2107</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Izzie Clarke and Dr Becky Smethurst explore the importance of Earth's core and magnetic field. Plus, the team finds out about the astronomer who sailed the seas in the name of science and Robert Massey joins to chat about all things stargazing.</div>
+<div>
+<br>
+With special thanks to Dr Rebekah Higgitt from National Museums Scotland. You can see the National Maritime Museum's collections of Halley's charts here: <a href="https://collections.rmg.co.uk/collections/objects/540213.html">https://collections.rmg.co.uk/collections/objects/540213.html</a>
+</div>
+<div>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham</em>
+</div>
+]]></description>
+  <pubDate>Fri, 28 Aug 2020 04:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-08-27:/posts/7668786</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>7: Down To Earth</title>
+  <link>https://audioboom.com/posts/7638481</link>
+  <itunes:episode>7</itunes:episode>
+  <itunes:title>Down To Earth</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7638481.mp3?modified=1595428083&amp;sid=5014098&amp;source=rss" length="37468778" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7638481.mp3?modified=1595428083&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2341" lang="en-GB" fileSize="37468778" />
+  <itunes:duration>2341</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Dr Becky Smethurst and Izzie Clarke investigate the cosmic coincidences that formed the Earth and explore whether there are earthquakes and volcanoes on other planets. Plus, astronomer Robert Massey joins them to chat all things #cometNEOWISE and what else to look for in the night sky this month. <br>
+<br>
+With special thanks to Dr Amy Gilligan from the University of Aberdeen, Professor David Rothery from the Open University, and everyone who shared their images of Neowise. </div>
+<div>
+<br>
+Keep sending your questions and stargazing photos to the team via <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> or tweet @RoyalAstroSoc.</div>
+<div>
+<br>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham</em>
+</div>
+<div>
+<br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Thu, 23 Jul 2020 04:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-07-22:/posts/7638481</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>6: Looking for Alien Life</title>
+  <link>https://audioboom.com/posts/7615578</link>
+  <itunes:episode>6</itunes:episode>
+  <itunes:title>Looking for Alien Life</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7615578.mp3?modified=1593597922&amp;sid=5014098&amp;source=rss" length="37397963" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7615578.mp3?modified=1593597922&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2337" lang="en-GB" fileSize="37397963" />
+  <itunes:duration>2337</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>The search for alien life continues. Dr Becky Smethurst and Izzie Clarke explore the world of astrobiology and astronomer Robert Massey joins them to take on your extraterrestrial questions. Plus, they discuss the "broken pipeline" for black and minority ethnic physicists with Dr Sheila Kanani, and what to look for in the night sky this month. </div>
+<div><br>
+</div>
+<div>With special thanks to Professor Jane Greaves from Cardiff University. </div>
+<div><br>
+</div>
+<div>
+<em>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham </em><br>
+<br>
+
+</div>
+]]></description>
+  <pubDate>Thu, 25 Jun 2020 04:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-06-24:/posts/7615578</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>5: Exploring Exoplanets </title>
+  <link>https://audioboom.com/posts/7587876</link>
+  <itunes:episode>5</itunes:episode>
+  <itunes:title>Exploring Exoplanets </itunes:title>
+  <enclosure url="https://audioboom.com/posts/7587876.mp3?modified=1590055270&amp;sid=5014098&amp;source=rss" length="36468165" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7587876.mp3?modified=1590055270&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2279" lang="en-GB" fileSize="36468165" />
+  <itunes:duration>2279</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>The worlds outside our solar system; exoplanets. This month, Izzie Clarke and Dr Becky Smethurst take on listener questions about exoplanets, celebrate 30 years of the Hubble Space Telescope with Robert Massey, and amateur astronomer Steve Brown shares his beginner’s guide to astrophotography. </div>
+<div> </div>
+<div>With special thanks also to Dr Hannah Wakeford from the University of Bristol.</div>
+<div>
+<br>
+Join the Royal Astronomical Society for an online series of talks exploring their collection. <br>
+<a href="https://www.eventbrite.co.uk/e/livestream-overlapping-collections-across-the-atlantic-tickets-105821880092">https://www.eventbrite.co.uk/e/livestream-overlapping-collections-across-the-atlantic-tickets-105821880092</a>
+</div>
+<div><br>
+</div>
+<div>The Supermassive Podcast is a Boffin Media Production by Izzie Clarke and Richard Hollingham </div>
+]]></description>
+  <pubDate>Thu, 21 May 2020 10:00:19 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-05-21:/posts/7587876</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>4: Under the Space Weather</title>
+  <link>https://audioboom.com/posts/7563279</link>
+  <itunes:episode>4</itunes:episode>
+  <itunes:title>Under the Space Weather</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7563279.mp3?modified=1587564476&amp;sid=5014098&amp;source=rss" length="34953423" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7563279.mp3?modified=1587564476&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2184" lang="en-GB" fileSize="34953423" />
+  <itunes:duration>2184</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>Brits love talking about the weather, so Izzie Clarke and Dr Becky Smethurst are taking it up a notch. This month, the Supermassive team explore the solar wind, auroras on other planets and the European Space Agency Satellite that's on its way to the sun, Solar Orbiter. <br>
+<br>
+With special thanks to UCL's Professor Andrew Coates and Lee Macdonald from Oxford's History of Science Museum. <br>
+<br>
+Share your astrophotography and lockdown creations with the team via <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> or tweet @RoyalAstroSoc. <br>
+<br>
+For the next Royal Astronomical Society's "sew-cial" visit: <br>
+<a href="https://ras.ac.uk/news-and-press/news/ras-bicentennial-quilt">https://ras.ac.uk/news-and-press/news/ras-bicentennial-quilt</a><br>
+<br>
+<em>The Supermassive Podcast is a Boffin Media production by Izzie Clarke and Richard Hollingham.. </em>
+</div>
+]]></description>
+  <pubDate>Thu, 23 Apr 2020 03:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-04-22:/posts/7563279</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>3: Our Neighbourhood Star</title>
+  <link>https://audioboom.com/posts/7534943</link>
+  <itunes:episode>3</itunes:episode>
+  <itunes:title>Our Neighbourhood Star</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7534943.mp3?modified=1585224226&amp;sid=5014098&amp;source=rss" length="36243284" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7534943.mp3?modified=1585224226&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2265" lang="en-GB" fileSize="36243284" />
+  <itunes:duration>2265</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>This month, Izzie Clarke and Dr Becky Smethurst explore the star in our neighbourhood, the annoying habits you would banish there and the extreme stars further afield. Plus the Royal Astronomical Society trusts them with a very special book from their archives: Caroline Herschel's star atlas.<br>
+<br>
+What annoying habits would you banish to the sun? Or have you tried some Astrophotography at home? Share with the team via <a href="mailto:podcast@ras.ac.uk">podcast@ras.ac.uk</a> or tweet @RoyalAstroSoc.<br>
+<br>
+With special thanks to Professor Lucie Green from University College London and Royal Astronomical Society librarian, Sian Prosser.<br>
+<br>
+<em>The Supermassive Podcast</em> is a Boffin Media production for the Royal Astronomical Society. </div>
+]]></description>
+  <pubDate>Thu, 19 Mar 2020 09:27:39 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-03-19:/posts/7534943</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>2: It's All Relativity... </title>
+  <link>https://audioboom.com/posts/7508891</link>
+  <itunes:episode>2</itunes:episode>
+  <itunes:title>It's All Relativity... </itunes:title>
+  <enclosure url="https://audioboom.com/posts/7508891.mp3?modified=1582124540&amp;sid=5014098&amp;source=rss" length="36746964" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7508891.mp3?modified=1582124540&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2296" lang="en-US" fileSize="36746964" />
+  <itunes:duration>2296</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>This month, Izzie Clarke and Dr Becky Smethurst explore relativity, gravitational waves and the photographs that made Albert Einstein a household name. Astronomer Robert Massey joins us to talk through SpaceX's Starlink and what we can see in the night sky. Plus we have a special gift from poet laureate Simon Armitage.<br>
+<br>
+With special thanks to Professor Toby Wiseman from Imperial College London and Royal Astronomical Society librarian, Sian Prosser. <br>
+<br>
+You can send your questions to the team via podcast@ras.ac.uk or tweet @RoyalAstroSoc.<br>
+<br>
+<em>The Supermassive Podcast </em>is a Boffin Media production for the Royal Astronomical Society. </div>
+]]></description>
+  <pubDate>Thu, 20 Feb 2020 05:00:00 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-02-19:/posts/7508891</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+<item>
+  <title>1: Seeing The Invisible Universe</title>
+  <link>https://audioboom.com/posts/7481012</link>
+  <itunes:episode>1</itunes:episode>
+  <itunes:title>Seeing The Invisible Universe</itunes:title>
+  <enclosure url="https://audioboom.com/posts/7481012.mp3?modified=1581068177&amp;sid=5014098&amp;source=rss" length="39075924" type="audio/mpeg" />
+  <media:content url="https://audioboom.com/posts/7481012.mp3?modified=1581068177&amp;sid=5014098&amp;source=rss" type="audio/mpeg" medium="audio" duration="2439" lang="en-US" fileSize="39075924" />
+  <itunes:duration>2439</itunes:duration>
+  <itunes:explicit>no</itunes:explicit>
+  <itunes:episodeType>full</itunes:episodeType>
+  <description><![CDATA[<div>From black holes to dark matter, this first episode of the Royal Astronomical Society's new podcast explores the odd things in space we can't see. Plus, hosts astrophysicist Dr Becky Smethurst and science journalist Izzie Clarke are trusted with a book from 1566 and Robert Massey, the Deputy Executive Director of the RAS, shares his top tips for stargazing at home. <br>
+<br>
+With special thanks to Dr Rebekah Higgitt from the University of Kent, Professor Hiranya Peiris and Professor Andrew Pontzen from University College London. <br>
+<br>
+And yes, we've had to change the name of our podcast. All shall be revealed in episode two...<br>
+<br>
+You can send your questions to the team via podcast@ras.ac.uk or tweet @RoyalAstroSoc.<br>
+<br>
+<em>The Supermassive Podcast </em>is a Boffin Media production for the Royal Astronomical Society. </div>
+]]></description>
+  <pubDate>Fri, 17 Jan 2020 11:43:48 +0000</pubDate>
+  <guid isPermaLink="false">tag:audioboom.com,2020-01-17:/posts/7481012</guid>
+  <itunes:author>The Royal Astronomical Society</itunes:author>
+  <dc:creator>The Royal Astronomical Society</dc:creator>
+  <media:rights status="userCreated" />
+</item>
+</channel>
+</rss>
