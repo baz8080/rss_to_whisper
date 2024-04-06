@@ -262,7 +262,8 @@ def main(feed_uri, verbose, model_name):
                                           formatted_published_date, feed_response.feed.title, entry.id)
 
                 except Exception as e:
-                    logger.error("Couldn't process episode entry: ", e)
+                    logger.error(f"Couldn't process episode entry: {entry.title}")
+                    logger.error(e)
 
 
 def default_feeds():
@@ -272,17 +273,17 @@ def default_feeds():
         # "https://podcasts.files.bbci.co.uk/b00snr0w.rss",  # Infinite monkey cage
         # "https://thecosmicsavannah.com/feed/podcast/",
         # "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
-        # "https://rss.art19.com/sean-carrolls-mindscape",
-        "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
+        # "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
         # "https://www.nasa.gov/feeds/podcasts/curious-universe",
         # "https://www.nasa.gov/feeds/podcasts/gravity-assist",
+        # "https://rss.art19.com/sean-carrolls-mindscape",
         # "http://titaniumphysics.libsyn.com/rss",
         # "https://www.spreaker.com/show/2458531/episodes/feed",  # Spacetime pod
         # "https://www.abc.net.au/feeds/8294152/podcast.xml",  # Cosmic vertigo
-        # "https://astronomycast.libsyn.com/rss",
-        # "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
-        # "https://feeds.fireside.fm/universetoday/rss",
-        # "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
+        "https://astronomycast.libsyn.com/rss",
+        "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
+        "https://feeds.fireside.fm/universetoday/rss",
+        "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
     ]
 
 
