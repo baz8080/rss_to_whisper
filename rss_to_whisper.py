@@ -1,4 +1,5 @@
 import argparse
+from dotenv import load_dotenv
 import logging
 import os
 import re
@@ -11,11 +12,14 @@ import feedparser
 import requests
 import torch
 import whisper
+from elasticsearch import Elasticsearch
+from elasticsearch.helpers import bulk
 from whisper.utils import WriteTXT, WriteTSV
 
-from utils import is_writable, time_to_seconds, get_hash, get_file_part, default_feeds, create_path
+from utils import is_writable, time_to_seconds, get_hash, get_file_part, default_feeds, create_path, chunk
 
 logger = logging.getLogger(__name__)
+load_dotenv()
 
 
 def main(data_dir: str, feed_uri: str, verbose: bool, model_name: str):
@@ -93,7 +97,17 @@ def process_feeds(data_dir: str, feed_uri: str, model_name: str):
                     logger.error(f"Couldn't process episode entry: {entry.title}")
                     logger.error(e)
 
-    print(len(episode_dicts))
+    elastic_api_key = os.getenv("ELASTIC_API_KEY")
+    elastic_client = Elasticsearch(hosts="https://localhost:9200/", api_key=elastic_api_key,verify_certs=False)
+    elastic_client.indices.delete(index="podcasts")
+    bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
+
+
+def generate_data_for_indexing(_episode_dicts):
+    for chunked_list in chunk(_episode_dicts, 1000):
+        logger.info(f"Processing chunk of size {len(chunked_list)}")
+        for episode_dict in chunked_list:
+            yield episode_dict
 
 
 def get_feed(url: str):
@@ -145,23 +159,6 @@ def download_file_if_required(_mp3_info):
             logger.error(f"error saving file response: {_file_response.status_code}")
     else:
         logger.debug(f"{_mp3_info.file_name} is already downloaded")
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        prog='rss_to_whisper.py',
-        description='Utils for downloading podcasts from rss feeds and transcribing them',
-        epilog='Have fun')
-
-    parser.add_argument("-d", "--data-dir", required=True,
-                        help="Provide a path to a writable directory where pods will be downloaded to.")
-    parser.add_argument("-f", "--feed", required=False,
-                        help="Provide an rss feed, e.g. http://feeds.libsyn.com/60664 ")
-    parser.add_argument("-v", "--verbose", action='store_true')
-    parser.add_argument("-m", "--model-name", required=False, default="medium")
-
-    args = parser.parse_args()
-    main(data_dir=args.data_dir, feed_uri=args.feed, verbose=args.verbose, model_name=args.model_name)
 
 
 def transcribe_if_required(_model, _mp3_info, _episode_path):
@@ -256,6 +253,7 @@ def get_episode_dict(podcast_metadata, episode_data, transcript: str):
 
         episode_dict = {
             "_id": _id,
+            "_index": "podcasts",
             "podcast_title": podcast_title,
             "podcast_link": podcast_link,
             "podcast_language": podcast_language,
@@ -287,3 +285,20 @@ def get_episode_dict(podcast_metadata, episode_data, transcript: str):
         logger.error(f"Error getting podcast metadata")
         logger.error(e)
         return None
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        prog='rss_to_whisper.py',
+        description='Utils for downloading podcasts from rss feeds and transcribing them',
+        epilog='Have fun')
+
+    parser.add_argument("-d", "--data-dir", required=True,
+                        help="Provide a path to a writable directory where pods will be downloaded to.")
+    parser.add_argument("-f", "--feed", required=False,
+                        help="Provide an rss feed, e.g. http://feeds.libsyn.com/60664 ")
+    parser.add_argument("-v", "--verbose", action='store_true')
+    parser.add_argument("-m", "--model-name", required=False, default="medium")
+
+    args = parser.parse_args()
+    main(data_dir=args.data_dir, feed_uri=args.feed, verbose=args.verbose, model_name=args.model_name)

@@ -2,6 +2,7 @@ import hashlib
 import os
 import re
 import uuid
+from pathlib import Path
 from urllib.parse import urlparse
 
 
@@ -56,8 +57,11 @@ def get_file_part(_url: str):
 
 
 def create_path(_parent_path, _directory_name: str):
-    if not _parent_path or _directory_name:
+    if not _parent_path or not _directory_name:
         return None
+
+    if isinstance(_parent_path, str):
+        _parent_path = Path(_parent_path)
 
     _path_to_create = _parent_path / escape_filename(_directory_name)
 
@@ -86,3 +90,8 @@ def default_feeds():
         # "https://feeds.fireside.fm/universetoday/rss",
         # "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
     ]
+
+
+def chunk(_list, size):
+    for i in range(0, len(_list), size):
+        yield _list[i:i+size]
