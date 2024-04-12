@@ -22,9 +22,9 @@ logger = logging.getLogger(__name__)
 load_dotenv()
 
 
-def main(data_dir: str, feed_uri: str, verbose: bool, model_name: str):
+def main(data_dir: str, feed_uri: str, verbose: bool, model_name: str, process_local_only: bool):
     initialise_logging(verbose)
-    process_feeds(data_dir, feed_uri, model_name)
+    process_feeds(data_dir, feed_uri, model_name, process_local_only)
 
 
 def initialise_logging(verbose: bool):
@@ -48,7 +48,7 @@ def initialise_whisper(model_name: str):
     return model
 
 
-def process_feeds(data_dir: str, feed_uri: str, model_name: str):
+def process_feeds(data_dir: str, feed_uri: str, model_name: str, process_local_only: bool = False):
     if data_dir is None or not is_writable(data_dir):
         logger.error("The data_dir is missing, or not writable. Cannot continue")
         exit(1)
@@ -57,10 +57,11 @@ def process_feeds(data_dir: str, feed_uri: str, model_name: str):
         logger.info("Processing default feeds")
         feed_uris = default_feeds()
     else:
+        logger.info(f"Processing single feed {feed_uri}")
         feed_uris = [feed_uri]
 
-    whisper_model = initialise_whisper(model_name)
     episode_dicts = []
+    whisper_model = None
 
     for feed_uri in feed_uris:
         feed_response = get_feed(feed_uri)
@@ -88,23 +89,36 @@ def process_feeds(data_dir: str, feed_uri: str, model_name: str):
                         logger.warning(f"{entry.title} has no mp3 link. Skipping")
                         continue
 
-                    download_file_if_required(mp3_info)
-                    transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
-                    transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
-                    episode_dicts.append(get_episode_dict(feed_response.feed, entry, transcript_text))
+                    mp3_and_transcript_exist = (mp3_info.file_path.exists() and
+                                                (episode_directory_path / "transcribed").exists())
+
+                    if mp3_and_transcript_exist:
+                        transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
+                        episode_dicts.append(get_episode_dict(feed_response.feed, entry, transcript_text))
+                    elif process_local_only:
+                        continue
+                    else:
+                        download_file_if_required(mp3_info)
+
+                        if whisper_model is None:
+                            whisper_model = initialise_whisper(model_name)
+
+                        transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
+                        transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
+                        episode_dicts.append(get_episode_dict(feed_response.feed, entry, transcript_text))
 
                 except Exception as e:
                     logger.error(f"Couldn't process episode entry: {entry.title}")
                     logger.error(e)
 
     elastic_api_key = os.getenv("ELASTIC_API_KEY")
-    elastic_client = Elasticsearch(hosts="https://localhost:9200/", api_key=elastic_api_key,verify_certs=False)
+    elastic_client = Elasticsearch(hosts="https://nasty.local:9200/", api_key=elastic_api_key, verify_certs=False)
     elastic_client.indices.delete(index="podcasts")
     bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
 
 
 def generate_data_for_indexing(_episode_dicts):
-    for chunked_list in chunk(_episode_dicts, 1000):
+    for chunked_list in chunk(_episode_dicts, 300):
         logger.info(f"Processing chunk of size {len(chunked_list)}")
         for episode_dict in chunked_list:
             yield episode_dict
@@ -132,7 +146,7 @@ def get_episode_title_with_date(_episode) -> str:
 
 def get_mp3_info(_pod_links, _episode_path):
     for _link in _pod_links:
-        if _link.type == "audio/mpeg":
+        if _link.type == "audio/mpeg" or _link.type == "audio/mp3":
             MP3 = namedtuple("MP3", ["link", "file_name", "file_path", "length"])
 
             _href = _link.href
@@ -226,7 +240,8 @@ def get_episode_dict(podcast_metadata, episode_data, transcript: str):
         podcast_type = getattr(podcast_metadata, "itunes_type", None)
 
         episode_title = episode_data.title
-        episode_published_on = episode_data.published_parsed
+
+        episode_published_on = time.strftime('%Y-%m-%d', episode_data.published_parsed)
         episode_web_link = getattr(episode_data, "link", None)
 
         episode_image = getattr(episode_data, "image", None)
@@ -299,6 +314,8 @@ if __name__ == "__main__":
                         help="Provide an rss feed, e.g. http://feeds.libsyn.com/60664 ")
     parser.add_argument("-v", "--verbose", action='store_true')
     parser.add_argument("-m", "--model-name", required=False, default="medium")
+    parser.add_argument("-l", "--local-only", required=False, action="store_true")
 
     args = parser.parse_args()
-    main(data_dir=args.data_dir, feed_uri=args.feed, verbose=args.verbose, model_name=args.model_name)
+    main(data_dir=args.data_dir, feed_uri=args.feed, verbose=args.verbose,
+         model_name=args.model_name, process_local_only=args.local_only)

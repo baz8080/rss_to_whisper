@@ -73,22 +73,22 @@ def create_path(_parent_path, _directory_name: str):
 
 def default_feeds():
     return [
-        # "http://feeds.libsyn.com/60664",  # Ask a spaceman
-        # "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
-        # "https://podcasts.files.bbci.co.uk/b00snr0w.rss",  # Infinite monkey cage
-        # "https://thecosmicsavannah.com/feed/podcast/",
-        # "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
-        # "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
-        # "https://www.nasa.gov/feeds/podcasts/curious-universe",
+        "http://feeds.libsyn.com/60664",  # Ask a spaceman
+        "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
+        "https://podcasts.files.bbci.co.uk/b00snr0w.rss",  # Infinite monkey cage
+        "https://thecosmicsavannah.com/feed/podcast/",
+        "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
+        "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
+        "https://www.nasa.gov/feeds/podcasts/curious-universe",
         "https://www.nasa.gov/feeds/podcasts/gravity-assist",
-        # "https://rss.art19.com/sean-carrolls-mindscape",
-        # "http://titaniumphysics.libsyn.com/rss",
-        # "https://www.spreaker.com/show/2458531/episodes/feed",  # Spacetime pod
-        # "https://www.abc.net.au/feeds/8294152/podcast.xml",  # Cosmic vertigo
-        # "https://astronomycast.libsyn.com/rss",
-        # "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
-        # "https://feeds.fireside.fm/universetoday/rss",
-        # "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
+        "https://rss.art19.com/sean-carrolls-mindscape",
+        "http://titaniumphysics.libsyn.com/rss",
+        "https://www.spreaker.com/show/2458531/episodes/feed",  # Spacetime pod
+        "https://www.abc.net.au/feeds/8294152/podcast.xml",  # Cosmic vertigo
+        "https://astronomycast.libsyn.com/rss",
+        "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
+        "https://feeds.fireside.fm/universetoday/rss",
+        "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
     ]
 
 
