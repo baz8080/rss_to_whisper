@@ -113,12 +113,20 @@ def process_feeds(data_dir: str, feed_uri: str, model_name: str, process_local_o
 
     elastic_api_key = os.getenv("ELASTIC_API_KEY")
     elastic_client = Elasticsearch(hosts="https://nasty.local:9200/", api_key=elastic_api_key, verify_certs=False)
-    elastic_client.indices.delete(index="podcasts")
+    # elastic_client.indices.delete(index="podcasts")
+    # elastic_client.indices.create(
+    #     index="podcasts",
+    #     body={
+    #         "settings": {
+    #             "index.store.preload": ["nvd", "dvd"]
+    #         }
+    #     }
+    # )
     bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
 
 
 def generate_data_for_indexing(_episode_dicts):
-    for chunked_list in chunk(_episode_dicts, 300):
+    for chunked_list in chunk(_episode_dicts, 500):
         logger.info(f"Processing chunk of size {len(chunked_list)}")
         for episode_dict in chunked_list:
             yield episode_dict
@@ -204,9 +212,36 @@ def get_transcript_text(_file_path):
     with open(_file_path, 'r') as transcript:
         body = transcript.read()
 
+    body, was_altered = replace_repeated_phrases(body)
+
     body = re.sub(r'(?<=[^.?])\n', ' ', body)
     body = body.replace("\n", "\n\n")
     return body
+
+
+def replace_repeated_phrases(text, threshold=13):
+    pattern = r'\b(.+?)\s+(?:\1\s+){' + str(threshold - 1) + r',}\b'
+
+    def repl(match):
+        whitespace = '\n' if '\n' in match.group(0) else ' '
+
+        ttr = match.group(1)
+        ttr_lower = ttr.lower()
+
+        starts_with_emphasis = ttr_lower.startswith("no") or ttr_lower.startswith("nope") or ttr_lower.startswith(
+            "many") or ttr_lower.startswith("now") or ttr_lower.startswith("great") or ttr_lower.startswith("big")
+
+        if " " in ttr:
+            return ttr + whitespace
+        elif "000," in ttr or starts_with_emphasis:
+            return match.group(0)
+        else:
+            return ttr + whitespace
+
+    replaced_text = re.sub(pattern, repl, text, flags=re.IGNORECASE)
+    text_was_changed = replaced_text != text
+
+    return replaced_text, text_was_changed
 
 
 def get_episode_dict(podcast_metadata, episode_data, transcript: str):
