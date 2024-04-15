@@ -88,7 +88,9 @@ def default_feeds():
         "https://astronomycast.libsyn.com/rss",
         "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
         "https://feeds.fireside.fm/universetoday/rss",
-        "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"  # Interplanetary
+        "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss",  # Interplanetary
+        "https://stars.library.ucf.edu/walkaboutthegalaxy/all.rss",  # Walkabout the galaxy
+        "https://podcasts.files.bbci.co.uk/b015sqc7.rss",  # The life scientific
     ]
 
 
