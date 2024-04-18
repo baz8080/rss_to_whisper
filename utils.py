@@ -76,46 +76,12 @@ def create_path(_parent_path, _directory_name: str):
     return _path_to_create
 
 
-def default_feeds():
-    return {
-        "science": [
-            "http://feeds.libsyn.com/60664",  # Ask a spaceman
-            "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss",
-            "https://podcasts.files.bbci.co.uk/b00snr0w.rss",  # Infinite monkey cage
-            "https://thecosmicsavannah.com/feed/podcast/",
-            "https://audioboom.com/channels/5014098.rss",  # Supermassive podcast
-            "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss",
-            "https://www.nasa.gov/feeds/podcasts/curious-universe",
-            "https://www.nasa.gov/feeds/podcasts/gravity-assist",
-            "https://rss.art19.com/sean-carrolls-mindscape",
-            "http://titaniumphysics.libsyn.com/rss",
-            "https://www.spreaker.com/show/2458531/episodes/feed",  # Spacetime pod
-            "https://www.abc.net.au/feeds/8294152/podcast.xml",  # Cosmic vertigo
-            "https://astronomycast.libsyn.com/rss",
-            "https://feed.podbean.com/conversationsattheperimeter/feed.xml",
-            "https://feeds.fireside.fm/universetoday/rss",
-            "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss",  # Interplanetary
-            "https://stars.library.ucf.edu/walkaboutthegalaxy/all.rss",  # Walkabout the galaxy
-            "https://podcasts.files.bbci.co.uk/b015sqc7.rss",  # The life scientific
-        ],
-        "history": {
-            "https://www.spreaker.com/show/5645402/episodes/feed",  # shite talk
-            "http://rss.acast.com/irishhistory"
-        },
-        "management": {
-            "http://feeds.harvardbusiness.org/harvardbusiness/ideacast",
-            "http://feeds.harvardbusiness.org/harvardbusiness/coaching-real-leaders",
-            "https://feeds.feedburner.com/harvardbusiness/on-leadership"
-        }
-    }
-
-
 def chunk(_list, size):
     for i in range(0, len(_list), size):
         yield _list[i:i + size]
 
 
-def get_episode_dict(podcast_metadata, episode_data, transcript: str, collection: str):
+def get_episode_dict(podcast_metadata, episode_data, transcript: str, collections: []):
     episode_dict = None
 
     _id = get_hash(transcript)
@@ -179,7 +145,7 @@ def get_episode_dict(podcast_metadata, episode_data, transcript: str, collection
         episode_dict = {
             "_id": _id,
             "_index": "podcasts",
-            "podcast_collection": collection,
+            "podcast_collections": collections,
             "podcast_title": podcast_title,
             "podcast_link": podcast_link,
             "podcast_language": podcast_language,

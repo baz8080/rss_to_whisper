@@ -10,25 +10,33 @@ import feedparser
 import requests
 import torch
 import whisper
+import yaml
 from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 from whisper.utils import WriteTXT, WriteTSV
 
 import utils
-from utils import is_writable, get_file_part, default_feeds, create_path, chunk, initialise_logging, get_episode_dict
+from utils import is_writable, get_file_part, create_path, chunk, initialise_logging, get_episode_dict
 
 logger = logging.getLogger(__name__)
 load_dotenv()
 
 
-def main(data_dir: str, single_feed_uri: str, single_feed_collection: str,
-         verbose: bool, model_name: str, process_local_only: bool):
-    initialise_logging(logger, verbose)
-    initialise_logging(utils.logger, verbose)
+def main(config_file: str):
 
-    process_feeds(data_dir=data_dir, single_feed_uri=single_feed_uri, single_feed_collection=single_feed_collection,
-                  model_name=model_name, process_local_only=process_local_only)
+    with open(config_file, "r") as pods_config_file:
+        pods_config = yaml.safe_load(pods_config_file)
+
+    if not pods_config:
+        print("Cannot read configuration file")
+        exit(1)
+
+    verbose_logging = pods_config["verbose"] if "verbose" in pods_config else False
+    initialise_logging(logger, verbose_logging)
+    initialise_logging(utils.logger, verbose_logging)
+
+    process_feeds(pods_config)
 
 
 def initialise_whisper(model_name: str):
@@ -38,77 +46,98 @@ def initialise_whisper(model_name: str):
     return model
 
 
-def process_feeds(data_dir: str, single_feed_uri: str, single_feed_collection: str,
-                  model_name: str, process_local_only: bool = False):
+def process_feeds(config):
+
+    whisper_model_name = config["whisper_model"] if "whisper_model" in config else "tiny"
+    process_local_files_only = config["process_local_files_only"] if "process_local_files_only" in config else False
+
+    if "elastic_server" or "data_dir" or "podcasts" not in config:
+        logger.error("Required configuration missing.")
+        exit(1)
+
+    elastic_server = config["elastic_server"]
+    data_dir = config["data_directory"]
+
     if data_dir is None or not is_writable(data_dir):
         logger.error("The data_dir is missing, or not writable. Cannot continue")
         exit(1)
 
-    if single_feed_uri and single_feed_collection:
-        logger.info(f"Processing single feed {single_feed_uri}")
-        feed_collections = {
-            single_feed_collection.lower(): [single_feed_uri]
-        }
-    else:
-        logger.info("Processing default feeds")
-        feed_collections = default_feeds()
-
-    episode_dicts = []
     whisper_model = None
+    podcasts = config["podcasts"]
 
-    for collection in feed_collections.keys():
-        for feed_uri in feed_collections[collection]:
-            feed_response = get_feed(feed_uri)
-            logger.info(f"Processing {feed_uri}")
+    elastic_client = initialise_elastic_client(elastic_server, os.getenv("ELASTIC_API_KEY"))
 
-            if feed_response and feed_response.feed:
-                pod_path = create_path(data_dir, feed_response.feed.title)
+    for podcast in podcasts:
+        podcast_url = podcast["url"] if "url" in podcast else None
 
-                if not pod_path:
-                    logger.error("Cannot find podcast title")
-                    return
+        if not podcast_url:
+            logger.error("Skipping podcast with missing URL")
+            continue
 
-                for entry in feed_response.entries:
-                    try:
-                        entry_title_and_date = get_episode_title_with_date(entry)
-                        episode_directory_path = create_path(pod_path, entry_title_and_date)
+        episode_dicts = []
+        feed_response = get_feed(podcast_url)
 
-                        if not episode_directory_path:
-                            logger.error("Failed to make directory for the episode")
-                            continue
+        if feed_response and feed_response.feed:
+            logger.info(f"Downloaded {podcast['url']}")
 
-                        mp3_info = get_mp3_info(entry.links, episode_directory_path)
+            collections = podcast["collections"] if "collections" in podcast else []
+            excludes = podcast["excludes"] if "excludes" in podcast else []
 
-                        if mp3_info is None:
-                            logger.warning(f"{entry.title} has no mp3 link. Skipping")
-                            continue
+            pod_path = create_path(data_dir, feed_response.feed.title)
 
-                        mp3_and_transcript_exist = (mp3_info.file_path.exists() and
-                                                    (episode_directory_path / "transcribed").exists())
+            if not pod_path:
+                logger.error("Cannot find podcast path to write to")
+                return
 
-                        if mp3_and_transcript_exist:
-                            transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
-                            episode_dicts.append(
-                                get_episode_dict(feed_response.feed, entry, transcript_text, collection))
-                        elif process_local_only:
-                            continue
-                        else:
-                            download_file_if_required(mp3_info)
+            for entry in feed_response.entries:
 
-                            if whisper_model is None:
-                                whisper_model = initialise_whisper(model_name)
+                if any(exclude.lower() in entry.title.lower() for exclude in excludes):
+                    logger.debug("Skipping podcast entry because of excludes match")
+                    continue
 
-                            transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
-                            transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
-                            episode_dicts.append(
-                                get_episode_dict(feed_response.feed, entry, transcript_text, collection))
+                try:
+                    entry_title_and_date = get_episode_title_with_date(entry)
+                    episode_directory_path = create_path(pod_path, entry_title_and_date)
 
-                    except Exception as e:
-                        logger.error(f"Couldn't process episode entry: {entry.title}")
-                        logger.error(e)
+                    if not episode_directory_path:
+                        logger.error("Failed to make directory for the episode")
+                        continue
 
-    elastic_api_key = os.getenv("ELASTIC_API_KEY")
-    elastic_client = Elasticsearch(hosts="https://nasty.local:9200/", api_key=elastic_api_key, verify_certs=False)
+                    mp3_info = get_mp3_info(entry.links, episode_directory_path)
+
+                    if mp3_info is None:
+                        logger.warning(f"{entry.title} has no mp3 link. Skipping")
+                        continue
+
+                    mp3_and_transcript_exist = (mp3_info.file_path.exists() and
+                                                (episode_directory_path / "transcribed").exists())
+
+                    if mp3_and_transcript_exist:
+                        transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
+                        episode_dicts.append(
+                            get_episode_dict(feed_response.feed, entry, transcript_text, collections))
+                    elif process_local_files_only:
+                        continue
+                    else:
+                        download_file_if_required(mp3_info)
+
+                        if whisper_model is None:
+                            whisper_model = initialise_whisper(whisper_model_name)
+
+                        transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
+                        transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
+                        episode_dicts.append(
+                            get_episode_dict(feed_response.feed, entry, transcript_text, collections))
+
+                except Exception as e:
+                    logger.error(f"Couldn't process episode entry: {entry.title}")
+                    logger.error(e)
+
+        bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
+
+
+def initialise_elastic_client(elastic_host: str, api_key: str):
+    elastic_client = Elasticsearch(hosts=elastic_host, api_key=api_key, verify_certs=False)
     elastic_client.indices.delete(index="podcasts")
     elastic_client.indices.create(
         index="podcasts",
@@ -118,11 +147,11 @@ def process_feeds(data_dir: str, single_feed_uri: str, single_feed_collection: s
             }
         }
     )
-    bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
+    return elastic_client
 
 
 def generate_data_for_indexing(_episode_dicts):
-    for chunked_list in chunk(_episode_dicts, 300):
+    for chunked_list in chunk(_episode_dicts, 100):
         logger.info(f"Processing chunk of size {len(chunked_list)}")
         for episode_dict in chunked_list:
             yield episode_dict
@@ -246,16 +275,9 @@ if __name__ == "__main__":
         description='Utils for downloading podcasts from rss feeds and transcribing them',
         epilog='Have fun')
 
-    parser.add_argument("-d", "--data-dir", required=True,
-                        help="Provide a path to a writable directory where pods will be downloaded to.")
     parser.add_argument("-f", "--feed", required=False,
                         help="Provide a single rss feed, e.g. http://feeds.libsyn.com/60664. Must also provide a "
                              "collection with -c --collection")
-    parser.add_argument("-v", "--verbose", action='store_true')
-    parser.add_argument("-m", "--model-name", required=False, default="medium")
-    parser.add_argument("-l", "--local-only", required=False, action="store_true")
-    parser.add_argument("-c", "--collection", required=False)
 
     args = parser.parse_args()
-    main(data_dir=args.data_dir, single_feed_uri=args.feed, single_feed_collection=args.collection,
-         verbose=args.verbose, model_name=args.model_name, process_local_only=args.local_only)
+    main("pods.yaml")

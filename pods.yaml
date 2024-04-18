@@ -1,0 +1,157 @@
+verbose: true
+data_directory: "/Volumes/rss_to_whisper"
+whisper_model: "medium"
+elastic_server: "https://nasty.local:9200"
+process_local_files_only: false
+podcasts:
+  - name: "Ask a Spaceman"
+    url: "http://feeds.libsyn.com/60664"
+    collections:
+      - "science"
+      - "space"
+      - "astrophysics"
+  - name: "Daniel and Jorge explain the universe"
+    url: "https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss"
+    collections:
+      - "science"
+      - "space"
+      - "astrophysics"
+  - name: "Infinite monkey cage"
+    url: "https://podcasts.files.bbci.co.uk/b00snr0w.rss"
+    collections:
+      - "science"
+      - "comedy"
+  - name: "The cosmic savannah"
+    url: "https://thecosmicsavannah.com/feed/podcast/"
+    collections:
+      - "science"
+      - "space"
+      - "astrophysics"
+  - name: "Supermassive podcast"
+    url: "https://audioboom.com/channels/5014098.rss"
+    collections:
+      - "science"
+      - "space"
+      - "astrophysics"
+  - name: "Planetary Radio"
+    url: "https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss"
+    collections:
+      - "space"
+      - "space news"
+      - "astrophysics"
+      - "interviews"
+  - name: "Curious Universe"
+    url: "https://www.nasa.gov/feeds/podcasts/curious-universe"
+    collections:
+      - "science"
+      - "space"
+  - name: "Gravity Assist"
+    url: "https://www.nasa.gov/feeds/podcasts/gravity-assist"
+    collections:
+      - "science"
+      - "space"
+  - name: "Mindscape"
+    url: "https://rss.art19.com/sean-carrolls-mindscape"
+    collections:
+      - "science"
+      - "interviews"
+      - "quantum"
+      - "philosophy"
+      - "maths"
+      - "astrophysics"
+  - name: "Titanium Physics"
+    url: "http://titaniumphysics.libsyn.com/rss"
+    collection:
+      - "astrophysics"
+      - "quantum"
+      - "space"
+  - name: "Spacetime pod"
+    url: "https://www.spreaker.com/show/2458531/episodes/feed"
+    collections:
+      - "science"
+      - "space"
+      - "space news"
+      - "astrophysics"
+  - name: "Cosmic Vertigo"
+    url: "https://www.abc.net.au/feeds/8294152/podcast.xml"
+    collections:
+      - "science"
+      - "space"
+      - "astrophysics"
+  - name: "Astronomy Cast"
+    url: "https://astronomycast.libsyn.com/rss"
+    collections:
+      - "science"
+      - "space"
+      - "astrophysics"
+  - name: "Conversations at the perimeter"
+    url: "https://feed.podbean.com/conversationsattheperimeter/feed.xml"
+    collections:
+      - "science"
+      - "astrophysics"
+      - "interviews"
+      - "space"
+  - name: "Universe Today"
+    url: "https://feeds.fireside.fm/universetoday/rss"
+    collections:
+    - "space"
+    - "space news"
+    - "science"
+  - name: "Interplanetary Pod"
+    url: "https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss"
+    collections:
+      - "space"
+      - "space news"
+      - "science"
+      - "interviews"
+      - "astrophysics"
+  - name: "Walkabout the Galaxy"
+    url: "http://feeds.libsyn.com/53743/rss"
+    collections:
+      - "space"
+      - "science"
+  - name: "The Life Scientific"
+    url: "https://podcasts.files.bbci.co.uk/b015sqc7.rss"
+    collections:
+      - "science"
+      - "interviews"
+  - name: "Shite Talk"
+    url: "https://www.spreaker.com/show/5645402/episodes/feed"
+    collections:
+      - "irish history"
+      - "history"
+    excludes:
+      - "talking shite"
+  - name: "Irish History Podcast"
+    url: "http://rss.acast.com/irishhistory"
+    collections:
+      - "irish history"
+      - "history"
+  - name: "HBR Ideacast"
+    url: "http://feeds.harvardbusiness.org/harvardbusiness/ideacast"
+    collections:
+      - "management"
+      - "leadership"
+  - name: "HBR Coaching Real Leaders"
+    url: "http://feeds.harvardbusiness.org/harvardbusiness/coaching-real-leaders"
+    collections:
+      - "management"
+      - "leadership"
+  - name: "HBR On Leadership"
+    url: "https://feeds.feedburner.com/harvardbusiness/on-leadership"
+    collections:
+      - "management"
+      - "leadership"
+  - name: "Lenny's Podcast"
+    url: "https://api.substack.com/feed/podcast/10845.rss"
+    collections:
+      - "product management"
+      - "leadership"
+  - name: "Lions led by donkeys"
+    url: "https://feeds.soundcloud.com/users/soundcloud:users:457245963/sounds.rss"
+    collections:
+      - "history"
+      - "military history"
+      - "comedy"
+    excludes:
+      - "preview"
