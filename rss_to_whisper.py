@@ -51,7 +51,7 @@ def process_feeds(config):
     whisper_model_name = config["whisper_model"] if "whisper_model" in config else "tiny"
     process_local_files_only = config["process_local_files_only"] if "process_local_files_only" in config else False
 
-    if "elastic_server" or "data_dir" or "podcasts" not in config:
+    if "elastic_server" not in config or "data_directory" not in config or "podcasts" not in config:
         logger.error("Required configuration missing.")
         exit(1)
 
