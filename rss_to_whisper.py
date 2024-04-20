@@ -14,6 +14,7 @@ import yaml
 from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
+from faster_whisper import WhisperModel
 from whisper.utils import WriteTXT, WriteTSV
 
 import utils
@@ -46,6 +47,13 @@ def initialise_whisper(model_name: str):
     return model
 
 
+def initialise_faster_whisper(model_name: str):
+    logger.info(f"Cuda available: {torch.cuda.is_available()}")
+    logger.debug(f"Using {model_name} model")
+    model = WhisperModel(model_name, compute_type="float32", device="cuda")
+    return model
+
+
 def process_feeds(config):
 
     whisper_model_name = config["whisper_model"] if "whisper_model" in config else "tiny"
@@ -65,7 +73,7 @@ def process_feeds(config):
     whisper_model = None
     podcasts = config["podcasts"]
 
-    elastic_client = initialise_elastic_client(elastic_server, os.getenv("ELASTIC_API_KEY"))
+    # elastic_client = initialise_elastic_client(elastic_server, os.getenv("ELASTIC_API_KEY"))
 
     for podcast in podcasts:
         podcast_url = podcast["url"] if "url" in podcast else None
@@ -122,9 +130,9 @@ def process_feeds(config):
                         download_file_if_required(mp3_info)
 
                         if whisper_model is None:
-                            whisper_model = initialise_whisper(whisper_model_name)
+                            whisper_model = initialise_faster_whisper(whisper_model_name)
 
-                        transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
+                        transcribe_if_required_faster(whisper_model, mp3_info, episode_directory_path)
                         transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
                         episode_dicts.append(
                             get_episode_dict(feed_response.feed, entry, transcript_text, collections))
@@ -132,8 +140,9 @@ def process_feeds(config):
                 except Exception as e:
                     logger.error(f"Couldn't process episode entry: {entry.title}")
                     logger.error(e)
+                    break
 
-        bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
+        # bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
 
 
 def initialise_elastic_client(elastic_host: str, api_key: str):
@@ -222,6 +231,23 @@ def transcribe_if_required(_model, _mp3_info, _episode_path):
         logger.debug(f"{_mp3_info.file_name} is already transcribed.")
 
 
+def transcribe_if_required_faster(_model: WhisperModel, _mp3_info, _episode_path):
+    if not os.path.exists(_episode_path / "transcribed"):
+        logger.debug(f"Starting transcription in {_episode_path}")
+        start = time.time()
+
+        segments, _ = _model.transcribe(audio=str(_mp3_info.file_path), language="en", vad_filter=True)
+        segments = list(segments)
+        write_transcripts_faster(segments, _mp3_info.file_name, _episode_path)
+
+        end = time.time()
+        elapsed = float(end - start)
+        elapsed_minutes = str(round(elapsed / 60, 2))
+        logger.debug(f"Processed {_mp3_info.file_name} in: {elapsed_minutes} Minutes")
+    else:
+        logger.debug(f"{_mp3_info.file_name} is already transcribed.")
+
+
 def write_transcripts(_result, _file_name, _episode_path):
     logger.debug("Writing transcriptions...")
     writer = WriteTXT(_episode_path)
@@ -231,6 +257,22 @@ def write_transcripts(_result, _file_name, _episode_path):
     writer(_result, _episode_path / f"{_file_name}.tsv")
 
     Path(_episode_path / "transcribed").touch()
+
+
+def write_transcripts_faster(_segments, _file_name, _episode_path):
+
+    logger.debug("Writing transcriptions...")
+
+    with open(_episode_path / f"{_file_name}.txt", "w") as f:
+        for segment in _segments:
+            f.write(segment.text + "\n")
+
+    with open(_episode_path / f"{_file_name}.tsv", "w") as f:
+        for segment in _segments:
+            seg = "%.2fs\t%.2fs\t%s" % (segment.start, segment.end, segment.text)
+            f.write(seg + "\n")
+
+    # Path(_episode_path / "transcribed").touch()
 
 
 def get_transcript_text(_file_path):
