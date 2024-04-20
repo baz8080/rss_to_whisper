@@ -5,3 +5,4 @@ torch==2.1.2
 elasticsearch==8.13.0
 python-dotenv==1.0.1
 PyYaml==6.0.1
+faster-whisper==1.0.1
