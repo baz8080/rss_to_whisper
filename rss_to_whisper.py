@@ -147,6 +147,13 @@ def initialise_elastic_client(elastic_host: str, api_key: str):
             }
         }
     )
+
+    elastic_client.cluster.put_settings(body={
+        "persistent": {
+            "search.max_async_search_response_size": "101mb"
+        }
+    })
+
     return elastic_client
 
 
@@ -275,9 +282,6 @@ if __name__ == "__main__":
         description='Utils for downloading podcasts from rss feeds and transcribing them',
         epilog='Have fun')
 
-    parser.add_argument("-f", "--feed", required=False,
-                        help="Provide a single rss feed, e.g. http://feeds.libsyn.com/60664. Must also provide a "
-                             "collection with -c --collection")
-
+    parser.add_argument("-c", "--config", required=False, help="Provide a config yaml file")
     args = parser.parse_args()
     main("pods.yaml")
