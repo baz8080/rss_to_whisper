@@ -155,3 +155,28 @@ podcasts:
       - "comedy"
     excludes:
       - "preview"
+  - name: "BTB"
+    url: "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/d64f756d-6d5e-4fae-b24f-ae280140ad36/podcast.rss"
+    excludes:
+      - "it could happen here"
+    collections:
+      - "comedy"
+      - "history"
+  - name: "The Dollop"
+    url: "https://www.omnycontent.com/d/playlist/885ace83-027a-47ad-ad67-aca7002f1df8/22b063ac-654d-428f-bd69-ae2400349cde/65ff0206-b585-4e2a-9872-ae240034c9c9/podcast.rss"
+    excludes:
+      - "the past times"
+    collections:
+      - "comedy"
+      - "american history"
+      - "history"
+  - name: "Why this universe"
+    url: "https://feeds.simplecast.com/90xaaSc5"
+    collections:
+      - "astrophysics"
+  - name: "Physics frontiers"
+    url: "https://physicsfrontiers-rantschler.podomatic.com/rss2.xml"
+    collections:
+      - "physics"
+  - name: "BBC in our time science"
+    url: "https://podcasts.files.bbci.co.uk/p01gyd7j.rss"
