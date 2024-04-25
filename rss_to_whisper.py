@@ -24,7 +24,6 @@ load_dotenv()
 
 
 def main(config_file: str):
-
     with open(config_file, "r") as pods_config_file:
         pods_config = yaml.safe_load(pods_config_file)
 
@@ -47,7 +46,6 @@ def initialise_whisper(model_name: str):
 
 
 def process_feeds(config):
-
     whisper_model_name = config["whisper_model"] if "whisper_model" in config else "tiny"
     process_local_files_only = config["process_local_files_only"] if "process_local_files_only" in config else False
 
@@ -113,9 +111,12 @@ def process_feeds(config):
                                                 (episode_directory_path / "transcribed").exists())
 
                     if mp3_and_transcript_exist:
-                        transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
+                        # transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
+                        transcript_text = (
+                            get_transcript_text_with_timing(episode_directory_path / f"{mp3_info.file_name}.tsv"))
                         episode_dicts.append(
                             get_episode_dict(feed_response.feed, entry, transcript_text, collections))
+
                     elif process_local_files_only:
                         continue
                     else:
@@ -125,7 +126,9 @@ def process_feeds(config):
                             whisper_model = initialise_whisper(whisper_model_name)
 
                         transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
-                        transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
+                        # transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
+                        transcript_text = (
+                            get_transcript_text_with_timing(episode_directory_path / f"{mp3_info.file_name}.txt"))
                         episode_dicts.append(
                             get_episode_dict(feed_response.feed, entry, transcript_text, collections))
 
@@ -244,10 +247,41 @@ def get_transcript_text(_file_path):
     with open(_file_path, 'r') as transcript:
         body = transcript.read()
 
-    body, was_altered = replace_repeated_phrases(body)
+    body, _ = replace_repeated_phrases(body)
 
     body = re.sub(r'(?<=[^.?])\n', ' ', body)
-    body = body.replace("\n", "\n\n")
+    return body
+
+
+def get_transcript_text_with_timing(_file_path):
+
+    body = ""
+
+    with open(_file_path, "r") as input_file:
+
+        input_file.readline()  # skip header
+
+        accumulated_text = ""
+        accumulated_text_start = None
+
+        for line in input_file:
+            current_start, _, text = line.strip().split('\t')
+            current_start = int(current_start)
+
+            if not accumulated_text:
+                accumulated_text_start = current_start
+
+            if not text.endswith('.'):
+                accumulated_text += text + ' '
+            else:
+                if accumulated_text:
+                    body += f"{accumulated_text_start}\t{accumulated_text.strip()} {text}\n"
+                    accumulated_text = ""
+                    accumulated_text_start = None
+                else:
+                    body += f"{current_start}\t{text}\n"
+
+    body, was_altered = replace_repeated_phrases(body)
     return body
 
 
