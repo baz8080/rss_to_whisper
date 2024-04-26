@@ -1,8 +1,8 @@
 verbose: true
 data_directory: "/Volumes/rss_to_whisper"
 whisper_model: "medium"
-elastic_server: "https://nasty.local:9200"
-process_local_files_only: false
+elastic_server: "http://nasty.local:9200"
+process_local_files_only: true
 podcasts:
   - name: "Ask a Spaceman"
     url: "http://feeds.libsyn.com/60664"
@@ -174,9 +174,23 @@ podcasts:
     url: "https://feeds.simplecast.com/90xaaSc5"
     collections:
       - "astrophysics"
+      - "space"
+      - "science"
   - name: "Physics frontiers"
     url: "https://physicsfrontiers-rantschler.podomatic.com/rss2.xml"
     collections:
       - "physics"
+      - "science"
+      - "astrophysics"
+      - "quantum"
   - name: "BBC in our time science"
     url: "https://podcasts.files.bbci.co.uk/p01gyd7j.rss"
+    collections:
+      - "science"
+  - name: "Space Nuts"
+    url: "https://www.spreaker.com/show/2631155/episodes/feed"
+    collections:
+      - "space"
+      - "science"
+      - "astronomy"
+      - "astrophysics"

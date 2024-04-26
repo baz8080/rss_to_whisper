@@ -17,7 +17,7 @@ from elasticsearch.helpers import bulk
 from whisper.utils import WriteTXT, WriteTSV
 
 import utils
-from utils import is_writable, get_file_part, create_path, chunk, initialise_logging, get_episode_dict
+from utils import is_writable, get_file_part, create_path, chunk, initialise_logging, get_episode_dict, escape_filename
 
 logger = logging.getLogger(__name__)
 load_dotenv()
@@ -95,13 +95,15 @@ def process_feeds(config):
 
                 try:
                     entry_title_and_date = get_episode_title_with_date(entry)
+                    logger.debug(f"Processing {entry_title_and_date}")
+
                     episode_directory_path = create_path(pod_path, entry_title_and_date)
 
                     if not episode_directory_path:
                         logger.error("Failed to make directory for the episode")
                         continue
 
-                    mp3_info = get_mp3_info(entry.links, episode_directory_path)
+                    mp3_info = get_mp3_info(entry.links, episode_directory_path, data_dir)
 
                     if mp3_info is None:
                         logger.warning(f"{entry.title} has no mp3 link. Skipping")
@@ -115,7 +117,8 @@ def process_feeds(config):
                         transcript_text = (
                             get_transcript_text_with_timing(episode_directory_path / f"{mp3_info.file_name}.tsv"))
                         episode_dicts.append(
-                            get_episode_dict(feed_response.feed, entry, transcript_text, collections))
+                            get_episode_dict(
+                                feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
 
                     elif process_local_files_only:
                         continue
@@ -130,7 +133,8 @@ def process_feeds(config):
                         transcript_text = (
                             get_transcript_text_with_timing(episode_directory_path / f"{mp3_info.file_name}.txt"))
                         episode_dicts.append(
-                            get_episode_dict(feed_response.feed, entry, transcript_text, collections))
+                            get_episode_dict(
+                                feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
 
                 except Exception as e:
                     logger.error(f"Couldn't process episode entry: {entry.title}")
@@ -187,16 +191,19 @@ def get_episode_title_with_date(_episode) -> str:
     return entry_title_and_date
 
 
-def get_mp3_info(_pod_links, _episode_path):
+def get_mp3_info(_pod_links, _episode_path, data_dir):
     for _link in _pod_links:
         if _link.type == "audio/mpeg" or _link.type == "audio/mp3":
-            MP3 = namedtuple("MP3", ["link", "file_name", "file_path", "length"])
+            MP3 = namedtuple("MP3", ["link", "file_name", "file_path", "length", "local_file_path"])
 
             _href = _link.href
             _file_name = get_file_part(_href)
             _file_path = _episode_path / _file_name
 
-            return MP3(link=_href, file_name=_file_name, file_path=_file_path, length=int(_link.length))
+            relative_path = os.path.relpath(_file_path, data_dir)
+
+            return MP3(link=_href, file_name=_file_name, file_path=_file_path,
+                       length=int(_link.length), local_file_path=relative_path)
 
     return None
 

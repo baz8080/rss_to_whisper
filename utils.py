@@ -81,7 +81,7 @@ def chunk(_list, size):
         yield _list[i:i + size]
 
 
-def get_episode_dict(podcast_metadata, episode_data, transcript: str, collections: []):
+def get_episode_dict(podcast_metadata, episode_data, transcript: str, collections: [], relative_mp3_path):
     episode_dict = None
 
     _id = get_hash(transcript)
@@ -166,7 +166,8 @@ def get_episode_dict(podcast_metadata, episode_data, transcript: str, collection
             "episode_season": episode_season,
             "episode_type": episode_type,
             "episode_duration": episode_duration,
-            "episode_transcript": transcript
+            "episode_transcript": transcript,
+            "episode_relative_mp3_path": relative_mp3_path
         }
 
         return episode_dict
