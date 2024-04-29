@@ -17,7 +17,7 @@ from elasticsearch.helpers import bulk
 from whisper.utils import WriteTXT, WriteTSV
 
 import utils
-from utils import is_writable, get_file_part, create_path, chunk, initialise_logging, get_episode_dict, escape_filename
+from utils import is_writable, get_file_part, create_path, chunk, initialise_logging, get_episode_dict
 
 logger = logging.getLogger(__name__)
 load_dotenv()
@@ -49,11 +49,14 @@ def process_feeds(config):
     whisper_model_name = config["whisper_model"] if "whisper_model" in config else "tiny"
     process_local_files_only = config["process_local_files_only"] if "process_local_files_only" in config else False
 
-    if "elastic_server" not in config or "data_directory" not in config or "podcasts" not in config:
+    if "database_config" not in config or "data_directory" not in config or "podcasts" not in config:
         logger.error("Required configuration missing.")
         exit(1)
 
-    elastic_server = config["elastic_server"]
+    elastic_server = config["database_config"]["server"]
+    elastic_process_inserts = config["database_config"]["process_inserts"]
+    elastic_drop_indices = config["database_config"]["drop_indices"]
+
     data_dir = config["data_directory"]
 
     if data_dir is None or not is_writable(data_dir):
@@ -63,7 +66,8 @@ def process_feeds(config):
     whisper_model = None
     podcasts = config["podcasts"]
 
-    elastic_client = initialise_elastic_client(elastic_server, os.getenv("ELASTIC_API_KEY"))
+    elastic_client = initialise_elastic_client(
+        elastic_host=elastic_server, api_key=os.getenv("ELASTIC_API_KEY"), drop_indices=elastic_drop_indices)
 
     for podcast in podcasts:
         podcast_url = podcast["url"] if "url" in podcast else None
@@ -140,20 +144,23 @@ def process_feeds(config):
                     logger.error(f"Couldn't process episode entry: {entry.title}")
                     logger.error(e)
 
-        bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
+        if not elastic_process_inserts:
+            bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
 
 
-def initialise_elastic_client(elastic_host: str, api_key: str):
+def initialise_elastic_client(elastic_host: str, api_key: str, drop_indices: bool):
     elastic_client = Elasticsearch(hosts=elastic_host, api_key=api_key, verify_certs=False)
-    elastic_client.indices.delete(index="podcasts")
-    elastic_client.indices.create(
-        index="podcasts",
-        body={
-            "settings": {
-                "index.store.preload": ["nvd", "dvd"]
+
+    if drop_indices:
+        elastic_client.indices.delete(index="podcasts")
+        elastic_client.indices.create(
+            index="podcasts",
+            body={
+                "settings": {
+                    "index.store.preload": ["nvd", "dvd"]
+                }
             }
-        }
-    )
+        )
 
     elastic_client.cluster.put_settings(body={
         "persistent": {

@@ -1,8 +1,11 @@
 verbose: true
 data_directory: "/Volumes/rss_to_whisper"
 whisper_model: "medium"
-elastic_server: "http://nasty.local:9200"
 process_local_files_only: true
+database_config:
+  server: "http://nasty.local:9200"
+  drop_indices: true
+  process_inserts: true
 podcasts:
   - name: "Ask a Spaceman"
     url: "http://feeds.libsyn.com/60664"
