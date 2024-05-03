@@ -6,7 +6,6 @@ import sys
 import time
 import uuid
 from pathlib import Path
-from urllib.parse import urlparse
 
 logger = logging.getLogger(__name__)
 
@@ -17,16 +16,6 @@ def is_valid_uuid(uuid_str: str):
         return True
     except ValueError:
         return False
-
-
-def get_partial_guid(_uuid_str: str, _content: str):
-    if _uuid_str and is_valid_uuid(_uuid_str):
-        return _uuid_str[0:8]
-    elif _content:
-        digest = get_hash(_content)
-        return digest[0:8]
-    else:
-        return "noguid"
 
 
 def get_hash(_content: str) -> str:
@@ -51,14 +40,6 @@ def escape_filename(_filename: str):
 def time_to_seconds(time_str: str):
     # https://stackoverflow.com/a/6402934
     return sum(float(x) * 60 ** i for i, x in enumerate(reversed(time_str.split(':'))))
-
-
-def get_file_part(_url: str):
-    _parsed_url = urlparse(_url)
-    _path = _parsed_url.path
-    _filename = os.path.basename(_path)
-
-    return _filename
 
 
 def create_path(_parent_path, _directory_name: str):

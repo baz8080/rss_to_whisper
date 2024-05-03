@@ -17,7 +17,7 @@ from elasticsearch.helpers import bulk
 from whisper.utils import WriteTXT, WriteTSV
 
 import utils
-from utils import is_writable, get_file_part, create_path, chunk, initialise_logging, get_episode_dict
+from utils import is_writable, create_path, chunk, initialise_logging, get_episode_dict
 
 logger = logging.getLogger(__name__)
 load_dotenv()
@@ -25,6 +25,7 @@ load_dotenv()
 
 def main(config_file: str):
     with open(config_file, "r") as pods_config_file:
+        print(f"Using {config_file} config")
         pods_config = yaml.safe_load(pods_config_file)
 
     if not pods_config:
@@ -117,9 +118,8 @@ def process_feeds(config):
                                                 (episode_directory_path / "transcribed").exists())
 
                     if mp3_and_transcript_exist:
-                        # transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
                         transcript_text = (
-                            get_transcript_text_with_timing(episode_directory_path / f"{mp3_info.file_name}.tsv"))
+                            get_transcript_text_with_timing(episode_directory_path / "transcript.tsv"))
                         episode_dicts.append(
                             get_episode_dict(
                                 feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
@@ -133,18 +133,17 @@ def process_feeds(config):
                             whisper_model = initialise_whisper(whisper_model_name)
 
                         transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
-                        # transcript_text = get_transcript_text(episode_directory_path / f"{mp3_info.file_name}.txt")
                         transcript_text = (
-                            get_transcript_text_with_timing(episode_directory_path / f"{mp3_info.file_name}.txt"))
+                            get_transcript_text_with_timing(episode_directory_path / "transcript.tsv"))
                         episode_dicts.append(
                             get_episode_dict(
                                 feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
 
-                except Exception as e:
+                except Exception as PodException:
                     logger.error(f"Couldn't process episode entry: {entry.title}")
-                    logger.error(e)
+                    logger.error(PodException)
 
-        if not elastic_process_inserts:
+        if elastic_process_inserts:
             bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
 
 
@@ -201,15 +200,14 @@ def get_episode_title_with_date(_episode) -> str:
 def get_mp3_info(_pod_links, _episode_path, data_dir):
     for _link in _pod_links:
         if _link.type == "audio/mpeg" or _link.type == "audio/mp3":
-            MP3 = namedtuple("MP3", ["link", "file_name", "file_path", "length", "local_file_path"])
+            MP3 = namedtuple("MP3", ["link", "file_path", "length", "local_file_path"])
 
             _href = _link.href
-            _file_name = get_file_part(_href)
-            _file_path = _episode_path / _file_name
+            _file_path = _episode_path / "audio.mp3"
 
             relative_path = os.path.relpath(_file_path, data_dir)
 
-            return MP3(link=_href, file_name=_file_name, file_path=_file_path,
+            return MP3(link=_href, file_path=_file_path,
                        length=int(_link.length), local_file_path=relative_path)
 
     return None
@@ -220,7 +218,7 @@ def download_file_if_required(_mp3_info):
     # todo - some podcasts are lying about the byte size, so this check is not perfect
     # length_mismatched = os.path.getsize(_mp3_info.file_path) != _mp3_info.length
     if not path_exists:
-        logger.debug(f"Downloading... {_mp3_info.file_name}")
+        logger.debug(f"Downloading audio")
         _file_response = requests.get(_mp3_info.link)
         if _file_response.ok:
             logger.debug(f"Writing... {_mp3_info.file_path}")
@@ -229,7 +227,7 @@ def download_file_if_required(_mp3_info):
         else:
             logger.error(f"error saving file response: {_file_response.status_code}")
     else:
-        logger.debug(f"{_mp3_info.file_name} is already downloaded")
+        logger.debug("Audio is already downloaded")
 
 
 def transcribe_if_required(_model, _mp3_info, _episode_path):
@@ -237,38 +235,27 @@ def transcribe_if_required(_model, _mp3_info, _episode_path):
         logger.debug(f"Starting transcription in {_episode_path}")
         start = time.time()
         result = _model.transcribe(audio=str(_mp3_info.file_path), language="en")
-        write_transcripts(result, _mp3_info.file_name, _episode_path)
+        write_transcripts(result, _episode_path)
         end = time.time()
         elapsed = float(end - start)
         elapsed_minutes = str(round(elapsed / 60, 2))
-        logger.debug(f"Processed {_mp3_info.file_name} in: {elapsed_minutes} Minutes")
+        logger.debug(f"Processed transcript in: {elapsed_minutes} Minutes")
     else:
-        logger.debug(f"{_mp3_info.file_name} is already transcribed.")
+        logger.debug("Audio is already transcribed.")
 
 
-def write_transcripts(_result, _file_name, _episode_path):
+def write_transcripts(_result, _episode_path):
     logger.debug("Writing transcriptions...")
     writer = WriteTXT(_episode_path)
-    writer(_result, _episode_path / f"{_file_name}.txt")
+    writer(_result, _episode_path / "transcript.txt")
 
     writer = WriteTSV(_episode_path)
-    writer(_result, _episode_path / f"{_file_name}.tsv")
+    writer(_result, _episode_path / "transcript.tsv")
 
     Path(_episode_path / "transcribed").touch()
 
 
-def get_transcript_text(_file_path):
-    with open(_file_path, 'r') as transcript:
-        body = transcript.read()
-
-    body, _ = replace_repeated_phrases(body)
-
-    body = re.sub(r'(?<=[^.?])\n', ' ', body)
-    return body
-
-
 def get_transcript_text_with_timing(_file_path):
-
     body = ""
 
     with open(_file_path, "r") as input_file:
@@ -279,7 +266,13 @@ def get_transcript_text_with_timing(_file_path):
         accumulated_text_start = None
 
         for line in input_file:
-            current_start, _, text = line.strip().split('\t')
+            line_components = line.strip().split('\t')
+
+            if len(line_components) != 3:
+                logger.error("Unexpected token count processing line")
+                continue
+
+            current_start, _, text = line_components
             current_start = int(current_start)
 
             if not accumulated_text:

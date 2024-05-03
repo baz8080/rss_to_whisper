@@ -1,7 +1,8 @@
 verbose: true
+data_directory_alt: "/var/run/user/1000/gvfs/smb-share:server=nasty.local,share=rss_to_whisper"
 data_directory: "/Volumes/rss_to_whisper"
 whisper_model: "medium"
-process_local_files_only: true
+process_local_files_only: false
 database_config:
   server: "http://nasty.local:9200"
   drop_indices: true
@@ -162,6 +163,7 @@ podcasts:
     url: "https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/d64f756d-6d5e-4fae-b24f-ae280140ad36/podcast.rss"
     excludes:
       - "it could happen here"
+      - "czm rewind"
     collections:
       - "comedy"
       - "history"
