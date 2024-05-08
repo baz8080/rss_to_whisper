@@ -1,4 +1,5 @@
 import argparse
+import json
 import logging
 import os
 import re
@@ -48,7 +49,6 @@ def initialise_whisper(model_name: str):
 
 def process_feeds(config):
     whisper_model_name = config["whisper_model"] if "whisper_model" in config else "tiny"
-    process_local_files_only = config["process_local_files_only"] if "process_local_files_only" in config else False
 
     if "database_config" not in config or "data_directory" not in config or "podcasts" not in config:
         logger.error("Required configuration missing.")
@@ -118,14 +118,9 @@ def process_feeds(config):
                                                 (episode_directory_path / "transcribed").exists())
 
                     if mp3_and_transcript_exist:
-                        transcript_text = (
-                            get_transcript_text_with_timing(episode_directory_path / "transcript.tsv"))
-                        episode_dicts.append(
-                            get_episode_dict(
-                                feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
-
-                    elif process_local_files_only:
-                        continue
+                        json_file = open(file=(episode_directory_path / "transcript.json"), mode="r")
+                        episode_dict = json.load(json_file)
+                        episode_dicts.append(episode_dict)
                     else:
                         download_file_if_required(mp3_info)
 
@@ -135,6 +130,14 @@ def process_feeds(config):
                         transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
                         transcript_text = (
                             get_transcript_text_with_timing(episode_directory_path / "transcript.tsv"))
+                        episode_dict = (
+                            get_episode_dict(
+                                feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
+                        episode_dicts.append(episode_dict)
+
+                        json_file = open(file=(episode_directory_path / "transcript.json"), mode="w")
+                        json.dump(episode_dict, indent=4, sort_keys=True, fp=json_file)
+
                         episode_dicts.append(
                             get_episode_dict(
                                 feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))

@@ -2,7 +2,6 @@ verbose: true
 data_directory_alt: "/var/run/user/1000/gvfs/smb-share:server=nasty.local,share=rss_to_whisper"
 data_directory: "/Volumes/rss_to_whisper"
 whisper_model: "medium"
-process_local_files_only: false
 database_config:
   server: "http://nasty.local:9200"
   drop_indices: true
