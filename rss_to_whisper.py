@@ -268,6 +268,8 @@ def write_transcripts(_result, _episode_path):
 def get_transcript_text_with_timing(_file_path):
     body = ""
 
+    accumulated_text = ""
+
     with open(_file_path, "r") as input_file:
 
         input_file.readline()  # skip header
@@ -297,6 +299,9 @@ def get_transcript_text_with_timing(_file_path):
                     accumulated_text_start = None
                 else:
                     body += f"{current_start}\t{text}\n"
+
+        if accumulated_text and len(accumulated_text) > 0:
+            body += f"{accumulated_text_start}\t{accumulated_text.strip()}\n"
 
     body, was_altered = replace_repeated_phrases(body)
     return body
