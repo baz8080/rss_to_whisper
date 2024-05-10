@@ -93,6 +93,8 @@ def process_feeds(config):
                 logger.error("Cannot find podcast path to write to")
                 return
 
+            last_run = podcast["last_run"]
+
             for entry in feed_response.entries:
 
                 if any(exclude.lower() in entry.title.lower() for exclude in excludes):
@@ -100,30 +102,24 @@ def process_feeds(config):
                     continue
 
                 try:
-                    entry_title_and_date = get_episode_title_with_date(entry)
-                    logger.debug(f"Processing {entry_title_and_date}")
+                    episode_datetime = datetime.strptime(entry.published, "%a, %d %b %Y %H:%M:%S %z")
 
-                    episode_directory_path = create_path(pod_path, entry_title_and_date)
+                    if episode_datetime >= last_run:
+                        entry_title_and_date = get_episode_title_with_date(entry)
+                        logger.debug(f"Processing {entry_title_and_date}")
 
-                    if not episode_directory_path:
-                        logger.error("Failed to make directory for the episode")
-                        continue
+                        episode_directory_path = create_path(pod_path, entry_title_and_date)
 
-                    mp3_info = get_mp3_info(entry.links, episode_directory_path, data_dir)
+                        if not episode_directory_path:
+                            logger.error("Failed to make directory for the episode")
+                            continue
 
-                    if mp3_info is None:
-                        logger.warning(f"{entry.title} has no mp3 link. Skipping")
-                        continue
+                        mp3_info = get_mp3_info(entry.links, episode_directory_path, data_dir)
 
-                    mp3_and_transcript_exist = (mp3_info.file_path.exists() and
-                                                (episode_directory_path / "transcribed").exists() and
-                                                (episode_directory_path / "transcript.json").exists())
+                        if mp3_info is None:
+                            logger.warning(f"{entry.title} has no mp3 link. Skipping")
+                            continue
 
-                    if mp3_and_transcript_exist:
-                        json_file = open(file=(episode_directory_path / "transcript.json"), mode="r")
-                        episode_dict = json.load(json_file)
-                        episode_dicts.append(episode_dict)
-                    else:
                         download_file_if_required(mp3_info)
 
                         if whisper_model is None:
@@ -143,6 +139,10 @@ def process_feeds(config):
                         episode_dicts.append(
                             get_episode_dict(
                                 feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
+                        podcast["last_run"] = datetime.now(timezone.utc)
+                    else:
+                        logger.debug("Entries already processed. Skipping to next podcast")
+                        break
 
                 except Exception as PodException:
                     logger.error(f"Couldn't process episode entry: {entry.title}")
@@ -150,8 +150,6 @@ def process_feeds(config):
 
         if elastic_process_inserts:
             bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
-
-        podcast["last_run"] = datetime.now(timezone.utc)
 
     with open("pods.yaml", mode="w") as pod_config_file:
         yaml.dump(data=config, stream=pod_config_file, sort_keys=False)
@@ -170,12 +168,11 @@ def initialise_elastic_client(elastic_host: str, api_key: str, drop_indices: boo
                 }
             }
         )
-
-    elastic_client.cluster.put_settings(body={
-        "persistent": {
-            "search.max_async_search_response_size": "101mb"
-        }
-    })
+        elastic_client.cluster.put_settings(body={
+            "persistent": {
+                "search.max_async_search_response_size": "101mb"
+            }
+        })
 
     return elastic_client
 
@@ -225,8 +222,7 @@ def get_mp3_info(_pod_links, _episode_path, data_dir):
 
 def download_file_if_required(_mp3_info):
     path_exists = _mp3_info.file_path.exists()
-    # todo - some podcasts are lying about the byte size, so this check is not perfect
-    # length_mismatched = os.path.getsize(_mp3_info.file_path) != _mp3_info.length
+
     if not path_exists:
         logger.debug(f"Downloading audio")
         _file_response = requests.get(_mp3_info.link)
