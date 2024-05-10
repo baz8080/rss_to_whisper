@@ -16,6 +16,7 @@ from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 from whisper.utils import WriteTXT, WriteTSV
+from datetime import datetime, timezone
 
 import utils
 from utils import is_writable, create_path, chunk, initialise_logging, get_episode_dict
@@ -115,7 +116,8 @@ def process_feeds(config):
                         continue
 
                     mp3_and_transcript_exist = (mp3_info.file_path.exists() and
-                                                (episode_directory_path / "transcribed").exists())
+                                                (episode_directory_path / "transcribed").exists() and
+                                                (episode_directory_path / "transcript.json").exists())
 
                     if mp3_and_transcript_exist:
                         json_file = open(file=(episode_directory_path / "transcript.json"), mode="r")
@@ -148,6 +150,11 @@ def process_feeds(config):
 
         if elastic_process_inserts:
             bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
+
+        podcast["last_run"] = datetime.now(timezone.utc)
+
+    with open("pods.yaml", mode="w") as pod_config_file:
+        yaml.dump(data=config, stream=pod_config_file, sort_keys=False)
 
 
 def initialise_elastic_client(elastic_host: str, api_key: str, drop_indices: bool):
