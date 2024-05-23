@@ -42,9 +42,8 @@ def main(config_file: str):
 
 
 def initialise_whisper(model_name: str):
-    logger.info(f"Cuda available: {torch.cuda.is_available()}")
     logger.debug(f"Using {model_name} model")
-    model = whisper.load_model(model_name)
+    model = whisper.load_model(name=model_name, device="cuda")
     return model
 
 
@@ -53,6 +52,14 @@ def process_feeds(config):
 
     if "database_config" not in config or "data_directory" not in config or "podcasts" not in config:
         logger.error("Required configuration missing.")
+        exit(1)
+
+    require_cuda = True
+    if "require_cuda" in config:
+        require_cuda = config["require_cuda"]
+
+    if require_cuda and not torch.cuda.is_available():
+        logger.error("CUDA acceleration is not available")
         exit(1)
 
     elastic_server = config["database_config"]["server"]
