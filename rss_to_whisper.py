@@ -94,7 +94,7 @@ def process_feeds(config):
             collections = podcast["collections"] if "collections" in podcast else []
             excludes = podcast["excludes"] if "excludes" in podcast else []
 
-            pod_path = create_path(data_dir, feed_response.feed.title)
+            pod_path = create_path(data_dir, podcast["name"])
 
             if not pod_path:
                 logger.error("Cannot find podcast path to write to")
