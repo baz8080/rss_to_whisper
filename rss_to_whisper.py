@@ -5,6 +5,8 @@ import os
 import re
 import time
 from collections import namedtuple
+from datetime import datetime, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import feedparser
@@ -16,7 +18,6 @@ from dotenv import load_dotenv
 from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 from whisper.utils import WriteTXT, WriteTSV
-from datetime import datetime, timezone
 
 import utils
 from utils import is_writable, create_path, chunk, initialise_logging, get_episode_dict
@@ -109,7 +110,10 @@ def process_feeds(config):
                     continue
 
                 try:
-                    episode_datetime = datetime.strptime(entry.published, "%a, %d %b %Y %H:%M:%S %z")
+                    episode_datetime = parsedate_to_datetime(entry.published)
+
+                    if episode_datetime.tzinfo is None:
+                        episode_datetime = episode_datetime.replace(tzinfo=timezone.utc)
 
                     if episode_datetime >= last_run:
                         entry_title_and_date = get_episode_title_with_date(entry)
