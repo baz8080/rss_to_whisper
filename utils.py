@@ -29,10 +29,13 @@ def is_writable(path):
     return os.access(path, os.W_OK)
 
 
-def escape_filename(_filename: str):
-    _escaped = "".join([x if x.isalnum() else "-" for x in _filename])
-    _escaped = re.sub(r'-{2,}', '-', _escaped)
-    _escaped = _escaped[:-1] if _escaped.endswith('-') else _escaped
+def escape_filename(_filename: str | None):
+    _escaped: str = ""
+
+    if _filename:
+        _escaped = "".join([x if x.isalnum() else "-" for x in _filename])
+        _escaped = re.sub(r'-{2,}', '-', _escaped)
+        _escaped = _escaped[:-1] if _escaped.endswith('-') else _escaped
 
     return _escaped
 
