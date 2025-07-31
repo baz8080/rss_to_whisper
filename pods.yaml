@@ -1,12 +1,12 @@
 verbose: true
-data_directory: /var/run/user/1000/gvfs/smb-share:server=nasty.local,share=rss_to_whisper
-data_directory_alt: /Volumes/rss_to_whisper
+data_directory_alt: /var/run/user/1000/gvfs/smb-share:server=nasty.local,share=rss_to_whisper
+data_directory: /Volumes/rss_to_whisper
 whisper_model: turbo
-require_cuda: true
+require_cuda: false
 database_config:
   server: http://nasty.local:9200
-  drop_indices: true
-  process_inserts: true
+  drop_indices: false
+  process_inserts: false
 podcasts:
 - name: Ask a Spaceman
   url: http://feeds.libsyn.com/60664
