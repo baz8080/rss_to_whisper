@@ -30,4 +30,4 @@ jobs:
 
     - name: Run tests
       run: |
-        PYTHONPATH=. pytest --tb=short
+        PYTHONPATH=src pytest --tb=short

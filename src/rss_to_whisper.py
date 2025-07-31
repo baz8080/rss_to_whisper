@@ -162,7 +162,7 @@ def process_feeds(config):
         if elastic_process_inserts:
             bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
 
-    with open("pods.yaml", mode="w") as pod_config_file:
+    with open("../pods.yaml", mode="w") as pod_config_file:
         yaml.dump(data=config, stream=pod_config_file, sort_keys=False)
 
 
@@ -347,4 +347,4 @@ if __name__ == "__main__":
 
     parser.add_argument("-c", "--config", required=False, help="Provide a config yaml file")
     args = parser.parse_args()
-    main("pods.yaml")
+    main("../pods.yaml")
