@@ -1,8 +1,10 @@
 import os
+from unittest.mock import patch
 
 import pytest
-import utils
-from unittest.mock import patch
+
+from src import utils
+
 
 @pytest.mark.parametrize("input_string, expected", [
     (None, ""),        # if None is allowed
@@ -18,13 +20,13 @@ def test_escape_filename(input_string, expected):
     assert _escaped == expected
 
 def test_is_writable_true():
-    with patch("utils.os.access", return_value=True) as mock_access:
+    with patch("src.utils.os.access", return_value=True) as mock_access:
         result = utils.is_writable("/some/path")
         assert result is True
         mock_access.assert_called_once_with("/some/path", os.W_OK)
 
 def test_is_writable_false():
-    with patch("utils.os.access", return_value=False) as mock_access:
+    with patch("src.utils.os.access", return_value=False) as mock_access:
         result = utils.is_writable("/some/path")
         assert result is False
         mock_access.assert_called_once_with("/some/path", os.W_OK)
