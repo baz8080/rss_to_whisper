@@ -6,6 +6,7 @@ import sys
 import time
 import uuid
 from pathlib import Path
+from typing import List, TypeVar, Generator
 
 logger = logging.getLogger(__name__)
 
@@ -40,12 +41,20 @@ def escape_filename(_filename: str | None):
     return _escaped
 
 
-def time_to_seconds(time_str: str):
+def time_to_seconds(time_str: str | None) -> int:
     # https://stackoverflow.com/a/6402934
-    return sum(float(x) * 60 ** i for i, x in enumerate(reversed(time_str.split(':'))))
+    _seconds = 0
+
+    if time_str:
+        try:
+            _seconds = sum(float(x) * 60 ** i for i, x in enumerate(reversed(time_str.split(':'))))
+        except ValueError:
+            logger.error(f"Couldn't parse {_seconds} into seconds")
+
+    return _seconds
 
 
-def create_path(_parent_path, _directory_name: str):
+def create_path(_parent_path: str | Path, _directory_name: str):
     if not _parent_path or not _directory_name:
         return None
 
@@ -60,7 +69,11 @@ def create_path(_parent_path, _directory_name: str):
     return _path_to_create
 
 
-def chunk(_list, size):
+T = TypeVar("T")
+def chunk(_list: List[T], size: int) -> Generator[List[T], None, None]:
+    if size <= 0:
+        raise ValueError("chunk size must be a positive integer")
+
     for i in range(0, len(_list), size):
         yield _list[i:i + size]
 
