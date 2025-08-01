@@ -49,9 +49,15 @@ def initialise_whisper(model_name: str):
 
 
 def process_feeds(config):
-    whisper_model_name = config["whisper_model"] if "whisper_model" in config else "tiny"
+    whisper_model_name = (
+        config["whisper_model"] if "whisper_model" in config else "tiny"
+    )
 
-    if "database_config" not in config or "data_directory" not in config or "podcasts" not in config:
+    if (
+        "database_config" not in config
+        or "data_directory" not in config
+        or "podcasts" not in config
+    ):
         logger.error("Required configuration missing.")
         exit(1)
 
@@ -77,7 +83,10 @@ def process_feeds(config):
     podcasts = config["podcasts"]
 
     elastic_client = initialise_elastic_client(
-        elastic_host=elastic_server, api_key=os.getenv("ELASTIC_API_KEY"), drop_indices=elastic_drop_indices)
+        elastic_host=elastic_server,
+        api_key=os.getenv("ELASTIC_API_KEY"),
+        drop_indices=elastic_drop_indices,
+    )
 
     for podcast in podcasts:
         podcast_url = podcast["url"] if "url" in podcast else None
@@ -119,13 +128,17 @@ def process_feeds(config):
                         entry_title_and_date = get_episode_title_with_date(entry)
                         logger.debug(f"Processing {entry_title_and_date}")
 
-                        episode_directory_path = create_path(pod_path, entry_title_and_date)
+                        episode_directory_path = create_path(
+                            pod_path, entry_title_and_date
+                        )
 
                         if not episode_directory_path:
                             logger.error("Failed to make directory for the episode")
                             continue
 
-                        mp3_info = get_mp3_info(entry.links, episode_directory_path, data_dir)
+                        mp3_info = get_mp3_info(
+                            entry.links, episode_directory_path, data_dir
+                        )
 
                         if mp3_info is None:
                             logger.warning(f"{entry.title} has no mp3 link. Skipping")
@@ -136,23 +149,40 @@ def process_feeds(config):
                         if whisper_model is None:
                             whisper_model = initialise_whisper(whisper_model_name)
 
-                        transcribe_if_required(whisper_model, mp3_info, episode_directory_path)
-                        transcript_text = (
-                            get_transcript_text_with_timing(episode_directory_path / "transcript.tsv"))
-                        episode_dict = (
-                            get_episode_dict(
-                                feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
+                        transcribe_if_required(
+                            whisper_model, mp3_info, episode_directory_path
+                        )
+                        transcript_text = get_transcript_text_with_timing(
+                            episode_directory_path / "transcript.tsv"
+                        )
+                        episode_dict = get_episode_dict(
+                            feed_response.feed,
+                            entry,
+                            transcript_text,
+                            collections,
+                            mp3_info.local_file_path,
+                        )
                         episode_dicts.append(episode_dict)
 
-                        json_file = open(file=(episode_directory_path / "transcript.json"), mode="w")
+                        json_file = open(
+                            file=(episode_directory_path / "transcript.json"), mode="w"
+                        )
                         json.dump(episode_dict, indent=4, sort_keys=True, fp=json_file)
 
                         episode_dicts.append(
                             get_episode_dict(
-                                feed_response.feed, entry, transcript_text, collections, mp3_info.local_file_path))
+                                feed_response.feed,
+                                entry,
+                                transcript_text,
+                                collections,
+                                mp3_info.local_file_path,
+                            )
+                        )
                         podcast["last_run"] = datetime.now(timezone.utc)
                     else:
-                        logger.debug("Entries already processed. Skipping to next podcast")
+                        logger.debug(
+                            "Entries already processed. Skipping to next podcast"
+                        )
                         break
 
                 except Exception as PodException:
@@ -160,30 +190,27 @@ def process_feeds(config):
                     logger.error(PodException)
 
         if elastic_process_inserts:
-            bulk(client=elastic_client, actions=generate_data_for_indexing(episode_dicts))
+            bulk(
+                client=elastic_client, actions=generate_data_for_indexing(episode_dicts)
+            )
 
     with open("../pods.yaml", mode="w") as pod_config_file:
         yaml.dump(data=config, stream=pod_config_file, sort_keys=False)
 
 
 def initialise_elastic_client(elastic_host: str, api_key: str, drop_indices: bool):
-    elastic_client = Elasticsearch(hosts=elastic_host, api_key=api_key, verify_certs=False)
+    elastic_client = Elasticsearch(
+        hosts=elastic_host, api_key=api_key, verify_certs=False
+    )
 
     if drop_indices:
         elastic_client.indices.delete(index="podcasts")
         elastic_client.indices.create(
-            index="podcasts",
-            body={
-                "settings": {
-                    "index.store.preload": ["nvd", "dvd"]
-                }
-            }
+            index="podcasts", body={"settings": {"index.store.preload": ["nvd", "dvd"]}}
         )
-        elastic_client.cluster.put_settings(body={
-            "persistent": {
-                "search.max_async_search_response_size": "101mb"
-            }
-        })
+        elastic_client.cluster.put_settings(
+            body={"persistent": {"search.max_async_search_response_size": "101mb"}}
+        )
 
     return elastic_client
 
@@ -225,8 +252,12 @@ def get_mp3_info(_pod_links, _episode_path, data_dir):
 
             relative_path = os.path.relpath(_file_path, data_dir)
 
-            return MP3(link=_href, file_path=_file_path,
-                       length=int(_link.length), local_file_path=relative_path)
+            return MP3(
+                link=_href,
+                file_path=_file_path,
+                length=int(_link.length),
+                local_file_path=relative_path,
+            )
 
     return None
 
@@ -235,11 +266,11 @@ def download_file_if_required(_mp3_info):
     path_exists = _mp3_info.file_path.exists()
 
     if not path_exists:
-        logger.debug(f"Downloading audio")
+        logger.debug("Downloading audio")
         _file_response = requests.get(_mp3_info.link)
         if _file_response.ok:
             logger.debug(f"Writing... {_mp3_info.file_path}")
-            with open(_mp3_info.file_path, 'wb') as _f:
+            with open(_mp3_info.file_path, "wb") as _f:
                 _f.write(_file_response.content)
         else:
             logger.error(f"error saving file response: {_file_response.status_code}")
@@ -285,7 +316,7 @@ def get_transcript_text_with_timing(_file_path):
         accumulated_text_start = None
 
         for line in input_file:
-            line_components = line.strip().split('\t')
+            line_components = line.strip().split("\t")
 
             if len(line_components) != 3:
                 logger.error("Unexpected token count processing line")
@@ -297,11 +328,13 @@ def get_transcript_text_with_timing(_file_path):
             if not accumulated_text:
                 accumulated_text_start = current_start
 
-            if not text.endswith('.'):
-                accumulated_text += text + ' '
+            if not text.endswith("."):
+                accumulated_text += text + " "
             else:
                 if accumulated_text:
-                    body += f"{accumulated_text_start}\t{accumulated_text.strip()} {text}\n"
+                    body += (
+                        f"{accumulated_text_start}\t{accumulated_text.strip()} {text}\n"
+                    )
                     accumulated_text = ""
                     accumulated_text_start = None
                 else:
@@ -315,16 +348,22 @@ def get_transcript_text_with_timing(_file_path):
 
 
 def replace_repeated_phrases(text, threshold=13):
-    pattern = r'\b(.+?)\s+(?:\1\s+){' + str(threshold - 1) + r',}\b'
+    pattern = r"\b(.+?)\s+(?:\1\s+){" + str(threshold - 1) + r",}\b"
 
     def repl(match):
-        whitespace = '\n' if '\n' in match.group(0) else ' '
+        whitespace = "\n" if "\n" in match.group(0) else " "
 
         ttr = match.group(1)
         ttr_lower = ttr.lower()
 
-        starts_with_emphasis = ttr_lower.startswith("no") or ttr_lower.startswith("nope") or ttr_lower.startswith(
-            "many") or ttr_lower.startswith("now") or ttr_lower.startswith("great") or ttr_lower.startswith("big")
+        starts_with_emphasis = (
+            ttr_lower.startswith("no")
+            or ttr_lower.startswith("nope")
+            or ttr_lower.startswith("many")
+            or ttr_lower.startswith("now")
+            or ttr_lower.startswith("great")
+            or ttr_lower.startswith("big")
+        )
 
         if " " in ttr:
             return ttr + whitespace
@@ -341,10 +380,13 @@ def replace_repeated_phrases(text, threshold=13):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        prog='rss_to_whisper.py',
-        description='Utils for downloading podcasts from rss feeds and transcribing them',
-        epilog='Have fun')
+        prog="rss_to_whisper.py",
+        description="Utils for downloading podcasts from rss feeds and transcribing them",
+        epilog="Have fun",
+    )
 
-    parser.add_argument("-c", "--config", required=False, help="Provide a config yaml file")
+    parser.add_argument(
+        "-c", "--config", required=False, help="Provide a config yaml file"
+    )
     args = parser.parse_args()
     main("../pods.yaml")

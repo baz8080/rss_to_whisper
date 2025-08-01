@@ -35,8 +35,8 @@ def escape_filename(_filename: str | None):
 
     if _filename:
         _escaped = "".join([x if x.isalnum() else "-" for x in _filename])
-        _escaped = re.sub(r'-{2,}', '-', _escaped)
-        _escaped = _escaped[:-1] if _escaped.endswith('-') else _escaped
+        _escaped = re.sub(r"-{2,}", "-", _escaped)
+        _escaped = _escaped[:-1] if _escaped.endswith("-") else _escaped
 
     return _escaped
 
@@ -47,7 +47,9 @@ def time_to_seconds(time_str: str | None) -> int:
 
     if time_str:
         try:
-            _seconds = sum(float(x) * 60 ** i for i, x in enumerate(reversed(time_str.split(':'))))
+            _seconds = sum(
+                float(x) * 60**i for i, x in enumerate(reversed(time_str.split(":")))
+            )
         except ValueError:
             logger.error(f"Couldn't parse {_seconds} into seconds")
 
@@ -70,24 +72,34 @@ def create_path(_parent_path: str | Path, _directory_name: str):
 
 
 T = TypeVar("T")
+
+
 def chunk(_list: List[T], size: int) -> Generator[List[T], None, None]:
     if size <= 0:
         raise ValueError("chunk size must be a positive integer")
 
     for i in range(0, len(_list), size):
-        yield _list[i:i + size]
+        yield _list[i : i + size]
 
 
-def get_episode_dict(podcast_metadata, episode_data, transcript: str, collections: [], relative_mp3_path):
+def get_episode_dict(
+    podcast_metadata,
+    episode_data,
+    transcript: str,
+    collections: list,
+    relative_mp3_path,
+):
     episode_dict = None
 
     _id = get_hash(transcript)
 
-    episode_audio_link = [d["href"] for d in episode_data.links if d["rel"] == "enclosure"]
+    episode_audio_link = [
+        d["href"] for d in episode_data.links if d["rel"] == "enclosure"
+    ]
     if episode_audio_link and len(episode_audio_link) > 0:
         episode_audio_link = episode_audio_link[0]
     else:
-        logger.error(f"Skipping episode because it has no MP3")
+        logger.error("Skipping episode because it has no MP3")
         return episode_dict
 
     try:
@@ -110,7 +122,7 @@ def get_episode_dict(podcast_metadata, episode_data, transcript: str, collection
 
         episode_title = episode_data.title
 
-        episode_published_on = time.strftime('%Y-%m-%d', episode_data.published_parsed)
+        episode_published_on = time.strftime("%Y-%m-%d", episode_data.published_parsed)
         episode_web_link = getattr(episode_data, "link", None)
 
         episode_image = getattr(episode_data, "image", None)
@@ -164,20 +176,20 @@ def get_episode_dict(podcast_metadata, episode_data, transcript: str, collection
             "episode_type": episode_type,
             "episode_duration": episode_duration,
             "episode_transcript": transcript,
-            "episode_relative_mp3_path": relative_mp3_path
+            "episode_relative_mp3_path": relative_mp3_path,
         }
 
         return episode_dict
 
     except AttributeError as e:
-        logger.error(f"Error getting podcast metadata")
+        logger.error("Error getting podcast metadata")
         logger.error(e)
         return None
 
 
 def initialise_logging(_logger, _verbose: bool):
     handler = logging.StreamHandler(sys.stdout)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
     handler.setFormatter(formatter)
     _logger.addHandler(handler)
 
