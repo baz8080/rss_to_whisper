@@ -12,6 +12,9 @@ logger = logging.getLogger(__name__)
 
 
 def is_valid_uuid(uuid_str: str):
+    if not uuid_str:
+        return False
+
     try:
         uuid.UUID(uuid_str)
         return True
@@ -20,6 +23,9 @@ def is_valid_uuid(uuid_str: str):
 
 
 def get_hash(_content: str) -> str:
+    if not _content:
+        raise ValueError("Cannot hash None or empty string")
+
     ha = hashlib.md5()
     ha.update(_content.encode("utf-8"))
     digest = ha.hexdigest()
