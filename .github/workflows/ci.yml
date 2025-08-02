@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   lint:
-    name: Code style check (black)
+    name: Precommit hooks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,8 +20,8 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run black
-        run: black --check src tests
+      - name: Run pre-commit hooks
+        run: pre-commit run --all-files
 
   test:
     name: Run unit tests
@@ -42,29 +42,3 @@ jobs:
 
       - name: Run pytest
         run: PYTHONPATH=. pytest
-
-  typecheck:
-    name: Static Analysis (mypy, ruff)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-
-      - name: Install dev dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Run mypy
-        run: |
-          mypy --install-types src --non-interactive
-          mypy --install-types tests --non-interactive
-          mypy src
-          mypy tests
-
-      - name: Run ruff
-        run: ruff check src tests
