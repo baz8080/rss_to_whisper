@@ -11,7 +11,10 @@ from typing import List, TypeVar, Generator
 logger = logging.getLogger(__name__)
 
 
-def is_valid_uuid(uuid_str: str):
+T = TypeVar("T")
+
+
+def is_valid_uuid(uuid_str: str) -> bool:
     try:
         uuid.UUID(uuid_str)
         return True
@@ -26,11 +29,11 @@ def get_hash(_content: str) -> str:
     return str(digest)
 
 
-def is_writable(path):
+def is_writable(path: str | Path) -> bool:
     return os.access(path, os.W_OK)
 
 
-def escape_filename(_filename: str | None):
+def escape_filename(_filename: str | None) -> str:
     _escaped: str = ""
 
     if _filename:
@@ -69,9 +72,6 @@ def create_path(_parent_path: str | Path, _directory_name: str):
         _path_to_create.mkdir(parents=True)
 
     return _path_to_create
-
-
-T = TypeVar("T")
 
 
 def chunk(_list: List[T], size: int) -> Generator[List[T], None, None]:
