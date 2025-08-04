@@ -2,7 +2,6 @@ import argparse
 import json
 import logging
 import os
-import re
 import time
 from collections import namedtuple
 from datetime import datetime, timezone
@@ -152,9 +151,11 @@ def process_feeds(config):
                         transcribe_if_required(
                             whisper_model, mp3_info, episode_directory_path
                         )
+
                         transcript_text = get_transcript_text_with_timing(
-                            episode_directory_path / "transcript.tsv"
+                            episode_directory_path
                         )
+
                         episode_dict = get_episode_dict(
                             feed_response.feed,
                             entry,
@@ -164,20 +165,17 @@ def process_feeds(config):
                         )
                         episode_dicts.append(episode_dict)
 
-                        json_file = open(
-                            file=(episode_directory_path / "transcript.json"), mode="w"
-                        )
-                        json.dump(episode_dict, indent=4, sort_keys=True, fp=json_file)
+                        json_path = episode_directory_path / "transcript.json"
 
-                        episode_dicts.append(
-                            get_episode_dict(
-                                feed_response.feed,
-                                entry,
-                                transcript_text,
-                                collections,
-                                mp3_info.local_file_path,
-                            )
-                        )
+                        if not json_path.exists():
+                            with open(
+                                episode_directory_path / "transcript.json", "w"
+                            ) as json_file:
+                                json_data = json.dumps(
+                                    episode_dict, indent=4, sort_keys=True
+                                )
+                                json_file.write(json_data)
+
                         podcast["last_run"] = datetime.now(timezone.utc)
                     else:
                         logger.debug(
@@ -303,10 +301,18 @@ def write_transcripts(_result, _episode_path):
     Path(_episode_path / "transcribed").touch()
 
 
-def get_transcript_text_with_timing(_file_path):
+def get_transcript_text_with_timing(_data_path):
+    transcript_with_timing_path = _data_path / "transcript_with_timing.tsv"
+
+    if transcript_with_timing_path.exists():
+        with open(transcript_with_timing_path, "r", encoding="utf-8") as f:
+            transcript_text = f.read()
+
+        return transcript_text
+
     body = ""
 
-    accumulated_text = ""
+    _file_path = _data_path / "transcript.tsv"
 
     with open(_file_path, "r") as input_file:
 
@@ -343,39 +349,10 @@ def get_transcript_text_with_timing(_file_path):
         if accumulated_text and len(accumulated_text) > 0:
             body += f"{accumulated_text_start}\t{accumulated_text.strip()}\n"
 
-    body, was_altered = replace_repeated_phrases(body)
+        with open(transcript_with_timing_path, "w", encoding="utf-8") as f:
+            f.write(body)
+
     return body
-
-
-def replace_repeated_phrases(text, threshold=13):
-    pattern = r"\b(.+?)\s+(?:\1\s+){" + str(threshold - 1) + r",}\b"
-
-    def repl(match):
-        whitespace = "\n" if "\n" in match.group(0) else " "
-
-        ttr = match.group(1)
-        ttr_lower = ttr.lower()
-
-        starts_with_emphasis = (
-            ttr_lower.startswith("no")
-            or ttr_lower.startswith("nope")
-            or ttr_lower.startswith("many")
-            or ttr_lower.startswith("now")
-            or ttr_lower.startswith("great")
-            or ttr_lower.startswith("big")
-        )
-
-        if " " in ttr:
-            return ttr + whitespace
-        elif "000," in ttr or starts_with_emphasis:
-            return match.group(0)
-        else:
-            return ttr + whitespace
-
-    replaced_text = re.sub(pattern, repl, text, flags=re.IGNORECASE)
-    text_was_changed = replaced_text != text
-
-    return replaced_text, text_was_changed
 
 
 if __name__ == "__main__":
