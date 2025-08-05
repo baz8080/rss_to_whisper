@@ -1,4 +1,4 @@
-verbose: true
+verbose: false
 data_directory_alt: /var/run/user/1000/gvfs/smb-share:server=nasty.local,share=rss_to_whisper
 data_directory: /Volumes/rss_to_whisper
 whisper_model: turbo
@@ -14,34 +14,29 @@ podcasts:
   - science
   - space
   - astrophysics
-  last_run: 2025-07-26 21:03:17.766622+00:00
 - name: Daniel and Jorge Explain the Universe
   url: https://omny.fm/shows/daniel-and-jorge-explain-the-universe/playlists/podcast.rss
   collections:
   - science
   - space
   - astrophysics
-  last_run: 2025-07-26 21:05:09.588568+00:00
 - name: The Infinite Monkey Cage
   url: https://podcasts.files.bbci.co.uk/b00snr0w.rss
   collections:
   - science
   - comedy
-  last_run: 2025-07-26 21:10:03.686356+00:00
 - name: The Cosmic Savannah
   url: https://thecosmicsavannah.com/feed/podcast/
   collections:
   - science
   - space
   - astrophysics
-  last_run: 2025-07-26 21:10:15.761332+00:00
 - name: The Supermassive Podcast
   url: https://audioboom.com/channels/5014098.rss
   collections:
   - science
   - space
   - astrophysics
-  last_run: 2025-07-26 21:18:25.032363+00:00
 - name: Planetary Radio
   url: https://omny.fm/shows/planetary-radio-space-exploration-astronomy-and-sc/playlists/podcast.rss
   collections:
@@ -49,19 +44,16 @@ podcasts:
   - space news
   - astrophysics
   - interviews
-  last_run: 2025-07-26 21:38:14.723052+00:00
 - name: Curious Universe
   url: https://www.nasa.gov/feeds/podcasts/curious-universe
   collections:
   - science
   - space
-  last_run: 2025-07-26 22:30:34.521952+00:00
 - name: Gravity Assist
   url: https://www.nasa.gov/feeds/podcasts/gravity-assist
   collections:
   - science
   - space
-  last_run: 2025-07-26 22:30:44.250764+00:00
 - name: Sean Carroll Mindscape
   url: https://rss.art19.com/sean-carrolls-mindscape
   collections:
@@ -71,14 +63,12 @@ podcasts:
   - philosophy
   - maths
   - astrophysics
-  last_run: 2025-07-26 22:53:46.050710+00:00
 - name: Titanium Physicists
   url: http://titaniumphysics.libsyn.com/rss
   collection:
   - astrophysics
   - quantum
   - space
-  last_run: 2025-07-26 22:53:57.919787+00:00
 - name: Spacetime Pod
   url: https://www.spreaker.com/show/2458531/episodes/feed
   collections:
@@ -86,21 +76,18 @@ podcasts:
   - space
   - space news
   - astrophysics
-  last_run: 2025-07-26 23:09:47.782128+00:00
 - name: Cosmic Vertigo
   url: https://www.abc.net.au/feeds/8294152/podcast.xml
   collections:
   - science
   - space
   - astrophysics
-  last_run: 2025-07-26 23:09:56.388135+00:00
 - name: Astronomy Cast
   url: https://astronomycast.libsyn.com/rss
   collections:
   - science
   - space
   - astrophysics
-  last_run: 2025-07-26 23:14:58.467964+00:00
 - name: Conversations at the Perimeter
   url: https://feed.podbean.com/conversationsattheperimeter/feed.xml
   collections:
@@ -108,14 +95,12 @@ podcasts:
   - astrophysics
   - interviews
   - space
-  last_run: 2025-07-26 23:15:01.128437+00:00
 - name: Universe Today
   url: https://feeds.fireside.fm/universetoday/rss
   collections:
   - space
   - space news
   - science
-  last_run: 2025-07-26 23:38:18.082945+00:00
 - name: Interplanetary Podcast
   url: https://feeds.soundcloud.com/users/soundcloud:users:210527670/sounds.rss
   collections:
@@ -124,19 +109,16 @@ podcasts:
   - science
   - interviews
   - astrophysics
-  last_run: 2025-07-26 23:40:31.206367+00:00
 - name: Walkabout the Galaxy
   url: http://feeds.libsyn.com/53743/rss
   collections:
   - space
   - science
-  last_run: 2025-07-26 23:44:43.521118+00:00
 - name: The Life Scientific
   url: https://podcasts.files.bbci.co.uk/b015sqc7.rss
   collections:
   - science
   - interviews
-  last_run: 2025-07-26 23:49:18.565730+00:00
 - name: Shite Talk
   url: https://www.spreaker.com/show/5645402/episodes/feed
   collections:
@@ -144,37 +126,31 @@ podcasts:
   - history
   excludes:
   - talking shite
-  last_run: 2025-07-27 00:00:59.185204+00:00
 - name: Irish History Podcast
   url: http://rss.acast.com/irishhistory
   collections:
   - irish history
   - history
-  last_run: 2025-07-27 00:07:11.722792+00:00
 - name: HBR Ideacast
   url: http://feeds.harvardbusiness.org/harvardbusiness/ideacast
   collections:
   - management
   - leadership
-  last_run: 2025-07-27 00:13:07.659183+00:00
 - name: HBR Coaching Real Leaders
   url: http://feeds.harvardbusiness.org/harvardbusiness/coaching-real-leaders
   collections:
   - management
   - leadership
-  last_run: 2025-07-27 00:14:27.123810+00:00
 - name: HBR On Leadership
   url: https://feeds.feedburner.com/harvardbusiness/on-leadership
   collections:
   - management
   - leadership
-  last_run: 2025-07-27 00:20:18.769092+00:00
 - name: Lennys Podcast
   url: https://api.substack.com/feed/podcast/10845.rss
   collections:
   - product management
   - leadership
-  last_run: 2025-07-27 00:42:52.301716+00:00
 - name: Lions Led By Donkeys
   url: https://feeds.soundcloud.com/users/soundcloud:users:457245963/sounds.rss
   collections:
@@ -183,7 +159,6 @@ podcasts:
   - comedy
   excludes:
   - preview
-  last_run: 2025-07-27 00:55:32.318926+00:00
 - name: Behind the Bastards
   url: https://www.omnycontent.com/d/playlist/e73c998e-6e60-432f-8610-ae210140c5b1/e5f91208-cc7e-4726-a312-ae280140ad11/d64f756d-6d5e-4fae-b24f-ae280140ad36/podcast.rss
   excludes:
@@ -193,7 +168,6 @@ podcasts:
   collections:
   - comedy
   - history
-  last_run: 2025-07-27 01:23:40.902672+00:00
 - name: The Dollop
   url: https://www.omnycontent.com/d/playlist/885ace83-027a-47ad-ad67-aca7002f1df8/22b063ac-654d-428f-bd69-ae2400349cde/65ff0206-b585-4e2a-9872-ae240034c9c9/podcast.rss
   excludes:
@@ -202,14 +176,12 @@ podcasts:
   - comedy
   - american history
   - history
-  last_run: 2025-07-27 01:41:34.054774+00:00
 - name: Why This Universe
   url: https://feeds.simplecast.com/90xaaSc5
   collections:
   - astrophysics
   - space
   - science
-  last_run: 2025-07-27 01:41:47.716671+00:00
 - name: Physics Frontiers
   url: https://physicsfrontiers-rantschler.podomatic.com/rss2.xml
   collections:
@@ -217,12 +189,10 @@ podcasts:
   - science
   - astrophysics
   - quantum
-  last_run: 2025-07-27 01:42:00.685217+00:00
 - name: BBC In Our Time Science
   url: https://podcasts.files.bbci.co.uk/p01gyd7j.rss
   collections:
   - science
-  last_run: 2025-07-27 01:45:34.318981+00:00
 - name: Space Nuts
   url: https://www.spreaker.com/show/2631155/episodes/feed
   collections:
@@ -230,9 +200,8 @@ podcasts:
   - science
   - astronomy
   - astrophysics
-  last_run: 2025-07-27 01:58:22.080956+00:00
 - name: Lost Women of Science
   url: https://feed.lostwomenofscience.org
   collections:
   - science
-  last_run: 2025-07-27 02:01:59.173263+00:00
+  
