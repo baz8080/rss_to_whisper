@@ -4,8 +4,6 @@ import logging
 import os
 import time
 from collections import namedtuple
-from datetime import datetime, timezone
-from email.utils import parsedate_to_datetime
 from pathlib import Path
 
 import feedparser
@@ -97,91 +95,78 @@ def process_feeds(config):
         episode_dicts = []
         feed_response = get_feed(podcast_url)
 
-        if feed_response and feed_response.feed:
-            logger.info(f"Downloaded {podcast['url']}")
+        logger.info(f"Processing {podcast['name']}")
 
-            collections = podcast["collections"] if "collections" in podcast else []
-            excludes = podcast["excludes"] if "excludes" in podcast else []
+        if feed_response and feed_response.feed:
+            logger.debug(f"Downloaded {podcast['url']}")
 
             pod_path = create_path(data_dir, podcast["name"])
-
             if not pod_path:
-                logger.error("Cannot find podcast path to write to")
-                return
+                logger.error("Cannot get a path to write podcast to")
+                break
 
-            last_run = podcast["last_run"]
+            excludes = podcast["excludes"] if "excludes" in podcast else []
 
             for entry in feed_response.entries:
-
                 if any(exclude.lower() in entry.title.lower() for exclude in excludes):
                     logger.debug("Skipping podcast entry because of excludes match")
                     continue
 
                 try:
-                    episode_datetime = parsedate_to_datetime(entry.published)
+                    entry_title_and_date = get_episode_title_with_date(entry)
+                    logger.debug(f"Processing {entry_title_and_date}")
 
-                    if episode_datetime.tzinfo is None:
-                        episode_datetime = episode_datetime.replace(tzinfo=timezone.utc)
+                    episode_directory_path = create_path(pod_path, entry_title_and_date)
+                    if not episode_directory_path:
+                        logger.error("Failed to make directory for the episode")
+                        continue
 
-                    if episode_datetime >= last_run:
-                        entry_title_and_date = get_episode_title_with_date(entry)
-                        logger.debug(f"Processing {entry_title_and_date}")
+                    mp3_info = get_mp3_info(
+                        entry.links, episode_directory_path, data_dir
+                    )
 
-                        episode_directory_path = create_path(
-                            pod_path, entry_title_and_date
-                        )
+                    if mp3_info is None:
+                        logger.warning(f"{entry.title} has no mp3 link. Skipping")
+                        continue
 
-                        if not episode_directory_path:
-                            logger.error("Failed to make directory for the episode")
-                            continue
+                    download_file_if_required(mp3_info)
 
-                        mp3_info = get_mp3_info(
-                            entry.links, episode_directory_path, data_dir
-                        )
+                    if whisper_model is None:
+                        whisper_model = initialise_whisper(whisper_model_name)
 
-                        if mp3_info is None:
-                            logger.warning(f"{entry.title} has no mp3 link. Skipping")
-                            continue
+                    was_already_transcribed = transcribe_if_required(
+                        whisper_model, mp3_info, episode_directory_path
+                    )
 
-                        download_file_if_required(mp3_info)
-
-                        if whisper_model is None:
-                            whisper_model = initialise_whisper(whisper_model_name)
-
-                        transcribe_if_required(
-                            whisper_model, mp3_info, episode_directory_path
-                        )
-
-                        transcript_text = get_transcript_text_with_timing(
-                            episode_directory_path
-                        )
-
-                        episode_dict = get_episode_dict(
-                            feed_response.feed,
-                            entry,
-                            transcript_text,
-                            collections,
-                            mp3_info.local_file_path,
-                        )
-                        episode_dicts.append(episode_dict)
-
-                        json_path = episode_directory_path / "transcript.json"
-
-                        if not json_path.exists():
-                            with open(
-                                episode_directory_path / "transcript.json", "w"
-                            ) as json_file:
-                                json_data = json.dumps(
-                                    episode_dict, indent=4, sort_keys=True
-                                )
-                                json_file.write(json_data)
-
-                        podcast["last_run"] = datetime.now(timezone.utc)
-                    else:
+                    if was_already_transcribed:
                         logger.debug(
-                            "Entries already processed. Skipping to next podcast"
+                            "Found already transcribed episode. Skipping to next podcast."
                         )
                         break
+
+                    transcript_text = get_transcript_text_with_timing(
+                        episode_directory_path
+                    )
+
+                    episode_dict = get_episode_dict(
+                        feed_response.feed,
+                        entry,
+                        transcript_text,
+                        podcast["collections"] if "collections" in podcast else [],
+                        mp3_info.local_file_path,
+                    )
+                    episode_dicts.append(episode_dict)
+
+                    json_path = episode_directory_path / "transcript.json"
+
+                    if not json_path.exists():
+                        with open(
+                            episode_directory_path / "transcript.json", "w"
+                        ) as json_file:
+                            json_data = json.dumps(
+                                episode_dict, indent=4, sort_keys=True
+                            )
+                            json_file.write(json_data)
 
                 except Exception as PodException:
                     logger.error(f"Couldn't process episode entry: {entry.title}")
@@ -191,9 +176,6 @@ def process_feeds(config):
             bulk(
                 client=elastic_client, actions=generate_data_for_indexing(episode_dicts)
             )
-
-    with open("../pods.yaml", mode="w") as pod_config_file:
-        yaml.dump(data=config, stream=pod_config_file, sort_keys=False)
 
 
 def initialise_elastic_client(elastic_host: str, api_key: str, drop_indices: bool):
@@ -276,8 +258,10 @@ def download_file_if_required(_mp3_info):
         logger.debug("Audio is already downloaded")
 
 
-def transcribe_if_required(_model, _mp3_info, _episode_path):
-    if not os.path.exists(_episode_path / "transcribed"):
+def transcribe_if_required(_model, _mp3_info, _episode_path) -> bool:
+    already_transcribed = os.path.exists(_episode_path / "transcribed")
+
+    if not already_transcribed:
         logger.debug(f"Starting transcription in {_episode_path}")
         start = time.time()
         result = _model.transcribe(audio=str(_mp3_info.file_path), language="en")
@@ -285,9 +269,11 @@ def transcribe_if_required(_model, _mp3_info, _episode_path):
         end = time.time()
         elapsed = float(end - start)
         elapsed_minutes = str(round(elapsed / 60, 2))
-        logger.debug(f"Processed transcript in: {elapsed_minutes} Minutes")
+        logger.debug(f"Transcribed in: {elapsed_minutes} Minutes")
     else:
         logger.debug("Audio is already transcribed.")
+
+    return already_transcribed
 
 
 def write_transcripts(_result, _episode_path):
@@ -315,7 +301,6 @@ def get_transcript_text_with_timing(_data_path):
     _file_path = _data_path / "transcript.tsv"
 
     with open(_file_path, "r") as input_file:
-
         input_file.readline()  # skip header
 
         accumulated_text = ""
