@@ -92,23 +92,32 @@ def get_episode_dict(
     podcast_metadata,
     episode_data,
     transcript: str,
-    collections: list,
     relative_mp3_path,
+    collections=None,
 ):
-    episode_dict = None
+    if collections is None:
+        collections = []
 
+    params = locals().copy()
+    params.pop("collections", None)
+    missing = [name for name, value in params.items() if value is None]
+    if missing:
+        raise ValueError(f"Missing required parameters: {', '.join(missing)}")
+
+    episode_dict = None
     _id = get_hash(transcript)
 
-    episode_audio_link = [
+    episode_audio_links = [
         d["href"] for d in episode_data.links if d["rel"] == "enclosure"
     ]
-    if episode_audio_link and len(episode_audio_link) > 0:
-        episode_audio_link = episode_audio_link[0]
+    if episode_audio_links:
+        episode_audio_link = episode_audio_links[0]
     else:
         logger.error("Skipping episode because it has no MP3")
-        return episode_dict
+        return None
 
     try:
+        # Podcast metadata
         podcast_title = podcast_metadata.title
         podcast_link = getattr(podcast_metadata, "link", None)
         podcast_language = getattr(podcast_metadata, "language", None)
@@ -126,8 +135,8 @@ def get_episode_dict(
 
         podcast_type = getattr(podcast_metadata, "itunes_type", None)
 
+        # Episode metadata
         episode_title = episode_data.title
-
         episode_published_on = time.strftime("%Y-%m-%d", episode_data.published_parsed)
         episode_web_link = getattr(episode_data, "link", None)
 
@@ -147,16 +156,18 @@ def get_episode_dict(
             all_tags += episode_keywords
 
         episode_duration = getattr(episode_data, "itunes_duration", None)
-        if episode_duration and ":" in episode_duration:
+        if isinstance(episode_duration, str) and ":" in episode_duration:
             episode_duration = time_to_seconds(episode_duration)
 
         episode_tags = getattr(episode_data, "tags", None)
         if episode_tags:
             all_tags += [d["term"] for d in episode_tags]
 
+        # Tag normalisation & deduplication
         all_tags = [tag.lower() for tag in all_tags]
         all_tags = list(dict.fromkeys(all_tags))
 
+        # Build final dict
         episode_dict = {
             "_id": _id,
             "_index": "podcasts",
