@@ -183,3 +183,159 @@ def test_chunk_invalid_size_negative():
     data = [1, 2, 3]
     with pytest.raises(ValueError):
         list(utils.chunk(data, -1))
+
+
+@pytest.mark.parametrize(
+    "args, expected_missing",
+    [
+        (
+            (None, None, None, None, None),
+            "podcast_metadata, episode_data, transcript, relative_mp3_path",
+        ),
+        (
+            (Mock(), None, None, None, None),
+            "episode_data, transcript, relative_mp3_path",
+        ),
+        ((Mock(), Mock(), None, None, None), "transcript, relative_mp3_path"),
+        ((Mock(), Mock(), "Sample transcript", None, None), "relative_mp3_path"),
+        (
+            (Mock(), None, "Sample transcript", "/path/to/file.mp3", None),
+            "episode_data",
+        ),
+    ],
+)
+def test_metadata_missing_args(args, expected_missing):
+    with pytest.raises(
+        ValueError, match=f"Missing required parameters: {expected_missing}"
+    ):
+        utils.get_episode_dict(*args)
+
+
+class MockPodcast:
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+
+class MockEpisode:
+    def __init__(self, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+
+
+def test_no_mp3_link_returns_none(caplog):
+    episode = MockEpisode(links=[{"rel": "other", "href": "nope"}])
+    result = utils.get_episode_dict(
+        MockPodcast(title="Podcast"), episode, "transcript", "file.mp3"
+    )
+    assert result is None
+    assert "no mp3" in caplog.text.lower()
+
+
+@patch(target="src.utils.get_hash", return_value="fakehash")
+@patch(target="src.utils.time_to_seconds", return_value=3723)
+def test_happy_path_all_fields(_mock_time_to_seconds, _mock_get_hash):
+    podcast = MockPodcast(
+        title="My Podcast",
+        link="plink",
+        language="en",
+        rights="copyright",
+        author="author",
+        tags=[{"term": "TagOne"}],
+        image=Mock(href="pimage"),
+        itunes_type="episodic",
+    )
+    episode = MockEpisode(
+        links=[{"rel": "enclosure", "href": "audio.mp3"}],
+        title="Ep Title",
+        published_parsed=(2024, 1, 1, 0, 0, 0, 0, 0, 0),
+        link="elink",
+        image=Mock(href="eimage"),
+        summary="summary",
+        subtitle="subtitle",
+        authors=["auth1"],
+        itunes_episode=1,
+        itunes_season=2,
+        itunes_episodetype="full",
+        itunes_keywords=["TagTwo", "TagOne"],  # dup with podcast tags
+        itunes_duration="01:02:03",
+        tags=[{"term": "TagThree"}],
+    )
+
+    result = utils.get_episode_dict(
+        podcast, episode, "my transcript", "rel/path.mp3", collections=["col1"]
+    )
+
+    assert result["_id"] == "fakehash"
+    assert result["podcast_title"] == "My Podcast"
+    assert result["episode_title"] == "Ep Title"
+    assert result["episode_duration"] == 3723
+    assert set(result["all_tags"]) == {
+        "tagone",
+        "tagtwo",
+        "tagthree",
+    }  # lowercase & dedup
+    assert result["podcast_collections"] == ["col1"]
+
+
+def test_tags_merge_and_deduplication():
+    podcast = MockPodcast(
+        title="t",
+        tags=[{"term": "One"}],
+    )
+    episode = MockEpisode(
+        links=[{"rel": "enclosure", "href": "x"}],
+        title="t",
+        published_parsed=(2024, 1, 1, 0, 0, 0, 0, 0, 0),
+        itunes_keywords=["One", "Two"],
+        tags=[{"term": "two"}, {"term": "three"}],
+    )
+    result = utils.get_episode_dict(podcast, episode, "txt", "f.mp3")
+    assert sorted(result["all_tags"]) == ["one", "three", "two"]
+
+
+def test_duration_remains_number_if_not_string():
+    podcast = MockPodcast(title="t")
+    episode = MockEpisode(
+        links=[{"rel": "enclosure", "href": "x"}],
+        title="t",
+        published_parsed=(2024, 1, 1, 0, 0, 0, 0, 0, 0),
+        itunes_duration=1234,
+    )
+    result = utils.get_episode_dict(podcast, episode, "txt", "f.mp3")
+    assert result["episode_duration"] == 1234
+
+
+def test_missing_optional_metadata_is_none():
+    podcast = MockPodcast(title="t")
+    episode = MockEpisode(
+        links=[{"rel": "enclosure", "href": "x"}],
+        title="t",
+        published_parsed=(2024, 1, 1, 0, 0, 0, 0, 0, 0),
+    )
+    result = utils.get_episode_dict(podcast, episode, "txt", "f.mp3")
+    assert result["podcast_author"] is None
+    assert result["episode_web_link"] is None
+
+
+def test_attribute_error_handled(caplog):
+    def bad_getattr(name):
+        raise AttributeError("boom")
+
+    podcast = MockPodcast()
+    podcast.__getattribute__ = bad_getattr  # force error on any attr access
+    episode = MockEpisode(links=[{"rel": "enclosure", "href": "x"}])
+    result = utils.get_episode_dict(podcast, episode, "txt", "f.mp3")
+    assert result is None
+    assert "error getting podcast metadata" in caplog.text.lower()
+
+
+def test_collections_defaults_to_empty():
+    podcast = MockPodcast(title="t")
+    episode = MockEpisode(
+        links=[{"rel": "enclosure", "href": "x"}],
+        title="t",
+        published_parsed=(2024, 1, 1, 0, 0, 0, 0, 0, 0),
+    )
+    result = utils.get_episode_dict(podcast, episode, "txt", "f.mp3")
+    assert result["podcast_collections"] == []

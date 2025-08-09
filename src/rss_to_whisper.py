@@ -152,8 +152,8 @@ def process_feeds(config):
                         feed_response.feed,
                         entry,
                         transcript_text,
-                        podcast["collections"] if "collections" in podcast else [],
                         mp3_info.local_file_path,
+                        podcast["collections"] if "collections" in podcast else None,
                     )
                     episode_dicts.append(episode_dict)
 
@@ -351,4 +351,4 @@ if __name__ == "__main__":
         "-c", "--config", required=False, help="Provide a config yaml file"
     )
     args = parser.parse_args()
-    main("../pods.yaml")
+    main("pods.yaml")
