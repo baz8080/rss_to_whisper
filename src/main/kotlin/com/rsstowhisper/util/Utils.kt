@@ -79,11 +79,3 @@ fun createPath(
 
     return pathToCreate
 }
-
-fun <T> chunk(
-    list: List<T>,
-    size: Int,
-): List<List<T>> {
-    if (size <= 0) throw IllegalArgumentException("chunk size must be a positive integer")
-    return list.chunked(size)
-}

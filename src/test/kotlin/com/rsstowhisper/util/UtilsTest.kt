@@ -83,22 +83,6 @@ class UtilsTest {
         assertEquals(null, createPath(parentPath, directoryName))
     }
 
-    @ParameterizedTest
-    @MethodSource("chunkTestCases")
-    fun `test chunk valid inputs`(testCase: ChunkTestCase) {
-        assertEquals(testCase.expected, chunk(testCase.data, testCase.size))
-    }
-
-    @Test
-    fun `test chunk invalid size zero`() {
-        assertThrows<IllegalArgumentException> { chunk(listOf(1, 2, 3), 0) }
-    }
-
-    @Test
-    fun `test chunk invalid size negative`() {
-        assertThrows<IllegalArgumentException> { chunk(listOf(1, 2, 3), -1) }
-    }
-
     @Test
     fun `test isWritable with temp directory`() {
         val tempDir = java.nio.file.Files.createTempDirectory("test")
@@ -134,34 +118,5 @@ class UtilsTest {
                 org.junit.jupiter.params.provider.Arguments.of(null, null),
                 org.junit.jupiter.params.provider.Arguments.of("", ""),
             )
-
-        @JvmStatic
-        fun chunkTestCases(): Stream<org.junit.jupiter.params.provider.Arguments> =
-            Stream.of(
-                org.junit.jupiter.params.provider.Arguments.of(
-                    ChunkTestCase(listOf(1, 2, 3, 4), 2, listOf(listOf(1, 2), listOf(3, 4))),
-                ),
-                org.junit.jupiter.params.provider.Arguments.of(
-                    ChunkTestCase(listOf(1, 2, 3, 4, 5), 2, listOf(listOf(1, 2), listOf(3, 4), listOf(5))),
-                ),
-                org.junit.jupiter.params.provider.Arguments.of(
-                    ChunkTestCase(listOf(1, 2), 10, listOf(listOf(1, 2))),
-                ),
-                org.junit.jupiter.params.provider.Arguments.of(
-                    ChunkTestCase(listOf(1, 2, 3), 3, listOf(listOf(1, 2, 3))),
-                ),
-                org.junit.jupiter.params.provider.Arguments.of(
-                    ChunkTestCase(listOf(1, 2, 3), 1, listOf(listOf(1), listOf(2), listOf(3))),
-                ),
-                org.junit.jupiter.params.provider.Arguments.of(
-                    ChunkTestCase(emptyList(), 3, emptyList()),
-                ),
-            )
     }
-
-    data class ChunkTestCase(
-        val data: List<Int>,
-        val size: Int,
-        val expected: List<List<Int>>,
-    )
 }

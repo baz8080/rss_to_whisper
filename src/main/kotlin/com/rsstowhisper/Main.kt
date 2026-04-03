@@ -15,12 +15,11 @@ fun main(args: Array<String>) {
 
     println("Using $configFile config")
 
-    val config =
+    val config: AppConfig =
         try {
             AppConfig.load(configFile)
         } catch (e: Exception) {
             println("Cannot read configuration file: ${e.message}")
-            System.exit(1)
             return
         }
 
