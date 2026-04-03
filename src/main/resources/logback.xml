@@ -6,7 +6,7 @@
         </encoder>
     </appender>
 
-    <logger name="com.rsstowhisper" level="INFO"/>
+    <logger name="com.rsstowhisper" level="DEBUG"/>
 
     <root level="WARN">
         <appender-ref ref="STDOUT"/>

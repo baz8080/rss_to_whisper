@@ -23,10 +23,6 @@ repositories {
 }
 
 dependencies {
-    // Whisper.cpp JNA bindings
-    implementation("io.github.ggerganov:whispercpp:1.4.0")
-    implementation("net.java.dev.jna:jna:5.13.0")
-
     // RSS parsing
     implementation("com.rometools:rome:2.1.0")
     implementation("com.rometools:rome-modules:2.1.0")
