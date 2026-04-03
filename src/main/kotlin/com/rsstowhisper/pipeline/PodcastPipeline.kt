@@ -186,8 +186,8 @@ class PodcastPipeline(
             logger.debug("Starting transcription in $episodePath")
             val startTime = System.currentTimeMillis()
 
-            val audioData = audioConverter.mp3ToFloatPcm(mp3Info.filePath)
-            val segments = transcriptionService!!.transcribe(audioData)
+            val wavPath = audioConverter.mp3ToWav(mp3Info.filePath)
+            val segments = transcriptionService!!.transcribe(wavPath)
 
             transcriptWriter.writeTranscriptTxt(segments, episodePath.resolve("transcript.txt"))
             transcriptWriter.writeTranscriptTsv(segments, episodePath.resolve("transcript.tsv"))
