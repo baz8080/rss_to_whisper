@@ -1,20 +1,9 @@
 package com.rsstowhisper.transcription
 
-import org.slf4j.LoggerFactory
 import java.nio.file.Files
 import java.nio.file.Path
 
 class TranscriptWriter {
-    private val logger = LoggerFactory.getLogger(TranscriptWriter::class.java)
-
-    fun writeTranscriptTxt(
-        segments: List<TranscriptSegment>,
-        path: Path,
-    ) {
-        val text = segments.joinToString(" ") { it.text.trim() }
-        Files.writeString(path, text)
-    }
-
     fun writeTranscriptTsv(
         segments: List<TranscriptSegment>,
         path: Path,
@@ -30,48 +19,59 @@ class TranscriptWriter {
     fun writeTranscriptWithTiming(
         segments: List<TranscriptSegment>,
         path: Path,
-    ): String {
-        if (Files.exists(path)) {
-            return Files.readString(path)
-        }
+    ) {
+        // First pass: split into sentences with timestamps
+        val lines = mutableListOf<Pair<Long, String>>()
+        var accumulatedText = ""
+        var accumulatedStart: Long? = null
 
-        val body = buildTranscriptWithTiming(segments)
-        Files.writeString(path, body)
-        return body
-    }
+        for (segment in segments) {
+            val text = segment.text.trim()
+            if (text.isEmpty()) continue
 
-    companion object {
-        fun buildTranscriptWithTiming(segments: List<TranscriptSegment>): String {
-            val sb = StringBuilder()
-            var accumulatedText = ""
-            var accumulatedStart: Long? = null
+            val sentences = SENTENCE_SPLIT_REGEX.findAll(text).map { it.value }.toList()
 
-            for (segment in segments) {
-                val text = segment.text.trim()
-                if (text.isEmpty()) continue
+            for (sentence in sentences) {
+                val trimmed = sentence.trim()
+                if (trimmed.isEmpty()) continue
 
-                if (accumulatedText.isEmpty()) {
+                if (accumulatedStart == null) {
                     accumulatedStart = segment.startMs
                 }
 
-                if (!text.endsWith(".")) {
-                    accumulatedText += "$text "
-                } else {
-                    if (accumulatedText.isNotEmpty()) {
-                        sb.appendLine("$accumulatedStart\t${accumulatedText.trim()} $text")
-                        accumulatedText = ""
-                        accumulatedStart = null
-                    } else {
-                        sb.appendLine("${segment.startMs}\t$text")
-                    }
+                accumulatedText += "$trimmed "
+
+                if (trimmed.endsWith(".") || trimmed.endsWith("?") || trimmed.endsWith("!")) {
+                    lines.add(accumulatedStart!! to accumulatedText.trim())
+                    accumulatedText = ""
+                    accumulatedStart = null
                 }
             }
-
-            if (accumulatedText.isNotBlank()) {
-                sb.appendLine("$accumulatedStart\t${accumulatedText.trim()}")
-            }
-
-            return sb.toString()
         }
+
+        if (accumulatedText.isNotBlank()) {
+            lines.add(accumulatedStart!! to accumulatedText.trim())
+        }
+
+        // Second pass: merge consecutive lines with the same timestamp
+        val sb = StringBuilder()
+        var i = 0
+        while (i < lines.size) {
+            val startMs = lines[i].first
+            val merged = StringBuilder(lines[i].second)
+            while (i + 1 < lines.size && lines[i + 1].first == startMs) {
+                i++
+                merged.append(" ").append(lines[i].second)
+            }
+            sb.appendLine("$startMs\t$merged")
+            i++
+        }
+
+        Files.writeString(path, sb.toString())
+    }
+
+    companion object {
+        // Split after sentence-ending punctuation followed by a space
+        private val SENTENCE_SPLIT_REGEX = Regex(""".*?[.?!](?:\s+|$)|.+$""")
     }
 }

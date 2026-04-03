@@ -23,50 +23,59 @@ class TranscriptionService(private val modelPath: String) {
                 "-m", modelPath,
                 "-f", wavPath.toString(),
                 "-l", "en",
-                "--output-tsv",
+                "--threads", "8",
+                "--processors", "2",
+                "--output-csv",
                 "--output-file", outputBase.toString(),
+                "--prompt", "Hello, welcome to the podcast. This is a transcription with proper punctuation and capitalization.",
             )
 
         logger.debug("Running: ${command.joinToString(" ")}")
 
         val process =
             ProcessBuilder(command)
-                .redirectErrorStream(false)
+                .redirectOutput(ProcessBuilder.Redirect.DISCARD)
                 .start()
 
-        val stderr = process.errorStream.bufferedReader().readText()
+        // Read stderr concurrently to prevent pipe buffer from filling and deadlocking
+        val stderrFuture =
+            java.util.concurrent.CompletableFuture.supplyAsync {
+                process.errorStream.bufferedReader().readText()
+            }
+
         val exitCode = process.waitFor()
+        val stderr = stderrFuture.get()
 
         if (exitCode != 0) {
             throw RuntimeException("whisper-cli failed with exit code $exitCode: $stderr")
         }
 
-        val tsvPath = Path.of("${outputBase}.tsv")
-        if (!Files.exists(tsvPath)) {
-            throw RuntimeException("whisper-cli did not produce expected output file: $tsvPath")
+        val csvPath = Path.of("$outputBase.csv")
+        if (!Files.exists(csvPath)) {
+            throw RuntimeException("whisper-cli did not produce expected output file: $csvPath")
         }
 
-        val segments = parseTsv(tsvPath)
+        val segments = parseCsv(csvPath)
 
-        // Clean up the whisper-generated TSV since we write our own output files
-        Files.deleteIfExists(tsvPath)
+        // Clean up the whisper-generated CSV since we write our own output files
+        Files.deleteIfExists(csvPath)
 
         return segments
     }
 
-    private fun parseTsv(tsvPath: Path): List<TranscriptSegment> {
-        val lines = Files.readAllLines(tsvPath)
+    private fun parseCsv(csvPath: Path): List<TranscriptSegment> {
+        val lines = Files.readAllLines(csvPath)
         if (lines.isEmpty()) return emptyList()
 
         return lines
             .drop(1) // skip header row
             .mapNotNull { line ->
-                val parts = line.split("\t", limit = 3)
+                val parts = line.split(",", limit = 3)
                 if (parts.size < 3) return@mapNotNull null
 
                 val startMs = parts[0].trim().toLongOrNull() ?: return@mapNotNull null
                 val endMs = parts[1].trim().toLongOrNull() ?: return@mapNotNull null
-                val text = parts[2]
+                val text = parts[2].trim().removeSurrounding("\"")
 
                 TranscriptSegment(startMs = startMs, endMs = endMs, text = text)
             }

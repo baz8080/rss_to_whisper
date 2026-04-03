@@ -138,13 +138,8 @@ class PodcastPipeline(
                     break
                 }
 
-                val transcriptText =
-                    transcriptWriter.writeTranscriptWithTiming(
-                        emptyList(),
-                        episodeDirPath.resolve("transcript_with_timing.tsv"),
-                    ).ifEmpty {
-                        getTranscriptTextFromTsv(episodeDirPath)
-                    }
+                val timingPath = episodeDirPath.resolve("transcript_with_timing.tsv")
+                val transcriptText = if (Files.exists(timingPath)) Files.readString(timingPath) else ""
 
                 val episodeDict =
                     buildEpisodeDict(
@@ -189,12 +184,12 @@ class PodcastPipeline(
             val wavPath = audioConverter.mp3ToWav(mp3Info.filePath)
             val segments = transcriptionService!!.transcribe(wavPath)
 
-            transcriptWriter.writeTranscriptTxt(segments, episodePath.resolve("transcript.txt"))
             transcriptWriter.writeTranscriptTsv(segments, episodePath.resolve("transcript.tsv"))
-            transcriptWriter.writeTranscriptWithTiming(
-                segments,
-                episodePath.resolve("transcript_with_timing.tsv"),
-            )
+            transcriptWriter.writeTranscriptWithTiming(segments, episodePath.resolve("transcript_with_timing.tsv"))
+
+            // Clean up: remove MP3 (keep WAV) and legacy txt
+            Files.deleteIfExists(mp3Info.filePath)
+            Files.deleteIfExists(episodePath.resolve("transcript.txt"))
 
             Files.createFile(markerFile)
 
@@ -205,58 +200,6 @@ class PodcastPipeline(
         }
 
         return alreadyTranscribed
-    }
-
-    private fun getTranscriptTextFromTsv(episodePath: Path): String {
-        val timingPath = episodePath.resolve("transcript_with_timing.tsv")
-        if (Files.exists(timingPath)) {
-            return Files.readString(timingPath)
-        }
-
-        val tsvPath = episodePath.resolve("transcript.tsv")
-        if (!Files.exists(tsvPath)) return ""
-
-        val lines = Files.readAllLines(tsvPath)
-        if (lines.isEmpty()) return ""
-
-        val sb = StringBuilder()
-        var accumulatedText = ""
-        var accumulatedStart: Long? = null
-
-        for (line in lines.drop(1)) {
-            val parts = line.trim().split("\t")
-            if (parts.size != 3) {
-                logger.error("Unexpected token count processing line")
-                continue
-            }
-
-            val currentStart = parts[0].toLongOrNull() ?: continue
-            val text = parts[2]
-
-            if (accumulatedText.isEmpty()) {
-                accumulatedStart = currentStart
-            }
-
-            if (!text.endsWith(".")) {
-                accumulatedText += "$text "
-            } else {
-                if (accumulatedText.isNotEmpty()) {
-                    sb.appendLine("$accumulatedStart\t${accumulatedText.trim()} $text")
-                    accumulatedText = ""
-                    accumulatedStart = null
-                } else {
-                    sb.appendLine("$currentStart\t$text")
-                }
-            }
-        }
-
-        if (accumulatedText.isNotBlank()) {
-            sb.appendLine("$accumulatedStart\t${accumulatedText.trim()}")
-        }
-
-        val body = sb.toString()
-        Files.writeString(timingPath, body)
-        return body
     }
 
     companion object {
