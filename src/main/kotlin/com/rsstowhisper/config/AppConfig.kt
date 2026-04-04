@@ -13,8 +13,6 @@ data class AppConfig(
     val verbose: Boolean = false,
     @JsonProperty("data_directory") val dataDirectory: String,
     @JsonProperty("whisper_model") val whisperModel: String = "tiny",
-    @JsonProperty("require_cuda") val requireCuda: Boolean = true,
-    @JsonProperty("database_config") val databaseConfig: DatabaseConfig,
     val podcasts: List<PodcastConfig>,
 ) {
     companion object {
@@ -25,13 +23,6 @@ data class AppConfig(
         fun load(path: String): AppConfig = mapper.readValue(File(path))
     }
 }
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class DatabaseConfig(
-    val server: String,
-    @JsonProperty("drop_indices") val dropIndices: Boolean = false,
-    @JsonProperty("process_inserts") val processInserts: Boolean = false,
-)
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PodcastConfig(

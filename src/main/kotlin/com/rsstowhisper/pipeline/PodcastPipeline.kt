@@ -12,12 +12,9 @@ import com.rsstowhisper.config.AppConfig
 import com.rsstowhisper.config.PodcastConfig
 import com.rsstowhisper.download.DownloadService
 import com.rsstowhisper.feed.FeedService
-import com.rsstowhisper.indexing.ElasticService
 import com.rsstowhisper.transcription.TranscriptWriter
 import com.rsstowhisper.transcription.TranscriptionService
 import com.rsstowhisper.util.createPath
-import com.rsstowhisper.util.getHash
-import com.rsstowhisper.util.isWritable
 import com.rsstowhisper.util.timeToSeconds
 import okhttp3.OkHttpClient
 import org.slf4j.LoggerFactory
@@ -39,7 +36,6 @@ class PodcastPipeline(
     private val audioConverter: AudioConverter = AudioConverter(),
     private val transcriptWriter: TranscriptWriter = TranscriptWriter(),
 ) {
-    private val logger = LoggerFactory.getLogger(PodcastPipeline::class.java)
     private val jsonMapper =
         ObjectMapper().apply {
             enable(SerializationFeature.INDENT_OUTPUT)
@@ -50,39 +46,19 @@ class PodcastPipeline(
     fun run() {
         val dataDir = config.dataDirectory
 
-        if (!isWritable(dataDir)) {
+        if (!Files.isWritable(Path.of(dataDir))) {
             logger.error("The data_dir is missing, or not writable. Cannot continue")
             return
         }
 
-        val elasticClient =
-            initElasticClient(
-                config.databaseConfig.server,
-                System.getenv("ELASTIC_API_KEY") ?: io.github.cdimascio.dotenv.dotenv { ignoreIfMissing = true }["ELASTIC_API_KEY"],
-                config.databaseConfig.dropIndices,
-            )
-
         for (podcast in config.podcasts) {
-            processPodcast(podcast, dataDir, elasticClient)
+            processPodcast(podcast, dataDir)
         }
-    }
-
-    private fun initElasticClient(
-        host: String,
-        apiKey: String?,
-        dropIndices: Boolean,
-    ): ElasticService {
-        val service = ElasticService(host, apiKey)
-        if (dropIndices) {
-            service.dropAndRecreateIndex("podcasts")
-        }
-        return service
     }
 
     private fun processPodcast(
         podcast: PodcastConfig,
         dataDir: String,
-        elasticClient: ElasticService,
     ) {
         val podcastUrl = podcast.url
         if (podcastUrl.isNullOrBlank()) {
@@ -100,13 +76,7 @@ class PodcastPipeline(
 
         logger.debug("Downloaded ${podcast.url}")
 
-        val podPath = createPath(dataDir, podcast.name)
-        if (podPath == null) {
-            logger.error("Cannot get a path to write podcast to")
-            return
-        }
-
-        val episodeDicts = mutableListOf<Map<String, Any?>>()
+        val podPath = createPath(Path.of(dataDir), podcast.name)
 
         for (entry in feed.entries) {
             val title = entry.title ?: continue
@@ -121,13 +91,8 @@ class PodcastPipeline(
                 logger.debug("Processing $entryTitleAndDate")
 
                 val episodeDirPath = createPath(podPath, entryTitleAndDate)
-                if (episodeDirPath == null) {
-                    logger.error("Failed to make directory for the episode")
-                    continue
-                }
 
-                val markerFile = episodeDirPath.resolve("transcribed")
-                if (Files.exists(markerFile)) {
+                if (Files.exists(episodeDirPath.resolve("transcript.json"))) {
                     logger.debug("Found already transcribed episode. Skipping to next podcast.")
                     break
                 }
@@ -141,35 +106,33 @@ class PodcastPipeline(
                 downloadService.downloadIfRequired(mp3Info.url, mp3Info.filePath)
                 transcribeEpisode(mp3Info, episodeDirPath)
 
-                val timingPath = episodeDirPath.resolve("transcript_with_timing.tsv")
-                val transcriptText = if (Files.exists(timingPath)) Files.readString(timingPath) else ""
-
-                val episodeDict =
-                    buildEpisodeDict(
-                        feed,
-                        entry,
-                        transcriptText,
-                        mp3Info.localFilePath,
-                        podcast.collections,
-                    )
-
-                if (episodeDict != null) {
-                    episodeDicts.add(episodeDict)
-
-                    val jsonPath = episodeDirPath.resolve("transcript.json")
-                    if (!Files.exists(jsonPath)) {
-                        val jsonData = jsonMapper.writeValueAsString(episodeDict)
-                        Files.writeString(jsonPath, jsonData)
-                    }
-                }
+                writeEpisodeJson(feed, entry, mp3Info, episodeDirPath, podcast.collections)
             } catch (e: Exception) {
                 logger.error("Couldn't process episode entry: ${entry.title}")
                 logger.error(e.message, e)
             }
         }
+    }
 
-        if (config.databaseConfig.processInserts) {
-            elasticClient.bulkIndex(episodeDicts)
+    private fun writeEpisodeJson(
+        feed: SyndFeed,
+        entry: SyndEntry,
+        mp3Info: Mp3Info,
+        episodeDirPath: Path,
+        collections: List<String>,
+    ) {
+        val jsonPath = episodeDirPath.resolve("transcript.json")
+        if (Files.exists(jsonPath)) return
+
+        val timingPath = episodeDirPath.resolve("transcript_with_timing.tsv")
+        val transcriptText = if (Files.exists(timingPath)) Files.readString(timingPath) else ""
+        if (transcriptText.isEmpty()) return
+
+        val episodeDict =
+            buildEpisodeDict(feed, entry, transcriptText, mp3Info.localFilePath, collections)
+
+        if (episodeDict != null) {
+            Files.writeString(jsonPath, jsonMapper.writeValueAsString(episodeDict))
         }
     }
 
@@ -190,14 +153,14 @@ class PodcastPipeline(
         Files.deleteIfExists(mp3Info.filePath)
         Files.deleteIfExists(episodePath.resolve("transcript.txt"))
 
-        Files.createFile(episodePath.resolve("transcribed"))
-
         val elapsedMinutes = (System.currentTimeMillis() - startTime) / 60000.0
         logger.debug("Transcribed in: ${"%.2f".format(elapsedMinutes)} Minutes")
     }
 
     companion object {
+        private val logger = LoggerFactory.getLogger(PodcastPipeline::class.java)
         private val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        private val AUDIO_MP3_TYPES = setOf("audio/mpeg", "audio/mp3")
 
         fun getEpisodeTitleWithDate(entry: SyndEntry): String {
             val date =
@@ -215,7 +178,7 @@ class PodcastPipeline(
             dataDir: String,
         ): Mp3Info? {
             for (enclosure in entry.enclosures) {
-                if (enclosure.type == "audio/mpeg" || enclosure.type == "audio/mp3") {
+                if (enclosure.type in AUDIO_MP3_TYPES) {
                     val filePath = episodePath.resolve("audio.mp3")
                     val relativePath = Path.of(dataDir).relativize(filePath).toString()
 
@@ -230,7 +193,7 @@ class PodcastPipeline(
 
             // Also check links if no enclosures match
             for (link in entry.links) {
-                if (link.type == "audio/mpeg" || link.type == "audio/mp3") {
+                if (link.type in AUDIO_MP3_TYPES) {
                     val filePath = episodePath.resolve("audio.mp3")
                     val relativePath = Path.of(dataDir).relativize(filePath).toString()
 
@@ -257,8 +220,7 @@ class PodcastPipeline(
 
             val audioLink = findAudioLink(entry)
             if (audioLink == null) {
-                LoggerFactory.getLogger(PodcastPipeline::class.java)
-                    .error("Skipping episode because it has no MP3")
+                logger.error("Skipping episode because it has no MP3")
                 return null
             }
 
@@ -267,8 +229,6 @@ class PodcastPipeline(
                 val entryItunes = entry.getModule(ITunes.URI) as? EntryInformation
 
                 mapOf(
-                    "_id" to getHash(transcript),
-                    "_index" to "podcasts",
                     "podcast_collections" to (collections ?: emptyList()),
                     "podcast_title" to feed.title,
                     "podcast_link" to feed.link,
@@ -297,15 +257,14 @@ class PodcastPipeline(
                     "episode_relative_mp3_path" to relativeMp3Path,
                 )
             } catch (e: Exception) {
-                LoggerFactory.getLogger(PodcastPipeline::class.java)
-                    .error("Error getting podcast metadata", e)
+                logger.error("Error getting podcast metadata", e)
                 null
             }
         }
 
         private fun findAudioLink(entry: SyndEntry): String? =
             entry.enclosures
-                .firstOrNull { it.type == "audio/mpeg" || it.type == "audio/mp3" }
+                .firstOrNull { it.type in AUDIO_MP3_TYPES }
                 ?.url
                 ?: entry.links
                     .firstOrNull { it.rel == "enclosure" }

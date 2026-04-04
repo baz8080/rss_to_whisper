@@ -30,28 +30,21 @@ dependencies {
     // HTTP client
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
-    // Elasticsearch 8.x Java client
-    implementation("co.elastic.clients:elasticsearch-java:8.17.0")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.18.2")
+    // JSON & YAML config (Jackson)
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.21.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.21.2")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.2")
 
-    // YAML config (Jackson)
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.18.2")
-
-    // MP3 decoding (MP3 -> PCM float[])
-    implementation("com.googlecode.soundlibs:mp3spi:1.9.5.4")
-
-    // Environment variable loading (.env)
-    implementation("io.github.cdimascio:dotenv-kotlin:6.4.2")
+    // SQLite
+    implementation("org.xerial:sqlite-jdbc:3.51.3.0")
 
     // Logging
-    implementation("ch.qos.logback:logback-classic:1.5.15")
-    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation("ch.qos.logback:logback-classic:1.5.32")
+    implementation("org.slf4j:slf4j-api:2.0.17")
 
     // Testing
     testImplementation(kotlin("test"))
-    testImplementation("io.mockk:mockk:1.13.16")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.4")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.14.3")
 }
 
 tasks.test {

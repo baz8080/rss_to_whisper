@@ -14,21 +14,19 @@ class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
     fun fetchFeed(url: String): SyndFeed? {
         return try {
             val request = Request.Builder().url(url).build()
-            val response = httpClient.newCall(request).execute()
-
-            if (response.isSuccessful) {
-                val body = response.body?.string()
-                response.close()
-                if (body != null) {
-                    val input = SyndFeedInput()
-                    input.build(InputSource(StringReader(body)))
-                } else {
-                    logger.error("Feed response body was null for $url")
-                    null
+            val body =
+                httpClient.newCall(request).execute().use { response ->
+                    if (response.isSuccessful) {
+                        response.body?.string()
+                    } else {
+                        logger.error("Feed failed to load ${response.code}")
+                        null
+                    }
                 }
+
+            if (body != null) {
+                SyndFeedInput().build(InputSource(StringReader(body)))
             } else {
-                logger.error("Feed failed to load ${response.code}")
-                response.close()
                 null
             }
         } catch (e: Exception) {
