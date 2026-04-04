@@ -22,18 +22,18 @@ class DownloadService(private val httpClient: OkHttpClient = OkHttpClient()) {
         val request = Request.Builder().url(url).build()
 
         try {
-            val response = httpClient.newCall(request).execute()
-            if (response.isSuccessful) {
-                logger.debug("Writing... $targetPath")
-                response.body?.byteStream()?.use { input ->
-                    Files.newOutputStream(targetPath).use { output ->
-                        input.copyTo(output)
+            httpClient.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    logger.debug("Writing... $targetPath")
+                    response.body?.byteStream()?.use { input ->
+                        Files.newOutputStream(targetPath).use { output ->
+                            input.copyTo(output)
+                        }
                     }
+                } else {
+                    logger.error("Error saving file response: ${response.code}")
                 }
-            } else {
-                logger.error("Error saving file response: ${response.code}")
             }
-            response.close()
         } catch (e: Exception) {
             logger.error("Failed to download $url", e)
         }
