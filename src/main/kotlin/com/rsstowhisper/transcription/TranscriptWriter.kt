@@ -4,17 +4,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 class TranscriptWriter {
-    fun writeTranscriptTsv(
-        segments: List<TranscriptSegment>,
-        path: Path,
-    ) {
-        val sb = StringBuilder()
-        sb.appendLine("start\tend\ttext")
-        for (segment in segments) {
-            sb.appendLine("${segment.startMs}\t${segment.endMs}\t${segment.text.trim()}")
-        }
-        Files.writeString(path, sb.toString())
-    }
 
     fun writeTranscriptWithTiming(
         segments: List<TranscriptSegment>,
