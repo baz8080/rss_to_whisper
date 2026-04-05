@@ -133,6 +133,7 @@ class PodcastPipeline(
 
         if (episodeDict != null) {
             Files.writeString(jsonPath, jsonMapper.writeValueAsString(episodeDict))
+            Files.deleteIfExists(timingPath)
         }
     }
 
@@ -140,13 +141,12 @@ class PodcastPipeline(
         mp3Info: Mp3Info,
         episodePath: Path,
     ) {
-        logger.debug("Starting transcription in $episodePath")
+        logger.debug("Starting transcription in {}", episodePath)
         val startTime = System.currentTimeMillis()
 
         val wavPath = audioConverter.mp3ToWav(mp3Info.filePath)
         val segments = transcriptionService.transcribe(wavPath)
 
-        transcriptWriter.writeTranscriptTsv(segments, episodePath.resolve("transcript.tsv"))
         transcriptWriter.writeTranscriptWithTiming(segments, episodePath.resolve("transcript_with_timing.tsv"))
 
         // Clean up: remove MP3 (keep WAV) and legacy txt
