@@ -5,7 +5,7 @@ import java.io.FileNotFoundException
 import java.nio.file.Files
 import java.nio.file.Path
 
-class TranscriptionService(private val modelPath: String) {
+open class TranscriptionService(private val modelPath: String) {
     private val logger = LoggerFactory.getLogger(TranscriptionService::class.java)
 
     init {
@@ -14,7 +14,7 @@ class TranscriptionService(private val modelPath: String) {
         }
     }
 
-    fun transcribe(wavPath: Path): List<TranscriptSegment> {
+    open fun transcribe(wavPath: Path): List<TranscriptSegment> {
         val outputBase = wavPath.resolveSibling(wavPath.fileName.toString().removeSuffix(".wav"))
 
         val command =
@@ -55,31 +55,30 @@ class TranscriptionService(private val modelPath: String) {
             throw RuntimeException("whisper-cli did not produce expected output file: $csvPath")
         }
 
-        val segments = parseCsv(csvPath)
+        val segments = parseWhisperCsv(Files.readAllLines(csvPath))
 
         // Clean up the whisper-generated CSV since we write our own output files
         Files.deleteIfExists(csvPath)
 
         return segments
     }
+}
 
-    private fun parseCsv(csvPath: Path): List<TranscriptSegment> {
-        val lines = Files.readAllLines(csvPath)
-        if (lines.isEmpty()) return emptyList()
+internal fun parseWhisperCsv(lines: List<String>): List<TranscriptSegment> {
+    if (lines.isEmpty()) return emptyList()
 
-        return lines
-            .drop(1) // skip header row
-            .mapNotNull { line ->
-                val parts = line.split(",", limit = 3)
-                if (parts.size < 3) return@mapNotNull null
+    return lines
+        .drop(1) // skip header row
+        .mapNotNull { line ->
+            val parts = line.split(",", limit = 3)
+            if (parts.size < 3) return@mapNotNull null
 
-                val startMs = parts[0].trim().toLongOrNull() ?: return@mapNotNull null
-                val endMs = parts[1].trim().toLongOrNull() ?: return@mapNotNull null
-                val text = parts[2].trim().removeSurrounding("\"")
+            val startMs = parts[0].trim().toLongOrNull() ?: return@mapNotNull null
+            val endMs = parts[1].trim().toLongOrNull() ?: return@mapNotNull null
+            val text = parts[2].trim().removeSurrounding("\"")
 
-                TranscriptSegment(startMs = startMs, endMs = endMs, text = text)
-            }
-    }
+            TranscriptSegment(startMs = startMs, endMs = endMs, text = text)
+        }
 }
 
 data class TranscriptSegment(

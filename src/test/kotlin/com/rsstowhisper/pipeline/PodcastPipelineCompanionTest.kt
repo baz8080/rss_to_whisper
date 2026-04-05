@@ -1,0 +1,389 @@
+package com.rsstowhisper.pipeline
+
+import com.rometools.modules.itunes.EntryInformationImpl
+import com.rometools.modules.itunes.FeedInformationImpl
+import com.rometools.modules.itunes.types.Duration
+import com.rometools.rome.feed.synd.SyndCategoryImpl
+import com.rometools.rome.feed.synd.SyndContentImpl
+import com.rometools.rome.feed.synd.SyndEnclosureImpl
+import com.rometools.rome.feed.synd.SyndEntry
+import com.rometools.rome.feed.synd.SyndEntryImpl
+import com.rometools.rome.feed.synd.SyndFeedImpl
+import com.rometools.rome.feed.synd.SyndImageImpl
+import com.rometools.rome.feed.synd.SyndLinkImpl
+import com.rometools.rome.feed.synd.SyndPersonImpl
+import org.jdom2.Attribute
+import org.jdom2.Element
+import java.nio.file.Path
+import java.util.Date
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
+
+class PodcastPipelineCompanionTest {
+    private fun entry(
+        title: String? = "My Episode",
+        publishedDate: Date? = null,
+        enclosures: List<SyndEnclosureImpl> = emptyList(),
+        links: List<SyndLinkImpl> = emptyList(),
+    ): SyndEntry =
+        SyndEntryImpl().apply {
+            this.title = title
+            this.publishedDate = publishedDate
+            this.enclosures = enclosures
+            this.links = links
+        }
+
+    private fun enclosure(
+        url: String,
+        type: String,
+        length: Long = 0L,
+    ): SyndEnclosureImpl =
+        SyndEnclosureImpl().apply {
+            this.url = url
+            this.type = type
+            this.length = length
+        }
+
+    private fun link(
+        href: String,
+        type: String? = null,
+        rel: String? = null,
+        length: Long = 0L,
+    ): SyndLinkImpl =
+        SyndLinkImpl().apply {
+            this.href = href
+            this.type = type
+            this.rel = rel
+            this.length = length
+        }
+
+    // ---------- getEpisodeTitleWithDate ----------
+
+    @Test
+    fun `getEpisodeTitleWithDate formats date before title`() {
+        val date = java.text.SimpleDateFormat("yyyy-MM-dd").parse("2024-03-14")
+        val result = PodcastPipeline.getEpisodeTitleWithDate(entry(title = "Hello", publishedDate = date))
+        assertEquals("2024-03-14-Hello", result)
+    }
+
+    @Test
+    fun `getEpisodeTitleWithDate uses unknown-date when no date`() {
+        val result = PodcastPipeline.getEpisodeTitleWithDate(entry(title = "Hello", publishedDate = null))
+        assertEquals("unknown-date-Hello", result)
+    }
+
+    // ---------- getMp3Info ----------
+
+    @Test
+    fun `getMp3Info returns info from matching enclosure`() {
+        val e =
+            entry(
+                enclosures =
+                    listOf(
+                        enclosure("https://cdn/ep1.mp3", "audio/mpeg", length = 12345L),
+                    ),
+            )
+        val result = PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data")
+
+        assertEquals("https://cdn/ep1.mp3", result?.url)
+        assertEquals(12345L, result?.length)
+        assertEquals(Path.of("/data/show/ep/audio.mp3"), result?.filePath)
+        assertEquals("show/ep/audio.mp3", result?.localFilePath)
+    }
+
+    @Test
+    fun `getMp3Info accepts audio mp3 type`() {
+        val e = entry(enclosures = listOf(enclosure("https://cdn/ep.mp3", "audio/mp3")))
+        val result = PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data")
+        assertEquals("https://cdn/ep.mp3", result?.url)
+    }
+
+    @Test
+    fun `getMp3Info skips non-audio enclosures`() {
+        val e =
+            entry(
+                enclosures =
+                    listOf(
+                        enclosure("https://cdn/image.jpg", "image/jpeg"),
+                        enclosure("https://cdn/video.mp4", "video/mp4"),
+                    ),
+            )
+        val result = PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data")
+        assertNull(result)
+    }
+
+    @Test
+    fun `getMp3Info falls back to links when no matching enclosure`() {
+        val e =
+            entry(
+                enclosures = listOf(enclosure("https://cdn/image.jpg", "image/jpeg")),
+                links = listOf(link("https://cdn/ep.mp3", type = "audio/mpeg", length = 999L)),
+            )
+        val result = PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data")
+        assertEquals("https://cdn/ep.mp3", result?.url)
+        assertEquals(999L, result?.length)
+    }
+
+    @Test
+    fun `getMp3Info returns null when nothing matches`() {
+        val e = entry(links = listOf(link("https://page", type = "text/html")))
+        assertNull(PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data"))
+    }
+
+    @Test
+    fun `getMp3Info prefers enclosure over link when both match`() {
+        val e =
+            entry(
+                enclosures = listOf(enclosure("https://cdn/from-enclosure.mp3", "audio/mpeg")),
+                links = listOf(link("https://cdn/from-link.mp3", type = "audio/mpeg")),
+            )
+        val result = PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data")
+        assertEquals("https://cdn/from-enclosure.mp3", result?.url)
+    }
+
+    // ---------- buildEpisodeDict ----------
+
+    private fun feedWithItunes(
+        title: String = "Podcast Title",
+        link: String? = "https://example.com",
+        language: String? = "en",
+        copyright: String? = "(c) 2024",
+        author: String? = null,
+        imageUrl: String? = null,
+        categories: List<String> = emptyList(),
+        itunesAuthor: String? = null,
+        itunesImageUri: String? = null,
+        itunesType: String? = "episodic",
+    ): SyndFeedImpl =
+        SyndFeedImpl().apply {
+            this.feedType = "rss_2.0"
+            this.title = title
+            this.link = link
+            this.language = language
+            this.copyright = copyright
+            this.author = author
+            if (imageUrl != null) {
+                this.image =
+                    SyndImageImpl().apply {
+                        this.url = imageUrl
+                    }
+            }
+            if (categories.isNotEmpty()) {
+                this.categories = categories.map { SyndCategoryImpl().apply { name = it } }
+            }
+            val feedItunes =
+                FeedInformationImpl().apply {
+                    this.author = itunesAuthor
+                    this.imageUri = itunesImageUri
+                    this.type = itunesType
+                }
+            this.modules.add(feedItunes)
+        }
+
+    private fun entryWithItunes(
+        title: String? = "Episode Title",
+        description: String? = null,
+        publishedDate: Date? = null,
+        audioUrl: String? = "https://cdn/ep.mp3",
+        categories: List<String> = emptyList(),
+        authors: List<String> = emptyList(),
+        itunes: EntryInformationImpl? = null,
+        foreignImageHref: String? = null,
+    ): SyndEntry =
+        SyndEntryImpl().apply {
+            this.title = title
+            this.link = "https://example.com/ep"
+            if (description != null) {
+                this.description =
+                    SyndContentImpl().apply {
+                        this.value = description
+                    }
+            }
+            this.publishedDate = publishedDate
+            this.enclosures =
+                if (audioUrl != null) {
+                    listOf(enclosure(audioUrl, "audio/mpeg"))
+                } else {
+                    emptyList()
+                }
+            if (categories.isNotEmpty()) {
+                this.categories = categories.map { SyndCategoryImpl().apply { name = it } }
+            }
+            if (authors.isNotEmpty()) {
+                this.authors = authors.map { SyndPersonImpl().apply { name = it } }
+            }
+            if (itunes != null) {
+                this.modules.add(itunes)
+            }
+            if (foreignImageHref != null) {
+                val el =
+                    Element("image").apply {
+                        setAttribute(Attribute("href", foreignImageHref))
+                    }
+                this.foreignMarkup = mutableListOf(el)
+            }
+        }
+
+    @Test
+    fun `buildEpisodeDict returns null when transcript is empty`() {
+        val feed = feedWithItunes()
+        val e = entryWithItunes()
+        assertNull(PodcastPipeline.buildEpisodeDict(feed, e, "", "rel/path.mp3"))
+    }
+
+    @Test
+    fun `buildEpisodeDict returns null when there is no audio link`() {
+        val feed = feedWithItunes()
+        val e = entryWithItunes(audioUrl = null)
+        assertNull(PodcastPipeline.buildEpisodeDict(feed, e, "some transcript", "rel/path.mp3"))
+    }
+
+    @Test
+    fun `buildEpisodeDict populates top-level fields`() {
+        val date = java.text.SimpleDateFormat("yyyy-MM-dd").parse("2024-05-01")
+        val itunes =
+            EntryInformationImpl().apply {
+                this.episode = 7
+                this.season = 2
+                this.episodeType = "full"
+                this.subtitle = "A subtitle"
+                this.summary = "iTunes summary"
+                this.duration = Duration(90_000L) // 90 seconds
+            }
+        val feed =
+            feedWithItunes(
+                title = "Pod",
+                link = "https://pod",
+                language = "en-us",
+                copyright = "c",
+                imageUrl = "https://img/a.jpg",
+                itunesAuthor = "Itunes Author",
+                itunesType = "serial",
+            )
+        val e =
+            entryWithItunes(
+                title = "Ep",
+                description = "The summary",
+                publishedDate = date,
+                audioUrl = "https://cdn/ep.mp3",
+                authors = listOf("Alice", "Bob"),
+                itunes = itunes,
+            )
+
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "transcript", "pod/ep/audio.mp3", listOf("col1"))!!
+
+        assertEquals(listOf("col1"), dict["podcast_collections"])
+        assertEquals("Pod", dict["podcast_title"])
+        assertEquals("https://pod", dict["podcast_link"])
+        assertEquals("en-us", dict["podcast_language"])
+        assertEquals("c", dict["podcast_copyright"])
+        assertEquals("Itunes Author", dict["podcast_author"]) // falls back to itunes
+        assertEquals("https://img/a.jpg", dict["podcast_image"])
+        assertEquals("serial", dict["podcast_type"])
+        assertEquals("Ep", dict["episode_title"])
+        assertEquals("2024-05-01", dict["episode_published_on"])
+        assertEquals("https://cdn/ep.mp3", dict["episode_audio_link"])
+        assertEquals("https://example.com/ep", dict["episode_web_link"])
+        assertEquals("The summary", dict["episode_summary"]) // description preferred over itunes
+        assertEquals("A subtitle", dict["episode_subtitle"])
+        assertEquals(listOf("Alice", "Bob"), dict["episode_authors"])
+        assertEquals(7, dict["episode_number"])
+        assertEquals(2, dict["episode_season"])
+        assertEquals("full", dict["episode_type"])
+        assertEquals(90L, dict["episode_duration"]) // 90000 / 1000
+        assertEquals("transcript", dict["episode_transcript"])
+        assertEquals("pod/ep/audio.mp3", dict["episode_relative_mp3_path"])
+    }
+
+    @Test
+    fun `buildEpisodeDict defaults collections to empty list`() {
+        val feed = feedWithItunes()
+        val e = entryWithItunes()
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3", collections = null)!!
+        assertEquals(emptyList<String>(), dict["podcast_collections"])
+    }
+
+    @Test
+    fun `buildEpisodeDict falls back to itunes summary when no description`() {
+        val itunes = EntryInformationImpl().apply { this.summary = "from itunes" }
+        val feed = feedWithItunes()
+        val e = entryWithItunes(description = null, itunes = itunes)
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+        assertEquals("from itunes", dict["episode_summary"])
+    }
+
+    @Test
+    fun `buildEpisodeDict falls back to itunes image uri when image module missing`() {
+        val itunes = EntryInformationImpl().apply { this.imageUri = "https://itunes/img.jpg" }
+        val feed = feedWithItunes(imageUrl = null, itunesImageUri = "https://feed-itunes.jpg")
+        val e = entryWithItunes(itunes = itunes)
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+        assertEquals("https://feed-itunes.jpg", dict["podcast_image"])
+        assertEquals("https://itunes/img.jpg", dict["episode_image"])
+    }
+
+    @Test
+    fun `buildEpisodeDict uses foreign markup image when itunes image absent`() {
+        val feed = feedWithItunes()
+        val e = entryWithItunes(foreignImageHref = "https://fm/img.jpg")
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+        assertEquals("https://fm/img.jpg", dict["episode_image"])
+    }
+
+    @Test
+    fun `buildEpisodeDict collects and dedupes lowercased tags`() {
+        val itunes = EntryInformationImpl().apply { this.keywords = arrayOf("Tech", "science") }
+        val feed = feedWithItunes(categories = listOf("News", "TECH"))
+        val e = entryWithItunes(categories = listOf("science", "History"), itunes = itunes)
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+
+        @Suppress("UNCHECKED_CAST")
+        val tags = dict["all_tags"] as List<String>
+        assertEquals(listOf("news", "tech", "science", "history"), tags)
+    }
+
+    @Test
+    fun `buildEpisodeDict parses string duration fallback`() {
+        // When milliseconds is 0, fall back to string parsing via timeToSeconds
+        // Duration("01:30") means 1m30s -> 90 seconds; but its toString should contain ":"
+        val itunes = EntryInformationImpl().apply { this.duration = Duration("01:30") }
+        val feed = feedWithItunes()
+        val e = entryWithItunes(itunes = itunes)
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+        // 01:30 = 90 seconds via timeToSeconds, OR ms>0 path. Either way, must be 90.
+        assertEquals(90, (dict["episode_duration"] as Number).toInt())
+    }
+
+    @Test
+    fun `buildEpisodeDict episode_duration is null when no itunes module`() {
+        val feed = feedWithItunes()
+        val e = entryWithItunes(itunes = null)
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+        assertNull(dict["episode_duration"])
+    }
+
+    @Test
+    fun `buildEpisodeDict audio link falls back to enclosure rel link`() {
+        val feed = feedWithItunes()
+        val e =
+            SyndEntryImpl().apply {
+                title = "t"
+                link = "https://example.com/ep"
+                enclosures = emptyList()
+                links = listOf(link("https://cdn/ep.mp3", rel = "enclosure"))
+            }
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+        assertEquals("https://cdn/ep.mp3", dict["episode_audio_link"])
+    }
+
+    @Test
+    fun `buildEpisodeDict episode_published_on is null when no date`() {
+        val feed = feedWithItunes()
+        val e = entryWithItunes(publishedDate = null)
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+        assertTrue(dict.containsKey("episode_published_on"))
+        assertNull(dict["episode_published_on"])
+    }
+}

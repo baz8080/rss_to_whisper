@@ -8,10 +8,10 @@ import org.slf4j.LoggerFactory
 import org.xml.sax.InputSource
 import java.io.StringReader
 
-class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
+open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
     private val logger = LoggerFactory.getLogger(FeedService::class.java)
 
-    fun fetchFeed(url: String): SyndFeed? {
+    open fun fetchFeed(url: String): SyndFeed? {
         return try {
             val request = Request.Builder().url(url).build()
             val body =
