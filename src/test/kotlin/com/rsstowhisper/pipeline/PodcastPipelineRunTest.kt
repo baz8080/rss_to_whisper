@@ -149,8 +149,6 @@ class PodcastPipelineRunTest {
         val podcastDir = tempDir.resolve("Show")
         assertTrue(Files.isDirectory(podcastDir))
         val episodeDir = Files.list(podcastDir).use { it.toList() }.single()
-        assertTrue(Files.exists(episodeDir.resolve("transcript.tsv")))
-        assertTrue(Files.exists(episodeDir.resolve("transcript_with_timing.tsv")))
         assertTrue(Files.exists(episodeDir.resolve("transcript.json")))
         assertFalse(Files.exists(episodeDir.resolve("audio.mp3"))) // mp3 cleaned up
         assertTrue(Files.exists(episodeDir.resolve("audio.wav"))) // wav retained

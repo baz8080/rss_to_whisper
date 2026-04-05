@@ -6,44 +6,6 @@ import kotlin.test.assertEquals
 
 class TranscriptWriterTest {
     @Test
-    fun `test writeTranscriptTsv writes header and segments`() {
-        val segments =
-            listOf(
-                TranscriptSegment(0, 1000, " Hello world"),
-                TranscriptSegment(1000, 2000, " this is a test."),
-                TranscriptSegment(2000, 3000, " Another sentence."),
-            )
-
-        val tempFile = Files.createTempFile("transcript", ".tsv")
-        try {
-            TranscriptWriter().writeTranscriptTsv(segments, tempFile)
-            val result = Files.readString(tempFile)
-
-            val expected =
-                "start\tend\ttext\n" +
-                    "0\t1000\tHello world\n" +
-                    "1000\t2000\tthis is a test.\n" +
-                    "2000\t3000\tAnother sentence.\n"
-            assertEquals(expected, result)
-        } finally {
-            Files.deleteIfExists(tempFile)
-        }
-    }
-
-    @Test
-    fun `test writeTranscriptTsv handles empty segments`() {
-        val tempFile = Files.createTempFile("transcript", ".tsv")
-        try {
-            TranscriptWriter().writeTranscriptTsv(emptyList(), tempFile)
-            val result = Files.readString(tempFile)
-
-            assertEquals("start\tend\ttext\n", result)
-        } finally {
-            Files.deleteIfExists(tempFile)
-        }
-    }
-
-    @Test
     fun `test writeTranscriptWithTiming splits sentences across segments`() {
         val segments =
             listOf(

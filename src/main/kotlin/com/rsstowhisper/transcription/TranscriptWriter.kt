@@ -4,7 +4,6 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 class TranscriptWriter {
-
     fun writeTranscriptWithTiming(
         segments: List<TranscriptSegment>,
         path: Path,
