@@ -2,12 +2,12 @@ package com.rsstowhisper.audio
 
 import java.nio.file.Path
 
-class AudioConverter {
+open class AudioConverter {
     companion object {
         private const val WHISPER_SAMPLE_RATE = 16000
     }
 
-    fun mp3ToWav(mp3Path: Path): Path {
+    open fun mp3ToWav(mp3Path: Path): Path {
         val wavPath = mp3Path.resolveSibling("audio.wav")
         convertWithFfmpeg(mp3Path, wavPath)
         return wavPath

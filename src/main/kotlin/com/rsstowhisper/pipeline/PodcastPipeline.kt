@@ -35,13 +35,13 @@ class PodcastPipeline(
     private val downloadService: DownloadService = DownloadService(httpClient),
     private val audioConverter: AudioConverter = AudioConverter(),
     private val transcriptWriter: TranscriptWriter = TranscriptWriter(),
+    private val transcriptionService: TranscriptionService = TranscriptionService(config.whisperModel),
 ) {
     private val jsonMapper =
         ObjectMapper().apply {
             enable(SerializationFeature.INDENT_OUTPUT)
             configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
         }
-    private val transcriptionService = TranscriptionService(config.whisperModel)
 
     fun run() {
         val dataDir = config.dataDirectory

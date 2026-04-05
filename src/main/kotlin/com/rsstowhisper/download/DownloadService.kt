@@ -6,10 +6,10 @@ import org.slf4j.LoggerFactory
 import java.nio.file.Files
 import java.nio.file.Path
 
-class DownloadService(private val httpClient: OkHttpClient = OkHttpClient()) {
+open class DownloadService(private val httpClient: OkHttpClient = OkHttpClient()) {
     private val logger = LoggerFactory.getLogger(DownloadService::class.java)
 
-    fun downloadIfRequired(
+    open fun downloadIfRequired(
         url: String,
         targetPath: Path,
     ) {
