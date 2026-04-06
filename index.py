@@ -15,6 +15,7 @@ import json
 import os
 import sqlite3
 import sys
+import time
 
 
 SCHEMA_EPISODES = """
@@ -181,7 +182,6 @@ def main():
             conn.execute("DELETE FROM sqlite_master WHERE name='episodes_fts'")
     conn.execute("DROP TABLE IF EXISTS episodes")
     conn.execute(SCHEMA_EPISODES)
-    conn.execute(SCHEMA_FTS)
     conn.commit()
 
     episodes = list(collect_episodes(args.data_dir))
@@ -191,10 +191,20 @@ def main():
         conn.close()
         return
 
+    t0 = time.time()
     print(f"Inserting {len(episodes)} episodes...")
     conn.executemany(INSERT_SQL, episodes)
-    conn.execute("INSERT INTO episodes_fts(episodes_fts) VALUES('rebuild')")  # FTS4 rebuild
     conn.commit()
+    print(f"  Insert: {time.time() - t0:.1f}s")
+
+    # Build FTS index after all rows are in place — much faster than
+    # inserting into FTS incrementally or rebuilding at the end.
+    t0 = time.time()
+    print("Building FTS index...")
+    conn.execute(SCHEMA_FTS)
+    conn.execute("INSERT INTO episodes_fts(episodes_fts) VALUES('rebuild')")
+    conn.commit()
+    print(f"  FTS build: {time.time() - t0:.1f}s")
     print("Done")
 
     conn.close()
