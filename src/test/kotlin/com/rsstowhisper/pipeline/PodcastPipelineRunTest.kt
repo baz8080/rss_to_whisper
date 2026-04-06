@@ -109,12 +109,14 @@ class PodcastPipelineRunTest {
         segments: List<TranscriptSegment> =
             listOf(TranscriptSegment(0, 1000, " Hello world.")),
         feedUrl: String = "https://feed",
+        skipAfterConsecutive: Int = 20,
     ): Triple<PodcastPipeline, FakeTranscriptionService, FakeFeedService> {
         val modelPath = dummyModel(dataDir)
         val config =
             AppConfig(
                 dataDirectory = dataDir.toAbsolutePath().toString(),
                 whisperModel = modelPath,
+                skipAfterConsecutive = skipAfterConsecutive,
                 podcasts = podcasts,
             )
         val feedSvc = FakeFeedService(mapOf(feedUrl to feed))
@@ -191,11 +193,11 @@ class PodcastPipelineRunTest {
     }
 
     @Test
-    fun `run stops processing remaining entries after finding existing transcript`(
+    fun `run continues past isolated transcribed episodes and transcribes gaps`(
         @TempDir tempDir: Path,
     ) {
-        // Feed entries are usually ordered newest-first; once we find an already-transcribed
-        // episode we can stop (assuming older episodes are already indexed too).
+        // A previous run was cancelled, leaving a gap: newest is transcribed, older one isn't.
+        // With a threshold >1, the single transcribed episode should NOT halt the podcast.
         val newEntry = makeEntry("New Episode")
         val oldEntry = makeEntry("Old Episode")
         val feed = makeFeed(newEntry, oldEntry)
@@ -205,10 +207,9 @@ class PodcastPipelineRunTest {
                 tempDir,
                 listOf(PodcastConfig(name = "Show", url = "https://feed")),
                 feed,
+                skipAfterConsecutive = 2,
             )
 
-        // Pre-seed the "new" episode's transcript.json to simulate already-processed.
-        // processPodcast calls createPath which escapes the name.
         val podcastDir = Files.createDirectories(tempDir.resolve("Show"))
         val newEpisodeDir =
             Files.createDirectories(
@@ -218,11 +219,45 @@ class PodcastPipelineRunTest {
 
         pipeline.run()
 
-        // Neither entry should be transcribed: the first is already done (break),
-        // and "Old Episode" should NOT be reached
-        assertEquals(0, txSvc.calls.size)
+        // The older, untranscribed episode should be picked up.
+        assertEquals(1, txSvc.calls.size)
         val oldDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeTitleWithDate(oldEntry)))
-        assertFalse(Files.exists(oldDir))
+        assertTrue(Files.exists(oldDir.resolve("transcript.json")))
+    }
+
+    @Test
+    fun `run skips remainder of feed after threshold consecutive transcribed`(
+        @TempDir tempDir: Path,
+    ) {
+        // Three transcribed in a row trips the threshold; the fourth (untranscribed) is not reached.
+        val e1 = makeEntry("Ep One")
+        val e2 = makeEntry("Ep Two")
+        val e3 = makeEntry("Ep Three")
+        val e4 = makeEntry("Ep Four")
+        val feed = makeFeed(e1, e2, e3, e4)
+
+        val (pipeline, txSvc, _) =
+            buildPipeline(
+                tempDir,
+                listOf(PodcastConfig(name = "Show", url = "https://feed")),
+                feed,
+                skipAfterConsecutive = 3,
+            )
+
+        val podcastDir = Files.createDirectories(tempDir.resolve("Show"))
+        for (e in listOf(e1, e2, e3)) {
+            val d =
+                Files.createDirectories(
+                    podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeTitleWithDate(e))),
+                )
+            Files.writeString(d.resolve("transcript.json"), "{}")
+        }
+
+        pipeline.run()
+
+        assertEquals(0, txSvc.calls.size)
+        val fourthDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeTitleWithDate(e4)))
+        assertFalse(Files.exists(fourthDir))
     }
 
     @Test

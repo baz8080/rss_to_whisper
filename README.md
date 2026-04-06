@@ -1,12 +1,16 @@
 # rss_to_whisper
 
-Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and index them into Elasticsearch for full-text search.
+Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and index them into a local SQLite FTS5 database for full-text search.
 
 ## Prerequisites
 
 - JDK 21+
+- `ffmpeg` on `PATH` (used to decode downloaded MP3s to WAV)
+- `whisper-cli` on `PATH` (from [whisper.cpp](https://github.com/ggml-org/whisper.cpp); invoked per episode)
 - A whisper.cpp compatible model file (see below)
-- Elasticsearch 8.x (for indexing)
+- Python 3 (for the indexing script; uses only stdlib modules)
+
+On macOS both are available via Homebrew: `brew install ffmpeg whisper-cpp`.
 
 ## Building
 
@@ -14,7 +18,7 @@ Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.co
 ./gradlew build
 ```
 
-## Running
+## Transcribing
 
 ```bash
 ./gradlew run --args="-c pods.yaml"
@@ -27,23 +31,32 @@ Or build and run the distribution:
 ./build/install/rss-to-whisper/bin/rss-to-whisper -c pods.yaml
 ```
 
+## Indexing
+
+Indexing is a standalone Python script that reads `transcript.json` files and writes them to a SQLite FTS5 database. It is designed to run directly on the machine hosting the data directory to avoid network filesystem overhead.
+
+```bash
+python3 index.py /path/to/data_directory
+
+# Specify a custom database path
+python3 index.py /path/to/data_directory --db /path/to/podcasts.db
+```
+
+The database defaults to `podcasts.db` inside the data directory.
+
 ## Configuration
 
 Copy and edit `pods.yaml` to configure:
 
-- `data_directory` - where episode files are stored
-- `whisper_model` - path to the whisper.cpp model file (`.bin`)
-- `require_cuda` - whether CUDA is required (set `false` for CPU/Metal)
-- `database_config` - Elasticsearch connection settings
-- `podcasts` - list of podcast RSS feeds to process
+- `data_directory` — where episode files are stored
+- `whisper_model` — path to the whisper.cpp model file (`.bin`)
+- `verbose` — enable debug logging (optional, default `false`)
+- `skip_after_consecutive` — stop walking a feed once this many consecutive already-transcribed episodes are seen (optional, default `20`)
+- `podcasts` — list of RSS feeds to process, each with `name`, `url`, optional `collections`, and optional `excludes`
 
-### Environment Variables
+### Skip heuristic
 
-Create a `.env` file with:
-
-```
-ELASTIC_API_KEY=your_api_key_here
-```
+Feeds are typically ordered newest-first. Rather than stat'ing every episode directory (expensive for feeds with thousands of entries), the transcriber walks the feed and stops on a podcast once it sees `skip_after_consecutive` transcribed episodes in a row. The counter resets on any gap, so a cancelled run that left untranscribed holes will be picked up on the next invocation.
 
 ## Downloading Whisper Models
 
@@ -76,12 +89,9 @@ For each episode, the following files are created:
 
 ```
 {data_directory}/{podcast_name}/{YYYY-MM-DD-episode-title}/
-    audio.mp3                      # Downloaded episode audio
-    transcript.txt                 # Plain text transcription
-    transcript.tsv                 # Tab-separated (start_ms, end_ms, text)
+    audio.wav                      # Decoded audio (mp3 is removed after transcription)
     transcript_with_timing.tsv     # Sentence-grouped with timestamps
     transcript.json                # Full metadata + transcript
-    transcribed                    # Marker file (signals completion)
 ```
 
 ## Testing
@@ -104,7 +114,7 @@ To auto-format:
 
 ## Platform Support
 
-- **macOS** - Metal acceleration (Apple Silicon), CPU fallback
-- **Linux** - CUDA acceleration (requires whisper.cpp compiled with CUDA), CPU fallback
+- **macOS** — Metal acceleration (Apple Silicon), CPU fallback
+- **Linux** — CUDA acceleration (requires a `whisper-cli` built with CUDA), CPU fallback
 
-The bundled whisper.cpp native libraries support macOS and Linux. For CUDA support on Linux, you may need to compile whisper.cpp from source with CUDA enabled and set `jna.library.path` to point to your custom build.
+Acceleration is determined by how your `whisper-cli` binary was built, so install/build the variant that matches your hardware.

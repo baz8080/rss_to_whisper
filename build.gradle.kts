@@ -35,9 +35,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.21.2")
     implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.2")
 
-    // SQLite
-    implementation("org.xerial:sqlite-jdbc:3.51.3.0")
-
     // Logging
     implementation("ch.qos.logback:logback-classic:1.5.32")
     implementation("org.slf4j:slf4j-api:2.0.17")
