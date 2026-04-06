@@ -163,7 +163,22 @@ def main():
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.execute("PRAGMA foreign_keys=ON")
 
-    conn.execute("DROP TABLE IF EXISTS episodes_fts")
+    # Use raw sqlite_master to drop FTS table safely — DROP TABLE on a
+    # virtual table requires the module to be loaded, which may not be
+    # available if the table was created with a different FTS version.
+    fts_exists = conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='episodes_fts'"
+    ).fetchone()
+    if fts_exists:
+        try:
+            conn.execute("DROP TABLE IF EXISTS episodes_fts")
+        except sqlite3.OperationalError:
+            # FTS module not available (e.g. fts5 table on fts4-only build);
+            # delete the underlying shadow tables and master entry manually.
+            for suffix in ["content", "segments", "segdir", "docsize", "stat",
+                           "data", "idx", "config"]:
+                conn.execute(f"DROP TABLE IF EXISTS episodes_fts_{suffix}")
+            conn.execute("DELETE FROM sqlite_master WHERE name='episodes_fts'")
     conn.execute("DROP TABLE IF EXISTS episodes")
     conn.execute(SCHEMA_EPISODES)
     conn.execute(SCHEMA_FTS)
