@@ -1,6 +1,6 @@
 # rss_to_whisper
 
-Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and index them into a local SQLite FTS5 database for full-text search.
+Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and index them into a local SQLite FTS4 database for full-text search.
 
 ## Prerequisites
 
@@ -33,7 +33,7 @@ Or build and run the distribution:
 
 ## Indexing
 
-Indexing is a standalone Python script that reads `transcript.json` files and writes them to a SQLite FTS5 database. It is designed to run directly on the machine hosting the data directory to avoid network filesystem overhead.
+Indexing is a standalone Python script that reads `transcript.json` files and writes them to a SQLite FTS4 database. It is designed to run directly on the machine hosting the data directory to avoid network filesystem overhead.
 
 ```bash
 python3 index.py /path/to/data_directory

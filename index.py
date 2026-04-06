@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Index podcast transcripts into a SQLite FTS5 database.
+"""Index podcast transcripts into a SQLite FTS4 database.
 
 Usage:
     python3 index.py /path/to/data_directory [--db podcasts.db]
@@ -47,13 +47,12 @@ CREATE TABLE IF NOT EXISTS episodes (
 """
 
 SCHEMA_FTS = """
-CREATE VIRTUAL TABLE IF NOT EXISTS episodes_fts USING fts5(
+CREATE VIRTUAL TABLE IF NOT EXISTS episodes_fts USING fts4(
     episode_title,
     episode_transcript,
     podcast_title,
     all_tags,
-    content='episodes',
-    content_rowid='rowid'
+    content='episodes'
 )
 """
 
@@ -146,7 +145,7 @@ def collect_episodes(data_dir):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Index podcast transcripts into SQLite FTS5")
+    parser = argparse.ArgumentParser(description="Index podcast transcripts into SQLite FTS4")
     parser.add_argument("data_dir", help="Path to the podcast data directory")
     parser.add_argument("--db", default=None, help="Path to SQLite database (default: <data_dir>/podcasts.db)")
     args = parser.parse_args()
@@ -179,7 +178,7 @@ def main():
 
     print(f"Inserting {len(episodes)} episodes...")
     conn.executemany(INSERT_SQL, episodes)
-    conn.execute("INSERT INTO episodes_fts(episodes_fts) VALUES('rebuild')")
+    conn.execute("INSERT INTO episodes_fts(episodes_fts) VALUES('rebuild')")  # FTS4 rebuild
     conn.commit()
     print("Done")
 
