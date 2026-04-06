@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Index podcast transcripts into a SQLite FTS5 database.
+"""Index podcast transcripts into a SQLite FTS4 database.
 
 Usage:
     python3 index.py /path/to/data_directory [--db podcasts.db]
@@ -15,6 +15,7 @@ import json
 import os
 import sqlite3
 import sys
+import time
 
 
 SCHEMA_EPISODES = """
@@ -47,13 +48,12 @@ CREATE TABLE IF NOT EXISTS episodes (
 """
 
 SCHEMA_FTS = """
-CREATE VIRTUAL TABLE IF NOT EXISTS episodes_fts USING fts5(
+CREATE VIRTUAL TABLE IF NOT EXISTS episodes_fts USING fts4(
     episode_title,
     episode_transcript,
     podcast_title,
     all_tags,
-    content='episodes',
-    content_rowid='rowid'
+    content='episodes'
 )
 """
 
@@ -146,7 +146,7 @@ def collect_episodes(data_dir):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Index podcast transcripts into SQLite FTS5")
+    parser = argparse.ArgumentParser(description="Index podcast transcripts into SQLite FTS4")
     parser.add_argument("data_dir", help="Path to the podcast data directory")
     parser.add_argument("--db", default=None, help="Path to SQLite database (default: <data_dir>/podcasts.db)")
     args = parser.parse_args()
@@ -164,10 +164,24 @@ def main():
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.execute("PRAGMA foreign_keys=ON")
 
-    conn.execute("DROP TABLE IF EXISTS episodes_fts")
+    # Use raw sqlite_master to drop FTS table safely — DROP TABLE on a
+    # virtual table requires the module to be loaded, which may not be
+    # available if the table was created with a different FTS version.
+    fts_exists = conn.execute(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='episodes_fts'"
+    ).fetchone()
+    if fts_exists:
+        try:
+            conn.execute("DROP TABLE IF EXISTS episodes_fts")
+        except sqlite3.OperationalError:
+            # FTS module not available (e.g. fts5 table on fts4-only build);
+            # delete the underlying shadow tables and master entry manually.
+            for suffix in ["content", "segments", "segdir", "docsize", "stat",
+                           "data", "idx", "config"]:
+                conn.execute(f"DROP TABLE IF EXISTS episodes_fts_{suffix}")
+            conn.execute("DELETE FROM sqlite_master WHERE name='episodes_fts'")
     conn.execute("DROP TABLE IF EXISTS episodes")
     conn.execute(SCHEMA_EPISODES)
-    conn.execute(SCHEMA_FTS)
     conn.commit()
 
     episodes = list(collect_episodes(args.data_dir))
@@ -177,10 +191,20 @@ def main():
         conn.close()
         return
 
+    t0 = time.time()
     print(f"Inserting {len(episodes)} episodes...")
     conn.executemany(INSERT_SQL, episodes)
+    conn.commit()
+    print(f"  Insert: {time.time() - t0:.1f}s")
+
+    # Build FTS index after all rows are in place — much faster than
+    # inserting into FTS incrementally or rebuilding at the end.
+    t0 = time.time()
+    print("Building FTS index...")
+    conn.execute(SCHEMA_FTS)
     conn.execute("INSERT INTO episodes_fts(episodes_fts) VALUES('rebuild')")
     conn.commit()
+    print(f"  FTS build: {time.time() - t0:.1f}s")
     print("Done")
 
     conn.close()
