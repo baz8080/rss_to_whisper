@@ -77,6 +77,8 @@ class PodcastPipeline(
         logger.debug("Downloaded ${podcast.url}")
 
         val podPath = createPath(Path.of(dataDir), podcast.name)
+        val skipThreshold = config.skipAfterConsecutive
+        var consecutiveTranscribed = 0
 
         for (entry in feed.entries) {
             val title = entry.title ?: continue
@@ -93,9 +95,16 @@ class PodcastPipeline(
                 val episodeDirPath = createPath(podPath, entryTitleAndDate)
 
                 if (Files.exists(episodeDirPath.resolve("transcript.json"))) {
-                    logger.debug("Found already transcribed episode. Skipping to next podcast.")
-                    break
+                    consecutiveTranscribed++
+                    if (consecutiveTranscribed >= skipThreshold) {
+                        logger.debug(
+                            "Found $consecutiveTranscribed consecutive transcribed episodes. Skipping to next podcast.",
+                        )
+                        break
+                    }
+                    continue
                 }
+                consecutiveTranscribed = 0
 
                 val mp3Info = getMp3Info(entry, episodeDirPath, dataDir)
                 if (mp3Info == null) {
