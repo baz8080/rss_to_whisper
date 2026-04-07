@@ -22,13 +22,16 @@ fun main(args: Array<String>) {
     embeddedServer(
         Netty,
         port = port,
-        watchPaths = listOf("classes", "resources")
+        watchPaths = listOf("classes", "resources"),
     ) {
         module(repository, audioBaseUrl)
     }.start(wait = true)
 }
 
-fun Application.module(repository: EpisodeRepository, audioBaseUrl: String) {
+fun Application.module(
+    repository: EpisodeRepository,
+    audioBaseUrl: String,
+) {
     routing {
         staticResources("/static", "static")
         searchRoutes(repository, audioBaseUrl)
