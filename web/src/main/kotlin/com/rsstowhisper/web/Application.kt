@@ -2,6 +2,7 @@ package com.rsstowhisper.web
 
 import com.rsstowhisper.web.db.EpisodeRepository
 import com.rsstowhisper.web.routes.searchRoutes
+import io.ktor.server.application.Application
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.http.content.staticResources
 import io.ktor.server.netty.Netty
@@ -18,10 +19,21 @@ fun main(args: Array<String>) {
     println("Database: $dbPath")
     println("Audio base URL: $audioBaseUrl")
 
-    embeddedServer(Netty, port = port) {
-        routing {
-            staticResources("/static", "static")
-            searchRoutes(repository, audioBaseUrl)
-        }
+    embeddedServer(
+        Netty,
+        port = port,
+        watchPaths = listOf("classes", "resources"),
+    ) {
+        module(repository, audioBaseUrl)
     }.start(wait = true)
+}
+
+fun Application.module(
+    repository: EpisodeRepository,
+    audioBaseUrl: String,
+) {
+    routing {
+        staticResources("/static", "static")
+        searchRoutes(repository, audioBaseUrl)
+    }
 }
