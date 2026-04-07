@@ -31,7 +31,7 @@ fun HTML.searchPage(
     filterOptions: FilterOptions,
     audioBaseUrl: String,
 ) {
-    layout("Podcast Searchi") {
+    layout("Podcast Search") {
         div {
             id = "app"
             appContent(result, filters, filterOptions, audioBaseUrl)
@@ -150,7 +150,7 @@ private fun FlowContent.resultsPanel(
 ) {
     if (result.totalCount > 0) {
         p("results-info") {
-            +"${result.totalCount} resultss"
+            +"${result.totalCount} results"
             if (filters.query.isNotBlank()) {
                 +" for \"${filters.query}\""
             }
