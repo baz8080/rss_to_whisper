@@ -3,8 +3,10 @@ package com.rsstowhisper.web.routes
 import com.rsstowhisper.web.db.EpisodeRepository
 import com.rsstowhisper.web.models.SearchFilters
 import com.rsstowhisper.web.templates.appContent
+import com.rsstowhisper.web.templates.episodePage
 import com.rsstowhisper.web.templates.searchPage
 import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.html.respondHtml
 import io.ktor.server.response.respondRedirect
 import io.ktor.server.response.respondText
@@ -25,7 +27,6 @@ fun Route.searchRoutes(
     get("/search") {
         val filters = parseFilters(call.parameters)
         val result = repository.search(filters)
-
         val filterOptions = repository.getFilterOptions(filters.query)
 
         if (call.request.headers["HX-Request"] == "true") {
@@ -39,6 +40,16 @@ fun Route.searchRoutes(
             call.respondHtml {
                 searchPage(result, filters, filterOptions, audioBaseUrl)
             }
+        }
+    }
+
+    get("/episode/{id}") {
+        val id = call.parameters["id"] ?: return@get call.respondText("Not found", status = HttpStatusCode.NotFound)
+        val episode =
+            repository.getEpisodeById(id)
+                ?: return@get call.respondText("Episode not found", status = HttpStatusCode.NotFound)
+        call.respondHtml {
+            episodePage(episode, audioBaseUrl)
         }
     }
 }

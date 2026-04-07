@@ -31,7 +31,7 @@ fun HTML.searchPage(
     filterOptions: FilterOptions,
     audioBaseUrl: String,
 ) {
-    layout("Podcast Search") {
+    layout("Podcast Searchi") {
         div {
             id = "app"
             appContent(result, filters, filterOptions, audioBaseUrl)
@@ -150,7 +150,7 @@ private fun FlowContent.resultsPanel(
 ) {
     if (result.totalCount > 0) {
         p("results-info") {
-            +"${result.totalCount} results"
+            +"${result.totalCount} resultss"
             if (filters.query.isNotBlank()) {
                 +" for \"${filters.query}\""
             }
@@ -170,11 +170,7 @@ private fun FlowContent.resultsPanel(
                 +(episode.podcastTitle ?: "Unknown Podcast")
             }
             h3 {
-                if (episode.episodeWebLink != null) {
-                    a(href = episode.episodeWebLink) {
-                        +(episode.episodeTitle ?: "Untitled")
-                    }
-                } else {
+                a(href = "/episode/${episode.id}") {
                     +(episode.episodeTitle ?: "Untitled")
                 }
             }
