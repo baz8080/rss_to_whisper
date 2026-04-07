@@ -3,3 +3,6 @@ plugins {
 }
 
 rootProject.name = "rss-to-whisper"
+
+include(":pipeline")
+include(":web")
