@@ -128,14 +128,6 @@ private fun FlowContent.filterSidebar(
             }
         }
 
-        if (filterOptions.tags.isNotEmpty()) {
-            filterGroup("Tags") {
-                for (tag in filterOptions.tags) {
-                    filterCheckbox("tag", tag, tag, tag in filters.tags)
-                }
-            }
-        }
-
         if (filterOptions.episodeTypes.size > 1) {
             filterGroup("Episode Type") {
                 for (type in filterOptions.episodeTypes) {
@@ -240,9 +232,7 @@ private fun FlowContent.resultsPanel(
             if (result.hasPrevious) {
                 button {
                     attributes["hx-get"] =
-                        buildSearchUrl(
-                            filters.copy(page = filters.page - 1),
-                        )
+                        buildSearchUrl(filters.copy(page = filters.page - 1))
                     attributes["hx-target"] = "#app"
                     attributes["hx-swap"] = "outerHTML"
                     attributes["hx-push-url"] = "true"
@@ -253,9 +243,7 @@ private fun FlowContent.resultsPanel(
             if (result.hasNext) {
                 button {
                     attributes["hx-get"] =
-                        buildSearchUrl(
-                            filters.copy(page = filters.page + 1),
-                        )
+                        buildSearchUrl(filters.copy(page = filters.page + 1))
                     attributes["hx-target"] = "#app"
                     attributes["hx-swap"] = "outerHTML"
                     attributes["hx-push-url"] = "true"

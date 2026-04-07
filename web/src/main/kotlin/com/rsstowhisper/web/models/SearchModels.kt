@@ -15,7 +15,6 @@ data class Episode(
     val episodeSeason: Int?,
     val episodeType: String?,
     val episodeDuration: Int?,
-    val episodeTranscript: String?,
     val episodeRelativeMp3Path: String?,
     val allTags: String?,
     val snippet: String? = null,
@@ -40,13 +39,12 @@ data class SearchFilters(
     val tags: Set<String> = emptySet(),
     val episodeTypes: Set<String> = emptySet(),
     val page: Int = 1,
-    val pageSize: Int = 100,
+    val pageSize: Int = 30,
 )
 
 data class FilterOptions(
     val podcasts: List<String>,
     val collections: List<String>,
-    val tags: List<String>,
     val episodeTypes: List<String>,
 )
 

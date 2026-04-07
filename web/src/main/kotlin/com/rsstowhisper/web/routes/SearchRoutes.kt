@@ -25,6 +25,7 @@ fun Route.searchRoutes(
     get("/search") {
         val filters = parseFilters(call.parameters)
         val result = repository.search(filters)
+
         val filterOptions = repository.getFilterOptions(filters.query)
 
         if (call.request.headers["HX-Request"] == "true") {
