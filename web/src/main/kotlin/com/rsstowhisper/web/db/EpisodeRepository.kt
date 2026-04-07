@@ -16,11 +16,13 @@ class EpisodeRepository(dbPath: String) {
             createStatement().execute("PRAGMA mmap_size=268435456")
         }
 
+    private var cachedFilterQuery: String? = null
+    private var cachedFilterOptions: FilterOptions? = null
+
     fun search(filters: SearchFilters): SearchResult {
         val hasQuery = filters.query.isNotBlank()
         val params = mutableListOf<Any>()
 
-        // Build WHERE clauses
         val whereClauses = mutableListOf<String>()
 
         if (hasQuery) {
@@ -61,14 +63,14 @@ class EpisodeRepository(dbPath: String) {
 
         val selectSql =
             if (hasQuery) {
-                """SELECT e.*, $snippetExpr AS snippet
+                """SELECT $SEARCH_COLUMNS, $snippetExpr AS snippet
                    FROM episodes e
                    JOIN episodes_fts ON e.rowid = episodes_fts.rowid
                    $whereClause
                    ORDER BY e.episode_published_on DESC
                    LIMIT ? OFFSET ?"""
             } else {
-                """SELECT e.*, NULL AS snippet
+                """SELECT $SEARCH_COLUMNS, NULL AS snippet
                    FROM episodes e
                    $whereClause
                    ORDER BY e.episode_published_on DESC
@@ -96,6 +98,8 @@ class EpisodeRepository(dbPath: String) {
     }
 
     fun getFilterOptions(query: String): FilterOptions {
+        if (query == cachedFilterQuery) return cachedFilterOptions!!
+
         val hasQuery = query.isNotBlank()
         val fromClause =
             if (hasQuery) {
@@ -105,13 +109,8 @@ class EpisodeRepository(dbPath: String) {
             }
         val wherePrefix = if (hasQuery) "WHERE episodes_fts MATCH ? AND" else "WHERE"
 
-        fun queryDistinct(
-            column: String,
-            orderBy: Boolean = true,
-        ): List<String> {
-            val sql =
-                "SELECT DISTINCT $column $fromClause $wherePrefix $column IS NOT NULL" +
-                    if (orderBy) " ORDER BY $column" else ""
+        fun queryDistinct(column: String): List<String> {
+            val sql = "SELECT DISTINCT $column $fromClause $wherePrefix $column IS NOT NULL ORDER BY $column"
             return conn.prepareStatement(sql).use { stmt ->
                 if (hasQuery) stmt.setString(1, query)
                 stmt.executeQuery().use { rs ->
@@ -138,12 +137,15 @@ class EpisodeRepository(dbPath: String) {
             }
         }
 
-        return FilterOptions(
-            podcasts = queryDistinct("e.podcast_title"),
-            collections = splitCsv("e.podcast_collections"),
-            tags = splitCsv("e.all_tags"),
-            episodeTypes = queryDistinct("e.episode_type"),
-        )
+        val options =
+            FilterOptions(
+                podcasts = queryDistinct("e.podcast_title"),
+                collections = splitCsv("e.podcast_collections"),
+                episodeTypes = queryDistinct("e.episode_type"),
+            )
+        cachedFilterQuery = query
+        cachedFilterOptions = options
+        return options
     }
 
     private fun addDurationFilter(
@@ -239,9 +241,17 @@ class EpisodeRepository(dbPath: String) {
             episodeSeason = rs.getObject("episode_season") as? Int,
             episodeType = rs.getString("episode_type"),
             episodeDuration = rs.getObject("episode_duration") as? Int,
-            episodeTranscript = rs.getString("episode_transcript"),
             episodeRelativeMp3Path = rs.getString("episode_relative_mp3_path"),
             allTags = rs.getString("all_tags"),
             snippet = rs.getString("snippet"),
         )
+
+    companion object {
+        private const val SEARCH_COLUMNS =
+            """e.id, e.podcast_title, e.podcast_image, e.podcast_collections,
+               e.episode_title, e.episode_published_on, e.episode_audio_link,
+               e.episode_web_link, e.episode_image, e.episode_summary,
+               e.episode_number, e.episode_season, e.episode_type,
+               e.episode_duration, e.episode_relative_mp3_path, e.all_tags"""
+    }
 }

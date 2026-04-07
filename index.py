@@ -197,6 +197,15 @@ def main():
     conn.commit()
     print(f"  Insert: {time.time() - t0:.1f}s")
 
+    t0 = time.time()
+    print("Creating indexes...")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_episodes_published ON episodes(episode_published_on DESC)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_episodes_podcast ON episodes(podcast_title)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_episodes_type ON episodes(episode_type)")
+    conn.execute("CREATE INDEX IF NOT EXISTS idx_episodes_duration ON episodes(episode_duration)")
+    conn.commit()
+    print(f"  Indexes: {time.time() - t0:.1f}s")
+
     # Build FTS index after all rows are in place — much faster than
     # inserting into FTS incrementally or rebuilding at the end.
     t0 = time.time()
