@@ -170,11 +170,7 @@ private fun FlowContent.resultsPanel(
                 +(episode.podcastTitle ?: "Unknown Podcast")
             }
             h3 {
-                if (episode.episodeWebLink != null) {
-                    a(href = episode.episodeWebLink) {
-                        +(episode.episodeTitle ?: "Untitled")
-                    }
-                } else {
+                a(href = "/episode/${episode.id}") {
                     +(episode.episodeTitle ?: "Untitled")
                 }
             }

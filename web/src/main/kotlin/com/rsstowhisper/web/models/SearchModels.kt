@@ -18,6 +18,7 @@ data class Episode(
     val episodeRelativeMp3Path: String?,
     val allTags: String?,
     val snippet: String? = null,
+    val transcript: String? = null,
 )
 
 data class SearchResult(

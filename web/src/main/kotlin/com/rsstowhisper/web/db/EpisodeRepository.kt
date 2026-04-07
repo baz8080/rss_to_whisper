@@ -97,6 +97,16 @@ class EpisodeRepository(dbPath: String) {
         return SearchResult(episodes, totalCount, filters.page, filters.pageSize)
     }
 
+    fun getEpisodeById(id: String): Episode? {
+        val sql = "SELECT $SEARCH_COLUMNS, e.episode_transcript FROM episodes e WHERE e.id = ?"
+        return conn.prepareStatement(sql).use { stmt ->
+            stmt.setString(1, id)
+            stmt.executeQuery().use { rs ->
+                if (rs.next()) mapEpisode(rs, includeTranscript = true) else null
+            }
+        }
+    }
+
     fun getFilterOptions(query: String): FilterOptions {
         if (query == cachedFilterQuery) return cachedFilterOptions!!
 
@@ -225,7 +235,10 @@ class EpisodeRepository(dbPath: String) {
         }
     }
 
-    private fun mapEpisode(rs: ResultSet): Episode =
+    private fun mapEpisode(
+        rs: ResultSet,
+        includeTranscript: Boolean = false,
+    ): Episode =
         Episode(
             id = rs.getString("id"),
             podcastTitle = rs.getString("podcast_title"),
@@ -243,7 +256,8 @@ class EpisodeRepository(dbPath: String) {
             episodeDuration = rs.getObject("episode_duration") as? Int,
             episodeRelativeMp3Path = rs.getString("episode_relative_mp3_path"),
             allTags = rs.getString("all_tags"),
-            snippet = rs.getString("snippet"),
+            snippet = runCatching { rs.getString("snippet") }.getOrNull(),
+            transcript = if (includeTranscript) rs.getString("episode_transcript") else null,
         )
 
     companion object {

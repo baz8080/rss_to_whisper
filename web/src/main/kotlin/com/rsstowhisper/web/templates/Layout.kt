@@ -187,4 +187,69 @@ private val CSS =
     .htmx-request.htmx-indicator {
         opacity: 1;
     }
+    .episode-detail {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 1.5rem 2rem;
+    }
+    .episode-detail h2 {
+        margin-top: 0.25rem;
+        margin-bottom: 0.75rem;
+    }
+    .back-link {
+        display: inline-block;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+    }
+    .episode-meta-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.25rem;
+        font-size: 0.9rem;
+    }
+    .episode-meta-table th {
+        text-align: left;
+        width: 160px;
+        padding: 0.3rem 0.75rem 0.3rem 0;
+        color: var(--pico-muted-color);
+        font-weight: 600;
+        vertical-align: top;
+        white-space: nowrap;
+    }
+    .episode-meta-table td {
+        padding: 0.3rem 0;
+        vertical-align: top;
+    }
+    .transcript {
+        border: 1px solid var(--pico-muted-border-color);
+        border-radius: 8px;
+        padding: 1rem;
+        font-size: 0.9rem;
+        line-height: 1.6;
+    }
+    .transcript-line {
+        display: flex;
+        gap: 0.75rem;
+        padding: 0.2rem 0;
+    }
+    .transcript-line:hover {
+        background: var(--pico-card-background-color, #f8f8f8);
+        border-radius: 4px;
+    }
+    .transcript-time {
+        flex-shrink: 0;
+        width: 4.5rem;
+        color: var(--pico-primary);
+        cursor: pointer;
+        font-variant-numeric: tabular-nums;
+        font-size: 0.85rem;
+        padding-top: 0.05rem;
+        user-select: none;
+    }
+    .transcript-time:hover {
+        text-decoration: underline;
+    }
+    .transcript-text {
+        flex: 1;
+    }
     """.trimIndent()
