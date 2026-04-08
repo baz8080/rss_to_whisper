@@ -345,6 +345,30 @@ class PodcastPipelineCompanionTest {
     }
 
     @Test
+    fun `buildEpisodeDict trims whitespace from tags before deduplication`() {
+        val itunes = EntryInformationImpl().apply { this.keywords = arrayOf(" science", " technology") }
+        val feed = feedWithItunes(categories = listOf("science", "technology"))
+        val e = entryWithItunes(itunes = itunes)
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+
+        @Suppress("UNCHECKED_CAST")
+        val tags = dict["all_tags"] as List<String>
+        assertEquals(listOf("science", "technology"), tags)
+    }
+
+    @Test
+    fun `buildEpisodeDict filters tags with 2 or fewer characters`() {
+        val itunes = EntryInformationImpl().apply { this.keywords = arrayOf("ok", "good", "a", "ab") }
+        val feed = feedWithItunes(categories = listOf("it", "tech"))
+        val e = entryWithItunes(itunes = itunes)
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3")!!
+
+        @Suppress("UNCHECKED_CAST")
+        val tags = dict["all_tags"] as List<String>
+        assertEquals(listOf("tech", "good"), tags)
+    }
+
+    @Test
     fun `buildEpisodeDict parses string duration fallback`() {
         // When milliseconds is 0, fall back to string parsing via timeToSeconds
         // Duration("01:30") means 1m30s -> 90 seconds; but its toString should contain ":"

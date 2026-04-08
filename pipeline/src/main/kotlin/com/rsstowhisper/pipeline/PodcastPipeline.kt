@@ -288,7 +288,7 @@ class PodcastPipeline(
             feed.categories?.forEach { tags.add(it.name) }
             entryItunes?.keywords?.forEach { tags.add(it) }
             entry.categories?.forEach { tags.add(it.name) }
-            return tags.map { it.lowercase() }.distinct()
+            return tags.map { it.trim().lowercase() }.distinct().filter { it.length > 2 }
         }
 
         private fun getEpisodeImage(
