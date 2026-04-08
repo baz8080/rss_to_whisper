@@ -2,16 +2,9 @@ package com.rsstowhisper.util
 
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class UtilsTest {
-    @Test
-    fun `test getHash known value`() {
-        val result = getHash("hello")
-        assertEquals("5d41402abc4b2a76b9719d911017c592", result)
-    }
-
     @ParameterizedTest
     @CsvSource(
         ",''",

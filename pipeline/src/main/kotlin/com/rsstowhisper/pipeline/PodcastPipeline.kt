@@ -158,7 +158,6 @@ class PodcastPipeline(
 
         transcriptWriter.writeTranscriptWithTiming(segments, episodePath.resolve("transcript_with_timing.tsv"))
 
-        // Clean up: remove MP3 (keep WAV) and legacy txt
         Files.deleteIfExists(mp3Info.filePath)
         Files.deleteIfExists(episodePath.resolve("transcript.txt"))
 
@@ -200,7 +199,6 @@ class PodcastPipeline(
                 }
             }
 
-            // Also check links if no enclosures match
             for (link in entry.links) {
                 if (link.type in AUDIO_MP3_TYPES) {
                     val filePath = episodePath.resolve("audio.mp3")

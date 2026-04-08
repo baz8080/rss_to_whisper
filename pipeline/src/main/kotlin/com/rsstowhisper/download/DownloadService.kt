@@ -24,7 +24,7 @@ open class DownloadService(private val httpClient: OkHttpClient = OkHttpClient()
         try {
             httpClient.newCall(request).execute().use { response ->
                 if (response.isSuccessful) {
-                    logger.debug("Writing... $targetPath")
+                    logger.debug("Writing... {}", targetPath)
                     response.body?.byteStream()?.use { input ->
                         Files.newOutputStream(targetPath).use { output ->
                             input.copyTo(output)

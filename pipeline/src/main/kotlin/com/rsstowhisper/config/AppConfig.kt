@@ -13,7 +13,7 @@ data class AppConfig(
     val verbose: Boolean = false,
     @JsonProperty("data_directory") val dataDirectory: String,
     @JsonProperty("whisper_model") val whisperModel: String = "tiny",
-    @JsonProperty("skip_after_consecutive") val skipAfterConsecutive: Int = 20,
+    @JsonProperty("skip_after_consecutive") val skipAfterConsecutive: Int = 50,
     val podcasts: List<PodcastConfig>,
 ) {
     companion object {

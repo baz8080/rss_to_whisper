@@ -22,7 +22,6 @@ fun main(args: Array<String>) {
             return
         }
 
-    // Configure logging level
     if (config.verbose) {
         val loggerContext = LoggerFactory.getILoggerFactory() as LoggerContext
         loggerContext.getLogger("com.rsstowhisper").level = Level.DEBUG

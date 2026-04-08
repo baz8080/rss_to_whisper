@@ -57,7 +57,6 @@ open class TranscriptionService(private val modelPath: String) {
 
         val segments = parseWhisperCsv(Files.readAllLines(csvPath))
 
-        // Clean up the whisper-generated CSV since we write our own output files
         Files.deleteIfExists(csvPath)
 
         return segments

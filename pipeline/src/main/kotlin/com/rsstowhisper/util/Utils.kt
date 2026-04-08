@@ -3,15 +3,11 @@ package com.rsstowhisper.util
 import org.slf4j.LoggerFactory
 import java.nio.file.Files
 import java.nio.file.Path
-import java.security.MessageDigest
-import java.util.HexFormat
 import kotlin.math.pow
 
 private val logger = LoggerFactory.getLogger("com.rsstowhisper.util.Utils")
 
 private val CONSECUTIVE_DASHES = Regex("-{2,}")
-
-fun getHash(content: String): String = HexFormat.of().formatHex(MessageDigest.getInstance("MD5").digest(content.toByteArray()))
 
 fun escapeFilename(filename: String?): String {
     if (filename.isNullOrEmpty()) return ""
