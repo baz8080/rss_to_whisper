@@ -1,12 +1,12 @@
-package com.rsstowhisper.transcription
+package com.rsstowhisper.external
 
 import org.slf4j.LoggerFactory
 import java.io.FileNotFoundException
 import java.nio.file.Files
 import java.nio.file.Path
 
-open class TranscriptionService(private val modelPath: String) {
-    private val logger = LoggerFactory.getLogger(TranscriptionService::class.java)
+open class Transcriber(private val modelPath: String) {
+    private val logger = LoggerFactory.getLogger(Transcriber::class.java)
 
     init {
         if (!Files.exists(Path.of(modelPath))) {

@@ -1,4 +1,4 @@
-package com.rsstowhisper.util
+package com.rsstowhisper
 
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource

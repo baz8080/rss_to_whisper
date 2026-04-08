@@ -2,7 +2,6 @@ package com.rsstowhisper
 
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.LoggerContext
-import com.rsstowhisper.config.AppConfig
 import com.rsstowhisper.pipeline.PodcastPipeline
 import org.slf4j.LoggerFactory
 

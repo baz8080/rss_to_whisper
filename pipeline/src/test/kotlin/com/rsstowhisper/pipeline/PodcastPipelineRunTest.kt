@@ -4,15 +4,14 @@ import com.rometools.rome.feed.synd.SyndEnclosureImpl
 import com.rometools.rome.feed.synd.SyndEntryImpl
 import com.rometools.rome.feed.synd.SyndFeed
 import com.rometools.rome.feed.synd.SyndFeedImpl
-import com.rsstowhisper.audio.AudioConverter
-import com.rsstowhisper.config.AppConfig
-import com.rsstowhisper.config.PodcastConfig
-import com.rsstowhisper.download.DownloadService
+import com.rsstowhisper.AppConfig
+import com.rsstowhisper.PodcastConfig
+import com.rsstowhisper.escapeFilename
+import com.rsstowhisper.external.AudioConverter
+import com.rsstowhisper.external.Transcriber
+import com.rsstowhisper.external.TranscriptSegment
+import com.rsstowhisper.external.TranscriptWriter
 import com.rsstowhisper.feed.FeedService
-import com.rsstowhisper.transcription.TranscriptSegment
-import com.rsstowhisper.transcription.TranscriptWriter
-import com.rsstowhisper.transcription.TranscriptionService
-import com.rsstowhisper.util.escapeFilename
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Files
 import java.nio.file.Path
@@ -25,17 +24,14 @@ import kotlin.test.assertTrue
 class PodcastPipelineRunTest {
     private class FakeFeedService(private val feeds: Map<String, SyndFeed?>) : FeedService() {
         val requestedUrls = mutableListOf<String>()
+        val downloads = mutableListOf<Pair<String, Path>>()
 
         override fun fetchFeed(url: String): SyndFeed? {
             requestedUrls.add(url)
             return feeds[url]
         }
-    }
 
-    private class FakeDownloadService : DownloadService() {
-        val downloads = mutableListOf<Pair<String, Path>>()
-
-        override fun downloadIfRequired(
+        override fun downloadAudio(
             url: String,
             targetPath: Path,
         ) {
@@ -53,10 +49,10 @@ class PodcastPipelineRunTest {
         }
     }
 
-    private class FakeTranscriptionService(
+    private class FakeTranscriber(
         modelPath: String,
         private val segments: List<TranscriptSegment>,
-    ) : TranscriptionService(modelPath) {
+    ) : Transcriber(modelPath) {
         val calls = mutableListOf<Path>()
 
         override fun transcribe(wavPath: Path): List<TranscriptSegment> {
@@ -110,7 +106,7 @@ class PodcastPipelineRunTest {
             listOf(TranscriptSegment(0, 1000, " Hello world.")),
         feedUrl: String = "https://feed",
         skipAfterConsecutive: Int = 20,
-    ): Triple<PodcastPipeline, FakeTranscriptionService, FakeFeedService> {
+    ): Triple<PodcastPipeline, FakeTranscriber, FakeFeedService> {
         val modelPath = dummyModel(dataDir)
         val config =
             AppConfig(
@@ -120,15 +116,14 @@ class PodcastPipelineRunTest {
                 podcasts = podcasts,
             )
         val feedSvc = FakeFeedService(mapOf(feedUrl to feed))
-        val txSvc = FakeTranscriptionService(modelPath, segments)
+        val txSvc = FakeTranscriber(modelPath, segments)
         val pipeline =
             PodcastPipeline(
                 config = config,
                 feedService = feedSvc,
-                downloadService = FakeDownloadService(),
                 audioConverter = FakeAudioConverter(),
                 transcriptWriter = TranscriptWriter(),
-                transcriptionService = txSvc,
+                transcriber = txSvc,
             )
         return Triple(pipeline, txSvc, feedSvc)
     }
@@ -355,14 +350,13 @@ class PodcastPipelineRunTest {
                 podcasts = listOf(PodcastConfig(name = "Show", url = "https://feed")),
             )
         val feedSvc = FakeFeedService(mapOf("https://feed" to makeFeed(makeEntry("E"))))
-        val txSvc = FakeTranscriptionService(modelPath, listOf(TranscriptSegment(0, 1, "hi.")))
+        val txSvc = FakeTranscriber(modelPath, listOf(TranscriptSegment(0, 1, "hi.")))
         val pipeline =
             PodcastPipeline(
                 config = config,
                 feedService = feedSvc,
-                downloadService = FakeDownloadService(),
                 audioConverter = FakeAudioConverter(),
-                transcriptionService = txSvc,
+                transcriber = txSvc,
             )
 
         pipeline.run()

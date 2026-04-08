@@ -1,4 +1,4 @@
-package com.rsstowhisper.audio
+package com.rsstowhisper.external
 
 import java.nio.file.Path
 

@@ -125,7 +125,6 @@ For each episode, the following files are created:
 ```
 {data_directory}/{podcast_name}/{YYYY-MM-DD-episode-title}/
     audio.wav                      # Decoded audio (mp3 is removed after transcription)
-    transcript_with_timing.tsv     # Sentence-grouped with timestamps
     transcript.json                # Full metadata + transcript
 ```
 

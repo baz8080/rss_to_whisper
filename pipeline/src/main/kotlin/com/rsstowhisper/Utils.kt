@@ -1,11 +1,11 @@
-package com.rsstowhisper.util
+package com.rsstowhisper
 
 import org.slf4j.LoggerFactory
 import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.math.pow
 
-private val logger = LoggerFactory.getLogger("com.rsstowhisper.util.Utils")
+private val logger = LoggerFactory.getLogger("com.rsstowhisper.Utils")
 
 private val CONSECUTIVE_DASHES = Regex("-{2,}")
 

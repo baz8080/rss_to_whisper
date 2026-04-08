@@ -1,4 +1,4 @@
-package com.rsstowhisper.transcription
+package com.rsstowhisper.external
 
 import kotlin.test.Test
 import kotlin.test.assertEquals
