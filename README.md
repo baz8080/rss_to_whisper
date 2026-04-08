@@ -2,6 +2,27 @@
 
 Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and index them into a local SQLite FTS4 database for full-text search.
 
+## Modules
+
+### `pipeline` (Kotlin)
+Walks one or more RSS feeds, downloads each episode, decodes the audio with `ffmpeg`, transcribes it with `whisper-cli`, and writes a `transcript.json` file alongside the audio. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
+
+### `web` (Kotlin)
+A Ktor HTTP server that serves a full-text search interface over the SQLite database produced by `index.py`. Supports filtering by podcast, tag, and date range. Runs on port 8080 by default.
+
+## Python scripts
+
+### `index.py`
+Reads all `transcript.json` files in the data directory and writes them into a SQLite FTS4 database. Run this after the pipeline to make new transcripts searchable. Requires only Python 3 stdlib.
+
+### `fix_tags.py`
+One-off utility to clean up `all_tags` in existing `transcript.json` files — trims whitespace, lowercases, removes duplicates, and drops tags of 2 characters or fewer. Run with `--dry-run` first to preview changes.
+
+```bash
+python3 fix_tags.py /path/to/data_directory --dry-run
+python3 fix_tags.py /path/to/data_directory
+```
+
 ## Prerequisites
 
 - JDK 21+
@@ -33,8 +54,6 @@ Or build and run the distribution:
 
 ## Indexing
 
-Indexing is a standalone Python script that reads `transcript.json` files and writes them to a SQLite FTS4 database. It is designed to run directly on the machine hosting the data directory to avoid network filesystem overhead.
-
 ```bash
 python3 index.py /path/to/data_directory
 
@@ -42,7 +61,23 @@ python3 index.py /path/to/data_directory
 python3 index.py /path/to/data_directory --db /path/to/podcasts.db
 ```
 
-The database defaults to `podcasts.db` inside the data directory.
+The database defaults to `podcasts.db` inside the data directory. Designed to run directly on the machine hosting the files to avoid network filesystem overhead.
+
+## Serving the web UI
+
+```bash
+./gradlew :web:run --args="/path/to/podcasts.db"
+
+# With a custom audio base URL and port
+./gradlew :web:run --args="/path/to/podcasts.db https://audio.example.com 9090"
+```
+
+Or build and run the distribution:
+
+```bash
+./gradlew installDist
+./build/install/rss-to-whisper/bin/web /path/to/podcasts.db
+```
 
 ## Configuration
 
