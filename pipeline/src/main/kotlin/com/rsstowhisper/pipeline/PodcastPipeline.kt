@@ -7,20 +7,21 @@ import com.rometools.modules.itunes.FeedInformation
 import com.rometools.modules.itunes.ITunes
 import com.rometools.rome.feed.synd.SyndEntry
 import com.rometools.rome.feed.synd.SyndFeed
-import com.rsstowhisper.audio.AudioConverter
-import com.rsstowhisper.config.AppConfig
-import com.rsstowhisper.config.PodcastConfig
-import com.rsstowhisper.download.DownloadService
+import com.rsstowhisper.AppConfig
+import com.rsstowhisper.PodcastConfig
+import com.rsstowhisper.createPath
+import com.rsstowhisper.external.AudioConverter
+import com.rsstowhisper.external.Transcriber
+import com.rsstowhisper.external.TranscriptWriter
 import com.rsstowhisper.feed.FeedService
-import com.rsstowhisper.transcription.TranscriptWriter
-import com.rsstowhisper.transcription.TranscriptionService
-import com.rsstowhisper.util.createPath
-import com.rsstowhisper.util.timeToSeconds
+import com.rsstowhisper.timeToSeconds
 import okhttp3.OkHttpClient
 import org.slf4j.LoggerFactory
 import java.nio.file.Files
 import java.nio.file.Path
-import java.text.SimpleDateFormat
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
+import java.util.Date
 import java.util.concurrent.TimeUnit
 
 class PodcastPipeline(
@@ -32,10 +33,9 @@ class PodcastPipeline(
             .writeTimeout(30, TimeUnit.SECONDS)
             .build(),
     private val feedService: FeedService = FeedService(httpClient),
-    private val downloadService: DownloadService = DownloadService(httpClient),
     private val audioConverter: AudioConverter = AudioConverter(),
     private val transcriptWriter: TranscriptWriter = TranscriptWriter(),
-    private val transcriptionService: TranscriptionService = TranscriptionService(config.whisperModel),
+    private val transcriber: Transcriber = Transcriber(config.whisperModel),
 ) {
     private val jsonMapper =
         ObjectMapper().apply {
@@ -112,7 +112,7 @@ class PodcastPipeline(
                     continue
                 }
 
-                downloadService.downloadIfRequired(mp3Info.url, mp3Info.filePath)
+                feedService.downloadAudio(mp3Info.url, mp3Info.filePath)
                 transcribeEpisode(mp3Info, episodeDirPath)
 
                 writeEpisodeJson(feed, entry, mp3Info, episodeDirPath, podcast.collections)
@@ -154,11 +154,10 @@ class PodcastPipeline(
         val startTime = System.currentTimeMillis()
 
         val wavPath = audioConverter.mp3ToWav(mp3Info.filePath)
-        val segments = transcriptionService.transcribe(wavPath)
+        val segments = transcriber.transcribe(wavPath)
 
         transcriptWriter.writeTranscriptWithTiming(segments, episodePath.resolve("transcript_with_timing.tsv"))
 
-        // Clean up: remove MP3 (keep WAV) and legacy txt
         Files.deleteIfExists(mp3Info.filePath)
         Files.deleteIfExists(episodePath.resolve("transcript.txt"))
 
@@ -168,13 +167,15 @@ class PodcastPipeline(
 
     companion object {
         private val logger = LoggerFactory.getLogger(PodcastPipeline::class.java)
-        private val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        private val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         private val AUDIO_MP3_TYPES = setOf("audio/mpeg", "audio/mp3")
+
+        private fun formatDate(date: Date): String = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormat)
 
         fun getEpisodeTitleWithDate(entry: SyndEntry): String {
             val date =
                 if (entry.publishedDate != null) {
-                    dateFormat.format(entry.publishedDate)
+                    formatDate(entry.publishedDate)
                 } else {
                     "unknown-date"
                 }
@@ -200,7 +201,6 @@ class PodcastPipeline(
                 }
             }
 
-            // Also check links if no enclosures match
             for (link in entry.links) {
                 if (link.type in AUDIO_MP3_TYPES) {
                     val filePath = episodePath.resolve("audio.mp3")
@@ -248,7 +248,7 @@ class PodcastPipeline(
                     "podcast_type" to feedItunes?.type,
                     "episode_title" to entry.title,
                     "all_tags" to collectTags(feed, entry, entryItunes),
-                    "episode_published_on" to entry.publishedDate?.let { dateFormat.format(it) },
+                    "episode_published_on" to entry.publishedDate?.let { formatDate(it) },
                     "episode_audio_link" to audioLink,
                     "episode_web_link" to entry.link,
                     "episode_image" to getEpisodeImage(entry, entryItunes),

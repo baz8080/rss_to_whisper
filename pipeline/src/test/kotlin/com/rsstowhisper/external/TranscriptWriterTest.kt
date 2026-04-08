@@ -1,4 +1,4 @@
-package com.rsstowhisper.transcription
+package com.rsstowhisper.external
 
 import java.nio.file.Files
 import kotlin.test.Test

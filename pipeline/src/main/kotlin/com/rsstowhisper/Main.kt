@@ -2,7 +2,6 @@ package com.rsstowhisper
 
 import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.LoggerContext
-import com.rsstowhisper.config.AppConfig
 import com.rsstowhisper.pipeline.PodcastPipeline
 import org.slf4j.LoggerFactory
 
@@ -22,7 +21,6 @@ fun main(args: Array<String>) {
             return
         }
 
-    // Configure logging level
     if (config.verbose) {
         val loggerContext = LoggerFactory.getILoggerFactory() as LoggerContext
         loggerContext.getLogger("com.rsstowhisper").level = Level.DEBUG

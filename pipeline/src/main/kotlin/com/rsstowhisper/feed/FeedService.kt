@@ -7,6 +7,8 @@ import okhttp3.Request
 import org.slf4j.LoggerFactory
 import org.xml.sax.InputSource
 import java.io.StringReader
+import java.nio.file.Files
+import java.nio.file.Path
 
 open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
     private val logger = LoggerFactory.getLogger(FeedService::class.java)
@@ -32,6 +34,36 @@ open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
         } catch (e: Exception) {
             logger.error("Failed to get feed: $url", e)
             null
+        }
+    }
+
+    open fun downloadAudio(
+        url: String,
+        targetPath: Path,
+    ) {
+        if (Files.exists(targetPath)) {
+            logger.debug("Audio is already downloaded")
+            return
+        }
+
+        logger.debug("Downloading audio")
+        val request = Request.Builder().url(url).build()
+
+        try {
+            httpClient.newCall(request).execute().use { response ->
+                if (response.isSuccessful) {
+                    logger.debug("Writing... {}", targetPath)
+                    response.body?.byteStream()?.use { input ->
+                        Files.newOutputStream(targetPath).use { output ->
+                            input.copyTo(output)
+                        }
+                    }
+                } else {
+                    logger.error("Error saving file response: ${response.code}")
+                }
+            }
+        } catch (e: Exception) {
+            logger.error("Failed to download $url", e)
         }
     }
 }
