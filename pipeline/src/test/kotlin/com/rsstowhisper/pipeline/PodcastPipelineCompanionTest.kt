@@ -14,14 +14,23 @@ import com.rometools.rome.feed.synd.SyndLinkImpl
 import com.rometools.rome.feed.synd.SyndPersonImpl
 import org.jdom2.Attribute
 import org.jdom2.Element
+import org.junit.jupiter.api.io.TempDir
+import java.nio.file.Files
 import java.nio.file.Path
 import java.util.Date
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class PodcastPipelineCompanionTest {
+    /** Parse a yyyy-MM-dd string as midnight UTC, matching how formatDate works. */
+    private fun utcDate(s: String): Date =
+        java.text.SimpleDateFormat("yyyy-MM-dd")
+            .also { it.timeZone = java.util.TimeZone.getTimeZone("UTC") }
+            .parse(s)!!
+
     private fun entry(
         title: String? = "My Episode",
         publishedDate: Date? = null,
@@ -59,19 +68,75 @@ class PodcastPipelineCompanionTest {
             this.length = length
         }
 
-    // ---------- getEpisodeTitleWithDate ----------
+    // ---------- audioLinkHash ----------
 
     @Test
-    fun `getEpisodeTitleWithDate formats date before title`() {
-        val date = java.text.SimpleDateFormat("yyyy-MM-dd").parse("2024-03-14")
-        val result = PodcastPipeline.getEpisodeTitleWithDate(entry(title = "Hello", publishedDate = date))
-        assertEquals("2024-03-14-Hello", result)
+    fun `audioLinkHash returns 8 hex characters`() {
+        val result = PodcastPipeline.audioLinkHash("https://cdn/ep.mp3")
+        assertEquals(8, result.length)
+        assertTrue(result.all { it in '0'..'9' || it in 'a'..'f' })
     }
 
     @Test
-    fun `getEpisodeTitleWithDate uses unknown-date when no date`() {
-        val result = PodcastPipeline.getEpisodeTitleWithDate(entry(title = "Hello", publishedDate = null))
-        assertEquals("unknown-date-Hello", result)
+    fun `audioLinkHash is deterministic`() {
+        assertEquals(
+            PodcastPipeline.audioLinkHash("https://cdn/ep.mp3"),
+            PodcastPipeline.audioLinkHash("https://cdn/ep.mp3"),
+        )
+    }
+
+    @Test
+    fun `audioLinkHash differs for different urls`() {
+        assertNotEquals(
+            PodcastPipeline.audioLinkHash("https://cdn/ep1.mp3"),
+            PodcastPipeline.audioLinkHash("https://cdn/ep2.mp3"),
+        )
+    }
+
+    // ---------- episodeStablePrefix ----------
+
+    @Test
+    fun `episodeStablePrefix returns date-hash format`() {
+        val date = utcDate("2024-03-14")
+        val audioUrl = "https://cdn/ep.mp3"
+        val result = PodcastPipeline.episodeStablePrefix(entry(publishedDate = date), audioUrl)
+        assertEquals("2024-03-14-${PodcastPipeline.audioLinkHash(audioUrl)}", result)
+    }
+
+    @Test
+    fun `episodeStablePrefix uses unknown-date when no date`() {
+        val audioUrl = "https://cdn/ep.mp3"
+        val result = PodcastPipeline.episodeStablePrefix(entry(), audioUrl)
+        assertEquals("unknown-date-${PodcastPipeline.audioLinkHash(audioUrl)}", result)
+    }
+
+    // ---------- getEpisodeDirName ----------
+
+    @Test
+    fun `getEpisodeDirName includes stable prefix and title`() {
+        val date = utcDate("2024-03-14")
+        val audioUrl = "https://cdn/ep.mp3"
+        val result = PodcastPipeline.getEpisodeDirName(entry(title = "Hello", publishedDate = date), audioUrl)
+        assertEquals("2024-03-14-${PodcastPipeline.audioLinkHash(audioUrl)}-Hello", result)
+    }
+
+    // ---------- findExistingEpisodeDir ----------
+
+    @Test
+    fun `findExistingEpisodeDir returns directory matching stable prefix`(
+        @TempDir tempDir: Path,
+    ) {
+        val hash = PodcastPipeline.audioLinkHash("https://cdn/ep.mp3")
+        val existing = Files.createDirectories(tempDir.resolve("2024-03-14-$hash-Old-Title"))
+        assertEquals(existing, PodcastPipeline.findExistingEpisodeDir(tempDir, "2024-03-14-$hash"))
+    }
+
+    @Test
+    fun `findExistingEpisodeDir returns null when prefix does not match`(
+        @TempDir tempDir: Path,
+    ) {
+        Files.createDirectories(tempDir.resolve("2024-03-14-aaaabbbb-Some-Title"))
+        assertNull(PodcastPipeline.findExistingEpisodeDir(tempDir, "2024-03-14-ccccdddd"))
     }
 
     // ---------- getMp3Info ----------
@@ -242,7 +307,7 @@ class PodcastPipelineCompanionTest {
 
     @Test
     fun `buildEpisodeDict populates top-level fields`() {
-        val date = java.text.SimpleDateFormat("yyyy-MM-dd").parse("2024-05-01")
+        val date = utcDate("2024-05-01")
         val itunes =
             EntryInformationImpl().apply {
                 this.episode = 7
@@ -274,6 +339,7 @@ class PodcastPipelineCompanionTest {
 
         val dict = PodcastPipeline.buildEpisodeDict(feed, e, "transcript", "pod/ep/audio.mp3", listOf("col1"))!!
 
+        assertEquals(PodcastPipeline.audioLinkHash("https://cdn/ep.mp3"), dict["_id"])
         assertEquals(listOf("col1"), dict["podcast_collections"])
         assertEquals("Pod", dict["podcast_title"])
         assertEquals("https://pod", dict["podcast_link"])
