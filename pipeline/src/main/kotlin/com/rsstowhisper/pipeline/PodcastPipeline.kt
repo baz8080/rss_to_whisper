@@ -99,8 +99,9 @@ class PodcastPipeline(
                 val stablePrefix = episodeStablePrefix(entry, audioUrl)
                 logger.debug("Processing $stablePrefix")
 
-                val episodeDirPath = findExistingEpisodeDir(podPath, stablePrefix)
-                    ?: createPath(podPath, getEpisodeDirName(entry, audioUrl))
+                val episodeDirPath =
+                    findExistingEpisodeDir(podPath, stablePrefix)
+                        ?: createPath(podPath, getEpisodeDirName(entry, audioUrl))
 
                 if (Files.exists(episodeDirPath.resolve("transcript.json"))) {
                     consecutiveTranscribed++
@@ -185,15 +186,23 @@ class PodcastPipeline(
             return bytes.joinToString("") { "%02x".format(it) }.take(8)
         }
 
-        fun episodeStablePrefix(entry: SyndEntry, audioUrl: String): String {
+        fun episodeStablePrefix(
+            entry: SyndEntry,
+            audioUrl: String,
+        ): String {
             val date = if (entry.publishedDate != null) formatDate(entry.publishedDate) else "unknown-date"
             return "$date-${audioLinkHash(audioUrl)}"
         }
 
-        fun getEpisodeDirName(entry: SyndEntry, audioUrl: String): String =
-            "${episodeStablePrefix(entry, audioUrl)}-${entry.title ?: "unknown"}"
+        fun getEpisodeDirName(
+            entry: SyndEntry,
+            audioUrl: String,
+        ): String = "${episodeStablePrefix(entry, audioUrl)}-${entry.title ?: "unknown"}"
 
-        fun findExistingEpisodeDir(podPath: Path, stablePrefix: String): Path? =
+        fun findExistingEpisodeDir(
+            podPath: Path,
+            stablePrefix: String,
+        ): Path? =
             podPath.toFile()
                 .listFiles()
                 ?.firstOrNull { it.isDirectory && it.name.startsWith("$stablePrefix-") }
