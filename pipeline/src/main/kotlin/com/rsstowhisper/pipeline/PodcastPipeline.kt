@@ -19,7 +19,8 @@ import okhttp3.OkHttpClient
 import org.slf4j.LoggerFactory
 import java.nio.file.Files
 import java.nio.file.Path
-import java.time.ZoneId
+import java.security.MessageDigest
+import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.util.Date
 import java.util.concurrent.TimeUnit
@@ -89,10 +90,17 @@ class PodcastPipeline(
             }
 
             try {
-                val entryTitleAndDate = getEpisodeTitleWithDate(entry)
-                logger.debug("Processing $entryTitleAndDate")
+                val audioUrl = findAudioLink(entry)
+                if (audioUrl == null) {
+                    logger.warn("$title has no mp3 link. Skipping")
+                    continue
+                }
 
-                val episodeDirPath = createPath(podPath, entryTitleAndDate)
+                val stablePrefix = episodeStablePrefix(entry, audioUrl)
+                logger.debug("Processing $stablePrefix")
+
+                val episodeDirPath = findExistingEpisodeDir(podPath, stablePrefix)
+                    ?: createPath(podPath, getEpisodeDirName(entry, audioUrl))
 
                 if (Files.exists(episodeDirPath.resolve("transcript.json"))) {
                     consecutiveTranscribed++
@@ -170,17 +178,26 @@ class PodcastPipeline(
         private val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
         private val AUDIO_MP3_TYPES = setOf("audio/mpeg", "audio/mp3")
 
-        private fun formatDate(date: Date): String = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate().format(dateFormat)
+        private fun formatDate(date: Date): String = date.toInstant().atZone(ZoneOffset.UTC).toLocalDate().format(dateFormat)
 
-        fun getEpisodeTitleWithDate(entry: SyndEntry): String {
-            val date =
-                if (entry.publishedDate != null) {
-                    formatDate(entry.publishedDate)
-                } else {
-                    "unknown-date"
-                }
-            return "$date-${entry.title}"
+        fun audioLinkHash(audioUrl: String): String {
+            val bytes = MessageDigest.getInstance("MD5").digest(audioUrl.toByteArray())
+            return bytes.joinToString("") { "%02x".format(it) }.take(8)
         }
+
+        fun episodeStablePrefix(entry: SyndEntry, audioUrl: String): String {
+            val date = if (entry.publishedDate != null) formatDate(entry.publishedDate) else "unknown-date"
+            return "$date-${audioLinkHash(audioUrl)}"
+        }
+
+        fun getEpisodeDirName(entry: SyndEntry, audioUrl: String): String =
+            "${episodeStablePrefix(entry, audioUrl)}-${entry.title ?: "unknown"}"
+
+        fun findExistingEpisodeDir(podPath: Path, stablePrefix: String): Path? =
+            podPath.toFile()
+                .listFiles()
+                ?.firstOrNull { it.isDirectory && it.name.startsWith("$stablePrefix-") }
+                ?.toPath()
 
         fun getMp3Info(
             entry: SyndEntry,
@@ -238,6 +255,7 @@ class PodcastPipeline(
                 val entryItunes = entry.getModule(ITunes.URI) as? EntryInformation
 
                 mapOf(
+                    "_id" to audioLinkHash(audioLink),
                     "podcast_collections" to (collections ?: emptyList()),
                     "podcast_title" to feed.title,
                     "podcast_link" to feed.link,

@@ -10,7 +10,6 @@ machine hosting the files to avoid network filesystem overhead.
 """
 
 import argparse
-import hashlib
 import json
 import os
 import sqlite3
@@ -112,7 +111,7 @@ def collect_episodes(data_dir):
             if not transcript:
                 continue
 
-            episode_id = hashlib.md5(transcript.encode()).hexdigest()
+            episode_id = episode.get("_id")
 
             yield {
                 "id": episode_id,

@@ -193,8 +193,8 @@ class PodcastPipelineRunTest {
     ) {
         // A previous run was cancelled, leaving a gap: newest is transcribed, older one isn't.
         // With a threshold >1, the single transcribed episode should NOT halt the podcast.
-        val newEntry = makeEntry("New Episode")
-        val oldEntry = makeEntry("Old Episode")
+        val newEntry = makeEntry("New Episode", audioUrl = "https://cdn/new.mp3")
+        val oldEntry = makeEntry("Old Episode", audioUrl = "https://cdn/old.mp3")
         val feed = makeFeed(newEntry, oldEntry)
 
         val (pipeline, txSvc, _) =
@@ -208,7 +208,7 @@ class PodcastPipelineRunTest {
         val podcastDir = Files.createDirectories(tempDir.resolve("Show"))
         val newEpisodeDir =
             Files.createDirectories(
-                podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeTitleWithDate(newEntry))),
+                podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(newEntry, "https://cdn/new.mp3"))),
             )
         Files.writeString(newEpisodeDir.resolve("transcript.json"), "{}")
 
@@ -216,7 +216,7 @@ class PodcastPipelineRunTest {
 
         // The older, untranscribed episode should be picked up.
         assertEquals(1, txSvc.calls.size)
-        val oldDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeTitleWithDate(oldEntry)))
+        val oldDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(oldEntry, "https://cdn/old.mp3")))
         assertTrue(Files.exists(oldDir.resolve("transcript.json")))
     }
 
@@ -243,7 +243,7 @@ class PodcastPipelineRunTest {
         for (e in listOf(e1, e2, e3)) {
             val d =
                 Files.createDirectories(
-                    podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeTitleWithDate(e))),
+                    podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(e, "https://cdn/ep.mp3"))),
                 )
             Files.writeString(d.resolve("transcript.json"), "{}")
         }
@@ -251,7 +251,7 @@ class PodcastPipelineRunTest {
         pipeline.run()
 
         assertEquals(0, txSvc.calls.size)
-        val fourthDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeTitleWithDate(e4)))
+        val fourthDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(e4, "https://cdn/ep.mp3")))
         assertFalse(Files.exists(fourthDir))
     }
 
@@ -313,11 +313,10 @@ class PodcastPipelineRunTest {
 
         assertEquals(1, txSvc.calls.size)
         val episodeDirs = Files.list(tempDir.resolve("Show")).use { it.toList() }
-        // Both get a directory created, but only "Has Audio" has transcripts written
-        val hasAudioDir = episodeDirs.first { it.fileName.toString().contains("Has-Audio") }
-        assertTrue(Files.exists(hasAudioDir.resolve("transcript.json")))
-        val noAudioDir = episodeDirs.first { it.fileName.toString().contains("No-Audio") }
-        assertFalse(Files.exists(noAudioDir.resolve("transcript.json")))
+        // No Audio entry is skipped entirely — only Has Audio gets a directory
+        assertEquals(1, episodeDirs.size)
+        assertTrue(episodeDirs[0].fileName.toString().contains("Has-Audio"))
+        assertTrue(Files.exists(episodeDirs[0].resolve("transcript.json")))
     }
 
     @Test
