@@ -181,17 +181,24 @@ class PodcastPipeline(
 
         private fun formatDate(date: Date): String = date.toInstant().atZone(ZoneOffset.UTC).toLocalDate().format(dateFormat)
 
-        fun audioLinkHash(audioUrl: String): String {
-            val bytes = MessageDigest.getInstance("MD5").digest(audioUrl.toByteArray())
+        fun md5Hash8(value: String): String {
+            val bytes = MessageDigest.getInstance("MD5").digest(value.toByteArray())
             return bytes.joinToString("") { "%02x".format(it) }.take(8)
         }
+
+        /** Returns the stable 8-char ID for an episode: MD5(guid)[:8] if a GUID is present,
+         *  otherwise MD5(audioUrl)[:8] as a fallback for feeds that don't publish GUIDs. */
+        fun episodeId(
+            entry: SyndEntry,
+            audioUrl: String,
+        ): String = md5Hash8(entry.uri?.takeIf { it.isNotBlank() } ?: audioUrl)
 
         fun episodeStablePrefix(
             entry: SyndEntry,
             audioUrl: String,
         ): String {
             val date = if (entry.publishedDate != null) formatDate(entry.publishedDate) else "unknown-date"
-            return "$date-${audioLinkHash(audioUrl)}"
+            return "$date-${episodeId(entry, audioUrl)}"
         }
 
         fun getEpisodeDirName(
@@ -264,7 +271,8 @@ class PodcastPipeline(
                 val entryItunes = entry.getModule(ITunes.URI) as? EntryInformation
 
                 mapOf(
-                    "_id" to audioLinkHash(audioLink),
+                    "_id" to episodeId(entry, audioLink),
+                    "episode_guid" to entry.uri?.takeIf { it.isNotBlank() },
                     "podcast_collections" to (collections ?: emptyList()),
                     "podcast_title" to feed.title,
                     "podcast_link" to feed.link,
