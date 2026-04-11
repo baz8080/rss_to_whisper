@@ -36,12 +36,14 @@ class PodcastPipelineCompanionTest {
         publishedDate: Date? = null,
         enclosures: List<SyndEnclosureImpl> = emptyList(),
         links: List<SyndLinkImpl> = emptyList(),
+        guid: String? = null,
     ): SyndEntry =
         SyndEntryImpl().apply {
             this.title = title
             this.publishedDate = publishedDate
             this.enclosures = enclosures
             this.links = links
+            this.uri = guid
         }
 
     private fun enclosure(
@@ -68,29 +70,53 @@ class PodcastPipelineCompanionTest {
             this.length = length
         }
 
-    // ---------- audioLinkHash ----------
+    // ---------- md5Hash8 ----------
 
     @Test
-    fun `audioLinkHash returns 8 hex characters`() {
-        val result = PodcastPipeline.audioLinkHash("https://cdn/ep.mp3")
+    fun `md5Hash8 returns 8 hex characters`() {
+        val result = PodcastPipeline.md5Hash8("https://cdn/ep.mp3")
         assertEquals(8, result.length)
         assertTrue(result.all { it in '0'..'9' || it in 'a'..'f' })
     }
 
     @Test
-    fun `audioLinkHash is deterministic`() {
+    fun `md5Hash8 is deterministic`() {
         assertEquals(
-            PodcastPipeline.audioLinkHash("https://cdn/ep.mp3"),
-            PodcastPipeline.audioLinkHash("https://cdn/ep.mp3"),
+            PodcastPipeline.md5Hash8("https://cdn/ep.mp3"),
+            PodcastPipeline.md5Hash8("https://cdn/ep.mp3"),
         )
     }
 
     @Test
-    fun `audioLinkHash differs for different urls`() {
+    fun `md5Hash8 differs for different inputs`() {
         assertNotEquals(
-            PodcastPipeline.audioLinkHash("https://cdn/ep1.mp3"),
-            PodcastPipeline.audioLinkHash("https://cdn/ep2.mp3"),
+            PodcastPipeline.md5Hash8("https://cdn/ep1.mp3"),
+            PodcastPipeline.md5Hash8("https://cdn/ep2.mp3"),
         )
+    }
+
+    // ---------- episodeId ----------
+
+    @Test
+    fun `episodeId uses guid hash when guid is present`() {
+        val guid = "https://example.com/guid/123"
+        val audioUrl = "https://cdn/ep.mp3"
+        val e = entry(guid = guid)
+        assertEquals(PodcastPipeline.md5Hash8(guid), PodcastPipeline.episodeId(e, audioUrl))
+    }
+
+    @Test
+    fun `episodeId falls back to audio url hash when no guid`() {
+        val audioUrl = "https://cdn/ep.mp3"
+        val e = entry(guid = null)
+        assertEquals(PodcastPipeline.md5Hash8(audioUrl), PodcastPipeline.episodeId(e, audioUrl))
+    }
+
+    @Test
+    fun `episodeId falls back to audio url hash when guid is blank`() {
+        val audioUrl = "https://cdn/ep.mp3"
+        val e = entry(guid = "")
+        assertEquals(PodcastPipeline.md5Hash8(audioUrl), PodcastPipeline.episodeId(e, audioUrl))
     }
 
     // ---------- episodeStablePrefix ----------
@@ -99,15 +125,17 @@ class PodcastPipelineCompanionTest {
     fun `episodeStablePrefix returns date-hash format`() {
         val date = utcDate("2024-03-14")
         val audioUrl = "https://cdn/ep.mp3"
-        val result = PodcastPipeline.episodeStablePrefix(entry(publishedDate = date), audioUrl)
-        assertEquals("2024-03-14-${PodcastPipeline.audioLinkHash(audioUrl)}", result)
+        val e = entry(publishedDate = date)
+        val result = PodcastPipeline.episodeStablePrefix(e, audioUrl)
+        assertEquals("2024-03-14-${PodcastPipeline.episodeId(e, audioUrl)}", result)
     }
 
     @Test
     fun `episodeStablePrefix uses unknown-date when no date`() {
         val audioUrl = "https://cdn/ep.mp3"
-        val result = PodcastPipeline.episodeStablePrefix(entry(), audioUrl)
-        assertEquals("unknown-date-${PodcastPipeline.audioLinkHash(audioUrl)}", result)
+        val e = entry()
+        val result = PodcastPipeline.episodeStablePrefix(e, audioUrl)
+        assertEquals("unknown-date-${PodcastPipeline.episodeId(e, audioUrl)}", result)
     }
 
     // ---------- getEpisodeDirName ----------
@@ -116,8 +144,9 @@ class PodcastPipelineCompanionTest {
     fun `getEpisodeDirName includes stable prefix and title`() {
         val date = utcDate("2024-03-14")
         val audioUrl = "https://cdn/ep.mp3"
-        val result = PodcastPipeline.getEpisodeDirName(entry(title = "Hello", publishedDate = date), audioUrl)
-        assertEquals("2024-03-14-${PodcastPipeline.audioLinkHash(audioUrl)}-Hello", result)
+        val e = entry(title = "Hello", publishedDate = date)
+        val result = PodcastPipeline.getEpisodeDirName(e, audioUrl)
+        assertEquals("2024-03-14-${PodcastPipeline.episodeId(e, audioUrl)}-Hello", result)
     }
 
     // ---------- findExistingEpisodeDir ----------
@@ -126,7 +155,7 @@ class PodcastPipelineCompanionTest {
     fun `findExistingEpisodeDir returns directory matching stable prefix`(
         @TempDir tempDir: Path,
     ) {
-        val hash = PodcastPipeline.audioLinkHash("https://cdn/ep.mp3")
+        val hash = PodcastPipeline.md5Hash8("https://cdn/ep.mp3")
         val existing = Files.createDirectories(tempDir.resolve("2024-03-14-$hash-Old-Title"))
         assertEquals(existing, PodcastPipeline.findExistingEpisodeDir(tempDir, "2024-03-14-$hash"))
     }
@@ -256,10 +285,12 @@ class PodcastPipelineCompanionTest {
         authors: List<String> = emptyList(),
         itunes: EntryInformationImpl? = null,
         foreignImageHref: String? = null,
+        guid: String? = null,
     ): SyndEntry =
         SyndEntryImpl().apply {
             this.title = title
             this.link = "https://example.com/ep"
+            this.uri = guid
             if (description != null) {
                 this.description =
                     SyndContentImpl().apply {
@@ -327,6 +358,7 @@ class PodcastPipelineCompanionTest {
                 itunesAuthor = "Itunes Author",
                 itunesType = "serial",
             )
+        val guid = "https://example.com/guid/ep42"
         val e =
             entryWithItunes(
                 title = "Ep",
@@ -335,11 +367,13 @@ class PodcastPipelineCompanionTest {
                 audioUrl = "https://cdn/ep.mp3",
                 authors = listOf("Alice", "Bob"),
                 itunes = itunes,
+                guid = guid,
             )
 
         val dict = PodcastPipeline.buildEpisodeDict(feed, e, "transcript", "pod/ep/audio.mp3", listOf("col1"))!!
 
-        assertEquals(PodcastPipeline.audioLinkHash("https://cdn/ep.mp3"), dict["_id"])
+        assertEquals(PodcastPipeline.md5Hash8(guid), dict["_id"])
+        assertEquals(guid, dict["episode_guid"])
         assertEquals(listOf("col1"), dict["podcast_collections"])
         assertEquals("Pod", dict["podcast_title"])
         assertEquals("https://pod", dict["podcast_link"])
