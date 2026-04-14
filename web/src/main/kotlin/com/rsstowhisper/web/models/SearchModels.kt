@@ -54,15 +54,4 @@ enum class DurationCategory(val label: String, val maxSeconds: Int?) {
     MEDIUM("Medium (15–45 min)", 2700),
     LONG("Long (> 45 min)", null),
     ;
-
-    companion object {
-        fun fromSeconds(seconds: Int?): DurationCategory? {
-            if (seconds == null || seconds <= 0) return null
-            return when {
-                seconds < 900 -> SHORT
-                seconds <= 2700 -> MEDIUM
-                else -> LONG
-            }
-        }
-    }
 }

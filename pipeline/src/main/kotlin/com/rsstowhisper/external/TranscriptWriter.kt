@@ -30,7 +30,7 @@ class TranscriptWriter {
                 accumulatedText += "$trimmed "
 
                 if (trimmed.endsWith(".") || trimmed.endsWith("?") || trimmed.endsWith("!")) {
-                    lines.add(accumulatedStart!! to accumulatedText.trim())
+                    lines.add(accumulatedStart to accumulatedText.trim())
                     accumulatedText = ""
                     accumulatedStart = null
                 }
