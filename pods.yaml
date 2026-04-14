@@ -92,7 +92,7 @@ podcasts:
   - interviews
   - space
 - name: Universe Today
-  url: https://feeds.fireside.fm/universetoday/rss
+  url: https://www.patreon.com/rss/75186?show=1744036
   collections:
   - space
   - space news
@@ -127,7 +127,7 @@ podcasts:
   collections:
   - irish history
   - history
-- name: HBR Ideacast
+- name: HBR IdeaCast
   url: http://feeds.harvardbusiness.org/harvardbusiness/ideacast
   collections:
   - management
@@ -173,7 +173,7 @@ podcasts:
   - american history
   - history
 - name: Why This Universe
-  url: https://feeds.simplecast.com/90xaaSc5
+  url: https://rss.buzzsprout.com/1162613.rss
   collections:
   - astrophysics
   - space
@@ -200,4 +200,7 @@ podcasts:
   url: https://feed.lostwomenofscience.org
   collections:
   - science
-  
+- name: Pragmatic Engineer
+  url: https://api.substack.com/feed/podcast/458709.rss
+  collections:
+  - software
