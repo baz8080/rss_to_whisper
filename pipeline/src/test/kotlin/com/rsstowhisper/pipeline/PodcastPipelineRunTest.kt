@@ -65,11 +65,13 @@ class PodcastPipelineRunTest {
         title: String?,
         audioUrl: String? = "https://cdn/ep.mp3",
         publishedDate: Date? = Date(1_700_000_000_000L),
+        guid: String? = "https://example.com/guid/$title",
     ): SyndEntryImpl =
         SyndEntryImpl().apply {
             this.title = title
             this.link = "https://example.com/ep"
             this.publishedDate = publishedDate
+            this.uri = guid
             this.enclosures =
                 if (audioUrl != null) {
                     listOf(
@@ -208,7 +210,7 @@ class PodcastPipelineRunTest {
         val podcastDir = Files.createDirectories(tempDir.resolve("Show"))
         val newEpisodeDir =
             Files.createDirectories(
-                podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(newEntry, "https://cdn/new.mp3"))),
+                podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(newEntry))),
             )
         Files.writeString(newEpisodeDir.resolve("transcript.json"), "{}")
 
@@ -216,7 +218,7 @@ class PodcastPipelineRunTest {
 
         // The older, untranscribed episode should be picked up.
         assertEquals(1, txSvc.calls.size)
-        val oldDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(oldEntry, "https://cdn/old.mp3")))
+        val oldDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(oldEntry)))
         assertTrue(Files.exists(oldDir.resolve("transcript.json")))
     }
 
@@ -243,7 +245,7 @@ class PodcastPipelineRunTest {
         for (e in listOf(e1, e2, e3)) {
             val d =
                 Files.createDirectories(
-                    podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(e, "https://cdn/ep.mp3"))),
+                    podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(e))),
                 )
             Files.writeString(d.resolve("transcript.json"), "{}")
         }
@@ -251,7 +253,7 @@ class PodcastPipelineRunTest {
         pipeline.run()
 
         assertEquals(0, txSvc.calls.size)
-        val fourthDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(e4, "https://cdn/ep.mp3")))
+        val fourthDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(e4)))
         assertFalse(Files.exists(fourthDir))
     }
 

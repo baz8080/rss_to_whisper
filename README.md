@@ -15,14 +15,6 @@ A Ktor HTTP server that serves a full-text search interface over the SQLite data
 ### `index.py`
 Reads all `transcript.json` files in the data directory and writes them into a SQLite FTS4 database. Run this after the pipeline to make new transcripts searchable. Requires only Python 3 stdlib.
 
-### `fix_tags.py`
-One-off utility to clean up `all_tags` in existing `transcript.json` files — trims whitespace, lowercases, removes duplicates, and drops tags of 2 characters or fewer. Run with `--dry-run` first to preview changes.
-
-```bash
-python3 fix_tags.py /path/to/data_directory --dry-run
-python3 fix_tags.py /path/to/data_directory
-```
-
 ## Prerequisites
 
 - JDK 21+

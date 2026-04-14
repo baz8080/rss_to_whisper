@@ -89,6 +89,11 @@ class PodcastPipeline(
                 continue
             }
 
+            if (entry.uri.isNullOrBlank()) {
+                logger.warn("$title has no GUID. Skipping")
+                continue
+            }
+
             try {
                 val audioUrl = findAudioLink(entry)
                 if (audioUrl == null) {
@@ -96,12 +101,12 @@ class PodcastPipeline(
                     continue
                 }
 
-                val stablePrefix = episodeStablePrefix(entry, audioUrl)
+                val stablePrefix = episodeStablePrefix(entry)
                 logger.debug("Processing $stablePrefix")
 
                 val episodeDirPath =
                     findExistingEpisodeDir(podPath, stablePrefix)
-                        ?: createPath(podPath, getEpisodeDirName(entry, audioUrl))
+                        ?: createPath(podPath, getEpisodeDirName(entry))
 
                 if (Files.exists(episodeDirPath.resolve("transcript.json"))) {
                     consecutiveTranscribed++
@@ -186,25 +191,14 @@ class PodcastPipeline(
             return bytes.joinToString("") { "%02x".format(it) }.take(8)
         }
 
-        /** Returns the stable 8-char ID for an episode: MD5(guid)[:8] if a GUID is present,
-         *  otherwise MD5(audioUrl)[:8] as a fallback for feeds that don't publish GUIDs. */
-        fun episodeId(
-            entry: SyndEntry,
-            audioUrl: String,
-        ): String = md5Hash8(entry.uri?.takeIf { it.isNotBlank() } ?: audioUrl)
+        fun episodeId(entry: SyndEntry): String = md5Hash8(entry.uri!!)
 
-        fun episodeStablePrefix(
-            entry: SyndEntry,
-            audioUrl: String,
-        ): String {
+        fun episodeStablePrefix(entry: SyndEntry): String {
             val date = if (entry.publishedDate != null) formatDate(entry.publishedDate) else "unknown-date"
-            return "$date-${episodeId(entry, audioUrl)}"
+            return "$date-${episodeId(entry)}"
         }
 
-        fun getEpisodeDirName(
-            entry: SyndEntry,
-            audioUrl: String,
-        ): String = "${episodeStablePrefix(entry, audioUrl)}-${entry.title ?: "unknown"}"
+        fun getEpisodeDirName(entry: SyndEntry): String = "${episodeStablePrefix(entry)}-${entry.title ?: "unknown"}"
 
         fun findExistingEpisodeDir(
             podPath: Path,
@@ -260,6 +254,12 @@ class PodcastPipeline(
         ): Map<String, Any?>? {
             if (transcript.isEmpty()) return null
 
+            val guid = entry.uri?.takeIf { it.isNotBlank() }
+            if (guid == null) {
+                logger.error("Skipping episode because it has no GUID")
+                return null
+            }
+
             val audioLink = findAudioLink(entry)
             if (audioLink == null) {
                 logger.error("Skipping episode because it has no MP3")
@@ -271,8 +271,8 @@ class PodcastPipeline(
                 val entryItunes = entry.getModule(ITunes.URI) as? EntryInformation
 
                 mapOf(
-                    "_id" to episodeId(entry, audioLink),
-                    "episode_guid" to entry.uri?.takeIf { it.isNotBlank() },
+                    "_id" to episodeId(entry),
+                    "episode_guid" to guid,
                     "podcast_collections" to (collections ?: emptyList()),
                     "podcast_title" to feed.title,
                     "podcast_link" to feed.link,

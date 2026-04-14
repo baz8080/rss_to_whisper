@@ -10,12 +10,17 @@ import java.io.StringReader
 import java.nio.file.Files
 import java.nio.file.Path
 
+private const val APP_VERSION = "2.0.0"
+
 open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
     private val logger = LoggerFactory.getLogger(FeedService::class.java)
+    private val userAgent = "rss-to-whisper/$APP_VERSION https://github.com/baz8080/rss_to_whisper"
 
     open fun fetchFeed(url: String): SyndFeed? {
         return try {
-            val request = Request.Builder().url(url).build()
+            val request =
+                Request.Builder().url(url)
+                    .addHeader("User-Agent", userAgent).build()
             val body =
                 httpClient.newCall(request).execute().use { response ->
                     if (response.isSuccessful) {
@@ -47,7 +52,9 @@ open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
         }
 
         logger.debug("Downloading audio")
-        val request = Request.Builder().url(url).build()
+        val request =
+            Request.Builder().url(url)
+                .addHeader("User-Agent", userAgent).build()
 
         try {
             httpClient.newCall(request).execute().use { response ->
