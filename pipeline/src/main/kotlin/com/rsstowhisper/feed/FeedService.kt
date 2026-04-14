@@ -15,7 +15,10 @@ open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
 
     open fun fetchFeed(url: String): SyndFeed? {
         return try {
-            val request = Request.Builder().url(url).build()
+            val request = Request.Builder().url(url)
+                .addHeader(
+                    "User-Agent",
+                    "rss-to-whisper/2.0.0 https://github.com/baz8080/rss_to_whisper").build()
             val body =
                 httpClient.newCall(request).execute().use { response ->
                     if (response.isSuccessful) {
@@ -47,7 +50,10 @@ open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
         }
 
         logger.debug("Downloading audio")
-        val request = Request.Builder().url(url).build()
+        val request = Request.Builder().url(url)
+            .addHeader(
+                "User-Agent",
+                "rss-to-whisper/2.0.0 https://github.com/baz8080/rss_to_whisper").build()
 
         try {
             httpClient.newCall(request).execute().use { response ->
