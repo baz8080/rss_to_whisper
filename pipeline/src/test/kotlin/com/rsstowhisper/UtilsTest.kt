@@ -10,7 +10,7 @@ class UtilsTest {
         ",''",
         "'',''",
         "' ',''",
-        $$"file$name,file-name",
+        "file\$name,file-name",
         "hello__world,hello-world",
         "trailing-,trailing",
         "unsafe@chars!,unsafe-chars",

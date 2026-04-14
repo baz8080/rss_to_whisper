@@ -53,5 +53,4 @@ enum class DurationCategory(val label: String, val maxSeconds: Int?) {
     SHORT("Short (< 15 min)", 900),
     MEDIUM("Medium (15–45 min)", 2700),
     LONG("Long (> 45 min)", null),
-    ;
 }
