@@ -26,7 +26,7 @@ fun HTML.layout(
             rel = "stylesheet"
             href = "https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"
         }
-        script(src = "/static/htmx.min.js") { +"" }
+        script(src = "/static/htmx.min.js") {}
         style {
             unsafe {
                 +CSS
