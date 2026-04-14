@@ -98,25 +98,10 @@ class PodcastPipelineCompanionTest {
     // ---------- episodeId ----------
 
     @Test
-    fun `episodeId uses guid hash when guid is present`() {
+    fun `episodeId returns hash of guid`() {
         val guid = "https://example.com/guid/123"
-        val audioUrl = "https://cdn/ep.mp3"
         val e = entry(guid = guid)
-        assertEquals(PodcastPipeline.md5Hash8(guid), PodcastPipeline.episodeId(e, audioUrl))
-    }
-
-    @Test
-    fun `episodeId falls back to audio url hash when no guid`() {
-        val audioUrl = "https://cdn/ep.mp3"
-        val e = entry(guid = null)
-        assertEquals(PodcastPipeline.md5Hash8(audioUrl), PodcastPipeline.episodeId(e, audioUrl))
-    }
-
-    @Test
-    fun `episodeId falls back to audio url hash when guid is blank`() {
-        val audioUrl = "https://cdn/ep.mp3"
-        val e = entry(guid = "")
-        assertEquals(PodcastPipeline.md5Hash8(audioUrl), PodcastPipeline.episodeId(e, audioUrl))
+        assertEquals(PodcastPipeline.md5Hash8(guid), PodcastPipeline.episodeId(e))
     }
 
     // ---------- episodeStablePrefix ----------
@@ -124,18 +109,16 @@ class PodcastPipelineCompanionTest {
     @Test
     fun `episodeStablePrefix returns date-hash format`() {
         val date = utcDate("2024-03-14")
-        val audioUrl = "https://cdn/ep.mp3"
-        val e = entry(publishedDate = date)
-        val result = PodcastPipeline.episodeStablePrefix(e, audioUrl)
-        assertEquals("2024-03-14-${PodcastPipeline.episodeId(e, audioUrl)}", result)
+        val e = entry(publishedDate = date, guid = "https://example.com/guid/1")
+        val result = PodcastPipeline.episodeStablePrefix(e)
+        assertEquals("2024-03-14-${PodcastPipeline.episodeId(e)}", result)
     }
 
     @Test
     fun `episodeStablePrefix uses unknown-date when no date`() {
-        val audioUrl = "https://cdn/ep.mp3"
-        val e = entry()
-        val result = PodcastPipeline.episodeStablePrefix(e, audioUrl)
-        assertEquals("unknown-date-${PodcastPipeline.episodeId(e, audioUrl)}", result)
+        val e = entry(guid = "https://example.com/guid/1")
+        val result = PodcastPipeline.episodeStablePrefix(e)
+        assertEquals("unknown-date-${PodcastPipeline.episodeId(e)}", result)
     }
 
     // ---------- getEpisodeDirName ----------
@@ -143,10 +126,9 @@ class PodcastPipelineCompanionTest {
     @Test
     fun `getEpisodeDirName includes stable prefix and title`() {
         val date = utcDate("2024-03-14")
-        val audioUrl = "https://cdn/ep.mp3"
-        val e = entry(title = "Hello", publishedDate = date)
-        val result = PodcastPipeline.getEpisodeDirName(e, audioUrl)
-        assertEquals("2024-03-14-${PodcastPipeline.episodeId(e, audioUrl)}-Hello", result)
+        val e = entry(title = "Hello", publishedDate = date, guid = "https://example.com/guid/1")
+        val result = PodcastPipeline.getEpisodeDirName(e)
+        assertEquals("2024-03-14-${PodcastPipeline.episodeId(e)}-Hello", result)
     }
 
     // ---------- findExistingEpisodeDir ----------
@@ -285,7 +267,7 @@ class PodcastPipelineCompanionTest {
         authors: List<String> = emptyList(),
         itunes: EntryInformationImpl? = null,
         foreignImageHref: String? = null,
-        guid: String? = null,
+        guid: String? = "https://example.com/guid/default",
     ): SyndEntry =
         SyndEntryImpl().apply {
             this.title = title
@@ -327,6 +309,13 @@ class PodcastPipelineCompanionTest {
         val feed = feedWithItunes()
         val e = entryWithItunes()
         assertNull(PodcastPipeline.buildEpisodeDict(feed, e, "", "rel/path.mp3"))
+    }
+
+    @Test
+    fun `buildEpisodeDict returns null when episode has no guid`() {
+        val feed = feedWithItunes()
+        val e = entryWithItunes(guid = null)
+        assertNull(PodcastPipeline.buildEpisodeDict(feed, e, "some transcript", "rel/path.mp3"))
     }
 
     @Test
@@ -495,6 +484,7 @@ class PodcastPipelineCompanionTest {
             SyndEntryImpl().apply {
                 title = "t"
                 link = "https://example.com/ep"
+                uri = "https://example.com/guid/enclosure-test"
                 enclosures = emptyList()
                 links = listOf(link("https://cdn/ep.mp3", rel = "enclosure"))
             }
