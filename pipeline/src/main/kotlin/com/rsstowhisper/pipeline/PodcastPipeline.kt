@@ -291,7 +291,7 @@ class PodcastPipeline(
                     "episode_subtitle" to entryItunes?.subtitle,
                     "episode_authors" to
                         entry.authors?.map {
-                            (it as? com.rometools.rome.feed.synd.SyndPerson)?.name
+                            it?.name
                         },
                     "episode_number" to entryItunes?.episode,
                     "episode_season" to entryItunes?.season,
