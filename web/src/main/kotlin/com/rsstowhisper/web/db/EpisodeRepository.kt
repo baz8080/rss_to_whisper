@@ -28,10 +28,11 @@ class EpisodeRepository {
 
     @PostConstruct
     fun init() {
-        conn = DriverManager.getConnection("jdbc:sqlite:$dbPath").apply {
-            createStatement().execute("PRAGMA query_only=ON")
-            createStatement().execute("PRAGMA mmap_size=268435456")
-        }
+        conn =
+            DriverManager.getConnection("jdbc:sqlite:$dbPath").apply {
+                createStatement().execute("PRAGMA query_only=ON")
+                createStatement().execute("PRAGMA mmap_size=268435456")
+            }
     }
 
     @PreDestroy
@@ -58,55 +59,60 @@ class EpisodeRepository {
 
         val whereClause = if (whereClauses.isEmpty()) "" else "WHERE ${whereClauses.joinToString(" AND ")}"
 
-        val countSql = if (hasQuery) {
-            "SELECT COUNT(*) FROM episodes e JOIN episodes_fts ON e.rowid = episodes_fts.rowid $whereClause"
-        } else {
-            "SELECT COUNT(*) FROM episodes e $whereClause"
-        }
-
-        val totalCount = conn.prepareStatement(countSql).use { stmt ->
-            params.forEachIndexed { i, p -> setParam(stmt, i + 1, p) }
-            stmt.executeQuery().use { rs ->
-                rs.next()
-                rs.getInt(1)
+        val countSql =
+            if (hasQuery) {
+                "SELECT COUNT(*) FROM episodes e JOIN episodes_fts ON e.rowid = episodes_fts.rowid $whereClause"
+            } else {
+                "SELECT COUNT(*) FROM episodes e $whereClause"
             }
-        }
+
+        val totalCount =
+            conn.prepareStatement(countSql).use { stmt ->
+                params.forEachIndexed { i, p -> setParam(stmt, i + 1, p) }
+                stmt.executeQuery().use { rs ->
+                    rs.next()
+                    rs.getInt(1)
+                }
+            }
 
         // FTS5 snippet signature: snippet(table, column_index, start, end, ellipsis, tokens)
         // column_index -1 = search across all columns
-        val snippetExpr = if (hasQuery) {
-            "snippet(episodes_fts, -1, '<mark>', '</mark>', '…', 40)"
-        } else {
-            "NULL"
-        }
+        val snippetExpr =
+            if (hasQuery) {
+                "snippet(episodes_fts, -1, '<mark>', '</mark>', '…', 40)"
+            } else {
+                "NULL"
+            }
 
-        val selectSql = if (hasQuery) {
-            """SELECT $SEARCH_COLUMNS, $snippetExpr AS snippet
+        val selectSql =
+            if (hasQuery) {
+                """SELECT $SEARCH_COLUMNS, $snippetExpr AS snippet
                FROM episodes e
                JOIN episodes_fts ON e.rowid = episodes_fts.rowid
                $whereClause
                ORDER BY episodes_fts.rank
                LIMIT ? OFFSET ?"""
-        } else {
-            """SELECT $SEARCH_COLUMNS, NULL AS snippet
+            } else {
+                """SELECT $SEARCH_COLUMNS, NULL AS snippet
                FROM episodes e
                $whereClause
                ORDER BY e.episode_published_on DESC
                LIMIT ? OFFSET ?"""
-        }
+            }
 
         val offset = (filters.page - 1) * filters.pageSize
-        val episodes = conn.prepareStatement(selectSql).use { stmt ->
-            params.forEachIndexed { i, p -> setParam(stmt, i + 1, p) }
-            val paramOffset = params.size
-            stmt.setInt(paramOffset + 1, filters.pageSize)
-            stmt.setInt(paramOffset + 2, offset)
-            stmt.executeQuery().use { rs ->
-                val results = mutableListOf<Episode>()
-                while (rs.next()) results.add(mapEpisode(rs))
-                results
+        val episodes =
+            conn.prepareStatement(selectSql).use { stmt ->
+                params.forEachIndexed { i, p -> setParam(stmt, i + 1, p) }
+                val paramOffset = params.size
+                stmt.setInt(paramOffset + 1, filters.pageSize)
+                stmt.setInt(paramOffset + 2, offset)
+                stmt.executeQuery().use { rs ->
+                    val results = mutableListOf<Episode>()
+                    while (rs.next()) results.add(mapEpisode(rs))
+                    results
+                }
             }
-        }
 
         return SearchResult(episodes, totalCount, filters.page, filters.pageSize)
     }
@@ -127,11 +133,12 @@ class EpisodeRepository {
         if (query == cachedFilterQuery) return cachedFilterOptions!!
 
         val hasQuery = query.isNotBlank()
-        val fromClause = if (hasQuery) {
-            "FROM episodes e JOIN episodes_fts ON e.rowid = episodes_fts.rowid"
-        } else {
-            "FROM episodes e"
-        }
+        val fromClause =
+            if (hasQuery) {
+                "FROM episodes e JOIN episodes_fts ON e.rowid = episodes_fts.rowid"
+            } else {
+                "FROM episodes e"
+            }
         val wherePrefix = if (hasQuery) "WHERE episodes_fts MATCH ? AND" else "WHERE"
 
         fun queryDistinct(column: String): List<String> {
@@ -158,11 +165,12 @@ class EpisodeRepository {
             }
         }
 
-        val options = FilterOptions(
-            podcasts = queryDistinct("e.podcast_title"),
-            collections = splitCsv("e.podcast_collections"),
-            episodeTypes = queryDistinct("e.episode_type"),
-        )
+        val options =
+            FilterOptions(
+                podcasts = queryDistinct("e.podcast_title"),
+                collections = splitCsv("e.podcast_collections"),
+                episodeTypes = queryDistinct("e.episode_type"),
+            )
         cachedFilterQuery = query
         cachedFilterOptions = options
         return options
@@ -221,7 +229,11 @@ class EpisodeRepository {
         values.forEach { params.add("%$it%") }
     }
 
-    private fun setParam(stmt: java.sql.PreparedStatement, index: Int, value: Any) {
+    private fun setParam(
+        stmt: java.sql.PreparedStatement,
+        index: Int,
+        value: Any,
+    ) {
         when (value) {
             is String -> stmt.setString(index, value)
             is Int -> stmt.setInt(index, value)
@@ -229,7 +241,10 @@ class EpisodeRepository {
         }
     }
 
-    private fun mapEpisode(rs: ResultSet, includeTranscript: Boolean = false): Episode =
+    private fun mapEpisode(
+        rs: ResultSet,
+        includeTranscript: Boolean = false,
+    ): Episode =
         Episode(
             id = rs.getString("id"),
             podcastTitle = rs.getString("podcast_title"),

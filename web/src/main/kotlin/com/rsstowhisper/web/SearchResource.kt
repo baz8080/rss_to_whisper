@@ -53,28 +53,30 @@ class SearchResource {
         @QueryParam("page") @DefaultValue("1") page: Int,
         @HeaderParam("HX-Request") htmxRequest: String?,
     ): String {
-        val filters = SearchFilters(
-            query = query.trim(),
-            durations = durations.toSet(),
-            podcasts = podcasts.toSet(),
-            collections = collections.toSet(),
-            tags = tags.toSet(),
-            episodeTypes = episodeTypes.toSet(),
-            page = page.coerceAtLeast(1),
-        )
+        val filters =
+            SearchFilters(
+                query = query.trim(),
+                durations = durations.toSet(),
+                podcasts = podcasts.toSet(),
+                collections = collections.toSet(),
+                tags = tags.toSet(),
+                episodeTypes = episodeTypes.toSet(),
+                page = page.coerceAtLeast(1),
+            )
         val result = repository.search(filters)
         val filterOptions = repository.getFilterOptions(filters.query)
         val base = audioBaseUrl.trimEnd('/')
 
-        val ctx = Context().apply {
-            setVariable("result", result)
-            setVariable("filters", filters)
-            setVariable("filterOptions", filterOptions)
-            setVariable("audioBaseUrl", base)
-            setVariable("hasActiveFilters", filters.hasActiveFilters())
-            setVariable("prevUrl", buildSearchUrl(filters.copy(page = filters.page - 1)))
-            setVariable("nextUrl", buildSearchUrl(filters.copy(page = filters.page + 1)))
-        }
+        val ctx =
+            Context().apply {
+                setVariable("result", result)
+                setVariable("filters", filters)
+                setVariable("filterOptions", filterOptions)
+                setVariable("audioBaseUrl", base)
+                setVariable("hasActiveFilters", filters.hasActiveFilters())
+                setVariable("prevUrl", buildSearchUrl(filters.copy(page = filters.page - 1)))
+                setVariable("nextUrl", buildSearchUrl(filters.copy(page = filters.page + 1)))
+            }
 
         // HTMX partial request: return only the #app fragment so the browser
         // can swap it in-place without a full page reload.
@@ -88,25 +90,30 @@ class SearchResource {
     @GET
     @Path("/episode/{id}")
     @Produces(MediaType.TEXT_HTML)
-    fun episode(@PathParam("id") id: String): Response {
-        val episode = repository.getEpisodeById(id)
-            ?: return Response.status(Response.Status.NOT_FOUND)
-                .entity("Episode not found")
-                .type(MediaType.TEXT_HTML)
-                .build()
+    fun episode(
+        @PathParam("id") id: String,
+    ): Response {
+        val episode =
+            repository.getEpisodeById(id)
+                ?: return Response.status(Response.Status.NOT_FOUND)
+                    .entity("Episode not found")
+                    .type(MediaType.TEXT_HTML)
+                    .build()
 
         val base = audioBaseUrl.trimEnd('/')
         val transcriptLines = episode.transcript?.let { parseTranscript(it) } ?: emptyList()
-        val linkifiedSummary = episode.episodeSummary?.let {
-            if (it.contains('<')) it else linkify(it)
-        }
+        val linkifiedSummary =
+            episode.episodeSummary?.let {
+                if (it.contains('<')) it else linkify(it)
+            }
 
-        val ctx = Context().apply {
-            setVariable("episode", episode)
-            setVariable("audioBaseUrl", base)
-            setVariable("transcriptLines", transcriptLines)
-            setVariable("linkifiedSummary", linkifiedSummary)
-        }
+        val ctx =
+            Context().apply {
+                setVariable("episode", episode)
+                setVariable("audioBaseUrl", base)
+                setVariable("transcriptLines", transcriptLines)
+                setVariable("linkifiedSummary", linkifiedSummary)
+            }
 
         return Response.ok(templateEngine.process("episode", ctx), MediaType.TEXT_HTML).build()
     }

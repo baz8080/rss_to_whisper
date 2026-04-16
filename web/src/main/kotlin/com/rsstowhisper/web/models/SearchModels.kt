@@ -23,11 +23,12 @@ data class Episode(
     // Computed properties — accessible from Thymeleaf as episode.formattedDuration etc.
     val formattedDuration: String? get() = episodeDuration?.let { formatDuration(it) }
     val strippedSnippet: String? get() = snippet?.let { stripTimestamps(it) }
-    val tagList: List<String> get() = allTags
-        ?.split(",")
-        ?.map(String::trim)
-        ?.filter(String::isNotBlank)
-        ?: emptyList()
+    val tagList: List<String> get() =
+        allTags
+            ?.split(",")
+            ?.map(String::trim)
+            ?.filter(String::isNotBlank)
+            ?: emptyList()
     val wavPath: String? get() = episodeRelativeMp3Path?.replace(".mp3", ".wav")
 }
 
@@ -124,8 +125,7 @@ fun parseTranscript(transcript: String): List<TranscriptLine> {
 
 private val TIMESTAMP_REGEX = Regex("""\d{4,}\t""")
 
-private fun stripTimestamps(snippet: String): String =
-    TIMESTAMP_REGEX.replace(snippet, " ").replace("  ", " ")
+private fun stripTimestamps(snippet: String): String = TIMESTAMP_REGEX.replace(snippet, " ").replace("  ", " ")
 
 private val URL_REGEX = Regex("""https?://[^\s<>"]+""")
 

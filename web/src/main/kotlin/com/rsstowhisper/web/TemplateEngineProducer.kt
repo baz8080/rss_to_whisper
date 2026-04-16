@@ -26,12 +26,13 @@ class TemplateEngineProducer {
     @Produces
     @Singleton
     fun produce(): TemplateEngine {
-        val resolver = ClassLoaderTemplateResolver().apply {
-            prefix = "/templates/"
-            suffix = ".html"
-            characterEncoding = "UTF-8"
-            isCacheable = cacheTemplates.toBooleanStrict()
-        }
+        val resolver =
+            ClassLoaderTemplateResolver().apply {
+                prefix = "/templates/"
+                suffix = ".html"
+                characterEncoding = "UTF-8"
+                isCacheable = cacheTemplates.toBooleanStrict()
+            }
         return TemplateEngine().apply {
             setTemplateResolver(resolver)
         }
