@@ -27,4 +27,5 @@ dependencies {
     implementation("org.xerial:sqlite-jdbc:3.49.1.0")
 
     testImplementation("io.quarkus:quarkus-junit5")
+    testImplementation("io.mockk:mockk:1.13.12")
 }
