@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title th:text="${episode.episodeTitle != null ? episode.episodeTitle : 'Episode'}">Episode</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"/>
+    <link rel="stylesheet" href="/styles.css"/>
+    <script src="/htmx.min.js"></script>
+</head>
+<body>
+
+<div class="episode-detail">
+
+    <a href="javascript:history.back()" class="back-link">&#x2190; Back to results</a>
+
+    <div class="podcast-name"
+         th:text="${episode.podcastTitle != null ? episode.podcastTitle : 'Unknown Podcast'}"></div>
+    <h2 th:text="${episode.episodeTitle != null ? episode.episodeTitle : 'Untitled'}"></h2>
+
+    <table class="episode-meta-table">
+        <tbody>
+        <tr th:if="${episode.episodePublishedOn != null}">
+            <th>Published</th>
+            <td th:text="${episode.episodePublishedOn}"></td>
+        </tr>
+        <tr th:if="${episode.formattedDuration != null}">
+            <th>Duration</th>
+            <td th:text="${episode.formattedDuration}"></td>
+        </tr>
+        <!-- Season + episode number together when both present -->
+        <tr th:if="${episode.episodeSeason != null and episode.episodeNumber != null}">
+            <th>Season / Episode</th>
+            <td th:text="'S' + ${episode.episodeSeason} + 'E' + ${episode.episodeNumber}"></td>
+        </tr>
+        <!-- Season alone -->
+        <tr th:if="${episode.episodeSeason != null and episode.episodeNumber == null}">
+            <th>Season</th>
+            <td th:text="${episode.episodeSeason}"></td>
+        </tr>
+        <!-- Episode number alone -->
+        <tr th:if="${episode.episodeSeason == null and episode.episodeNumber != null}">
+            <th>Episode</th>
+            <td th:text="${episode.episodeNumber}"></td>
+        </tr>
+        <tr th:if="${episode.episodeType != null and episode.episodeType != 'full'}">
+            <th>Type</th>
+            <td th:text="${episode.episodeType}"></td>
+        </tr>
+        <tr th:if="${episode.podcastCollections != null and not #strings.isEmpty(episode.podcastCollections)}">
+            <th>Collections</th>
+            <td th:text="${episode.podcastCollections}"></td>
+        </tr>
+        <tr th:if="${episode.allTags != null and not #strings.isEmpty(episode.allTags)}">
+            <th>Tags</th>
+            <td th:text="${episode.allTags}"></td>
+        </tr>
+        <!-- linkifiedSummary is pre-processed in SearchResource: URLs wrapped in <a> tags -->
+        <tr th:if="${linkifiedSummary != null and not #strings.isEmpty(linkifiedSummary)}">
+            <th>Summary</th>
+            <td th:utext="${linkifiedSummary}"></td>
+        </tr>
+        <tr th:if="${episode.episodeWebLink != null}">
+            <th>Episode page</th>
+            <td>
+                <a th:href="${episode.episodeWebLink}"
+                   th:text="${episode.episodeWebLink}"
+                   target="_blank"></a>
+            </td>
+        </tr>
+        <tr th:if="${episode.episodeAudioLink != null}">
+            <th>Original audio</th>
+            <td><a th:href="${episode.episodeAudioLink}" target="_blank">Link</a></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Audio player -->
+    <div class="audio-player" th:if="${episode.wavPath != null}">
+        <audio id="episode-audio"
+               controls="controls"
+               preload="none"
+               th:src="${audioBaseUrl + '/' + episode.wavPath}">
+            Your browser does not support audio.
+        </audio>
+    </div>
+
+    <!-- Transcript — parsed into timestamped lines by SearchResource -->
+    <div th:if="${not transcriptLines.isEmpty()}">
+        <h3>Transcript</h3>
+        <div class="transcript">
+            <div class="transcript-line" th:each="line : ${transcriptLines}">
+                <span class="transcript-time"
+                      th:onclick="'seekAudio(' + ${line.seconds} + ')'"
+                      th:title="'Jump to ' + ${line.display}"
+                      th:text="${line.display}"></span>
+                <span class="transcript-text" th:text="${line.text}"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Fallback: raw transcript when it exists but couldn't be parsed -->
+    <div th:if="${transcriptLines.isEmpty() and episode.transcript != null}">
+        <h3>Transcript</h3>
+        <div class="transcript">
+            <p th:text="${episode.transcript}"></p>
+        </div>
+    </div>
+
+    <script>
+        function seekAudio(seconds) {
+            var audio = document.getElementById('episode-audio');
+            if (audio) {
+                audio.currentTime = seconds;
+                if (audio.paused) { audio.play(); }
+            }
+        }
+    </script>
+
+</div><!-- end episode-detail -->
+
+</body>
+</html>

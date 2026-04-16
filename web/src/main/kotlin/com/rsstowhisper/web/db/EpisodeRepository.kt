@@ -5,24 +5,45 @@ import com.rsstowhisper.web.models.Episode
 import com.rsstowhisper.web.models.FilterOptions
 import com.rsstowhisper.web.models.SearchFilters
 import com.rsstowhisper.web.models.SearchResult
+import jakarta.annotation.PostConstruct
+import jakarta.annotation.PreDestroy
+import jakarta.enterprise.context.ApplicationScoped
+import org.eclipse.microprofile.config.inject.ConfigProperty
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.ResultSet
 
-class EpisodeRepository(dbPath: String) {
-    private val conn: Connection =
-        DriverManager.getConnection("jdbc:sqlite:$dbPath").apply {
-            createStatement().execute("PRAGMA query_only=ON")
-            createStatement().execute("PRAGMA mmap_size=268435456")
-        }
+@ApplicationScoped
+class EpisodeRepository {
+    @ConfigProperty(name = "app.db.path")
+    lateinit var dbPath: String
 
+    private lateinit var conn: Connection
+
+    // In-memory filter cache — single entry, keyed by query string.
+    // Access is serialised by the @Synchronized methods below, so no
+    // additional locking is needed.
     private var cachedFilterQuery: String? = null
     private var cachedFilterOptions: FilterOptions? = null
 
+    @PostConstruct
+    fun init() {
+        conn =
+            DriverManager.getConnection("jdbc:sqlite:$dbPath").apply {
+                createStatement().execute("PRAGMA query_only=ON")
+                createStatement().execute("PRAGMA mmap_size=268435456")
+            }
+    }
+
+    @PreDestroy
+    fun cleanup() {
+        conn.close()
+    }
+
+    @Synchronized
     fun search(filters: SearchFilters): SearchResult {
         val hasQuery = filters.query.isNotBlank()
         val params = mutableListOf<Any>()
-
         val whereClauses = mutableListOf<String>()
 
         if (hasQuery) {
@@ -54,9 +75,11 @@ class EpisodeRepository(dbPath: String) {
                 }
             }
 
+        // FTS5 snippet signature: snippet(table, column_index, start, end, ellipsis, tokens)
+        // column_index -1 = search across all columns
         val snippetExpr =
             if (hasQuery) {
-                "snippet(episodes_fts, '<mark>', '</mark>', '…', -1, 40)"
+                "snippet(episodes_fts, -1, '<mark>', '</mark>', '…', 40)"
             } else {
                 "NULL"
             }
@@ -64,17 +87,17 @@ class EpisodeRepository(dbPath: String) {
         val selectSql =
             if (hasQuery) {
                 """SELECT $SEARCH_COLUMNS, $snippetExpr AS snippet
-                   FROM episodes e
-                   JOIN episodes_fts ON e.rowid = episodes_fts.rowid
-                   $whereClause
-                   ORDER BY e.episode_published_on DESC
-                   LIMIT ? OFFSET ?"""
+               FROM episodes e
+               JOIN episodes_fts ON e.rowid = episodes_fts.rowid
+               $whereClause
+               ORDER BY episodes_fts.rank
+               LIMIT ? OFFSET ?"""
             } else {
                 """SELECT $SEARCH_COLUMNS, NULL AS snippet
-                   FROM episodes e
-                   $whereClause
-                   ORDER BY e.episode_published_on DESC
-                   LIMIT ? OFFSET ?"""
+               FROM episodes e
+               $whereClause
+               ORDER BY e.episode_published_on DESC
+               LIMIT ? OFFSET ?"""
             }
 
         val offset = (filters.page - 1) * filters.pageSize
@@ -84,12 +107,9 @@ class EpisodeRepository(dbPath: String) {
                 val paramOffset = params.size
                 stmt.setInt(paramOffset + 1, filters.pageSize)
                 stmt.setInt(paramOffset + 2, offset)
-
                 stmt.executeQuery().use { rs ->
                     val results = mutableListOf<Episode>()
-                    while (rs.next()) {
-                        results.add(mapEpisode(rs))
-                    }
+                    while (rs.next()) results.add(mapEpisode(rs))
                     results
                 }
             }
@@ -97,6 +117,7 @@ class EpisodeRepository(dbPath: String) {
         return SearchResult(episodes, totalCount, filters.page, filters.pageSize)
     }
 
+    @Synchronized
     fun getEpisodeById(id: String): Episode? {
         val sql = "SELECT $SEARCH_COLUMNS, e.episode_transcript FROM episodes e WHERE e.id = ?"
         return conn.prepareStatement(sql).use { stmt ->
@@ -107,6 +128,7 @@ class EpisodeRepository(dbPath: String) {
         }
     }
 
+    @Synchronized
     fun getFilterOptions(query: String): FilterOptions {
         if (query == cachedFilterQuery) return cachedFilterOptions!!
 
@@ -124,9 +146,7 @@ class EpisodeRepository(dbPath: String) {
             return conn.prepareStatement(sql).use { stmt ->
                 if (hasQuery) stmt.setString(1, query)
                 stmt.executeQuery().use { rs ->
-                    generateSequence {
-                        if (rs.next()) rs.getString(1) else null
-                    }.toList()
+                    generateSequence { if (rs.next()) rs.getString(1) else null }.toList()
                 }
             }
         }
@@ -136,9 +156,7 @@ class EpisodeRepository(dbPath: String) {
             return conn.prepareStatement(sql).use { stmt ->
                 if (hasQuery) stmt.setString(1, query)
                 stmt.executeQuery().use { rs ->
-                    generateSequence {
-                        if (rs.next()) rs.getString(1) else null
-                    }
+                    generateSequence { if (rs.next()) rs.getString(1) else null }
                         .flatMap { it.split(",").map(String::trim) }
                         .filter { it.isNotBlank() }
                         .toSortedSet()
@@ -169,23 +187,12 @@ class EpisodeRepository(dbPath: String) {
         val conditions = mutableListOf<String>()
         for (d in filters.durations) {
             when (d.uppercase()) {
-                "SHORT" ->
-                    conditions.add(
-                        "(e.episode_duration > 0 AND e.episode_duration < $short)",
-                    )
-                "MEDIUM" ->
-                    conditions.add(
-                        "(e.episode_duration >= $short AND e.episode_duration <= $medium)",
-                    )
-                "LONG" ->
-                    conditions.add(
-                        "(e.episode_duration > $medium)",
-                    )
+                "SHORT" -> conditions.add("(e.episode_duration > 0 AND e.episode_duration < $short)")
+                "MEDIUM" -> conditions.add("(e.episode_duration >= $short AND e.episode_duration <= $medium)")
+                "LONG" -> conditions.add("(e.episode_duration > $medium)")
             }
         }
-        if (conditions.isNotEmpty()) {
-            clauses.add("(${conditions.joinToString(" OR ")})")
-        }
+        if (conditions.isNotEmpty()) clauses.add("(${conditions.joinToString(" OR ")})")
     }
 
     private fun addSetFilter(
@@ -206,7 +213,6 @@ class EpisodeRepository(dbPath: String) {
         params: MutableList<Any>,
     ) {
         if (values.isEmpty()) return
-        // Collections are comma-separated in the column, so use LIKE for each
         val conditions = values.map { "e.podcast_collections LIKE ?" }
         clauses.add("(${conditions.joinToString(" OR ")})")
         values.forEach { params.add("%$it%") }

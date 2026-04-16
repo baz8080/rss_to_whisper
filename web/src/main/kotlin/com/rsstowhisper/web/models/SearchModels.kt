@@ -19,7 +19,18 @@ data class Episode(
     val allTags: String?,
     val snippet: String? = null,
     val transcript: String? = null,
-)
+) {
+    // Computed properties — accessible from Thymeleaf as episode.formattedDuration etc.
+    val formattedDuration: String? get() = episodeDuration?.let { formatDuration(it) }
+    val strippedSnippet: String? get() = snippet?.let { stripTimestamps(it) }
+    val tagList: List<String> get() =
+        allTags
+            ?.split(",")
+            ?.map(String::trim)
+            ?.filter(String::isNotBlank)
+            ?: emptyList()
+    val wavPath: String? get() = episodeRelativeMp3Path?.replace(".mp3", ".wav")
+}
 
 data class SearchResult(
     val episodes: List<Episode>,
@@ -40,7 +51,7 @@ data class SearchFilters(
     val tags: Set<String> = emptySet(),
     val episodeTypes: Set<String> = emptySet(),
     val page: Int = 1,
-    val pageSize: Int = 30,
+    val pageSize: Int = 10,
 )
 
 data class FilterOptions(
@@ -53,4 +64,87 @@ enum class DurationCategory(val label: String, val maxSeconds: Int?) {
     SHORT("Short (< 15 min)", 900),
     MEDIUM("Medium (15–45 min)", 2700),
     LONG("Long (> 45 min)", null),
+}
+
+// Transcript line — passed to Thymeleaf as a list for the episode detail page.
+data class TranscriptLine(val millis: Long, val text: String) {
+    val seconds: Double get() = millis / 1000.0
+    val display: String get() = formatTimestamp(millis)
+}
+
+// --- Utility functions ---
+
+fun SearchFilters.hasActiveFilters(): Boolean =
+    query.isNotBlank() || durations.isNotEmpty() || podcasts.isNotEmpty() ||
+        collections.isNotEmpty() || tags.isNotEmpty() || episodeTypes.isNotEmpty()
+
+fun buildSearchUrl(filters: SearchFilters): String {
+    val params = mutableListOf<String>()
+    if (filters.query.isNotBlank()) params.add("q=${filters.query}")
+    filters.durations.forEach { params.add("duration=$it") }
+    filters.podcasts.forEach { params.add("podcast=$it") }
+    filters.collections.forEach { params.add("collection=$it") }
+    filters.tags.forEach { params.add("tag=$it") }
+    filters.episodeTypes.forEach { params.add("episodeType=$it") }
+    if (filters.page > 1) params.add("page=${filters.page}")
+    return "/search?${params.joinToString("&")}"
+}
+
+fun formatDuration(seconds: Int): String {
+    val hours = seconds / 3600
+    val minutes = (seconds % 3600) / 60
+    return if (hours > 0) "${hours}h ${minutes}m" else "${minutes}m"
+}
+
+fun formatTimestamp(millis: Long): String {
+    val totalSeconds = millis / 1000
+    val hours = totalSeconds / 3600
+    val minutes = (totalSeconds % 3600) / 60
+    val seconds = totalSeconds % 60
+    return if (hours > 0) {
+        "%d:%02d:%02d".format(hours, minutes, seconds)
+    } else {
+        "%d:%02d".format(minutes, seconds)
+    }
+}
+
+private val TRANSCRIPT_LINE_REGEX = Regex("""^(\d+)\t(.*)$""")
+
+fun parseTranscript(transcript: String): List<TranscriptLine> {
+    val lines = mutableListOf<TranscriptLine>()
+    for (line in transcript.lines()) {
+        val match = TRANSCRIPT_LINE_REGEX.matchEntire(line.trim()) ?: continue
+        val millis = match.groupValues[1].toLongOrNull() ?: continue
+        val text = match.groupValues[2].trim()
+        if (text.isNotBlank()) {
+            lines.add(TranscriptLine(millis, text))
+        }
+    }
+    return lines
+}
+
+private val TIMESTAMP_REGEX = Regex("""\d{4,}\t""")
+
+private fun stripTimestamps(snippet: String): String = TIMESTAMP_REGEX.replace(snippet, " ").replace("  ", " ")
+
+private val URL_REGEX = Regex("""https?://[^\s<>"]+""")
+
+private fun escapeHtml(text: String): String =
+    text
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace("\"", "&quot;")
+
+fun linkify(text: String): String {
+    val result = StringBuilder()
+    var last = 0
+    for (match in URL_REGEX.findAll(text)) {
+        result.append(escapeHtml(text.substring(last, match.range.first)))
+        val url = match.value
+        result.append("""<a href="${escapeHtml(url)}" target="_blank">${escapeHtml(url)}</a>""")
+        last = match.range.last + 1
+    }
+    result.append(escapeHtml(text.substring(last)))
+    return result.toString()
 }

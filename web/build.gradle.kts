@@ -1,30 +1,30 @@
 plugins {
-    application
+    // Applied in this order so that the Quarkus plugin sees kotlin("jvm") already
+    // present and can configure kotlin-allopen / kotlin-noarg cleanly.
+    kotlin("jvm")
+    id("org.jlleitschuh.gradle.ktlint")
+    id("io.quarkus")
 }
 
-val ktorVersion = "3.1.3"
-
-application {
-    mainClass.set("com.rsstowhisper.web.ApplicationKt")
-}
+val quarkusVersion = "3.33.1" // LTS
 
 dependencies {
-    // Ktor server
-    implementation("io.ktor:ktor-server-core:$ktorVersion")
-    implementation("io.ktor:ktor-server-netty:$ktorVersion")
-    implementation("io.ktor:ktor-server-html-builder:$ktorVersion")
-    implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
+    // Quarkus BOM — manages all io.quarkus:* artifact versions.
+    // platform() (not enforced) lets the Kotlin version pinned by the root
+    // build take precedence over whatever the BOM declares.
+    implementation(platform("io.quarkus.platform:quarkus-bom:$quarkusVersion"))
 
-    // Kotlinx HTML DSL
-    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.12.0")
+    implementation("io.quarkus:quarkus-kotlin")
+    implementation("io.quarkus:quarkus-arc")
+    // quarkus-resteasy-reactive was renamed to quarkus-rest in Quarkus 3.9+
+    implementation("io.quarkus:quarkus-rest")
 
-    // SQLite JDBC
+    // Thymeleaf — no official Quarkiverse extension exists; used as a plain
+    // library with a hand-rolled CDI producer (see TemplateEngineProducer.kt).
+    implementation("org.thymeleaf:thymeleaf:3.1.2.RELEASE")
+
+    // SQLite JDBC — not in Quarkus BOM; used directly without Agroal
     implementation("org.xerial:sqlite-jdbc:3.49.1.0")
 
-    // Logging
-    implementation("ch.qos.logback:logback-classic:1.5.32")
-    implementation("org.slf4j:slf4j-api:2.0.17")
-
-    // Testing
-    testImplementation(kotlin("test"))
+    testImplementation("io.quarkus:quarkus-junit5")
 }

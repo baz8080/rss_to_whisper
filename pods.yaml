@@ -133,7 +133,7 @@ podcasts:
   - management
   - leadership
 - name: HBR Coaching Real Leaders
-  url: https://feeds.harvardbusiness.org/harvardbusiness/coaching-real-leaders
+  url: http://feeds.harvardbusiness.org/harvardbusiness/coaching-real-leaders
   collections:
   - management
   - leadership
