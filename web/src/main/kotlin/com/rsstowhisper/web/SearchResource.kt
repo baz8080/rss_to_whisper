@@ -1,0 +1,113 @@
+package com.rsstowhisper.web
+
+import com.rsstowhisper.web.db.EpisodeRepository
+import com.rsstowhisper.web.models.SearchFilters
+import com.rsstowhisper.web.models.buildSearchUrl
+import com.rsstowhisper.web.models.hasActiveFilters
+import com.rsstowhisper.web.models.linkify
+import com.rsstowhisper.web.models.parseTranscript
+import io.smallrye.common.annotation.Blocking
+import jakarta.enterprise.context.ApplicationScoped
+import jakarta.inject.Inject
+import jakarta.ws.rs.DefaultValue
+import jakarta.ws.rs.GET
+import jakarta.ws.rs.HeaderParam
+import jakarta.ws.rs.Path
+import jakarta.ws.rs.PathParam
+import jakarta.ws.rs.Produces
+import jakarta.ws.rs.QueryParam
+import jakarta.ws.rs.core.MediaType
+import jakarta.ws.rs.core.Response
+import org.eclipse.microprofile.config.inject.ConfigProperty
+import org.thymeleaf.TemplateEngine
+import org.thymeleaf.context.Context
+import java.net.URI
+
+@Path("/")
+@ApplicationScoped
+@Blocking
+class SearchResource {
+    @Inject
+    lateinit var repository: EpisodeRepository
+
+    @Inject
+    lateinit var templateEngine: TemplateEngine
+
+    @ConfigProperty(name = "app.audio.base-url", defaultValue = "/audio")
+    lateinit var audioBaseUrl: String
+
+    @GET
+    @Produces(MediaType.TEXT_HTML)
+    fun index(): Response = Response.seeOther(URI("/search")).build()
+
+    @GET
+    @Path("/search")
+    @Produces(MediaType.TEXT_HTML)
+    fun search(
+        @QueryParam("q") @DefaultValue("") query: String,
+        @QueryParam("duration") durations: List<String>,
+        @QueryParam("podcast") podcasts: List<String>,
+        @QueryParam("collection") collections: List<String>,
+        @QueryParam("tag") tags: List<String>,
+        @QueryParam("episodeType") episodeTypes: List<String>,
+        @QueryParam("page") @DefaultValue("1") page: Int,
+        @HeaderParam("HX-Request") htmxRequest: String?,
+    ): String {
+        val filters = SearchFilters(
+            query = query.trim(),
+            durations = durations.toSet(),
+            podcasts = podcasts.toSet(),
+            collections = collections.toSet(),
+            tags = tags.toSet(),
+            episodeTypes = episodeTypes.toSet(),
+            page = page.coerceAtLeast(1),
+        )
+        val result = repository.search(filters)
+        val filterOptions = repository.getFilterOptions(filters.query)
+        val base = audioBaseUrl.trimEnd('/')
+
+        val ctx = Context().apply {
+            setVariable("result", result)
+            setVariable("filters", filters)
+            setVariable("filterOptions", filterOptions)
+            setVariable("audioBaseUrl", base)
+            setVariable("hasActiveFilters", filters.hasActiveFilters())
+            setVariable("prevUrl", buildSearchUrl(filters.copy(page = filters.page - 1)))
+            setVariable("nextUrl", buildSearchUrl(filters.copy(page = filters.page + 1)))
+        }
+
+        // HTMX partial request: return only the #app fragment so the browser
+        // can swap it in-place without a full page reload.
+        return if (htmxRequest == "true") {
+            templateEngine.process("search", setOf("app"), ctx)
+        } else {
+            templateEngine.process("search", ctx)
+        }
+    }
+
+    @GET
+    @Path("/episode/{id}")
+    @Produces(MediaType.TEXT_HTML)
+    fun episode(@PathParam("id") id: String): Response {
+        val episode = repository.getEpisodeById(id)
+            ?: return Response.status(Response.Status.NOT_FOUND)
+                .entity("Episode not found")
+                .type(MediaType.TEXT_HTML)
+                .build()
+
+        val base = audioBaseUrl.trimEnd('/')
+        val transcriptLines = episode.transcript?.let { parseTranscript(it) } ?: emptyList()
+        val linkifiedSummary = episode.episodeSummary?.let {
+            if (it.contains('<')) it else linkify(it)
+        }
+
+        val ctx = Context().apply {
+            setVariable("episode", episode)
+            setVariable("audioBaseUrl", base)
+            setVariable("transcriptLines", transcriptLines)
+            setVariable("linkifiedSummary", linkifiedSummary)
+        }
+
+        return Response.ok(templateEngine.process("episode", ctx), MediaType.TEXT_HTML).build()
+    }
+}

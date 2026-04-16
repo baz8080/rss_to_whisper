@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Index podcast transcripts into a SQLite FTS4 database.
+"""Index podcast transcripts into a SQLite FTS5 database.
 
 Usage:
     python3 index.py /path/to/data_directory [--db podcasts.db]
@@ -47,12 +47,13 @@ CREATE TABLE IF NOT EXISTS episodes (
 """
 
 SCHEMA_FTS = """
-CREATE VIRTUAL TABLE IF NOT EXISTS episodes_fts USING fts4(
+CREATE VIRTUAL TABLE IF NOT EXISTS episodes_fts USING fts5(
     episode_title,
     episode_transcript,
     podcast_title,
     all_tags,
-    content='episodes'
+    content='episodes',
+    content_rowid='rowid'
 )
 """
 
@@ -145,7 +146,7 @@ def collect_episodes(data_dir):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Index podcast transcripts into SQLite FTS4")
+    parser = argparse.ArgumentParser(description="Index podcast transcripts into SQLite FTS5")
     parser.add_argument("data_dir", help="Path to the podcast data directory")
     parser.add_argument("--db", default=None, help="Path to SQLite database (default: <data_dir>/podcasts.db)")
     args = parser.parse_args()
@@ -173,10 +174,11 @@ def main():
         try:
             conn.execute("DROP TABLE IF EXISTS episodes_fts")
         except sqlite3.OperationalError:
-            # FTS module not available (e.g. fts5 table on fts4-only build);
-            # delete the underlying shadow tables and master entry manually.
-            for suffix in ["content", "segments", "segdir", "docsize", "stat",
-                           "data", "idx", "config"]:
+            # FTS module not available; delete shadow tables and master entry manually.
+            # FTS5 shadow suffixes: data, idx, content, docsize, config
+            # FTS4 shadow suffixes (kept for legacy dbs): segments, segdir, stat
+            for suffix in ["data", "idx", "content", "docsize", "config",
+                           "segments", "segdir", "stat"]:
                 conn.execute(f"DROP TABLE IF EXISTS episodes_fts_{suffix}")
             conn.execute("DELETE FROM sqlite_master WHERE name='episodes_fts'")
     conn.execute("DROP TABLE IF EXISTS episodes")

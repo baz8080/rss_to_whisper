@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Podcast Search</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.classless.min.css"/>
+    <link rel="stylesheet" href="/styles.css"/>
+    <script src="/htmx.min.js"></script>
+    <script>
+        document.addEventListener("htmx:afterSwap", function (e) {
+            if (e.detail.target.id === "app") window.scrollTo(0, 0);
+        });
+    </script>
+</head>
+<body>
+
+<!--
+  th:fragment="app" marks this div as the HTMX swap target.
+  Full requests render the whole page; HTMX partial requests render only this
+  fragment via templateEngine.process("search :: app", ctx).
+-->
+<div id="app" th:fragment="app">
+    <div class="app-layout">
+
+        <!-- Sidebar filter form -->
+        <nav class="sidebar">
+            <form id="filter-form"
+                  action="/search"
+                  method="get"
+                  hx-get="/search"
+                  hx-target="#app"
+                  hx-swap="outerHTML"
+                  hx-push-url="true"
+                  hx-trigger="change from:input[type='checkbox']"
+                  hx-include="#search-input"
+                  hx-indicator="#loading">
+
+                <details class="filter-group" open="open">
+                    <summary>Duration</summary>
+                    <div class="filter-list">
+                        <label>
+                            <input type="checkbox" name="duration" value="short"
+                                   th:checked="${filters.durations.contains('short')}"/>
+                            <small>Short (&lt; 15 min)</small>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="duration" value="medium"
+                                   th:checked="${filters.durations.contains('medium')}"/>
+                            <small>Medium (15&#x2013;45 min)</small>
+                        </label>
+                        <label>
+                            <input type="checkbox" name="duration" value="long"
+                                   th:checked="${filters.durations.contains('long')}"/>
+                            <small>Long (&gt; 45 min)</small>
+                        </label>
+                    </div>
+                </details>
+
+                <details class="filter-group" open="open"
+                         th:if="${filterOptions.podcasts.size() > 1}">
+                    <summary>Podcast</summary>
+                    <div class="filter-list">
+                        <label th:each="podcast : ${filterOptions.podcasts}">
+                            <input type="checkbox" name="podcast"
+                                   th:value="${podcast}"
+                                   th:checked="${filters.podcasts.contains(podcast)}"/>
+                            <small th:text="${podcast}"></small>
+                        </label>
+                    </div>
+                </details>
+
+                <details class="filter-group"
+                         th:if="${not filterOptions.collections.isEmpty()}">
+                    <summary>Collections</summary>
+                    <div class="filter-list">
+                        <label th:each="collection : ${filterOptions.collections}">
+                            <input type="checkbox" name="collection"
+                                   th:value="${collection}"
+                                   th:checked="${filters.collections.contains(collection)}"/>
+                            <small th:text="${collection}"></small>
+                        </label>
+                    </div>
+                </details>
+
+                <details class="filter-group"
+                         th:if="${filterOptions.episodeTypes.size() > 1}">
+                    <summary>Episode Type</summary>
+                    <div class="filter-list">
+                        <label th:each="type : ${filterOptions.episodeTypes}">
+                            <input type="checkbox" name="episodeType"
+                                   th:value="${type}"
+                                   th:checked="${filters.episodeTypes.contains(type)}"/>
+                            <small th:text="${type}"></small>
+                        </label>
+                    </div>
+                </details>
+
+            </form>
+        </nav><!-- end sidebar -->
+
+        <!-- Main content -->
+        <div class="main-content">
+
+            <div class="search-bar">
+                <input id="search-input"
+                       type="search"
+                       name="q"
+                       placeholder="Search episodes&#x2026;"
+                       th:value="${filters.query}"
+                       hx-get="/search"
+                       hx-target="#app"
+                       hx-swap="outerHTML"
+                       hx-push-url="true"
+                       hx-trigger="input changed delay:500ms, search"
+                       hx-include="#filter-form"
+                       hx-indicator="#loading"/>
+            </div>
+
+            <span class="htmx-indicator" id="loading" aria-busy="true">Searching&#x2026;</span>
+
+            <!-- Results summary -->
+            <p class="results-info" th:if="${result.totalCount > 0}">
+                <span th:text="${result.totalCount}"></span> results
+                <th:block th:if="${not #strings.isEmpty(filters.query)}">
+                    for &#x201C;<span th:text="${filters.query}"></span>&#x201D;
+                </th:block>
+                &#xB7; Page <span th:text="${result.page}"></span>
+                of <span th:text="${result.totalPages}"></span>
+            </p>
+
+            <p th:if="${result.episodes.isEmpty() and hasActiveFilters}">
+                No episodes found. Try adjusting your search or filters.
+            </p>
+            <p th:if="${result.episodes.isEmpty() and not hasActiveFilters}">
+                Search for episodes using the search bar above.
+            </p>
+
+            <!-- Episode cards -->
+            <article class="episode-card" th:each="episode : ${result.episodes}">
+                <div class="podcast-name"
+                     th:text="${episode.podcastTitle != null ? episode.podcastTitle : 'Unknown Podcast'}"></div>
+                <h3>
+                    <a th:href="'/episode/' + ${episode.id}"
+                       th:text="${episode.episodeTitle != null ? episode.episodeTitle : 'Untitled'}"></a>
+                </h3>
+                <div class="meta">
+                    <span th:if="${episode.episodePublishedOn != null}"
+                          th:text="${episode.episodePublishedOn}"></span>
+                    <span th:if="${episode.formattedDuration != null}"
+                          th:text="${episode.formattedDuration}"></span>
+                    <span th:if="${episode.episodeSeason != null and episode.episodeNumber != null}"
+                          th:text="'S' + ${episode.episodeSeason} + 'E' + ${episode.episodeNumber}"></span>
+                    <span class="tag-pill"
+                          th:if="${episode.episodeType != null and episode.episodeType != 'full'}"
+                          th:text="${episode.episodeType}"></span>
+                </div>
+
+                <!-- Snippet: use th:utext because it contains <mark> highlight tags -->
+                <div class="snippet"
+                     th:if="${episode.strippedSnippet != null}"
+                     th:utext="${episode.strippedSnippet}"></div>
+
+                <!-- Tags -->
+                <div th:if="${not episode.tagList.isEmpty()}">
+                    <span class="tag-pill"
+                          th:each="tag : ${episode.tagList}"
+                          th:text="${tag}"></span>
+                </div>
+
+                <!-- Audio player -->
+                <div class="audio-player" th:if="${episode.wavPath != null}">
+                    <audio controls="controls" preload="none"
+                           th:src="${audioBaseUrl + '/' + episode.wavPath}">
+                        Your browser does not support audio.
+                    </audio>
+                </div>
+            </article><!-- end episode-card loop -->
+
+            <!-- Pagination -->
+            <div class="pagination" th:if="${result.totalPages > 1}">
+                <button th:if="${result.hasPrevious}"
+                        th:attr="hx-get=${prevUrl}"
+                        hx-target="#app"
+                        hx-swap="outerHTML"
+                        hx-push-url="true">Previous</button>
+                <span>Page <span th:text="${result.page}"></span>
+                    of <span th:text="${result.totalPages}"></span></span>
+                <button th:if="${result.hasNext}"
+                        th:attr="hx-get=${nextUrl}"
+                        hx-target="#app"
+                        hx-swap="outerHTML"
+                        hx-push-url="true">Next</button>
+            </div>
+
+        </div><!-- end main-content -->
+    </div><!-- end app-layout -->
+</div><!-- end #app -->
+
+</body>
+</html>

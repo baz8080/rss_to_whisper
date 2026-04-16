@@ -16,7 +16,7 @@ out/
 *.iws
 
 # Environment
-.env
+web/.env
 
 # OS
 .DS_Store

@@ -1,6 +1,6 @@
 # rss_to_whisper
 
-Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and index them into a local SQLite FTS4 database for full-text search.
+Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.com/ggml-org/whisper.cpp) and index them into a local SQLite FTS5 database for full-text search.
 
 ## Modules
 
@@ -8,12 +8,20 @@ Transcribe podcast episodes from RSS feeds using [whisper.cpp](https://github.co
 Walks one or more RSS feeds, downloads each episode, decodes the audio with `ffmpeg`, transcribes it with `whisper-cli`, and writes a `transcript.json` file alongside the audio. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
 
 ### `web` (Kotlin)
-A Ktor HTTP server that serves a full-text search interface over the SQLite database produced by `index.py`. Supports filtering by podcast, tag, and date range. Runs on port 8080 by default.
+A Quarkus HTTP server that serves a full-text search interface over the SQLite database produced by `index.py`. Supports filtering by podcast, collection, episode type, and duration. Search results are ranked by BM25 relevance. Runs on port 8080 by default.
 
 ## Python scripts
 
 ### `index.py`
-Reads all `transcript.json` files in the data directory and writes them into a SQLite FTS4 database. Run this after the pipeline to make new transcripts searchable. Requires only Python 3 stdlib.
+Reads all `transcript.json` files in the data directory and writes them into a SQLite FTS5 database. Run this after the pipeline to make new transcripts searchable.
+
+Requires Python 3 and `pysqlite3` with FTS5 support:
+
+```bash
+pip install pysqlite3
+```
+
+> **Note:** The default system `sqlite3` on some platforms (e.g. Synology NAS) does not include FTS5. `pysqlite3` bundles a SQLite build that does.
 
 ## Prerequisites
 
@@ -21,7 +29,7 @@ Reads all `transcript.json` files in the data directory and writes them into a S
 - `ffmpeg` on `PATH` (used to decode downloaded MP3s to WAV)
 - `whisper-cli` on `PATH` (from [whisper.cpp](https://github.com/ggml-org/whisper.cpp); invoked per episode)
 - A whisper.cpp compatible model file (see below)
-- Python 3 (for the indexing script; uses only stdlib modules)
+- Python 3 + `pysqlite3` (for the indexing script)
 
 On macOS both are available via Homebrew: `brew install ffmpeg whisper-cpp`.
 
@@ -57,21 +65,42 @@ The database defaults to `podcasts.db` inside the data directory. Designed to ru
 
 ## Serving the web UI
 
-```bash
-./gradlew :web:run --args="/path/to/podcasts.db"
-
-# With a custom audio base URL and port
-./gradlew :web:run --args="/path/to/podcasts.db https://audio.example.com 9090"
-```
-
-Or build and run the distribution:
+Copy `.env.example` to `.env` and fill in your values (`.env` is gitignored):
 
 ```bash
-./gradlew installDist
-./build/install/rss-to-whisper/bin/web /path/to/podcasts.db
+cd web
+cp .env.example .env
 ```
 
-## Configuration
+```ini
+APP_DB_PATH=/path/to/podcasts.db
+APP_AUDIO_BASE_URL=http://your-nas:9280
+```
+
+Quarkus picks up `.env` automatically. Alternatively, override properties inline:
+
+**Development** (live reload on template/code changes):
+
+```bash
+./gradlew :web:quarkusDev
+```
+
+**Production** — build a runnable JAR then launch it:
+
+```bash
+./gradlew :web:build
+java -jar web/build/quarkus-app/quarkus-run.jar
+```
+
+Configuration properties can also be overridden at launch without editing the file:
+
+```bash
+java -Dapp.db.path=/data/podcasts.db \
+     -Dapp.audio.base-url=http://nas:9280 \
+     -jar web/build/quarkus-app/quarkus-run.jar
+```
+
+## Pipeline configuration
 
 Copy and edit `pods.yaml` to configure:
 
