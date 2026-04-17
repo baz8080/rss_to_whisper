@@ -35,7 +35,7 @@ data class AppConfig(
             return raw.copy(dataDirectory = dataDirectory, whisperModel = whisperModel)
         }
 
-        private fun loadDotEnv(): Map<String, String> {
+        internal fun loadDotEnv(): Map<String, String> {
             val file = File(".env")
             if (!file.exists()) return emptyMap()
             return file

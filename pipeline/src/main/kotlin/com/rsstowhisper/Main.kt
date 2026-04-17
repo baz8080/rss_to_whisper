@@ -6,10 +6,15 @@ import com.rsstowhisper.pipeline.PodcastPipeline
 import org.slf4j.LoggerFactory
 
 fun main(args: Array<String>) {
+    val env = AppConfig.loadDotEnv()
     val configFile =
         args.find { it == "-c" || it == "--config" }
             ?.let { args[args.indexOf(it) + 1] }
-            ?: "pods.yaml"
+            ?: env["PIPELINE_CONFIG_PATH"]
+            ?: run {
+                println("No config file specified. Use --config or set PIPELINE_CONFIG_PATH in .env")
+                return
+            }
 
     println("Using $configFile config")
 

@@ -41,15 +41,17 @@ On macOS both are available via Homebrew: `brew install ffmpeg whisper-cpp`.
 
 ## Transcribing
 
+The pipeline requires a config file path, supplied either via `--config` or via `PIPELINE_CONFIG_PATH` in `pipeline/.env` (see [Pipeline configuration](#pipeline-configuration) below).
+
 ```bash
-./gradlew run --args="-c pods.yaml"
+./gradlew :pipeline:run --args="-c /path/to/pods.yaml"
 ```
 
 Or build and run the distribution:
 
 ```bash
-./gradlew installDist
-./build/install/rss-to-whisper/bin/rss-to-whisper -c pods.yaml
+./gradlew :pipeline:installDist
+./pipeline/build/install/pipeline/bin/pipeline -c /path/to/pods.yaml
 ```
 
 ## Indexing
@@ -102,10 +104,20 @@ java -Dapp.db.path=/data/podcasts.db \
 
 ## Pipeline configuration
 
-Copy and edit `pods.yaml` to configure:
+### Environment (`.env`)
 
-- `data_directory` — where episode files are stored
-- `whisper_model` — path to the whisper.cpp model file (`.bin`)
+Copy `pipeline/.env.example` to `pipeline/.env` and fill in your values (`.env` is gitignored):
+
+```ini
+PIPELINE_DATA_DIRECTORY=/path/to/download-directory
+PIPELINE_WHISPER_MODEL_PATH=/path/to/models/ggml-large-v3-turbo.bin
+PIPELINE_CONFIG_PATH=/path/to/pods.yaml
+```
+
+`PIPELINE_CONFIG_PATH` can be overridden at runtime with `--config` / `-c`.
+
+### `pods.yaml`
+
 - `verbose` — enable debug logging (optional, default `false`)
 - `skip_after_consecutive` — stop walking a feed once this many consecutive already-transcribed episodes are seen (optional, default `20`)
 - `podcasts` — list of RSS feeds to process, each with `name`, `url`, optional `collections`, and optional `excludes`
@@ -137,7 +149,7 @@ curl -L -o ggml-medium.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/
 curl -L -o ggml-large-v3-turbo.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin
 ```
 
-Set `whisper_model` in `pods.yaml` to the path of your downloaded model file.
+Set `PIPELINE_WHISPER_MODEL_PATH` in `pipeline/.env` to the path of your downloaded model file.
 
 ## Output Structure
 
