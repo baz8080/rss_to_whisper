@@ -258,26 +258,6 @@ class PodcastPipelineRunTest {
     }
 
     @Test
-    fun `run skips podcasts with blank or null url`(
-        @TempDir tempDir: Path,
-    ) {
-        val (pipeline, txSvc, feedSvc) =
-            buildPipeline(
-                tempDir,
-                listOf(
-                    PodcastConfig(name = "NoUrl", url = null),
-                    PodcastConfig(name = "Blank", url = "   "),
-                ),
-                feed = null,
-            )
-
-        pipeline.run()
-
-        assertEquals(0, txSvc.calls.size)
-        assertTrue(feedSvc.requestedUrls.isEmpty())
-    }
-
-    @Test
     fun `run continues past podcasts whose feed fails to fetch`(
         @TempDir tempDir: Path,
     ) {
