@@ -1,0 +1,10 @@
+verbose: false
+podcasts:
+- name: Ask a Spaceman
+  url: https://feeds.libsyn.com/60664
+  collections:
+  - science
+  - space
+  - astrophysics
+  excludes:
+  - introducing

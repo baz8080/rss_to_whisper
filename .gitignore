@@ -17,6 +17,7 @@ out/
 
 # Environment
 web/.env
+pipeline/.env
 
 # OS
 .DS_Store

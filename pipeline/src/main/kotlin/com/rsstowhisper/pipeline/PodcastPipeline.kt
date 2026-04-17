@@ -61,14 +61,8 @@ class PodcastPipeline(
         podcast: PodcastConfig,
         dataDir: String,
     ) {
-        val podcastUrl = podcast.url
-        if (podcastUrl.isNullOrBlank()) {
-            logger.error("Skipping podcast with missing URL")
-            return
-        }
-
         logger.info("Processing ${podcast.name}")
-        val feed = feedService.fetchFeed(podcastUrl)
+        val feed = feedService.fetchFeed(podcast.url)
 
         if (feed == null) {
             logger.error("Could not fetch feed for ${podcast.name}")

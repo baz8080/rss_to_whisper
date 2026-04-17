@@ -23,8 +23,6 @@ open class Transcriber(private val modelPath: String) {
                 "-m", modelPath,
                 "-f", wavPath.toString(),
                 "-l", "en",
-                "--threads", "8",
-                "--processors", "2",
                 "--output-csv",
                 "--output-file", outputBase.toString(),
                 "--prompt", "Hello, welcome to the podcast. This is a transcription with proper punctuation and capitalization.",

@@ -11,24 +11,48 @@ import java.io.File
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class AppConfig(
     val verbose: Boolean = false,
-    @param:JsonProperty("data_directory") val dataDirectory: String,
-    @param:JsonProperty("whisper_model") val whisperModel: String = "tiny",
-    @param:JsonProperty("skip_after_consecutive") val skipAfterConsecutive: Int = 50,
-    val podcasts: List<PodcastConfig>,
+    val dataDirectory: String = "",
+    val whisperModel: String = "",
+    @param:JsonProperty("skip_after_consecutive") val skipAfterConsecutive: Int = 20,
+    val podcasts: List<PodcastConfig> = emptyList(),
 ) {
     companion object {
         private val mapper =
             ObjectMapper(YAMLFactory())
                 .registerModule(KotlinModule.Builder().build())
 
-        fun load(path: String): AppConfig = mapper.readValue(File(path))
+        fun load(path: String): AppConfig {
+            val env = loadDotEnv()
+            val raw: AppConfig = mapper.readValue(File(path))
+
+            val dataDirectory =
+                env["PIPELINE_DATA_DIRECTORY"]
+                    ?: error("PIPELINE_DATA_DIRECTORY must be set in .env")
+            val whisperModel =
+                env["PIPELINE_WHISPER_MODEL_PATH"]
+                    ?: error("PIPELINE_WHISPER_MODEL_PATH must be set in .env")
+
+            return raw.copy(dataDirectory = dataDirectory, whisperModel = whisperModel)
+        }
+
+        private fun loadDotEnv(): Map<String, String> {
+            val file = File(".env")
+            if (!file.exists()) return emptyMap()
+            return file
+                .readLines()
+                .filter { it.isNotBlank() && !it.startsWith("#") }
+                .mapNotNull { line ->
+                    val eq = line.indexOf('=')
+                    if (eq < 0) null else line.substring(0, eq).trim() to line.substring(eq + 1).trim()
+                }.toMap()
+        }
     }
 }
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class PodcastConfig(
     val name: String,
-    val url: String? = null,
+    val url: String,
     val collections: List<String> = emptyList(),
     val excludes: List<String> = emptyList(),
 )
