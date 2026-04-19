@@ -27,24 +27,29 @@ data class AppConfig(
 
             val dataDirectory =
                 env["PIPELINE_DATA_DIRECTORY"]
-                    ?: error("PIPELINE_DATA_DIRECTORY must be set in .env")
+                    ?: error("PIPELINE_DATA_DIRECTORY must be set in .env or the environment")
             val whisperModel =
                 env["PIPELINE_WHISPER_MODEL_PATH"]
-                    ?: error("PIPELINE_WHISPER_MODEL_PATH must be set in .env")
+                    ?: error("PIPELINE_WHISPER_MODEL_PATH must be set in .env or the environment")
 
             return raw.copy(dataDirectory = dataDirectory, whisperModel = whisperModel)
         }
 
         internal fun loadDotEnv(): Map<String, String> {
             val file = File(".env")
-            if (!file.exists()) return emptyMap()
-            return file
-                .readLines()
-                .filter { it.isNotBlank() && !it.startsWith("#") }
-                .mapNotNull { line ->
-                    val eq = line.indexOf('=')
-                    if (eq < 0) null else line.substring(0, eq).trim() to line.substring(eq + 1).trim()
-                }.toMap()
+            val fileVars =
+                if (!file.exists()) {
+                    emptyMap()
+                } else {
+                    file
+                        .readLines()
+                        .filter { it.isNotBlank() && !it.startsWith("#") }
+                        .mapNotNull { line ->
+                            val eq = line.indexOf('=')
+                            if (eq < 0) null else line.substring(0, eq).trim() to line.substring(eq + 1).trim()
+                        }.toMap()
+                }
+            return fileVars + System.getenv()
         }
     }
 }
