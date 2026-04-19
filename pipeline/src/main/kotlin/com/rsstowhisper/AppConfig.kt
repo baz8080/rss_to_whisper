@@ -36,19 +36,17 @@ data class AppConfig(
         }
 
         internal fun loadDotEnv(): Map<String, String> {
-            val file = File(".env")
+            val candidates = listOf(File(".env"), File("pipeline/.env"))
+            val file = candidates.firstOrNull { it.exists() }
             val fileVars =
-                if (!file.exists()) {
-                    emptyMap()
-                } else {
-                    file
-                        .readLines()
-                        .filter { it.isNotBlank() && !it.startsWith("#") }
-                        .mapNotNull { line ->
-                            val eq = line.indexOf('=')
-                            if (eq < 0) null else line.substring(0, eq).trim() to line.substring(eq + 1).trim()
-                        }.toMap()
-                }
+                file
+                    ?.readLines()
+                    ?.filter { it.isNotBlank() && !it.startsWith("#") }
+                    ?.mapNotNull { line ->
+                        val eq = line.indexOf('=')
+                        if (eq < 0) null else line.substring(0, eq).trim() to line.substring(eq + 1).trim()
+                    }?.toMap()
+                    ?: emptyMap()
             return fileVars + System.getenv()
         }
     }
