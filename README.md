@@ -23,12 +23,6 @@ pip install pysqlite3
 
 > **Note:** The default system `sqlite3` on some platforms (e.g. Synology NAS) does not include FTS5. `pysqlite3` bundles a SQLite build that does.
 
-### `migrate_tsv_to_vtt.py`
-One-shot migration script for upgrading an existing data directory from the old TSV transcript format to WebVTT. Only needed if you have `transcript.json` files written before the switch to the whisper.cpp HTTP server.
-
-```bash
-python3 migrate_tsv_to_vtt.py /path/to/data_directory [--dry-run]
-```
 
 ## Prerequisites
 
