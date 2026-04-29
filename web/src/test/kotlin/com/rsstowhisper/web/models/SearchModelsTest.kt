@@ -62,16 +62,24 @@ class SearchModelsTest {
         fun `empty string returns empty list`() = assertTrue(parseTranscript("").isEmpty())
 
         @Test
-        fun `single valid line`() {
-            val lines = parseTranscript("1000\tHello world")
+        fun `blank string returns empty list`() = assertTrue(parseTranscript("   \n  ").isEmpty())
+
+        @Test
+        fun `single cue`() {
+            val vtt = "WEBVTT\n\n00:00:01.000 --> 00:00:03.000\nHello world\n"
+            val lines = parseTranscript(vtt)
             assertEquals(1, lines.size)
-            assertEquals(TranscriptLine(1000L, "Hello world"), lines[0])
+            assertEquals(TranscriptLine(1_000L, "Hello world"), lines[0])
         }
 
         @Test
-        fun `multiple valid lines`() {
-            val input = "0\tFirst\n1000\tSecond\n2000\tThird"
-            val lines = parseTranscript(input)
+        fun `multiple cues`() {
+            val vtt =
+                "WEBVTT\n\n" +
+                    "00:00:00.000 --> 00:00:01.000\nFirst\n\n" +
+                    "00:00:01.000 --> 00:00:02.000\nSecond\n\n" +
+                    "00:00:02.000 --> 00:00:03.000\nThird\n"
+            val lines = parseTranscript(vtt)
             assertEquals(3, lines.size)
             assertEquals("First", lines[0].text)
             assertEquals("Second", lines[1].text)
@@ -79,17 +87,42 @@ class SearchModelsTest {
         }
 
         @Test
-        fun `lines without tab separator are skipped`() = assertTrue(parseTranscript("no tab here").isEmpty())
+        fun `timestamp converts hours minutes seconds and millis to milliseconds`() {
+            val vtt = "WEBVTT\n\n01:02:03.456 --> 01:02:04.000\nSome text\n"
+            val lines = parseTranscript(vtt)
+            assertEquals(1, lines.size)
+            // 1h=3600000 + 2m=120000 + 3s=3000 + 456ms = 3723456
+            assertEquals(3_723_456L, lines[0].millis)
+        }
 
         @Test
-        fun `lines with blank text are skipped`() = assertTrue(parseTranscript("1000\t   ").isEmpty())
+        fun `WEBVTT header line is not included as text`() {
+            val vtt = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nHello\n"
+            val lines = parseTranscript(vtt)
+            assertEquals(1, lines.size)
+            assertEquals("Hello", lines[0].text)
+        }
 
         @Test
-        fun `lines with non-numeric timestamp are skipped`() = assertTrue(parseTranscript("abc\tSome text").isEmpty())
+        fun `multi-line cue text is joined with a space`() {
+            val vtt = "WEBVTT\n\n00:00:00.000 --> 00:00:02.000\nLine one\nLine two\n"
+            val lines = parseTranscript(vtt)
+            assertEquals(1, lines.size)
+            assertEquals("Line one Line two", lines[0].text)
+        }
 
         @Test
-        fun `trims whitespace from text`() {
-            val lines = parseTranscript("1000\t  Hello  ")
+        fun `leading and trailing whitespace in cue text is trimmed`() {
+            val vtt = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\n  Hello  \n"
+            val lines = parseTranscript(vtt)
+            assertEquals("Hello", lines[0].text)
+        }
+
+        @Test
+        fun `cues without text are skipped`() {
+            val vtt = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\n\n00:00:01.000 --> 00:00:02.000\nHello\n"
+            val lines = parseTranscript(vtt)
+            assertEquals(1, lines.size)
             assertEquals("Hello", lines[0].text)
         }
     }
@@ -276,16 +309,6 @@ class SearchModelsTest {
 
         @Test
         fun `wavPath replaces mp3 extension with wav`() = assertEquals("audio/ep.wav", episode(mp3Path = "audio/ep.mp3").wavPath)
-
-        @Test
-        fun `strippedSnippet removes timestamp prefixes and collapses double spaces`() {
-            // TIMESTAMP_REGEX matches 4+ digits followed by a tab
-            val ep = episode(snippet = "12345\tHello 67890\tworld")
-            assertEquals(" Hello world", ep.strippedSnippet)
-        }
-
-        @Test
-        fun `strippedSnippet is null when snippet is null`() = assertNull(episode().strippedSnippet)
     }
 
     @Nested

@@ -12,7 +12,8 @@ machine hosting the files to avoid network filesystem overhead.
 import argparse
 import json
 import os
-import sqlite3
+import re
+import pysqlite3 as sqlite3
 import sys
 import time
 
@@ -41,15 +42,18 @@ CREATE TABLE IF NOT EXISTS episodes (
     episode_type TEXT,
     episode_duration INTEGER,
     episode_transcript TEXT,
+    episode_transcript_plain TEXT,
     episode_relative_mp3_path TEXT,
     all_tags TEXT
 )
 """
 
+# FTS indexes episode_transcript_plain (VTT timing lines stripped) rather than
+# episode_transcript (raw VTT), so searches never match on timestamps.
 SCHEMA_FTS = """
 CREATE VIRTUAL TABLE IF NOT EXISTS episodes_fts USING fts5(
     episode_title,
-    episode_transcript,
+    episode_transcript_plain,
     podcast_title,
     all_tags,
     content='episodes',
@@ -64,16 +68,28 @@ INSERT OR REPLACE INTO episodes (
     episode_title, episode_published_on, episode_audio_link, episode_web_link,
     episode_image, episode_summary, episode_subtitle, episode_authors,
     episode_number, episode_season, episode_type, episode_duration,
-    episode_transcript, episode_relative_mp3_path, all_tags
+    episode_transcript, episode_transcript_plain, episode_relative_mp3_path, all_tags
 ) VALUES (
     :id, :podcast_title, :podcast_link, :podcast_language, :podcast_copyright,
     :podcast_author, :podcast_image, :podcast_type, :podcast_collections,
     :episode_title, :episode_published_on, :episode_audio_link, :episode_web_link,
     :episode_image, :episode_summary, :episode_subtitle, :episode_authors,
     :episode_number, :episode_season, :episode_type, :episode_duration,
-    :episode_transcript, :episode_relative_mp3_path, :all_tags
+    :episode_transcript, :episode_transcript_plain, :episode_relative_mp3_path, :all_tags
 )
 """
+
+_VTT_TIMING_RE = re.compile(r"\d{2}:\d{2}:\d{2}\.\d{3} --> \d{2}:\d{2}:\d{2}\.\d{3}")
+
+
+def strip_vtt(text):
+    """Return plain text from a WebVTT string, suitable for FTS indexing."""
+    words = []
+    for line in text.splitlines():
+        s = line.strip()
+        if s and s != "WEBVTT" and not _VTT_TIMING_RE.match(s):
+            words.append(s)
+    return " ".join(words)
 
 
 def join_list(value):
@@ -137,6 +153,7 @@ def collect_episodes(data_dir):
                 "episode_type": episode.get("episode_type"),
                 "episode_duration": episode.get("episode_duration"),
                 "episode_transcript": transcript,
+                "episode_transcript_plain": strip_vtt(transcript),
                 "episode_relative_mp3_path": episode.get("episode_relative_mp3_path"),
                 "all_tags": join_list(episode.get("all_tags")),
             }

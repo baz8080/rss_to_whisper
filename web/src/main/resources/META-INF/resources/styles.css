@@ -194,6 +194,13 @@ body {
     background: var(--pico-card-background-color, #f8f8f8);
     border-radius: 4px;
 }
+.transcript-line.active {
+    background: #eef2ff;
+    border-radius: 4px;
+}
+.transcript-line.active .transcript-time {
+    font-weight: 600;
+}
 .transcript-time {
     flex-shrink: 0;
     width: 4.5rem;

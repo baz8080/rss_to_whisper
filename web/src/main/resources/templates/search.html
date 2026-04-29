@@ -158,8 +158,8 @@
 
                 <!-- Snippet: use th:utext because it contains <mark> highlight tags -->
                 <div class="snippet"
-                     th:if="${episode.strippedSnippet != null}"
-                     th:utext="${episode.strippedSnippet}"></div>
+                     th:if="${episode.snippet != null}"
+                     th:utext="${episode.snippet}"></div>
 
                 <!-- Tags -->
                 <div th:if="${not episode.tagList.isEmpty()}">

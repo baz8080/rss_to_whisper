@@ -12,7 +12,6 @@ import com.rsstowhisper.PodcastConfig
 import com.rsstowhisper.createPath
 import com.rsstowhisper.external.AudioConverter
 import com.rsstowhisper.external.Transcriber
-import com.rsstowhisper.external.TranscriptWriter
 import com.rsstowhisper.feed.FeedService
 import com.rsstowhisper.timeToSeconds
 import okhttp3.OkHttpClient
@@ -35,8 +34,7 @@ class PodcastPipeline(
             .build(),
     private val feedService: FeedService = FeedService(httpClient),
     private val audioConverter: AudioConverter = AudioConverter(),
-    private val transcriptWriter: TranscriptWriter = TranscriptWriter(),
-    private val transcriber: Transcriber = Transcriber(config.whisperModel),
+    private val transcriber: Transcriber = Transcriber(config.whisperServerUrl),
 ) {
     private val jsonMapper =
         ObjectMapper().apply {
@@ -121,9 +119,8 @@ class PodcastPipeline(
                 }
 
                 feedService.downloadAudio(mp3Info.url, mp3Info.filePath)
-                transcribeEpisode(mp3Info, episodeDirPath)
-
-                writeEpisodeJson(feed, entry, mp3Info, episodeDirPath, podcast.collections)
+                val vtt = transcribeEpisode(mp3Info, episodeDirPath)
+                writeEpisodeJson(feed, entry, mp3Info, episodeDirPath, podcast.collections, vtt)
             } catch (e: Exception) {
                 logger.error("Couldn't process episode entry: ${entry.title}")
                 logger.error(e.message, e)
@@ -137,40 +134,37 @@ class PodcastPipeline(
         mp3Info: Mp3Info,
         episodeDirPath: Path,
         collections: List<String>,
+        vtt: String,
     ) {
         val jsonPath = episodeDirPath.resolve("transcript.json")
         if (Files.exists(jsonPath)) return
-
-        val timingPath = episodeDirPath.resolve("transcript_with_timing.tsv")
-        val transcriptText = if (Files.exists(timingPath)) Files.readString(timingPath) else ""
-        if (transcriptText.isEmpty()) return
+        if (vtt.isBlank()) return
 
         val episodeDict =
-            buildEpisodeDict(feed, entry, transcriptText, mp3Info.localFilePath, collections)
+            buildEpisodeDict(feed, entry, vtt, mp3Info.localFilePath, collections)
 
         if (episodeDict != null) {
             Files.writeString(jsonPath, jsonMapper.writeValueAsString(episodeDict))
-            Files.deleteIfExists(timingPath)
         }
     }
 
     private fun transcribeEpisode(
         mp3Info: Mp3Info,
         episodePath: Path,
-    ) {
+    ): String {
         logger.debug("Starting transcription in {}", episodePath)
         val startTime = System.currentTimeMillis()
 
         val wavPath = audioConverter.mp3ToWav(mp3Info.filePath)
-        val segments = transcriber.transcribe(wavPath)
-
-        transcriptWriter.writeTranscriptWithTiming(segments, episodePath.resolve("transcript_with_timing.tsv"))
+        val vtt = transcriber.transcribe(wavPath)
 
         Files.deleteIfExists(mp3Info.filePath)
         Files.deleteIfExists(episodePath.resolve("transcript.txt"))
 
         val elapsedMinutes = (System.currentTimeMillis() - startTime) / 60000.0
         logger.debug("Transcribed in: ${"%.2f".format(elapsedMinutes)} Minutes")
+
+        return vtt
     }
 
     companion object {

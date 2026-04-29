@@ -12,7 +12,7 @@ import java.io.File
 data class AppConfig(
     val verbose: Boolean = false,
     val dataDirectory: String = "",
-    val whisperModel: String = "",
+    val whisperServerUrl: String = "",
     @param:JsonProperty("skip_after_consecutive") val skipAfterConsecutive: Int = 20,
     val podcasts: List<PodcastConfig> = emptyList(),
 ) {
@@ -28,11 +28,11 @@ data class AppConfig(
             val dataDirectory =
                 env["PIPELINE_DATA_DIRECTORY"]
                     ?: error("PIPELINE_DATA_DIRECTORY must be set in .env")
-            val whisperModel =
-                env["PIPELINE_WHISPER_MODEL_PATH"]
-                    ?: error("PIPELINE_WHISPER_MODEL_PATH must be set in .env")
+            val whisperServerUrl =
+                env["PIPELINE_WHISPER_SERVER_URL"]
+                    ?: error("PIPELINE_WHISPER_SERVER_URL must be set in .env")
 
-            return raw.copy(dataDirectory = dataDirectory, whisperModel = whisperModel)
+            return raw.copy(dataDirectory = dataDirectory, whisperServerUrl = whisperServerUrl)
         }
 
         internal fun loadDotEnv(): Map<String, String> {

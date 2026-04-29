@@ -22,7 +22,6 @@ data class Episode(
 ) {
     // Computed properties — accessible from Thymeleaf as episode.formattedDuration etc.
     val formattedDuration: String? get() = episodeDuration?.let { formatDuration(it) }
-    val strippedSnippet: String? get() = snippet?.let { stripTimestamps(it) }
     val tagList: List<String> get() =
         allTags
             ?.split(",")
@@ -108,24 +107,48 @@ fun formatTimestamp(millis: Long): String {
     }
 }
 
-private val TRANSCRIPT_LINE_REGEX = Regex("""^(\d+)\t(.*)$""")
+private val VTT_TIMING_REGEX = Regex("""(\d{2}):(\d{2}):(\d{2})\.(\d{3}) --> .*""")
 
 fun parseTranscript(transcript: String): List<TranscriptLine> {
-    val lines = mutableListOf<TranscriptLine>()
-    for (line in transcript.lines()) {
-        val match = TRANSCRIPT_LINE_REGEX.matchEntire(line.trim()) ?: continue
-        val millis = match.groupValues[1].toLongOrNull() ?: continue
-        val text = match.groupValues[2].trim()
-        if (text.isNotBlank()) {
-            lines.add(TranscriptLine(millis, text))
+    if (transcript.isBlank()) return emptyList()
+
+    val result = mutableListOf<TranscriptLine>()
+    var currentStartMs: Long? = null
+    val currentText = StringBuilder()
+
+    fun flush() {
+        if (currentStartMs != null && currentText.isNotBlank()) {
+            result.add(TranscriptLine(currentStartMs!!, currentText.toString().trim()))
         }
     }
-    return lines
+
+    for (line in transcript.lines()) {
+        val trimmed = line.trim()
+        val timingMatch = VTT_TIMING_REGEX.matchEntire(trimmed)
+        when {
+            timingMatch != null -> {
+                flush()
+                val h = timingMatch.groupValues[1].toLong()
+                val m = timingMatch.groupValues[2].toLong()
+                val s = timingMatch.groupValues[3].toLong()
+                val ms = timingMatch.groupValues[4].toLong()
+                currentStartMs = h * 3_600_000L + m * 60_000L + s * 1_000L + ms
+                currentText.clear()
+            }
+            trimmed.isBlank() -> {
+                flush()
+                currentStartMs = null
+                currentText.clear()
+            }
+            trimmed != "WEBVTT" && currentStartMs != null -> {
+                if (currentText.isNotEmpty()) currentText.append(" ")
+                currentText.append(trimmed)
+            }
+        }
+    }
+    flush()
+    return result
 }
-
-private val TIMESTAMP_REGEX = Regex("""\d{4,}\t""")
-
-private fun stripTimestamps(snippet: String): String = TIMESTAMP_REGEX.replace(snippet, " ").replace("  ", " ")
 
 private val URL_REGEX = Regex("""https?://[^\s<>"]+""")
 
