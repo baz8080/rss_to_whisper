@@ -53,10 +53,10 @@ The pipeline POSTs audio to the whisper.cpp `/inference` endpoint. Start the ser
 ./server \
   --model /path/to/models/ggml-large-v3-turbo.bin \
   --host 0.0.0.0 \
-  --port 8081
+  --port 8080
 ```
 
-The `server` binary is built alongside `whisper-cli` when you compile whisper.cpp. Set `PIPELINE_WHISPER_SERVER_URL` in `pipeline/.env` to the server's base URL (e.g. `http://localhost:8081`).
+The `server` binary is built alongside `whisper-cli` when you compile whisper.cpp. Set `PIPELINE_WHISPER_SERVER_URL` in `pipeline/.env` to the server's base URL (e.g. `http://localhost:8080`).
 
 ### Choosing a model
 
@@ -150,7 +150,7 @@ Copy `pipeline/.env.example` to `pipeline/.env` and fill in your values (`.env` 
 
 ```ini
 PIPELINE_DATA_DIRECTORY=/path/to/download-directory
-PIPELINE_WHISPER_SERVER_URL=http://localhost:8081
+PIPELINE_WHISPER_SERVER_URL=http://localhost:8080
 PIPELINE_CONFIG_PATH=/path/to/pods.yaml
 ```
 
