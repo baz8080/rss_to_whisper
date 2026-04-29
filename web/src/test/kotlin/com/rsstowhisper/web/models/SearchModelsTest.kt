@@ -264,7 +264,7 @@ class SearchModelsTest {
         private fun episode(
             duration: Int? = null,
             snippet: String? = null,
-            mp3Path: String? = null,
+            audioPath: String? = null,
             tags: String? = null,
         ) = Episode(
             id = "1",
@@ -281,7 +281,7 @@ class SearchModelsTest {
             episodeSeason = null,
             episodeType = null,
             episodeDuration = duration,
-            episodeRelativeMp3Path = mp3Path,
+            episodeRelativeAudioPath = audioPath,
             allTags = tags,
             snippet = snippet,
         )
@@ -305,10 +305,11 @@ class SearchModelsTest {
         fun `tagList filters out blank entries`() = assertTrue(episode(tags = ",").tagList.isEmpty())
 
         @Test
-        fun `wavPath is null when episodeRelativeMp3Path is null`() = assertNull(episode().wavPath)
+        fun `wavPath is null when episodeRelativeAudioPath is null`() = assertNull(episode().wavPath)
 
         @Test
-        fun `wavPath replaces mp3 extension with wav`() = assertEquals("audio/ep.wav", episode(mp3Path = "audio/ep.mp3").wavPath)
+        fun `wavPath returns episodeRelativeAudioPath directly`() =
+            assertEquals("audio/ep.wav", episode(audioPath = "audio/ep.wav").wavPath)
     }
 
     @Nested

@@ -205,7 +205,7 @@ class PodcastPipeline(
             for (enclosure in entry.enclosures) {
                 if (enclosure.type in AUDIO_MP3_TYPES) {
                     val filePath = episodePath.resolve("audio.mp3")
-                    val relativePath = Path.of(dataDir).relativize(filePath).toString()
+                    val relativePath = Path.of(dataDir).relativize(episodePath.resolve("audio.wav")).toString()
 
                     return Mp3Info(
                         url = enclosure.url,
@@ -219,7 +219,7 @@ class PodcastPipeline(
             for (link in entry.links) {
                 if (link.type in AUDIO_MP3_TYPES) {
                     val filePath = episodePath.resolve("audio.mp3")
-                    val relativePath = Path.of(dataDir).relativize(filePath).toString()
+                    val relativePath = Path.of(dataDir).relativize(episodePath.resolve("audio.wav")).toString()
 
                     return Mp3Info(
                         url = link.href,
@@ -237,7 +237,7 @@ class PodcastPipeline(
             feed: SyndFeed,
             entry: SyndEntry,
             transcript: String,
-            relativeMp3Path: String,
+            relativeAudioPath: String,
             collections: List<String>? = null,
         ): Map<String, Any?>? {
             if (transcript.isEmpty()) return null
@@ -260,7 +260,6 @@ class PodcastPipeline(
 
                 mapOf(
                     "_id" to episodeId(entry),
-                    "episode_guid" to guid,
                     "podcast_collections" to (collections ?: emptyList()),
                     "podcast_title" to feed.title,
                     "podcast_link" to feed.link,
@@ -286,7 +285,7 @@ class PodcastPipeline(
                     "episode_type" to entryItunes?.episodeType,
                     "episode_duration" to parseDuration(entryItunes),
                     "episode_transcript" to transcript,
-                    "episode_relative_mp3_path" to relativeMp3Path,
+                    "episode_relative_audio_path" to relativeAudioPath,
                 )
             } catch (e: Exception) {
                 logger.error("Error getting podcast metadata", e)

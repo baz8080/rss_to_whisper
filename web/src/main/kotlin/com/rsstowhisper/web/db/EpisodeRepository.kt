@@ -260,7 +260,7 @@ class EpisodeRepository {
             episodeSeason = rs.getObject("episode_season") as? Int,
             episodeType = rs.getString("episode_type"),
             episodeDuration = rs.getObject("episode_duration") as? Int,
-            episodeRelativeMp3Path = rs.getString("episode_relative_mp3_path"),
+            episodeRelativeAudioPath = rs.getString("episode_relative_audio_path"),
             allTags = rs.getString("all_tags"),
             snippet = runCatching { rs.getString("snippet") }.getOrNull(),
             transcript = if (includeTranscript) rs.getString("episode_transcript") else null,
@@ -272,6 +272,6 @@ class EpisodeRepository {
                e.episode_title, e.episode_published_on, e.episode_audio_link,
                e.episode_web_link, e.episode_image, e.episode_summary,
                e.episode_number, e.episode_season, e.episode_type,
-               e.episode_duration, e.episode_relative_mp3_path, e.all_tags"""
+               e.episode_duration, e.episode_relative_audio_path, e.all_tags"""
     }
 }

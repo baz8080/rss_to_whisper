@@ -15,7 +15,7 @@ data class Episode(
     val episodeSeason: Int?,
     val episodeType: String?,
     val episodeDuration: Int?,
-    val episodeRelativeMp3Path: String?,
+    val episodeRelativeAudioPath: String?,
     val allTags: String?,
     val snippet: String? = null,
     val transcript: String? = null,
@@ -28,7 +28,7 @@ data class Episode(
             ?.map(String::trim)
             ?.filter(String::isNotBlank)
             ?: emptyList()
-    val wavPath: String? get() = episodeRelativeMp3Path?.replace(".mp3", ".wav")
+    val wavPath: String? get() = episodeRelativeAudioPath
 }
 
 data class SearchResult(

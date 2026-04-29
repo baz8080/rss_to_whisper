@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS episodes (
     episode_duration INTEGER,
     episode_transcript TEXT,
     episode_transcript_plain TEXT,
-    episode_relative_mp3_path TEXT,
+    episode_relative_audio_path TEXT,
     all_tags TEXT
 )
 """
@@ -68,14 +68,14 @@ INSERT OR REPLACE INTO episodes (
     episode_title, episode_published_on, episode_audio_link, episode_web_link,
     episode_image, episode_summary, episode_subtitle, episode_authors,
     episode_number, episode_season, episode_type, episode_duration,
-    episode_transcript, episode_transcript_plain, episode_relative_mp3_path, all_tags
+    episode_transcript, episode_transcript_plain, episode_relative_audio_path, all_tags
 ) VALUES (
     :id, :podcast_title, :podcast_link, :podcast_language, :podcast_copyright,
     :podcast_author, :podcast_image, :podcast_type, :podcast_collections,
     :episode_title, :episode_published_on, :episode_audio_link, :episode_web_link,
     :episode_image, :episode_summary, :episode_subtitle, :episode_authors,
     :episode_number, :episode_season, :episode_type, :episode_duration,
-    :episode_transcript, :episode_transcript_plain, :episode_relative_mp3_path, :all_tags
+    :episode_transcript, :episode_transcript_plain, :episode_relative_audio_path, :all_tags
 )
 """
 
@@ -154,7 +154,7 @@ def collect_episodes(data_dir):
                 "episode_duration": episode.get("episode_duration"),
                 "episode_transcript": transcript,
                 "episode_transcript_plain": strip_vtt(transcript),
-                "episode_relative_mp3_path": episode.get("episode_relative_mp3_path"),
+                "episode_relative_audio_path": episode.get("episode_relative_audio_path"),
                 "all_tags": join_list(episode.get("all_tags")),
             }
             count += 1

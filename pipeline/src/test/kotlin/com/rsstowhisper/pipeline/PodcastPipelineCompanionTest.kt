@@ -166,7 +166,7 @@ class PodcastPipelineCompanionTest {
         assertEquals("https://cdn/ep1.mp3", result?.url)
         assertEquals(12345L, result?.length)
         assertEquals(Path.of("/data/show/ep/audio.mp3"), result?.filePath)
-        assertEquals("show/ep/audio.mp3", result?.localFilePath)
+        assertEquals("show/ep/audio.wav", result?.localFilePath)
     }
 
     @Test
@@ -359,10 +359,9 @@ class PodcastPipelineCompanionTest {
                 guid = guid,
             )
 
-        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "transcript", "pod/ep/audio.mp3", listOf("col1"))!!
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "transcript", "pod/ep/audio.wav", listOf("col1"))!!
 
         assertEquals(PodcastPipeline.md5Hash8(guid), dict["_id"])
-        assertEquals(guid, dict["episode_guid"])
         assertEquals(listOf("col1"), dict["podcast_collections"])
         assertEquals("Pod", dict["podcast_title"])
         assertEquals("https://pod", dict["podcast_link"])
@@ -383,14 +382,14 @@ class PodcastPipelineCompanionTest {
         assertEquals("full", dict["episode_type"])
         assertEquals(90L, dict["episode_duration"]) // 90000 / 1000
         assertEquals("transcript", dict["episode_transcript"])
-        assertEquals("pod/ep/audio.mp3", dict["episode_relative_mp3_path"])
+        assertEquals("pod/ep/audio.wav", dict["episode_relative_audio_path"])
     }
 
     @Test
     fun `buildEpisodeDict defaults collections to empty list`() {
         val feed = feedWithItunes()
         val e = entryWithItunes()
-        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.mp3", collections = null)!!
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "t", "p.wav", collections = null)!!
         assertEquals(emptyList<String>(), dict["podcast_collections"])
     }
 
