@@ -81,6 +81,7 @@
                controls="controls"
                preload="none"
                th:src="${audioBaseUrl + '/' + episode.wavPath}">
+            <track id="episode-track" kind="captions" srclang="en" label="English" default="default"/>
             Your browser does not support audio.
         </audio>
     </div>
@@ -88,8 +89,10 @@
     <!-- Transcript — parsed into timestamped lines by SearchResource -->
     <div th:if="${not transcriptLines.isEmpty()}">
         <h3>Transcript</h3>
-        <div class="transcript">
-            <div class="transcript-line" th:each="line : ${transcriptLines}">
+        <div class="transcript" id="transcript">
+            <div class="transcript-line"
+                 th:each="line : ${transcriptLines}"
+                 th:data-start-ms="${line.millis}">
                 <span class="transcript-time"
                       th:onclick="'seekAudio(' + ${line.seconds} + ')'"
                       th:title="'Jump to ' + ${line.display}"
@@ -107,14 +110,55 @@
         </div>
     </div>
 
-    <script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        const vttText = [[${episode.transcript}]];
+        const audioEl = document.getElementById('episode-audio');
+        const trackEl = document.getElementById('episode-track');
+
+        // Wire the VTT content to the <track> via a blob URL — no extra endpoint needed.
+        if (vttText && trackEl) {
+            const blob = new Blob([vttText], {type: 'text/vtt'});
+            trackEl.src = URL.createObjectURL(blob);
+        }
+
         function seekAudio(seconds) {
-            var audio = document.getElementById('episode-audio');
-            if (audio) {
-                audio.currentTime = seconds;
-                if (audio.paused) { audio.play(); }
+            if (audioEl) {
+                audioEl.currentTime = seconds;
+                if (audioEl.paused) audioEl.play();
             }
         }
+
+        // Highlight the active transcript line as audio plays.
+        const lineEls = Array.from(document.querySelectorAll('.transcript-line'));
+        let activeLine = null;
+
+        if (audioEl && lineEls.length > 0) {
+            audioEl.addEventListener('timeupdate', function () {
+                const line = findActiveLine(audioEl.currentTime * 1000);
+                if (line !== activeLine) {
+                    if (activeLine) activeLine.classList.remove('active');
+                    if (line) line.classList.add('active');
+                    activeLine = line;
+                }
+            });
+        }
+
+        // Binary search: last line whose data-start-ms <= nowMs.
+        function findActiveLine(nowMs) {
+            let lo = 0, hi = lineEls.length - 1, result = null;
+            while (lo <= hi) {
+                const mid = (lo + hi) >>> 1;
+                if (+lineEls[mid].dataset.startMs <= nowMs) {
+                    result = lineEls[mid];
+                    lo = mid + 1;
+                } else {
+                    hi = mid - 1;
+                }
+            }
+            return result;
+        }
+        /*]]>*/
     </script>
 
 </div><!-- end episode-detail -->

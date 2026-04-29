@@ -1,85 +1,55 @@
 package com.rsstowhisper.external
 
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.asRequestBody
 import org.slf4j.LoggerFactory
-import java.io.FileNotFoundException
-import java.nio.file.Files
 import java.nio.file.Path
+import java.util.concurrent.TimeUnit
 
-open class Transcriber(private val modelPath: String) {
+open class Transcriber(private val serverUrl: String) {
     private val logger = LoggerFactory.getLogger(Transcriber::class.java)
+    private val httpClient =
+        OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(90, TimeUnit.MINUTES)
+            .writeTimeout(30, TimeUnit.MINUTES)
+            .build()
 
-    init {
-        if (!Files.exists(Path.of(modelPath))) {
-            throw FileNotFoundException("Model file not found: $modelPath")
-        }
-    }
+    open fun transcribe(wavPath: Path): String {
+        val requestBody =
+            MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart(
+                    "file",
+                    wavPath.fileName.toString(),
+                    wavPath.toFile().asRequestBody("audio/wav".toMediaType()),
+                )
+                .addFormDataPart("language", "en")
+                .addFormDataPart("response_format", "vtt")
+                .addFormDataPart("initial_prompt", PROMPT)
+                .build()
 
-    open fun transcribe(wavPath: Path): List<TranscriptSegment> {
-        val outputBase = wavPath.resolveSibling(wavPath.fileName.toString().removeSuffix(".wav"))
+        val request =
+            Request.Builder()
+                .url("$serverUrl/inference")
+                .post(requestBody)
+                .build()
 
-        val command =
-            listOf(
-                "whisper-cli",
-                "-m", modelPath,
-                "-f", wavPath.toString(),
-                "-l", "en",
-                "--output-csv",
-                "--output-file", outputBase.toString(),
-                "--prompt", "Hello, welcome to the podcast. This is a transcription with proper punctuation and capitalization.",
-            )
+        logger.debug("Sending {} to whisper server", wavPath.fileName)
 
-        logger.debug("Running: ${command.joinToString(" ")}")
-
-        val process =
-            ProcessBuilder(command)
-                .redirectOutput(ProcessBuilder.Redirect.DISCARD)
-                .start()
-
-        // Read stderr concurrently to prevent pipe buffer from filling and deadlocking
-        val stderrFuture =
-            java.util.concurrent.CompletableFuture.supplyAsync {
-                process.errorStream.bufferedReader().readText()
+        return httpClient.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) {
+                throw RuntimeException("Whisper server returned ${response.code}: ${response.body?.string()}")
             }
-
-        val exitCode = process.waitFor()
-        val stderr = stderrFuture.get()
-
-        if (exitCode != 0) {
-            throw RuntimeException("whisper-cli failed with exit code $exitCode: $stderr")
+            response.body?.string() ?: throw RuntimeException("Whisper server returned empty body")
         }
+    }
 
-        val csvPath = Path.of("$outputBase.csv")
-        if (!Files.exists(csvPath)) {
-            throw RuntimeException("whisper-cli did not produce expected output file: $csvPath")
-        }
-
-        val segments = parseWhisperCsv(Files.readAllLines(csvPath))
-
-        Files.deleteIfExists(csvPath)
-
-        return segments
+    companion object {
+        private const val PROMPT =
+            "Hello, welcome to the podcast. This is a transcription with proper punctuation and capitalization."
     }
 }
-
-internal fun parseWhisperCsv(lines: List<String>): List<TranscriptSegment> {
-    if (lines.isEmpty()) return emptyList()
-
-    return lines
-        .drop(1) // skip header row
-        .mapNotNull { line ->
-            val parts = line.split(",", limit = 3)
-            if (parts.size < 3) return@mapNotNull null
-
-            val startMs = parts[0].trim().toLongOrNull() ?: return@mapNotNull null
-            val endMs = parts[1].trim().toLongOrNull() ?: return@mapNotNull null
-            val text = parts[2].trim().removeSurrounding("\"")
-
-            TranscriptSegment(startMs = startMs, endMs = endMs, text = text)
-        }
-}
-
-data class TranscriptSegment(
-    val startMs: Long,
-    val endMs: Long,
-    val text: String,
-)

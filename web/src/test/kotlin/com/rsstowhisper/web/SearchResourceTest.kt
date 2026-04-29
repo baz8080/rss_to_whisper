@@ -168,7 +168,8 @@ class SearchResourceTest {
 
     @Test
     fun `episode parses transcript lines when transcript is present`() {
-        every { repository.getEpisodeById("ep1") } returns minimalEpisode(transcript = "0\tHello\n1000\tWorld")
+        val vtt = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nHello\n\n00:00:01.000 --> 00:00:02.000\nWorld\n"
+        every { repository.getEpisodeById("ep1") } returns minimalEpisode(transcript = vtt)
 
         val ctxSlot = slot<IContext>()
         every { templateEngine.process("episode", capture(ctxSlot)) } returns ""

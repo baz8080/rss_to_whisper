@@ -9,8 +9,6 @@ import com.rsstowhisper.PodcastConfig
 import com.rsstowhisper.escapeFilename
 import com.rsstowhisper.external.AudioConverter
 import com.rsstowhisper.external.Transcriber
-import com.rsstowhisper.external.TranscriptSegment
-import com.rsstowhisper.external.TranscriptWriter
 import com.rsstowhisper.feed.FeedService
 import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Files
@@ -20,6 +18,10 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+
+private const val FAKE_SERVER_URL = "http://localhost:9000"
+
+private val MINIMAL_VTT = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\n Hello world.\n"
 
 class PodcastPipelineRunTest {
     private class FakeFeedService(private val feeds: Map<String, SyndFeed?>) : FeedService() {
@@ -50,14 +52,14 @@ class PodcastPipelineRunTest {
     }
 
     private class FakeTranscriber(
-        modelPath: String,
-        private val segments: List<TranscriptSegment>,
-    ) : Transcriber(modelPath) {
+        serverUrl: String,
+        private val vtt: String,
+    ) : Transcriber(serverUrl) {
         val calls = mutableListOf<Path>()
 
-        override fun transcribe(wavPath: Path): List<TranscriptSegment> {
+        override fun transcribe(wavPath: Path): String {
             calls.add(wavPath)
-            return segments
+            return vtt
         }
     }
 
@@ -94,37 +96,28 @@ class PodcastPipelineRunTest {
             this.entries = entries.toMutableList()
         }
 
-    private fun dummyModel(tempDir: Path): String {
-        val p = tempDir.resolve("model.bin")
-        Files.writeString(p, "x")
-        return p.toAbsolutePath().toString()
-    }
-
     private fun buildPipeline(
         dataDir: Path,
         podcasts: List<PodcastConfig>,
         feed: SyndFeed?,
-        segments: List<TranscriptSegment> =
-            listOf(TranscriptSegment(0, 1000, " Hello world.")),
+        vtt: String = MINIMAL_VTT,
         feedUrl: String = "https://feed",
         skipAfterConsecutive: Int = 20,
     ): Triple<PodcastPipeline, FakeTranscriber, FakeFeedService> {
-        val modelPath = dummyModel(dataDir)
         val config =
             AppConfig(
                 dataDirectory = dataDir.toAbsolutePath().toString(),
-                whisperModel = modelPath,
+                whisperServerUrl = FAKE_SERVER_URL,
                 skipAfterConsecutive = skipAfterConsecutive,
                 podcasts = podcasts,
             )
         val feedSvc = FakeFeedService(mapOf(feedUrl to feed))
-        val txSvc = FakeTranscriber(modelPath, segments)
+        val txSvc = FakeTranscriber(FAKE_SERVER_URL, vtt)
         val pipeline =
             PodcastPipeline(
                 config = config,
                 feedService = feedSvc,
                 audioConverter = FakeAudioConverter(),
-                transcriptWriter = TranscriptWriter(),
                 transcriber = txSvc,
             )
         return Triple(pipeline, txSvc, feedSvc)
@@ -144,7 +137,6 @@ class PodcastPipelineRunTest {
 
         pipeline.run()
 
-        // Episode directory uses escaped "date-title"
         val podcastDir = tempDir.resolve("Show")
         assertTrue(Files.isDirectory(podcastDir))
         val episodeDir = Files.list(podcastDir).use { it.toList() }.single()
@@ -182,7 +174,6 @@ class PodcastPipelineRunTest {
 
         pipeline.run()
 
-        // Only the non-excluded entry should have been transcribed
         assertEquals(1, txSvc.calls.size)
         val episodes = Files.list(tempDir.resolve("Show")).use { it.toList() }
         assertEquals(1, episodes.size)
@@ -193,8 +184,6 @@ class PodcastPipelineRunTest {
     fun `run continues past isolated transcribed episodes and transcribes gaps`(
         @TempDir tempDir: Path,
     ) {
-        // A previous run was cancelled, leaving a gap: newest is transcribed, older one isn't.
-        // With a threshold >1, the single transcribed episode should NOT halt the podcast.
         val newEntry = makeEntry("New Episode", audioUrl = "https://cdn/new.mp3")
         val oldEntry = makeEntry("Old Episode", audioUrl = "https://cdn/old.mp3")
         val feed = makeFeed(newEntry, oldEntry)
@@ -216,7 +205,6 @@ class PodcastPipelineRunTest {
 
         pipeline.run()
 
-        // The older, untranscribed episode should be picked up.
         assertEquals(1, txSvc.calls.size)
         val oldDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(oldEntry)))
         assertTrue(Files.exists(oldDir.resolve("transcript.json")))
@@ -226,7 +214,6 @@ class PodcastPipelineRunTest {
     fun `run skips remainder of feed after threshold consecutive transcribed`(
         @TempDir tempDir: Path,
     ) {
-        // Three transcribed in a row trips the threshold; the fourth (untranscribed) is not reached.
         val e1 = makeEntry("Ep One")
         val e2 = makeEntry("Ep Two")
         val e3 = makeEntry("Ep Three")
@@ -265,7 +252,6 @@ class PodcastPipelineRunTest {
             buildPipeline(
                 tempDir,
                 listOf(PodcastConfig(name = "Broken", url = "https://feed")),
-                // simulate fetch failure
                 feed = null,
             )
 
@@ -295,7 +281,6 @@ class PodcastPipelineRunTest {
 
         assertEquals(1, txSvc.calls.size)
         val episodeDirs = Files.list(tempDir.resolve("Show")).use { it.toList() }
-        // No Audio entry is skipped entirely — only Has Audio gets a directory
         assertEquals(1, episodeDirs.size)
         assertTrue(episodeDirs[0].fileName.toString().contains("Has-Audio"))
         assertTrue(Files.exists(episodeDirs[0].resolve("transcript.json")))
@@ -323,15 +308,14 @@ class PodcastPipelineRunTest {
         @TempDir tempDir: Path,
     ) {
         val missing = tempDir.resolve("does-not-exist")
-        val modelPath = dummyModel(tempDir)
         val config =
             AppConfig(
                 dataDirectory = missing.toAbsolutePath().toString(),
-                whisperModel = modelPath,
+                whisperServerUrl = FAKE_SERVER_URL,
                 podcasts = listOf(PodcastConfig(name = "Show", url = "https://feed")),
             )
         val feedSvc = FakeFeedService(mapOf("https://feed" to makeFeed(makeEntry("E"))))
-        val txSvc = FakeTranscriber(modelPath, listOf(TranscriptSegment(0, 1, "hi.")))
+        val txSvc = FakeTranscriber(FAKE_SERVER_URL, MINIMAL_VTT)
         val pipeline =
             PodcastPipeline(
                 config = config,
@@ -350,18 +334,17 @@ class PodcastPipelineRunTest {
     fun `run produces transcript json with expected fields and content`(
         @TempDir tempDir: Path,
     ) {
-        val segments =
-            listOf(
-                TranscriptSegment(0, 1500, " First sentence."),
-                TranscriptSegment(1500, 3000, " Second sentence."),
-            )
+        val vtt =
+            "WEBVTT\n\n" +
+                "00:00:00.000 --> 00:00:01.500\n First sentence.\n\n" +
+                "00:00:01.500 --> 00:00:03.000\n Second sentence.\n"
         val feed = makeFeed(makeEntry("Episode"))
         val (pipeline, _, _) =
             buildPipeline(
                 tempDir,
                 listOf(PodcastConfig(name = "Show", url = "https://feed", collections = listOf("tech"))),
                 feed,
-                segments = segments,
+                vtt = vtt,
             )
 
         pipeline.run()
