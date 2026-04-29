@@ -210,7 +210,7 @@ class SearchResourceTest {
         episodeSeason = null,
         episodeType = null,
         episodeDuration = null,
-        episodeRelativeMp3Path = null,
+        episodeRelativeAudioPath = null,
         allTags = null,
         transcript = transcript,
     )

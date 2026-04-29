@@ -355,7 +355,7 @@ class PodcastPipelineRunTest {
         assertTrue(json.contains("Second sentence."))
         assertTrue(json.contains("\"podcast_collections\""))
         assertTrue(json.contains("tech"))
-        assertTrue(json.contains("\"episode_relative_mp3_path\""))
+        assertTrue(json.contains("\"episode_relative_audio_path\""))
         assertTrue(json.contains("Show/"))
     }
 }
