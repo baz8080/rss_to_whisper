@@ -29,7 +29,6 @@ open class Transcriber(private val serverUrl: String) {
                 )
                 .addFormDataPart("language", "en")
                 .addFormDataPart("response_format", "vtt")
-                .addFormDataPart("initial_prompt", PROMPT)
                 .build()
 
         val request =
@@ -46,10 +45,5 @@ open class Transcriber(private val serverUrl: String) {
             }
             response.body?.string() ?: throw RuntimeException("Whisper server returned empty body")
         }
-    }
-
-    companion object {
-        private const val PROMPT =
-            "Hello, welcome to the podcast. This is a transcription with proper punctuation and capitalization."
     }
 }
