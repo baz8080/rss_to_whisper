@@ -9,14 +9,16 @@ import org.slf4j.LoggerFactory
 import java.nio.file.Path
 import java.util.concurrent.TimeUnit
 
-open class Transcriber(private val serverUrl: String) {
-    private val logger = LoggerFactory.getLogger(Transcriber::class.java)
-    private val httpClient =
+open class Transcriber(
+    private val serverUrl: String,
+    private val httpClient: OkHttpClient =
         OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
             .readTimeout(90, TimeUnit.MINUTES)
             .writeTimeout(30, TimeUnit.MINUTES)
-            .build()
+            .build(),
+) {
+    private val logger = LoggerFactory.getLogger(Transcriber::class.java)
 
     open fun transcribe(wavPath: Path): String {
         val requestBody =

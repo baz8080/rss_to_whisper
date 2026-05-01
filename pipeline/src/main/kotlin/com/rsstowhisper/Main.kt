@@ -5,24 +5,12 @@ import ch.qos.logback.classic.LoggerContext
 import com.rsstowhisper.pipeline.PodcastPipeline
 import org.slf4j.LoggerFactory
 
-fun main(args: Array<String>) {
-    val env = AppConfig.loadDotEnv()
-    val configFile =
-        args.find { it == "-c" || it == "--config" }
-            ?.let { args[args.indexOf(it) + 1] }
-            ?: env["PIPELINE_CONFIG_PATH"]
-            ?: run {
-                println("No config file specified. Use --config or set PIPELINE_CONFIG_PATH in .env")
-                return
-            }
-
-    println("Using $configFile config")
-
+fun main() {
     val config: AppConfig =
         try {
-            AppConfig.load(configFile)
+            AppConfig.load()
         } catch (e: Exception) {
-            println("Cannot read configuration file: ${e.message}")
+            println("Cannot load configuration: ${e.message}")
             return
         }
 

@@ -21,13 +21,18 @@ Three-stage pipeline for podcast transcription and full-text search:
 ### Pipeline (transcription)
 
 ```bash
-./gradlew :pipeline:run --args="-c pods.yaml"
+./gradlew :pipeline:run
 ```
 
+All configuration comes from `pipeline/.env` — copy `pipeline/.env.example` and fill in:
+- `PIPELINE_CONFIG_PATH` — path to your `pods.yaml`
+- `PIPELINE_DATA_DIRECTORY` — where audio and transcripts are stored
+- `PIPELINE_WHISPER_SERVER_URL` — URL of the whisper HTTP server
+- `PIPELINE_VERBOSE` — set to `true` to enable debug logging
+
 Configure `pods.yaml` with:
-- `data_directory` — where audio and transcripts are stored
-- `whisper_model` — path to a GGML model file (e.g. `ggml-large-v3-turbo.bin`)
 - `podcasts` — list of RSS feeds with `name`, `url`, and `collections` tags
+- `skip_after_consecutive` — stop processing a feed after N already-transcribed episodes in a row (default: 20)
 
 External tools required on `PATH`: `ffmpeg`, `whisper-cli`
 
@@ -63,5 +68,11 @@ APP_AUDIO_BASE_URL=http://your-audio-server:port
 ## Code style
 
 - Kotlin throughout (JVM 21), ktlint enforced — run `./gradlew ktlintFormat` before committing
+- Always run `./gradlew ktlintFormat && ./gradlew test` before committing
 - `pipeline` JVM heap is set to 4GB by default (`-Xmx4g`) to handle large whisper model loads
 - Thymeleaf is used as a plain library in `web` (no Quarkiverse extension) via a hand-rolled CDI producer
+
+## Git workflow
+
+- Always create a feature branch from `main` before making changes — never commit directly to `main`
+- Branch naming convention: `baz8080/<short-description>`
