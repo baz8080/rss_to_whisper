@@ -1,0 +1,369 @@
+package com.rsstowhisper.web.db
+
+import com.rsstowhisper.web.models.SearchFilters
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Nested
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
+import java.nio.file.Path
+import java.sql.Connection
+import java.sql.DriverManager
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNotSame
+import org.junit.jupiter.api.Assertions.assertNull
+import org.junit.jupiter.api.Assertions.assertSame
+import org.junit.jupiter.api.Assertions.assertTrue
+
+class EpisodeRepositoryTest {
+    @TempDir
+    lateinit var tempDir: Path
+
+    private lateinit var repo: EpisodeRepository
+
+    @BeforeEach
+    fun setUp() {
+        val dbPath = tempDir.resolve("test.db").toAbsolutePath().toString()
+        DriverManager.getConnection("jdbc:sqlite:$dbPath").use { conn ->
+            createSchema(conn)
+            insertFixtures(conn)
+            conn.createStatement().execute("INSERT INTO episodes_fts(episodes_fts) VALUES('rebuild')")
+        }
+        repo = EpisodeRepository()
+        repo.dbPath = dbPath
+        repo.init()
+    }
+
+    @AfterEach
+    fun tearDown() = repo.cleanup()
+
+    // --- fixtures ---
+
+    private fun createSchema(conn: Connection) {
+        conn.createStatement().execute(
+            """CREATE TABLE episodes (
+                id TEXT PRIMARY KEY,
+                podcast_title TEXT, podcast_link TEXT, podcast_language TEXT,
+                podcast_copyright TEXT, podcast_author TEXT, podcast_image TEXT,
+                podcast_type TEXT, podcast_collections TEXT,
+                episode_title TEXT, episode_published_on TEXT,
+                episode_audio_link TEXT, episode_web_link TEXT,
+                episode_image TEXT, episode_summary TEXT, episode_subtitle TEXT,
+                episode_authors TEXT, episode_number INTEGER, episode_season INTEGER,
+                episode_type TEXT, episode_duration INTEGER,
+                episode_transcript TEXT, episode_transcript_plain TEXT,
+                episode_relative_audio_path TEXT, all_tags TEXT
+            )""",
+        )
+        conn.createStatement().execute(
+            """CREATE VIRTUAL TABLE episodes_fts USING fts5(
+                episode_title, episode_transcript_plain, podcast_title, all_tags,
+                content='episodes', content_rowid='rowid'
+            )""",
+        )
+    }
+
+    private fun insertFixtures(conn: Connection) {
+        // ep1 — Podcast A, SHORT duration, tech+science collections, kotlin+jvm tags
+        insert(
+            conn,
+            id = "ep1",
+            podcastTitle = "Podcast A",
+            episodeTitle = "Kotlin Episode",
+            publishedOn = "2024-01-01",
+            duration = 600,
+            collections = "tech, science",
+            tags = "kotlin, jvm",
+            type = "full",
+            transcriptPlain = "kotlin programming language",
+        )
+        // ep2 — Podcast A, MEDIUM duration, tech collection, java tag
+        insert(
+            conn,
+            id = "ep2",
+            podcastTitle = "Podcast A",
+            episodeTitle = "Java Episode",
+            publishedOn = "2024-01-03",
+            duration = 1800,
+            collections = "tech",
+            tags = "java",
+            type = "full",
+            transcriptPlain = "java programming",
+        )
+        // ep3 — Podcast B, LONG duration, science collection, physics tag, trailer type
+        insert(
+            conn,
+            id = "ep3",
+            podcastTitle = "Podcast B",
+            episodeTitle = "Physics Trailer",
+            publishedOn = "2024-01-02",
+            duration = 3600,
+            collections = "science",
+            tags = "physics",
+            type = "trailer",
+            transcriptPlain = "physics and quantum mechanics",
+        )
+        // ep4 — Podcast B, no duration/collections/tags/type — tests null handling
+        insert(
+            conn,
+            id = "ep4",
+            podcastTitle = "Podcast B",
+            episodeTitle = "No Duration Episode",
+            publishedOn = "2024-01-04",
+            duration = null,
+            collections = null,
+            tags = null,
+            type = null,
+            transcriptPlain = "some content here",
+        )
+    }
+
+    private fun insert(
+        conn: Connection,
+        id: String,
+        podcastTitle: String,
+        episodeTitle: String,
+        publishedOn: String,
+        duration: Int?,
+        collections: String?,
+        tags: String?,
+        type: String?,
+        transcriptPlain: String,
+    ) {
+        conn.prepareStatement(
+            """INSERT INTO episodes
+               (id, podcast_title, episode_title, episode_published_on, episode_duration,
+                podcast_collections, all_tags, episode_type,
+                episode_transcript, episode_transcript_plain, episode_relative_audio_path)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        ).use { stmt ->
+            stmt.setString(1, id)
+            stmt.setString(2, podcastTitle)
+            stmt.setString(3, episodeTitle)
+            stmt.setString(4, publishedOn)
+            stmt.setObject(5, duration)
+            stmt.setObject(6, collections)
+            stmt.setObject(7, tags)
+            stmt.setObject(8, type)
+            stmt.setString(9, "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\n$transcriptPlain\n")
+            stmt.setString(10, transcriptPlain)
+            stmt.setString(11, "$id/audio.wav")
+            stmt.execute()
+        }
+    }
+
+    // --- tests ---
+
+    @Nested
+    inner class Search {
+        @Test
+        fun `no query returns all episodes ordered by published date descending`() {
+            val result = repo.search(SearchFilters())
+            assertEquals(4, result.totalCount)
+            assertEquals(listOf("ep4", "ep2", "ep3", "ep1"), result.episodes.map { it.id })
+        }
+
+        @Test
+        fun `query filters by FTS and returns snippet`() {
+            val result = repo.search(SearchFilters(query = "kotlin"))
+            assertEquals(1, result.totalCount)
+            assertEquals("ep1", result.episodes.single().id)
+            assertNotNull(result.episodes.single().snippet)
+        }
+
+        @Test
+        fun `query matching multiple episodes returns all matches`() {
+            val result = repo.search(SearchFilters(query = "programming"))
+            assertEquals(2, result.totalCount)
+            val ids = result.episodes.map { it.id }.toSet()
+            assertTrue("ep1" in ids)
+            assertTrue("ep2" in ids)
+        }
+
+        @Test
+        fun `no-query results have null snippet`() {
+            assertTrue(repo.search(SearchFilters()).episodes.all { it.snippet == null })
+        }
+
+        @Nested
+        inner class DurationFilter {
+            @Test
+            fun `SHORT returns episodes under 900 seconds`() {
+                val result = repo.search(SearchFilters(durations = setOf("SHORT")))
+                assertEquals(1, result.totalCount)
+                assertEquals("ep1", result.episodes.single().id)
+            }
+
+            @Test
+            fun `MEDIUM returns episodes between 900 and 2700 seconds`() {
+                val result = repo.search(SearchFilters(durations = setOf("MEDIUM")))
+                assertEquals(1, result.totalCount)
+                assertEquals("ep2", result.episodes.single().id)
+            }
+
+            @Test
+            fun `LONG returns episodes over 2700 seconds`() {
+                val result = repo.search(SearchFilters(durations = setOf("LONG")))
+                assertEquals(1, result.totalCount)
+                assertEquals("ep3", result.episodes.single().id)
+            }
+
+            @Test
+            fun `multiple duration categories are ORed`() {
+                val result = repo.search(SearchFilters(durations = setOf("SHORT", "LONG")))
+                assertEquals(2, result.totalCount)
+                val ids = result.episodes.map { it.id }.toSet()
+                assertTrue("ep1" in ids)
+                assertTrue("ep3" in ids)
+            }
+
+            @Test
+            fun `null duration is excluded by all duration filters`() {
+                for (cat in listOf("SHORT", "MEDIUM", "LONG")) {
+                    val result = repo.search(SearchFilters(durations = setOf(cat)))
+                    assertFalse(result.episodes.any { it.id == "ep4" }, "ep4 should not appear for $cat")
+                }
+            }
+        }
+
+        @Nested
+        inner class PodcastFilter {
+            @Test
+            fun `single podcast restricts results`() {
+                val result = repo.search(SearchFilters(podcasts = setOf("Podcast A")))
+                assertEquals(2, result.totalCount)
+                assertTrue(result.episodes.all { it.podcastTitle == "Podcast A" })
+            }
+
+            @Test
+            fun `multiple podcasts are ORed`() {
+                val result = repo.search(SearchFilters(podcasts = setOf("Podcast A", "Podcast B")))
+                assertEquals(4, result.totalCount)
+            }
+        }
+
+        @Nested
+        inner class CollectionsFilter {
+            @Test
+            fun `collections filter matches episodes containing that collection`() {
+                val result = repo.search(SearchFilters(collections = setOf("science")))
+                assertEquals(2, result.totalCount)
+                val ids = result.episodes.map { it.id }.toSet()
+                assertTrue("ep1" in ids)
+                assertTrue("ep3" in ids)
+            }
+        }
+
+        @Nested
+        inner class TagsFilter {
+            @Test
+            fun `tags filter matches episodes containing that tag`() {
+                val result = repo.search(SearchFilters(tags = setOf("kotlin")))
+                assertEquals(1, result.totalCount)
+                assertEquals("ep1", result.episodes.single().id)
+            }
+        }
+
+        @Nested
+        inner class EpisodeTypeFilter {
+            @Test
+            fun `episode type filter restricts to that type`() {
+                val result = repo.search(SearchFilters(episodeTypes = setOf("trailer")))
+                assertEquals(1, result.totalCount)
+                assertEquals("ep3", result.episodes.single().id)
+            }
+        }
+
+        @Nested
+        inner class Pagination {
+            @Test
+            fun `first page returns up to pageSize results`() {
+                val result = repo.search(SearchFilters(page = 1, pageSize = 2))
+                assertEquals(2, result.episodes.size)
+                assertEquals(4, result.totalCount)
+            }
+
+            @Test
+            fun `second page returns the remaining results`() {
+                val page1Ids = repo.search(SearchFilters(page = 1, pageSize = 2)).episodes.map { it.id }.toSet()
+                val page2Ids = repo.search(SearchFilters(page = 2, pageSize = 2)).episodes.map { it.id }.toSet()
+                assertTrue(page1Ids.intersect(page2Ids).isEmpty())
+                assertEquals(4, (page1Ids + page2Ids).size)
+            }
+
+            @Test
+            fun `page beyond available results returns empty episode list with correct total`() {
+                val result = repo.search(SearchFilters(page = 99, pageSize = 10))
+                assertTrue(result.episodes.isEmpty())
+                assertEquals(4, result.totalCount)
+            }
+        }
+    }
+
+    @Nested
+    inner class GetEpisodeById {
+        @Test
+        fun `returns episode with correct fields`() {
+            val episode = repo.getEpisodeById("ep1")!!
+            assertEquals("ep1", episode.id)
+            assertEquals("Podcast A", episode.podcastTitle)
+            assertEquals("Kotlin Episode", episode.episodeTitle)
+        }
+
+        @Test
+        fun `includes transcript`() {
+            val transcript = repo.getEpisodeById("ep1")!!.transcript!!
+            assertTrue(transcript.startsWith("WEBVTT"))
+        }
+
+        @Test
+        fun `returns null for unknown id`() {
+            assertNull(repo.getEpisodeById("nonexistent"))
+        }
+    }
+
+    @Nested
+    inner class GetFilterOptions {
+        @Test
+        fun `returns all distinct podcast titles sorted`() {
+            val options = repo.getFilterOptions("")
+            assertEquals(listOf("Podcast A", "Podcast B"), options.podcasts)
+        }
+
+        @Test
+        fun `returns collections split from CSV and sorted`() {
+            val options = repo.getFilterOptions("")
+            assertEquals(listOf("science", "tech"), options.collections)
+        }
+
+        @Test
+        fun `returns distinct episode types`() {
+            val options = repo.getFilterOptions("")
+            assertEquals(listOf("full", "trailer"), options.episodeTypes)
+        }
+
+        @Test
+        fun `scopes results to FTS matches when query is provided`() {
+            val options = repo.getFilterOptions("kotlin")
+            assertEquals(listOf("Podcast A"), options.podcasts)
+        }
+
+        @Test
+        fun `second call with same query returns cached object`() {
+            val first = repo.getFilterOptions("kotlin")
+            val second = repo.getFilterOptions("kotlin")
+            assertSame(first, second)
+        }
+
+        @Test
+        fun `different query bypasses cache and re-queries`() {
+            val forKotlin = repo.getFilterOptions("kotlin")
+            val forPhysics = repo.getFilterOptions("physics")
+            assertNotSame(forKotlin, forPhysics)
+            assertEquals(listOf("Podcast A"), forKotlin.podcasts)
+            assertEquals(listOf("Podcast B"), forPhysics.podcasts)
+        }
+    }
+}

@@ -4,52 +4,146 @@ import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Response
 import okhttp3.ResponseBody.Companion.toResponseBody
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.io.TempDir
+import java.io.IOException
+import java.nio.file.Files
 import java.nio.file.Path
-import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
+private val MINIMAL_RSS =
+    """<?xml version="1.0" encoding="UTF-8"?>
+    <rss version="2.0">
+      <channel>
+        <title>Test Feed</title>
+        <link>https://example.com</link>
+        <description>A test feed</description>
+        <item><title>Episode One</title><link>https://example.com/ep1</link></item>
+      </channel>
+    </rss>""".trimIndent()
+
 class FeedServiceTest {
-    private fun clientCapturingHeaders(
-        captured: MutableList<String?>,
+    private fun clientReturning(
+        body: String = "",
         responseCode: Int = 200,
+        captureHeaders: MutableList<String?>? = null,
     ): OkHttpClient =
         OkHttpClient.Builder()
             .addInterceptor { chain ->
-                captured.add(chain.request().header("User-Agent"))
+                captureHeaders?.add(chain.request().header("User-Agent"))
                 Response.Builder()
                     .request(chain.request())
                     .protocol(Protocol.HTTP_1_1)
                     .code(responseCode)
                     .message(if (responseCode == 200) "OK" else "Error")
-                    .body("".toResponseBody())
+                    .body(body.toResponseBody())
                     .build()
             }
             .build()
 
+    private fun clientThrowing(exception: IOException): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor { throw exception }
+            .build()
+
+    // --- fetchFeed ---
+
     @Test
     fun `fetchFeed sends user-agent header`() {
         val headers = mutableListOf<String?>()
-        val service = FeedService(clientCapturingHeaders(headers))
-
-        service.fetchFeed("https://example.com/feed.rss")
+        FeedService(clientReturning(MINIMAL_RSS, captureHeaders = headers))
+            .fetchFeed("https://example.com/feed.rss")
 
         val userAgent = headers.single()
         assertNotNull(userAgent)
-        assertTrue(userAgent.startsWith("rss-to-whisper/"), "Expected header to start with 'rss-to-whisper/' but was: $userAgent")
-        assertTrue(userAgent.contains("github.com/baz8080/rss_to_whisper"), "Expected header to contain repo URL but was: $userAgent")
+        assertTrue(userAgent.startsWith("rss-to-whisper/"))
+        assertTrue(userAgent.contains("github.com/baz8080/rss_to_whisper"))
     }
+
+    @Test
+    fun `fetchFeed parses valid RSS and returns feed`() {
+        val feed = FeedService(clientReturning(MINIMAL_RSS)).fetchFeed("https://example.com/feed.rss")
+
+        assertNotNull(feed)
+        assertEquals("Test Feed", feed.title)
+        assertEquals(1, feed.entries.size)
+        assertEquals("Episode One", feed.entries[0].title)
+    }
+
+    @Test
+    fun `fetchFeed returns null on non-200 response`() {
+        val feed = FeedService(clientReturning(responseCode = 404)).fetchFeed("https://example.com/feed.rss")
+        assertNull(feed)
+    }
+
+    @Test
+    fun `fetchFeed returns null on network exception`() {
+        val feed = FeedService(clientThrowing(IOException("connection refused")))
+            .fetchFeed("https://example.com/feed.rss")
+        assertNull(feed)
+    }
+
+    // --- downloadAudio ---
 
     @Test
     fun `downloadAudio sends user-agent header`() {
         val headers = mutableListOf<String?>()
-        val service = FeedService(clientCapturingHeaders(headers, responseCode = 404))
-
-        service.downloadAudio("https://example.com/episode.mp3", Path.of("episode.mp3"))
+        FeedService(clientReturning(captureHeaders = headers, responseCode = 404))
+            .downloadAudio("https://example.com/episode.mp3", Path.of("episode.mp3"))
 
         val userAgent = headers.single()
         assertNotNull(userAgent)
-        assertTrue(userAgent.startsWith("rss-to-whisper/"), "Expected header to start with 'rss-to-whisper/' but was: $userAgent")
-        assertTrue(userAgent.contains("github.com/baz8080/rss_to_whisper"), "Expected header to contain repo URL but was: $userAgent")
+        assertTrue(userAgent.startsWith("rss-to-whisper/"))
+        assertTrue(userAgent.contains("github.com/baz8080/rss_to_whisper"))
+    }
+
+    @Test
+    fun `downloadAudio writes body to target path`(@TempDir tmp: Path) {
+        val target = tmp.resolve("episode.mp3")
+        FeedService(clientReturning(body = "audio-bytes")).downloadAudio("https://example.com/ep.mp3", target)
+
+        assertTrue(Files.exists(target))
+        assertEquals("audio-bytes", Files.readString(target))
+    }
+
+    @Test
+    fun `downloadAudio skips request when file already exists`(@TempDir tmp: Path) {
+        val target = tmp.resolve("episode.mp3")
+        Files.writeString(target, "existing")
+
+        var requestCount = 0
+        val client =
+            OkHttpClient.Builder()
+                .addInterceptor { chain ->
+                    requestCount++
+                    Response.Builder().request(chain.request()).protocol(Protocol.HTTP_1_1)
+                        .code(200).message("OK").body("".toResponseBody()).build()
+                }
+                .build()
+
+        FeedService(client).downloadAudio("https://example.com/ep.mp3", target)
+
+        assertEquals(0, requestCount)
+        assertEquals("existing", Files.readString(target))
+    }
+
+    @Test
+    fun `downloadAudio does not create file on non-200 response`(@TempDir tmp: Path) {
+        val target = tmp.resolve("episode.mp3")
+        FeedService(clientReturning(responseCode = 503)).downloadAudio("https://example.com/ep.mp3", target)
+
+        assertTrue(Files.notExists(target))
+    }
+
+    @Test
+    fun `downloadAudio does not throw on network exception`(@TempDir tmp: Path) {
+        val target = tmp.resolve("episode.mp3")
+        FeedService(clientThrowing(IOException("timeout")))
+            .downloadAudio("https://example.com/ep.mp3", target)
+
+        assertTrue(Files.notExists(target))
     }
 }
