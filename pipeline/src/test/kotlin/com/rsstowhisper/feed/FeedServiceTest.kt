@@ -15,7 +15,8 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 private val MINIMAL_RSS =
-    """<?xml version="1.0" encoding="UTF-8"?>
+    """
+    <?xml version="1.0" encoding="UTF-8"?>
     <rss version="2.0">
       <channel>
         <title>Test Feed</title>
@@ -23,7 +24,8 @@ private val MINIMAL_RSS =
         <description>A test feed</description>
         <item><title>Episode One</title><link>https://example.com/ep1</link></item>
       </channel>
-    </rss>""".trimIndent()
+    </rss>
+    """.trimIndent()
 
 class FeedServiceTest {
     private fun clientReturning(
@@ -81,8 +83,9 @@ class FeedServiceTest {
 
     @Test
     fun `fetchFeed returns null on network exception`() {
-        val feed = FeedService(clientThrowing(IOException("connection refused")))
-            .fetchFeed("https://example.com/feed.rss")
+        val feed =
+            FeedService(clientThrowing(IOException("connection refused")))
+                .fetchFeed("https://example.com/feed.rss")
         assertNull(feed)
     }
 
@@ -101,7 +104,9 @@ class FeedServiceTest {
     }
 
     @Test
-    fun `downloadAudio writes body to target path`(@TempDir tmp: Path) {
+    fun `downloadAudio writes body to target path`(
+        @TempDir tmp: Path,
+    ) {
         val target = tmp.resolve("episode.mp3")
         FeedService(clientReturning(body = "audio-bytes")).downloadAudio("https://example.com/ep.mp3", target)
 
@@ -110,7 +115,9 @@ class FeedServiceTest {
     }
 
     @Test
-    fun `downloadAudio skips request when file already exists`(@TempDir tmp: Path) {
+    fun `downloadAudio skips request when file already exists`(
+        @TempDir tmp: Path,
+    ) {
         val target = tmp.resolve("episode.mp3")
         Files.writeString(target, "existing")
 
@@ -131,7 +138,9 @@ class FeedServiceTest {
     }
 
     @Test
-    fun `downloadAudio does not create file on non-200 response`(@TempDir tmp: Path) {
+    fun `downloadAudio does not create file on non-200 response`(
+        @TempDir tmp: Path,
+    ) {
         val target = tmp.resolve("episode.mp3")
         FeedService(clientReturning(responseCode = 503)).downloadAudio("https://example.com/ep.mp3", target)
 
@@ -139,7 +148,9 @@ class FeedServiceTest {
     }
 
     @Test
-    fun `downloadAudio does not throw on network exception`(@TempDir tmp: Path) {
+    fun `downloadAudio does not throw on network exception`(
+        @TempDir tmp: Path,
+    ) {
         val target = tmp.resolve("episode.mp3")
         FeedService(clientThrowing(IOException("timeout")))
             .downloadAudio("https://example.com/ep.mp3", target)

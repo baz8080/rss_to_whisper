@@ -31,11 +31,12 @@ class TranscriberTest {
             }
             .build()
 
-    private fun wavFile(tmp: Path): Path =
-        tmp.resolve("audio.wav").also { Files.writeString(it, "fake-wav-data") }
+    private fun wavFile(tmp: Path): Path = tmp.resolve("audio.wav").also { Files.writeString(it, "fake-wav-data") }
 
     @Test
-    fun `transcribe posts to the inference endpoint`(@TempDir tmp: Path) {
+    fun `transcribe posts to the inference endpoint`(
+        @TempDir tmp: Path,
+    ) {
         val requests = mutableListOf<okhttp3.Request>()
         Transcriber("http://whisper-server", clientReturning("WEBVTT\n", captureRequests = requests))
             .transcribe(wavFile(tmp))
@@ -46,7 +47,9 @@ class TranscriberTest {
     }
 
     @Test
-    fun `transcribe sends file as multipart with correct fields`(@TempDir tmp: Path) {
+    fun `transcribe sends file as multipart with correct fields`(
+        @TempDir tmp: Path,
+    ) {
         val requests = mutableListOf<okhttp3.Request>()
         Transcriber("http://whisper-server", clientReturning("WEBVTT\n", captureRequests = requests))
             .transcribe(wavFile(tmp))
@@ -59,23 +62,30 @@ class TranscriberTest {
     }
 
     @Test
-    fun `transcribe returns response body on success`(@TempDir tmp: Path) {
+    fun `transcribe returns response body on success`(
+        @TempDir tmp: Path,
+    ) {
         val vtt = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nHello world\n"
         val result = Transcriber("http://whisper-server", clientReturning(vtt)).transcribe(wavFile(tmp))
         assertEquals(vtt, result)
     }
 
     @Test
-    fun `transcribe throws on non-200 response`(@TempDir tmp: Path) {
-        val ex = assertFailsWith<RuntimeException> {
-            Transcriber("http://whisper-server", clientReturning(responseCode = 500))
-                .transcribe(wavFile(tmp))
-        }
+    fun `transcribe throws on non-200 response`(
+        @TempDir tmp: Path,
+    ) {
+        val ex =
+            assertFailsWith<RuntimeException> {
+                Transcriber("http://whisper-server", clientReturning(responseCode = 500))
+                    .transcribe(wavFile(tmp))
+            }
         assertTrue(ex.message!!.contains("500"))
     }
 
     @Test
-    fun `transcribe throws on empty body`(@TempDir tmp: Path) {
+    fun `transcribe throws on empty body`(
+        @TempDir tmp: Path,
+    ) {
         val client =
             OkHttpClient.Builder()
                 .addInterceptor { chain ->
