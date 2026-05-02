@@ -306,4 +306,7 @@ body {
     .main-content {
         padding: 1rem;
     }
+    .filter-container .sidebar {
+        display: block;
+    }
 }
