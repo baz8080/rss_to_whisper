@@ -158,6 +158,22 @@
             }
             return result;
         }
+
+        document.addEventListener('keydown', function (e) {
+            const tag = document.activeElement.tagName;
+            if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+            if (!audioEl) return;
+            if (e.key === ' ') {
+                e.preventDefault();
+                audioEl.paused ? audioEl.play() : audioEl.pause();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                audioEl.currentTime = Math.max(0, audioEl.currentTime - 15);
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                audioEl.currentTime = Math.min(audioEl.duration || Infinity, audioEl.currentTime + 15);
+            }
+        });
         /*]]>*/
     </script>
 
