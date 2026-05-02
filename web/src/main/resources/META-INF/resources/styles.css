@@ -254,7 +254,7 @@ body {
     .filter-container {
         display: none;
         position: fixed;
-        bottom: 0;
+        top: 25vh;
         left: 0;
         right: 0;
         width: 100%;
@@ -269,10 +269,10 @@ body {
     }
     .filter-container.open {
         display: block;
-        animation: filter-slide-up 0.25s ease;
+        animation: filter-slide-up 0.25s ease both;
     }
     @keyframes filter-slide-up {
-        from { transform: translateY(100%); }
+        from { transform: translateY(75vh); }
         to   { transform: translateY(0); }
     }
     .filter-sheet-header {
