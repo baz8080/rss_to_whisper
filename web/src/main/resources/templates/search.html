@@ -8,9 +8,27 @@
     <link rel="stylesheet" href="/styles.css"/>
     <script src="/htmx.min.js"></script>
     <script>
-        document.addEventListener("htmx:afterSwap", function (e) {
-            if (e.detail.target.id === "app") window.scrollTo(0, 0);
+        let filterSheetWasOpen = false;
+        document.addEventListener("htmx:beforeSwap", function (e) {
+            if (e.detail.target.id === "app") {
+                const el = document.getElementById("filter-container");
+                filterSheetWasOpen = el ? el.classList.contains("open") : false;
+            }
         });
+        document.addEventListener("htmx:afterSwap", function (e) {
+            if (e.detail.target.id === "app") {
+                window.scrollTo(0, 0);
+                if (filterSheetWasOpen) openFilterSheet();
+            }
+        });
+        function openFilterSheet() {
+            document.getElementById("filter-container").classList.add("open");
+            document.getElementById("filter-backdrop").classList.add("open");
+        }
+        function closeFilterSheet() {
+            document.getElementById("filter-container").classList.remove("open");
+            document.getElementById("filter-backdrop").classList.remove("open");
+        }
     </script>
 </head>
 <body>
@@ -20,11 +38,36 @@
   Full requests render the whole page; HTMX partial requests render only this
   fragment via templateEngine.process("search :: app", ctx).
 -->
-<div id="app" th:fragment="app">
+<div id="app" th:fragment="app"
+     th:with="activeFilterCount=${filters.durations.size() + filters.podcasts.size() + filters.collections.size() + filters.episodeTypes.size()}">
+
+    <div id="filter-backdrop" class="filter-backdrop" onclick="closeFilterSheet()"></div>
+
     <div class="app-layout">
 
-        <!-- Sidebar filter form -->
-        <nav class="sidebar">
+        <!-- Filter container: sidebar on desktop, bottom sheet on mobile -->
+        <div class="filter-container" id="filter-container">
+            <div class="filter-sheet-header">
+                <span th:text="${activeFilterCount > 0 ? 'Filters · ' + activeFilterCount : 'Filters'}">Filters</span>
+                <a th:if="${activeFilterCount > 0}"
+                   class="clear-filters-link"
+                   th:href="${clearUrl}"
+                   th:attr="hx-get=${clearUrl}"
+                   hx-target="#app"
+                   hx-swap="outerHTML"
+                   hx-push-url="true"
+                   onclick="closeFilterSheet()">Clear all</a>
+                <button type="button" class="filter-sheet-close" onclick="closeFilterSheet()">&#x2715;</button>
+            </div>
+            <nav class="sidebar">
+            <div class="sidebar-filter-header" th:if="${activeFilterCount > 0}">
+                <a class="clear-filters-link"
+                   th:href="${clearUrl}"
+                   th:attr="hx-get=${clearUrl}"
+                   hx-target="#app"
+                   hx-swap="outerHTML"
+                   hx-push-url="true">Clear all</a>
+            </div>
             <form id="filter-form"
                   action="/search"
                   method="get"
@@ -97,12 +140,15 @@
                 </details>
 
             </form>
-        </nav><!-- end sidebar -->
+            </nav>
+        </div><!-- end filter-container -->
 
         <!-- Main content -->
         <div class="main-content">
 
             <div class="search-bar">
+                <button type="button" class="filter-toggle-btn" onclick="openFilterSheet()"
+                        th:text="${activeFilterCount > 0 ? 'Filters · ' + activeFilterCount : 'Filters'}">Filters</button>
                 <input id="search-input"
                        type="search"
                        name="q"

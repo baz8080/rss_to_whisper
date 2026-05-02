@@ -76,6 +76,7 @@ class SearchResource {
                 setVariable("hasActiveFilters", filters.hasActiveFilters())
                 setVariable("prevUrl", buildSearchUrl(filters.copy(page = filters.page - 1)))
                 setVariable("nextUrl", buildSearchUrl(filters.copy(page = filters.page + 1)))
+                setVariable("clearUrl", buildSearchUrl(SearchFilters(query = filters.query)))
             }
 
         // HTMX partial request: return only the #app fragment so the browser
