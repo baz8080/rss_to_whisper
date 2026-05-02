@@ -49,9 +49,25 @@
         <div class="filter-container" id="filter-container">
             <div class="filter-sheet-header">
                 <span th:text="${activeFilterCount > 0 ? 'Filters · ' + activeFilterCount : 'Filters'}">Filters</span>
+                <a th:if="${activeFilterCount > 0}"
+                   class="clear-filters-link"
+                   th:href="${clearUrl}"
+                   th:attr="hx-get=${clearUrl}"
+                   hx-target="#app"
+                   hx-swap="outerHTML"
+                   hx-push-url="true"
+                   onclick="closeFilterSheet()">Clear all</a>
                 <button type="button" class="filter-sheet-close" onclick="closeFilterSheet()">&#x2715;</button>
             </div>
             <nav class="sidebar">
+            <div class="sidebar-filter-header" th:if="${activeFilterCount > 0}">
+                <a class="clear-filters-link"
+                   th:href="${clearUrl}"
+                   th:attr="hx-get=${clearUrl}"
+                   hx-target="#app"
+                   hx-swap="outerHTML"
+                   hx-push-url="true">Clear all</a>
+            </div>
             <form id="filter-form"
                   action="/search"
                   method="get"
