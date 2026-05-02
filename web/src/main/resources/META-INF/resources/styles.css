@@ -259,7 +259,7 @@ body {
         right: 0;
         width: 100%;
         min-width: 0;
-        max-height: 75vh;
+        height: 75vh;
         overflow-y: auto;
         border-right: none;
         border-radius: 16px 16px 0 0;
