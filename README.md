@@ -66,6 +66,13 @@ curl -L -o ggml-tiny.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/ma
 curl -L -o ggml-large-v3-turbo.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin
 ```
 
+You will need the corresponding .mlmodelc file for your model, for example: 
+
+```
+# For the large v3 turbo model. Download, unzip, and put int the same directory as the bin model.
+curl -L -o ggml-large-v3-turbo-encoder.mlmodelc.zip https://huggingface.co/ggerganov/whisper.cpp/blob/main/ggml-large-v3-turbo-encoder.mlmodelc.zip
+```
+
 ### Platform acceleration
 
 Acceleration is determined by how the whisper.cpp `server` binary was compiled:
