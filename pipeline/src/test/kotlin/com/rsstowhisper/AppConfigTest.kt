@@ -1,6 +1,7 @@
 package com.rsstowhisper
 
 import org.junit.jupiter.api.io.TempDir
+import java.io.File
 import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -57,6 +58,33 @@ class AppConfigTest {
 
         assertEquals("/env/data", config.dataDirectory)
         assertEquals("http://env-whisper", config.whisperServerUrl)
+    }
+
+    /**
+     * The shipped example is what people copy, so it has to parse against the
+     * real schema -- a key that silently doesn't bind is invisible until someone
+     * wonders why their setting does nothing.
+     */
+    @Test
+    fun `load parses the shipped pods yaml example`() {
+        val example =
+            listOf(File("../pods.yaml.example"), File("pods.yaml.example"))
+                .firstOrNull { it.exists() }
+                ?: error("pods.yaml.example not found relative to the test working directory")
+
+        val config =
+            AppConfig.load(
+                mapOf(
+                    "PIPELINE_CONFIG_PATH" to example.absolutePath,
+                    "PIPELINE_DATA_DIRECTORY" to "/data",
+                    "PIPELINE_WHISPER_SERVER_URL" to "http://whisper",
+                ),
+            )
+
+        assertEquals(20, config.skipAfterConsecutive)
+        assertEquals(1, config.podcasts.size)
+        assertEquals("Ask a Spaceman", config.podcasts[0].name)
+        assertEquals(listOf("science", "space", "astrophysics"), config.podcasts[0].collections)
     }
 
     @Test
