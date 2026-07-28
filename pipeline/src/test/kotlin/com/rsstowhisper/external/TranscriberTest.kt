@@ -31,7 +31,7 @@ class TranscriberTest {
             }
             .build()
 
-    private fun wavFile(tmp: Path): Path = tmp.resolve("audio.wav").also { Files.writeString(it, "fake-wav-data") }
+    private fun mp3File(tmp: Path): Path = tmp.resolve("audio.mp3").also { Files.writeString(it, "fake-mp3-data") }
 
     @Test
     fun `transcribe posts to the inference endpoint`(
@@ -39,7 +39,7 @@ class TranscriberTest {
     ) {
         val requests = mutableListOf<okhttp3.Request>()
         Transcriber("http://whisper-server", clientReturning("WEBVTT\n", captureRequests = requests))
-            .transcribe(wavFile(tmp))
+            .transcribe(mp3File(tmp))
 
         val request = requests.single()
         assertEquals("POST", request.method)
@@ -52,7 +52,7 @@ class TranscriberTest {
     ) {
         val requests = mutableListOf<okhttp3.Request>()
         Transcriber("http://whisper-server", clientReturning("WEBVTT\n", captureRequests = requests))
-            .transcribe(wavFile(tmp))
+            .transcribe(mp3File(tmp))
 
         val body = requests.single().body as okhttp3.MultipartBody
         val partNames = body.parts.mapNotNull { it.headers?.get("Content-Disposition") }
@@ -61,12 +61,72 @@ class TranscriberTest {
         assertTrue(partNames.any { it.contains("name=\"response_format\"") })
     }
 
+    /**
+     * The mp3 goes up as-is; the whisper.cpp server decodes and resamples it with
+     * miniaudio, so there is no local ffmpeg pass and nothing named audio.wav.
+     */
+    @Test
+    fun `transcribe uploads the mp3 as audio mpeg`(
+        @TempDir tmp: Path,
+    ) {
+        val requests = mutableListOf<okhttp3.Request>()
+        Transcriber("http://whisper-server", clientReturning("WEBVTT\n", captureRequests = requests))
+            .transcribe(mp3File(tmp))
+
+        val body = requests.single().body as okhttp3.MultipartBody
+        val filePart =
+            body.parts.single { it.headers?.get("Content-Disposition")?.contains("filename=") == true }
+        assertTrue(filePart.headers!!["Content-Disposition"]!!.contains("filename=\"audio.mp3\""))
+        assertEquals("audio/mpeg", filePart.body.contentType().toString())
+    }
+
+    /**
+     * whisper.cpp ignores max_len unless token_timestamps is also set -- the
+     * segment wrap is nested inside `if (params.token_timestamps)`. Sending one
+     * without the other silently does nothing, so assert they travel together.
+     */
+    @Test
+    fun `transcribe caps segment length so a cue cannot span the episode`(
+        @TempDir tmp: Path,
+    ) {
+        val requests = mutableListOf<okhttp3.Request>()
+        Transcriber("http://whisper-server", clientReturning("WEBVTT\n", captureRequests = requests))
+            .transcribe(mp3File(tmp))
+
+        val fields = formFields(requests.single().body as okhttp3.MultipartBody)
+        assertEquals("true", fields["token_timestamps"])
+        assertEquals(Transcriber.DEFAULT_MAX_LEN.toString(), fields["max_len"])
+        assertEquals("true", fields["split_on_word"])
+    }
+
+    @Test
+    fun `transcribe honours a custom max length`(
+        @TempDir tmp: Path,
+    ) {
+        val requests = mutableListOf<okhttp3.Request>()
+        Transcriber("http://whisper-server", maxLen = 150, httpClient = clientReturning("WEBVTT\n", captureRequests = requests))
+            .transcribe(mp3File(tmp))
+
+        assertEquals("150", formFields(requests.single().body as okhttp3.MultipartBody)["max_len"])
+    }
+
+    /** Read back the simple (non-file) multipart form fields as name -> value. */
+    private fun formFields(body: okhttp3.MultipartBody): Map<String, String> =
+        body.parts.mapNotNull { part ->
+            val disposition = part.headers?.get("Content-Disposition") ?: return@mapNotNull null
+            if (disposition.contains("filename=")) return@mapNotNull null
+            val name = Regex("name=\"([^\"]+)\"").find(disposition)?.groupValues?.get(1) ?: return@mapNotNull null
+            val sink = okio.Buffer()
+            part.body.writeTo(sink)
+            name to sink.readUtf8()
+        }.toMap()
+
     @Test
     fun `transcribe returns response body on success`(
         @TempDir tmp: Path,
     ) {
         val vtt = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nHello world\n"
-        val result = Transcriber("http://whisper-server", clientReturning(vtt)).transcribe(wavFile(tmp))
+        val result = Transcriber("http://whisper-server", clientReturning(vtt)).transcribe(mp3File(tmp))
         assertEquals(vtt, result)
     }
 
@@ -77,7 +137,7 @@ class TranscriberTest {
         val ex =
             assertFailsWith<RuntimeException> {
                 Transcriber("http://whisper-server", clientReturning(responseCode = 500))
-                    .transcribe(wavFile(tmp))
+                    .transcribe(mp3File(tmp))
             }
         assertTrue(ex.message!!.contains("500"))
     }
@@ -99,7 +159,7 @@ class TranscriberTest {
                 .build()
 
         assertFailsWith<RuntimeException> {
-            Transcriber("http://whisper-server", client).transcribe(wavFile(tmp))
+            Transcriber("http://whisper-server", client).transcribe(mp3File(tmp))
         }
     }
 }

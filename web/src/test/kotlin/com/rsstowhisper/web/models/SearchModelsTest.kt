@@ -305,11 +305,11 @@ class SearchModelsTest {
         fun `tagList filters out blank entries`() = assertTrue(episode(tags = ",").tagList.isEmpty())
 
         @Test
-        fun `wavPath is null when episodeRelativeAudioPath is null`() = assertNull(episode().wavPath)
+        fun `audioPath is null when episodeRelativeAudioPath is null`() = assertNull(episode().audioPath)
 
         @Test
-        fun `wavPath returns episodeRelativeAudioPath directly`() =
-            assertEquals("audio/ep.wav", episode(audioPath = "audio/ep.wav").wavPath)
+        fun `audioPath returns episodeRelativeAudioPath directly`() =
+            assertEquals("audio/ep.mp3", episode(audioPath = "audio/ep.mp3").audioPath)
     }
 
     @Nested

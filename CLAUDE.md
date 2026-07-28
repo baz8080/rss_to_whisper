@@ -4,7 +4,7 @@
 
 Three-stage pipeline for podcast transcription and full-text search:
 
-1. **`pipeline`** (Kotlin) — downloads RSS episodes, decodes audio with ffmpeg, transcribes with whisper-cli. Writes `transcript.json` alongside each audio file.
+1. **`pipeline`** (Kotlin) — downloads RSS episodes and POSTs the MP3 to a whisper.cpp HTTP server, which decodes and resamples it server-side. Writes `transcript.json` alongside each audio file, keeping the MP3.
 2. **`index.py`** (Python 3) — walks the data directory, reads `transcript.json` files, and loads them into a SQLite FTS5 database.
 3. **`web`** (Kotlin / Quarkus) — REST server on port 8080 serving a full-text search UI over the SQLite database.
 
@@ -34,7 +34,7 @@ Configure `pods.yaml` with:
 - `podcasts` — list of RSS feeds with `name`, `url`, and `collections` tags
 - `skip_after_consecutive` — stop processing a feed after N already-transcribed episodes in a row (default: 20)
 
-External tools required on `PATH`: `ffmpeg`, `whisper-cli`
+No external tools are required on `PATH` — transcription is HTTP-only against the whisper.cpp server, which handles audio decoding itself.
 
 ### Indexer
 

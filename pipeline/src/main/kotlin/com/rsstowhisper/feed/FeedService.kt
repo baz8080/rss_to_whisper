@@ -9,6 +9,7 @@ import org.xml.sax.InputSource
 import java.io.StringReader
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.StandardCopyOption
 
 private const val APP_VERSION = "2.0.0"
 
@@ -56,21 +57,38 @@ open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
             Request.Builder().url(url)
                 .addHeader("User-Agent", userAgent).build()
 
+        // The audio file is kept permanently, so a partial download must never
+        // occupy the real name -- the existence check above would then treat a
+        // truncated file as complete forever. Stage to a sibling and move only
+        // once the stream has drained.
+        val partialPath = targetPath.resolveSibling("${targetPath.fileName}.part")
+
         try {
             httpClient.newCall(request).execute().use { response ->
-                if (response.isSuccessful) {
-                    logger.debug("Writing... {}", targetPath)
-                    response.body?.byteStream()?.use { input ->
-                        Files.newOutputStream(targetPath).use { output ->
-                            input.copyTo(output)
-                        }
-                    }
-                } else {
+                if (!response.isSuccessful) {
                     logger.error("Error saving file response: ${response.code}")
+                    return
+                }
+
+                val body = response.body
+                if (body == null) {
+                    logger.error("No response body for $url")
+                    return
+                }
+
+                logger.debug("Writing... {}", targetPath)
+                body.byteStream().use { input ->
+                    Files.newOutputStream(partialPath).use { output ->
+                        input.copyTo(output)
+                    }
                 }
             }
+
+            Files.move(partialPath, targetPath, StandardCopyOption.ATOMIC_MOVE)
         } catch (e: Exception) {
             logger.error("Failed to download $url", e)
+        } finally {
+            runCatching { Files.deleteIfExists(partialPath) }
         }
     }
 }
