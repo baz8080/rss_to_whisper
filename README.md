@@ -5,7 +5,7 @@ Transcribe podcast episodes from RSS feeds using the [whisper.cpp](https://githu
 ## Modules
 
 ### `pipeline` (Kotlin)
-Walks one or more RSS feeds, downloads each episode, decodes the audio with `ffmpeg`, and POSTs it to a running whisper.cpp HTTP server. The server returns a [WebVTT](https://www.w3.org/TR/webvtt1/) transcript, which is stored in a `transcript.json` file alongside the audio. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
+Walks one or more RSS feeds, downloads each episode's MP3, and POSTs it to a running whisper.cpp HTTP server. The server decodes and resamples the audio itself, so no local transcoding step is needed and the MP3 is what gets kept on disk. The server returns a [WebVTT](https://www.w3.org/TR/webvtt1/) transcript, which is stored in a `transcript.json` file alongside the audio. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
 
 ### `web` (Kotlin)
 A Quarkus HTTP server that serves a full-text search interface over the SQLite database produced by `index.py`. Supports filtering by podcast, collection, episode type, and duration. Search results are ranked by BM25 relevance. The episode detail page shows a clickable transcript synced to the audio player. Runs on port 8080 by default.
@@ -27,11 +27,12 @@ pip install pysqlite3
 ## Prerequisites
 
 - JDK 21+
-- `ffmpeg` on `PATH` (used to decode downloaded MP3s to WAV)
 - A running [whisper.cpp HTTP server](#running-the-whispercpp-server)
 - Python 3 + `pysqlite3` (for the indexing script)
 
-On macOS `ffmpeg` is available via Homebrew: `brew install ffmpeg`.
+No `ffmpeg` is required. MP3s are uploaded as-is and the whisper.cpp server decodes them with its
+built-in miniaudio decoder, resampling to 16 kHz mono internally. The one exception is starting the
+server with `--convert`, which shells out to `ffmpeg` on the server host — don't use that flag.
 
 ## Building
 
@@ -173,7 +174,7 @@ For each episode, the following files are created:
 
 ```
 {data_directory}/{podcast_name}/{YYYY-MM-DD-episode-title}/
-    audio.wav                      # Decoded audio (mp3 is removed after transcription)
+    audio.mp3                      # Downloaded audio, kept as-is and served by the web module
     transcript.json                # Full metadata + WebVTT transcript
 ```
 

@@ -112,6 +112,24 @@ class FeedServiceTest {
 
         assertTrue(Files.exists(target))
         assertEquals("audio-bytes", Files.readString(target))
+        assertTrue(Files.notExists(tmp.resolve("episode.mp3.part")))
+    }
+
+    /**
+     * The audio file is kept permanently now, so the existence check in
+     * downloadAudio doubles as a completeness check. A failed download must
+     * leave nothing behind at either name, or the episode is poisoned forever.
+     */
+    @Test
+    fun `downloadAudio leaves no partial file behind when the stream fails`(
+        @TempDir tmp: Path,
+    ) {
+        val target = tmp.resolve("episode.mp3")
+        FeedService(clientThrowing(IOException("connection reset")))
+            .downloadAudio("https://example.com/ep.mp3", target)
+
+        assertTrue(Files.notExists(target))
+        assertTrue(Files.notExists(tmp.resolve("episode.mp3.part")))
     }
 
     @Test

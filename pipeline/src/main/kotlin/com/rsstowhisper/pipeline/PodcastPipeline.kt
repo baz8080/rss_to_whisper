@@ -10,7 +10,6 @@ import com.rometools.rome.feed.synd.SyndFeed
 import com.rsstowhisper.AppConfig
 import com.rsstowhisper.PodcastConfig
 import com.rsstowhisper.createPath
-import com.rsstowhisper.external.AudioConverter
 import com.rsstowhisper.external.Transcriber
 import com.rsstowhisper.feed.FeedService
 import com.rsstowhisper.timeToSeconds
@@ -33,7 +32,6 @@ class PodcastPipeline(
             .writeTimeout(30, TimeUnit.SECONDS)
             .build(),
     private val feedService: FeedService = FeedService(httpClient),
-    private val audioConverter: AudioConverter = AudioConverter(),
     private val transcriber: Transcriber = Transcriber(config.whisperServerUrl),
 ) {
     private val jsonMapper =
@@ -155,10 +153,11 @@ class PodcastPipeline(
         logger.debug("Starting transcription in {}", episodePath)
         val startTime = System.currentTimeMillis()
 
-        val wavPath = audioConverter.mp3ToWav(mp3Info.filePath)
-        val vtt = transcriber.transcribe(wavPath)
+        val vtt = transcriber.transcribe(mp3Info.filePath)
 
-        Files.deleteIfExists(mp3Info.filePath)
+        // The mp3 is now the retained artifact -- the whisper server decodes and
+        // resamples it itself, so the old audio.wav is dead weight.
+        Files.deleteIfExists(episodePath.resolve("audio.wav"))
         Files.deleteIfExists(episodePath.resolve("transcript.txt"))
 
         val elapsedMinutes = (System.currentTimeMillis() - startTime) / 60000.0
@@ -205,7 +204,7 @@ class PodcastPipeline(
             for (enclosure in entry.enclosures) {
                 if (enclosure.type in AUDIO_MP3_TYPES) {
                     val filePath = episodePath.resolve("audio.mp3")
-                    val relativePath = Path.of(dataDir).relativize(episodePath.resolve("audio.wav")).toString()
+                    val relativePath = Path.of(dataDir).relativize(filePath).toString()
 
                     return Mp3Info(
                         url = enclosure.url,
@@ -219,7 +218,7 @@ class PodcastPipeline(
             for (link in entry.links) {
                 if (link.type in AUDIO_MP3_TYPES) {
                     val filePath = episodePath.resolve("audio.mp3")
-                    val relativePath = Path.of(dataDir).relativize(episodePath.resolve("audio.wav")).toString()
+                    val relativePath = Path.of(dataDir).relativize(filePath).toString()
 
                     return Mp3Info(
                         url = link.href,

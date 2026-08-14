@@ -28,7 +28,7 @@ data class Episode(
             ?.map(String::trim)
             ?.filter(String::isNotBlank)
             ?: emptyList()
-    val wavPath: String? get() = episodeRelativeAudioPath
+    val audioPath: String? get() = episodeRelativeAudioPath
 }
 
 data class SearchResult(

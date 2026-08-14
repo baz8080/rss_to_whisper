@@ -7,7 +7,6 @@ import com.rometools.rome.feed.synd.SyndFeedImpl
 import com.rsstowhisper.AppConfig
 import com.rsstowhisper.PodcastConfig
 import com.rsstowhisper.escapeFilename
-import com.rsstowhisper.external.AudioConverter
 import com.rsstowhisper.external.Transcriber
 import com.rsstowhisper.feed.FeedService
 import org.junit.jupiter.api.io.TempDir
@@ -37,17 +36,11 @@ class PodcastPipelineRunTest {
             url: String,
             targetPath: Path,
         ) {
+            // Mirrors the real skip-if-present contract, so tests can assert on it.
+            if (Files.exists(targetPath)) return
             downloads.add(url to targetPath)
             Files.createDirectories(targetPath.parent)
             Files.writeString(targetPath, "fake-mp3-bytes")
-        }
-    }
-
-    private class FakeAudioConverter : AudioConverter() {
-        override fun mp3ToWav(mp3Path: Path): Path {
-            val wavPath = mp3Path.resolveSibling("audio.wav")
-            Files.writeString(wavPath, "fake-wav-bytes")
-            return wavPath
         }
     }
 
@@ -57,8 +50,8 @@ class PodcastPipelineRunTest {
     ) : Transcriber(serverUrl) {
         val calls = mutableListOf<Path>()
 
-        override fun transcribe(wavPath: Path): String {
-            calls.add(wavPath)
+        override fun transcribe(audioPath: Path): String {
+            calls.add(audioPath)
             return vtt
         }
     }
@@ -117,7 +110,6 @@ class PodcastPipelineRunTest {
             PodcastPipeline(
                 config = config,
                 feedService = feedSvc,
-                audioConverter = FakeAudioConverter(),
                 transcriber = txSvc,
             )
         return Triple(pipeline, txSvc, feedSvc)
@@ -141,13 +133,71 @@ class PodcastPipelineRunTest {
         assertTrue(Files.isDirectory(podcastDir))
         val episodeDir = Files.list(podcastDir).use { it.toList() }.single()
         assertTrue(Files.exists(episodeDir.resolve("transcript.json")))
-        assertFalse(Files.exists(episodeDir.resolve("audio.mp3"))) // mp3 cleaned up
-        assertTrue(Files.exists(episodeDir.resolve("audio.wav"))) // wav retained
+        assertTrue(Files.exists(episodeDir.resolve("audio.mp3"))) // mp3 retained
+        assertFalse(Files.exists(episodeDir.resolve("audio.wav"))) // no wav produced
         assertEquals(1, txSvc.calls.size)
+        assertEquals("audio.mp3", txSvc.calls.single().fileName.toString())
 
         val json = Files.readString(episodeDir.resolve("transcript.json"))
         assertTrue(json.contains("\"episode_title\""))
         assertTrue(json.contains("My Episode"))
+        assertTrue(json.contains("audio.mp3"))
+    }
+
+    /**
+     * Regression: the download skip-check tests audio.mp3, but the old pipeline
+     * deleted the mp3 and kept a wav, so the file it looked for never survived.
+     * Re-transcribing an episode re-downloaded audio already on disk.
+     */
+    @Test
+    fun `run does not re-download when the mp3 is already on disk`(
+        @TempDir tempDir: Path,
+    ) {
+        val entry = makeEntry("My Episode")
+        val (pipeline, txSvc, feedSvc) =
+            buildPipeline(
+                tempDir,
+                listOf(PodcastConfig(name = "Show", url = "https://feed")),
+                makeFeed(entry),
+            )
+
+        val episodeDir =
+            Files.createDirectories(
+                tempDir.resolve("Show").resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(entry))),
+            )
+        Files.writeString(episodeDir.resolve("audio.mp3"), "already-downloaded")
+
+        pipeline.run()
+
+        assertTrue(feedSvc.downloads.isEmpty())
+        assertEquals(1, txSvc.calls.size)
+        assertEquals("already-downloaded", Files.readString(episodeDir.resolve("audio.mp3")))
+        assertTrue(Files.exists(episodeDir.resolve("transcript.json")))
+    }
+
+    @Test
+    fun `run deletes a stale wav left behind by the old ffmpeg pipeline`(
+        @TempDir tempDir: Path,
+    ) {
+        val entry = makeEntry("My Episode")
+        val (pipeline, _, _) =
+            buildPipeline(
+                tempDir,
+                listOf(PodcastConfig(name = "Show", url = "https://feed")),
+                makeFeed(entry),
+            )
+
+        val episodeDir =
+            Files.createDirectories(
+                tempDir.resolve("Show").resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(entry))),
+            )
+        Files.writeString(episodeDir.resolve("audio.wav"), "stale-wav-bytes")
+
+        pipeline.run()
+
+        assertFalse(Files.exists(episodeDir.resolve("audio.wav")))
+        assertTrue(Files.exists(episodeDir.resolve("audio.mp3")))
+        assertTrue(Files.exists(episodeDir.resolve("transcript.json")))
     }
 
     @Test
@@ -320,7 +370,6 @@ class PodcastPipelineRunTest {
             PodcastPipeline(
                 config = config,
                 feedService = feedSvc,
-                audioConverter = FakeAudioConverter(),
                 transcriber = txSvc,
             )
 

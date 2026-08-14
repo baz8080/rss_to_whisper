@@ -166,7 +166,7 @@ class PodcastPipelineCompanionTest {
         assertEquals("https://cdn/ep1.mp3", result?.url)
         assertEquals(12345L, result?.length)
         assertEquals(Path.of("/data/show/ep/audio.mp3"), result?.filePath)
-        assertEquals("show/ep/audio.wav", result?.localFilePath)
+        assertEquals("show/ep/audio.mp3", result?.localFilePath)
     }
 
     @Test
@@ -359,7 +359,7 @@ class PodcastPipelineCompanionTest {
                 guid = guid,
             )
 
-        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "transcript", "pod/ep/audio.wav", listOf("col1"))!!
+        val dict = PodcastPipeline.buildEpisodeDict(feed, e, "transcript", "pod/ep/audio.mp3", listOf("col1"))!!
 
         assertEquals(PodcastPipeline.md5Hash8(guid), dict["_id"])
         assertEquals(listOf("col1"), dict["podcast_collections"])
@@ -382,7 +382,7 @@ class PodcastPipelineCompanionTest {
         assertEquals("full", dict["episode_type"])
         assertEquals(90L, dict["episode_duration"]) // 90000 / 1000
         assertEquals("transcript", dict["episode_transcript"])
-        assertEquals("pod/ep/audio.wav", dict["episode_relative_audio_path"])
+        assertEquals("pod/ep/audio.mp3", dict["episode_relative_audio_path"])
     }
 
     @Test

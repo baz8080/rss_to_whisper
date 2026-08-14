@@ -1,4 +1,10 @@
 verbose: false
+
+# Stop walking a feed after this many already-transcribed episodes in a row.
+# Feeds are newest-first, so the default is enough to pick up new episodes
+# cheaply. Raise it (e.g. 5000) to force a full-feed walk when backfilling.
+skip_after_consecutive: 20
+
 podcasts:
 - name: Ask a Spaceman
   url: https://feeds.libsyn.com/60664
