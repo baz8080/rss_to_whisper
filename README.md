@@ -74,6 +74,57 @@ You will need the corresponding .mlmodelc file for your model, for example:
 curl -L -o ggml-large-v3-turbo-encoder.mlmodelc.zip https://huggingface.co/ggerganov/whisper.cpp/blob/main/ggml-large-v3-turbo-encoder.mlmodelc.zip
 ```
 
+It is highly recommended to also download a [VAD model](https://github.com/ggml-org/whisper.cpp?ref=shadowfinder.com#voice-activity-detection-vad). 
+
+```bash
+whisper-server \
+  -m models/ggml-large-v3-turbo.bin \
+  --vad -vm models/ggml-silero-v5.1.2.bin
+```
+
+#### Why
+
+Whisper occasionally settles into a degraded decoding mode for a whole episode and produces text with **no punctuation and no capitals at all**. The words are mostly right, but Whisper segments on sentence structure, and with no full stops there is nothing to break on, so cue
+boundaries stop tracking speech. Anything downstream that needs a timestamp to land in the right place is then working from fiction.
+
+VAD also reduces cue fragmentation on music-heavy shows. Treat it as a fix for non-speech-driven
+fragmentation, not for fragmentation in general.
+
+Leave `vad_threshold` at the 0.5 default
+
+This is worth stating because tuning it is the obvious next move and it is a trap. A fair A/B — 14 random healthy episodes, same audio, both thresholds, nothing written — found **zero failures at either**. On typical material the two
+are indistinguishable. (n=14, so this shows equivalence between thresholds, not that failures are rare.)
+
+The threshold only matters in the tail, and **the optimum is episode-dependent**:
+
+|                        | 0.2        | 0.5 (default) |
+|------------------------|------------|---------------|
+| loop-damaged episodes  | **better** | worse         |
+| unpunctuated episodes  | worse — 87 of 654 stayed broken | **better** |
+
+It is not VAD as such. On one episode, threshold 0.2 gave 0.0000 punctuation-per-word and 0.5 gave 0.1982 — and VAD *off* also gave 0.0000. More non-speech reaching the decoder makes the degraded mode likelier, and how much non-speech an episode contains varies.
+
+**Do not tune per show.** 
+
+#### TODO: Detect and retry instead
+
+Since there is no correct threshold, do not pick one — decode, measure, and retry the failures at the other value, keeping whichever verifies better. That is threshold-agnostic, self-correcting, and about fifteen lines.
+
+Both `vad` and `vad_threshold` are **per-request form fields**, so the retry needs no server restart and no second server.
+
+Gist for `Transcriber.kt` after the POST returns:
+
+```kotlin
+val vtt = response.body
+if (punctPerWord(vtt) < 0.03) {
+    val alt = transcribe(audio, vadThreshold = 0.2)   // the other value
+    if (punctPerWord(alt) > punctPerWord(vtt)) return alt
+}
+return vtt
+```
+
+Rewrite only when the new decode **beats** the old on an ordered test. Looping is worse than unreadable, which is worse than losing a few words. A retry that  overwrites unconditionally will eventually replace a good decode with a bad one.
+
 ### Platform acceleration
 
 Acceleration is determined by how the whisper.cpp `server` binary was compiled:
