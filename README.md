@@ -78,9 +78,20 @@ It is highly recommended to also download a [VAD model](https://github.com/ggml-
 
 ```bash
 whisper-server \
-  -m models/ggml-large-v3-turbo.bin \
+  -m models/ggml-large-v3.bin \
   --vad -vm models/ggml-silero-v5.1.2.bin
 ```
+
+#### Model: large-v3, not large-v3-turbo
+
+Turbo prunes the **decoder** and keeps the encoder, and with Core ML the encoder
+runs on the Neural Engine — which is where most of the wall clock goes. Measured
+over 13 episodes, large-v3 costs **1.36x** turbo's decode time, not the 2-3x that
+"turbo for speed" assumes, and it produced a usable transcript on 10 of 13
+episodes that turbo could not decode at all.
+
+Put `ggml-large-v3-encoder.mlmodelc` next to the `.bin` or the encoder silently
+falls back off the ANE and the speed gap gets much worse.
 
 #### Why
 
@@ -105,6 +116,37 @@ The threshold only matters in the tail, and **the optimum is episode-dependent**
 It is not VAD as such. On one episode, threshold 0.2 gave 0.0000 punctuation-per-word and 0.5 gave 0.1982 — and VAD *off* also gave 0.0000. More non-speech reaching the decoder makes the degraded mode likelier, and how much non-speech an episode contains varies.
 
 **Do not tune per show.** 
+
+#### Set an initial prompt
+
+Whisper intermittently decodes an entire episode with **no punctuation and no
+capitals**. It is not cosmetic: whisper segments on sentence structure, so with
+no full stops the cue boundaries stop tracking speech and every timestamp
+derived from them is unreliable. 654 episodes were hit, and 13 resisted every
+attempt to re-decode them.
+
+An `initial_prompt` of ordinary punctuated prose fixed **all 13**:
+
+| approach | fixed |
+|---|---|
+| **initial_prompt** | **13 / 13** |
+| whisper large-v3 | 10 / 13 |
+| best VAD parameter | 9 / 13 |
+| Silero VAD v6.2.0 | 6 / 13 |
+| re-decode at another threshold | 0 / 13 |
+
+This is a **decoder** mode, not a segmentation problem, which is why no VAD
+setting touched it — VAD only changes what audio reaches the decoder, while a
+prompt conditions the decoder itself, and punctuation is a style.
+
+Send `carry_initial_prompt=true` as well. Without it the prompt conditions only
+the first window and an episode that degrades later still degrades (13/13 with,
+12/13 without).
+
+Keep the prompt generic. An initial prompt biases **vocabulary** as well as
+style, so anything domain-specific will contaminate transcripts. The default in
+`Transcriber.kt` was checked on a repaired episode: zero occurrences of any
+prompt fragment, word count within 5% of the original.
 
 #### TODO: Detect and retry instead
 

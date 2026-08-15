@@ -27,6 +27,33 @@ open class Transcriber(
      * it only bites on the runaway cases.
      */
     private val maxLen: Int = DEFAULT_MAX_LEN,
+    /**
+     * Whisper's `initial_prompt`, carried into every decode window.
+     *
+     * Whisper intermittently drops into a mode where it emits no punctuation
+     * and no capitals for an entire episode. That is not cosmetic: it segments
+     * on sentence structure, so with no full stops the cue boundaries stop
+     * tracking speech and every timestamp derived from them is unreliable. It
+     * hit 654 episodes, and 13 survived every attempt to re-decode them.
+     *
+     * An initial prompt fixed **all 13**. Measured on the same set:
+     *
+     *   initial_prompt      13/13
+     *   whisper large-v3    10/13
+     *   best VAD parameter   9/13
+     *   Silero VAD v6.2.0    6/13
+     *   another threshold    0/13
+     *
+     * It works because this is a DECODER mode, not a segmentation problem --
+     * every VAD setting only changes what audio reaches the decoder, while a
+     * prompt conditions the decoder itself, and punctuation is a style.
+     *
+     * Deliberately generic prose. An initial prompt biases VOCABULARY as well
+     * as style, so anything domain-specific would contaminate transcripts.
+     * Verified on a repaired episode: zero occurrences of any prompt fragment,
+     * word count within 5% of the original.
+     */
+    private val initialPrompt: String = DEFAULT_INITIAL_PROMPT,
 ) {
     private val logger = LoggerFactory.getLogger(Transcriber::class.java)
 
@@ -36,7 +63,7 @@ open class Transcriber(
      * go straight up without a local ffmpeg pass.
      */
     open fun transcribe(audioPath: Path): String {
-        val requestBody =
+        val bodyBuilder =
             MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart(
@@ -53,7 +80,17 @@ open class Transcriber(
                 .addFormDataPart("max_len", maxLen.toString())
                 // Cut on word boundaries rather than mid-token.
                 .addFormDataPart("split_on_word", "true")
-                .build()
+
+        if (initialPrompt.isNotBlank()) {
+            bodyBuilder.addFormDataPart("prompt", initialPrompt)
+            // Without this the prompt conditions only the FIRST window, so an
+            // episode that degrades part-way through still degrades -- which is
+            // exactly what a whole-episode failure looks like. 13/13 fixed with
+            // it, 12/13 without.
+            bodyBuilder.addFormDataPart("carry_initial_prompt", "true")
+        }
+
+        val requestBody = bodyBuilder.build()
 
         val request =
             Request.Builder()
@@ -73,5 +110,10 @@ open class Transcriber(
 
     companion object {
         const val DEFAULT_MAX_LEN = 200
+
+        /** See [initialPrompt]. Ordinary punctuated prose, nothing domain-specific. */
+        const val DEFAULT_INITIAL_PROMPT =
+            "Hello, and welcome back to the show. Today we're going to talk about " +
+                "a few different things, and I think you'll enjoy it. Let's get started."
     }
 }

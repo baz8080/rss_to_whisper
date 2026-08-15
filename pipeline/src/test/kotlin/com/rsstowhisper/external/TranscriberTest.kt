@@ -99,6 +99,41 @@ class TranscriberTest {
         assertEquals("true", fields["split_on_word"])
     }
 
+    /**
+     * The prompt is what fixed all 13 episodes that no VAD setting could, and
+     * `carry_initial_prompt` is what makes it apply past the first window --
+     * 13/13 with it, 12/13 without. They have to travel together.
+     */
+    @Test
+    fun `transcribe sends an initial prompt and carries it across windows`(
+        @TempDir tmp: Path,
+    ) {
+        val requests = mutableListOf<okhttp3.Request>()
+        Transcriber("http://whisper-server", httpClient = clientReturning("WEBVTT\n", captureRequests = requests))
+            .transcribe(mp3File(tmp))
+
+        val fields = formFields(requests.single().body as okhttp3.MultipartBody)
+        assertEquals(Transcriber.DEFAULT_INITIAL_PROMPT, fields["prompt"])
+        assertEquals("true", fields["carry_initial_prompt"])
+    }
+
+    /**
+     * An initial prompt biases vocabulary as well as style, so it has to be
+     * possible to turn off without editing the class.
+     */
+    @Test
+    fun `transcribe omits the prompt fields when the prompt is blank`(
+        @TempDir tmp: Path,
+    ) {
+        val requests = mutableListOf<okhttp3.Request>()
+        Transcriber("http://whisper-server", initialPrompt = "", httpClient = clientReturning("WEBVTT\n", captureRequests = requests))
+            .transcribe(mp3File(tmp))
+
+        val fields = formFields(requests.single().body as okhttp3.MultipartBody)
+        assertEquals(null, fields["prompt"])
+        assertEquals(null, fields["carry_initial_prompt"])
+    }
+
     @Test
     fun `transcribe honours a custom max length`(
         @TempDir tmp: Path,
