@@ -166,6 +166,26 @@ class AppConfigTest {
     }
 
     @Test
+    fun `load keeps yaml verbose when env var is blank`(
+        @TempDir tmp: Path,
+    ) {
+        val yaml = tmp.resolve("pods.yaml").toFile()
+        yaml.writeText("verbose: true\n")
+
+        val config =
+            AppConfig.load(
+                mapOf(
+                    "PIPELINE_CONFIG_PATH" to yaml.absolutePath,
+                    "PIPELINE_DATA_DIRECTORY" to "/data",
+                    "PIPELINE_WHISPER_SERVER_URL" to "http://whisper",
+                    "PIPELINE_VERBOSE" to "",
+                ),
+            )
+
+        assertEquals(true, config.verbose)
+    }
+
+    @Test
     fun `load errors when PIPELINE_CONFIG_PATH is missing`() {
         val ex =
             assertFailsWith<IllegalStateException> {

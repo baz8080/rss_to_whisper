@@ -34,7 +34,9 @@ data class AppConfig(
             val whisperServerUrl =
                 env["PIPELINE_WHISPER_SERVER_URL"]
                     ?: error("PIPELINE_WHISPER_SERVER_URL must be set in .env")
-            val verbose = env["PIPELINE_VERBOSE"]?.toBoolean()
+            // Blank means "not set" -- an empty PIPELINE_VERBOSE= line must fall
+            // through to pods.yaml rather than forcing it off via toBoolean().
+            val verbose = env["PIPELINE_VERBOSE"]?.takeIf { it.isNotBlank() }?.toBoolean()
 
             val raw: AppConfig = mapper.readValue(File(configPath))
             return raw.copy(

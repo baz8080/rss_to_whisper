@@ -247,10 +247,12 @@ Copy `pipeline/.env.example` to `pipeline/.env` and fill in your values (`.env` 
 PIPELINE_DATA_DIRECTORY=/path/to/download-directory
 PIPELINE_WHISPER_SERVER_URL=http://localhost:8080
 PIPELINE_CONFIG_PATH=/path/to/pods.yaml
-PIPELINE_VERBOSE=false
+#PIPELINE_VERBOSE=true
 ```
 
-`PIPELINE_VERBOSE` is optional; when set it overrides the `verbose` value from `pods.yaml`.
+`PIPELINE_VERBOSE` is optional; when set to a non-blank value it overrides the `verbose` value from
+`pods.yaml`. Leave it commented out (or blank) to let `pods.yaml` decide — note that any value other
+than `true` counts as `false`, so `PIPELINE_VERBOSE=false` will override `verbose: true`.
 
 The `.env` file is resolved relative to the working directory: `pipeline/.env` is tried
 first (running from the repo root), then `./.env` (running from inside `pipeline/`, or
