@@ -15,7 +15,7 @@ A Quarkus HTTP server that serves a full-text search interface over the SQLite d
 ### `index.py`
 Reads all `transcript.json` files in the data directory and writes them into a SQLite FTS5 database. Run this after the pipeline to make new transcripts searchable.
 
-Requires Python 3 and `pysqlite3` with FTS5 support:
+Requires Python 3 with an FTS5-capable SQLite. The script prefers `pysqlite3` when installed and falls back to the standard library `sqlite3` module otherwise, exiting with a clear error if neither has FTS5:
 
 ```bash
 pip install pysqlite3
@@ -28,7 +28,7 @@ pip install pysqlite3
 
 - JDK 21+
 - A running [whisper.cpp HTTP server](#running-the-whispercpp-server)
-- Python 3 + `pysqlite3` (for the indexing script)
+- Python 3 with an FTS5-capable SQLite (for the indexing script; `pip install pysqlite3` if the system build lacks FTS5)
 
 No `ffmpeg` is required. MP3s are uploaded as-is and the whisper.cpp server decodes them with its
 built-in miniaudio decoder, resampling to 16 kHz mono internally. The one exception is starting the
@@ -176,17 +176,17 @@ Acceleration is determined by how the whisper.cpp `server` binary was compiled:
 
 ## Transcribing
 
-The pipeline requires a config file path, supplied either via `--config` or via `PIPELINE_CONFIG_PATH` in `pipeline/.env` (see [Pipeline configuration](#pipeline-configuration) below).
+All pipeline configuration comes from `pipeline/.env` — there are no command-line arguments (see [Pipeline configuration](#pipeline-configuration) below).
 
 ```bash
-./gradlew :pipeline:run --args="-c /path/to/pods.yaml"
+./gradlew :pipeline:run
 ```
 
 Or build and run the distribution:
 
 ```bash
 ./gradlew :pipeline:installDist
-./pipeline/build/install/pipeline/bin/pipeline -c /path/to/pods.yaml
+./pipeline/build/install/pipeline/bin/pipeline
 ```
 
 ## Indexing
@@ -247,13 +247,18 @@ Copy `pipeline/.env.example` to `pipeline/.env` and fill in your values (`.env` 
 PIPELINE_DATA_DIRECTORY=/path/to/download-directory
 PIPELINE_WHISPER_SERVER_URL=http://localhost:8080
 PIPELINE_CONFIG_PATH=/path/to/pods.yaml
+PIPELINE_VERBOSE=false
 ```
 
-`PIPELINE_CONFIG_PATH` can be overridden at runtime with `--config` / `-c`.
+`PIPELINE_VERBOSE` is optional; when set it overrides the `verbose` value from `pods.yaml`.
+
+The `.env` file is resolved relative to the working directory: `pipeline/.env` is tried
+first (running from the repo root), then `./.env` (running from inside `pipeline/`, or
+next to an installed distribution).
 
 ### `pods.yaml`
 
-- `verbose` — enable debug logging (optional, default `false`)
+- `verbose` — enable debug logging (optional, default `false`; overridden by `PIPELINE_VERBOSE` when that is set)
 - `skip_after_consecutive` — stop walking a feed once this many consecutive already-transcribed episodes are seen (optional, default `20`)
 - `podcasts` — list of RSS feeds to process, each with `name`, `url`, optional `collections`, and optional `excludes`
 

@@ -152,7 +152,7 @@ class EpisodeRepositoryTest {
             stmt.setObject(8, type)
             stmt.setString(9, "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\n$transcriptPlain\n")
             stmt.setString(10, transcriptPlain)
-            stmt.setString(11, "$id/audio.wav")
+            stmt.setString(11, "$id/audio.mp3")
             stmt.execute()
         }
     }
