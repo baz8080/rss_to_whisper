@@ -23,7 +23,7 @@ private const val FAKE_SERVER_URL = "http://localhost:9000"
 private val MINIMAL_VTT = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\n Hello world.\n"
 
 class PodcastPipelineRunTest {
-    private class FakeFeedService(private val feeds: Map<String, SyndFeed?>) : FeedService() {
+    private open class FakeFeedService(private val feeds: Map<String, SyndFeed?>) : FeedService() {
         val requestedUrls = mutableListOf<String>()
         val downloads = mutableListOf<Pair<String, Path>>()
 
@@ -35,12 +35,13 @@ class PodcastPipelineRunTest {
         override fun downloadAudio(
             url: String,
             targetPath: Path,
-        ) {
+        ): Boolean {
             // Mirrors the real skip-if-present contract, so tests can assert on it.
-            if (Files.exists(targetPath)) return
+            if (Files.exists(targetPath)) return true
             downloads.add(url to targetPath)
             Files.createDirectories(targetPath.parent)
             Files.writeString(targetPath, "fake-mp3-bytes")
+            return true
         }
     }
 
@@ -292,6 +293,31 @@ class PodcastPipelineRunTest {
         assertEquals(0, txSvc.calls.size)
         val fourthDir = podcastDir.resolve(escapeFilename(PodcastPipeline.getEpisodeDirName(e4)))
         assertFalse(Files.exists(fourthDir))
+    }
+
+    @Test
+    fun `run does not transcribe an episode whose download failed`(
+        @TempDir tempDir: Path,
+    ) {
+        val config =
+            AppConfig(
+                dataDirectory = tempDir.toAbsolutePath().toString(),
+                whisperServerUrl = FAKE_SERVER_URL,
+                podcasts = listOf(PodcastConfig(name = "Show", url = "https://feed")),
+            )
+        val feedSvc =
+            object : FakeFeedService(mapOf("https://feed" to makeFeed(makeEntry("Unfetchable")))) {
+                override fun downloadAudio(
+                    url: String,
+                    targetPath: Path,
+                ): Boolean = false
+            }
+        val txSvc = FakeTranscriber(FAKE_SERVER_URL, MINIMAL_VTT)
+        PodcastPipeline(config = config, feedService = feedSvc, transcriber = txSvc).run()
+
+        assertEquals(0, txSvc.calls.size)
+        val episodeDirs = Files.list(tempDir.resolve("Show")).use { it.toList() }
+        assertFalse(episodeDirs.any { Files.exists(it.resolve("transcript.json")) })
     }
 
     @Test

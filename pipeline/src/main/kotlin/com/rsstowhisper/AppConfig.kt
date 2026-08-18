@@ -34,15 +34,22 @@ data class AppConfig(
             val whisperServerUrl =
                 env["PIPELINE_WHISPER_SERVER_URL"]
                     ?: error("PIPELINE_WHISPER_SERVER_URL must be set in .env")
-            val verbose = env["PIPELINE_VERBOSE"]?.toBoolean() ?: false
+            val verbose = env["PIPELINE_VERBOSE"]?.toBoolean()
 
             val raw: AppConfig = mapper.readValue(File(configPath))
-            return raw.copy(dataDirectory = dataDirectory, whisperServerUrl = whisperServerUrl, verbose = verbose)
+            return raw.copy(
+                dataDirectory = dataDirectory,
+                whisperServerUrl = whisperServerUrl,
+                verbose = verbose ?: raw.verbose,
+            )
         }
 
         internal fun loadDotEnv(): Map<String, String> {
-            val file = File("pipeline/.env")
-            if (!file.exists()) return emptyMap()
+            // Support running from the repo root or from inside pipeline/ (e.g. installDist).
+            val file =
+                sequenceOf(File("pipeline/.env"), File(".env"))
+                    .firstOrNull { it.exists() }
+                    ?: return emptyMap()
             return loadDotEnv(file.readText())
         }
 

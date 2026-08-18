@@ -209,6 +209,16 @@ class PodcastPipelineCompanionTest {
     }
 
     @Test
+    fun `getMp3Info falls back to rel enclosure link with no type`() {
+        // Same fallback buildEpisodeDict uses — the two must agree, or the
+        // pipeline downloads an episode it then refuses to write json for.
+        val e = entry(links = listOf(link("https://cdn/ep.mp3", rel = "enclosure", length = 42L)))
+        val result = PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data")
+        assertEquals("https://cdn/ep.mp3", result?.url)
+        assertEquals(42L, result?.length)
+    }
+
+    @Test
     fun `getMp3Info prefers enclosure over link when both match`() {
         val e =
             entry(
