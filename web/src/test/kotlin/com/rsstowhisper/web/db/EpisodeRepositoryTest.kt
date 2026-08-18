@@ -187,6 +187,38 @@ class EpisodeRepositoryTest {
             assertTrue(repo.search(SearchFilters()).episodes.all { it.snippet == null })
         }
 
+        @Test
+        fun `query with FTS syntax characters does not throw`() {
+            // Each of these is invalid FTS5 syntax as-is; raw MATCH would raise
+            // a SQLException that surfaced to the user as a 500.
+            for (q in listOf("c++", "\"unbalanced", "AND", "kotlin AND", "(open", "*star")) {
+                val result = repo.search(SearchFilters(query = q))
+                assertTrue(result.totalCount >= 0, "query '$q' should not throw")
+            }
+        }
+
+        @Test
+        fun `quoted fallback still finds matching terms`() {
+            // 'kotlin++' is invalid FTS5; the fallback quotes it as a literal
+            // token, which FTS tokenises back to 'kotlin' and matches ep1.
+            val result = repo.search(SearchFilters(query = "kotlin++"))
+            assertEquals(1, result.totalCount)
+            assertEquals("ep1", result.episodes.single().id)
+        }
+
+        @Test
+        fun `valid boolean queries keep working`() {
+            val result = repo.search(SearchFilters(query = "kotlin OR java"))
+            assertEquals(2, result.totalCount)
+        }
+
+        @Test
+        fun `getFilterOptions with FTS syntax characters does not throw`() {
+            // Falls back to a quoted literal, which matches nothing in the fixtures.
+            val options = repo.getFilterOptions("\"unbalanced")
+            assertTrue(options.podcasts.isEmpty())
+        }
+
         @Nested
         inner class DurationFilter {
             @Test
@@ -254,6 +286,17 @@ class EpisodeRepositoryTest {
                 assertTrue("ep1" in ids)
                 assertTrue("ep3" in ids)
             }
+
+            @Test
+            fun `collections filter does not match on substring`() {
+                // 'sci' is a prefix of 'science'; the old LIKE %sci% matched it.
+                assertEquals(0, repo.search(SearchFilters(collections = setOf("sci"))).totalCount)
+            }
+
+            @Test
+            fun `collections filter is case-insensitive`() {
+                assertEquals(2, repo.search(SearchFilters(collections = setOf("Science"))).totalCount)
+            }
         }
 
         @Nested
@@ -263,6 +306,17 @@ class EpisodeRepositoryTest {
                 val result = repo.search(SearchFilters(tags = setOf("kotlin")))
                 assertEquals(1, result.totalCount)
                 assertEquals("ep1", result.episodes.single().id)
+            }
+
+            @Test
+            fun `tags filter does not match on substring`() {
+                // 'ava' is inside 'java'; the old LIKE %ava% matched it.
+                assertEquals(0, repo.search(SearchFilters(tags = setOf("ava"))).totalCount)
+            }
+
+            @Test
+            fun `tags filter treats percent as a literal`() {
+                assertEquals(0, repo.search(SearchFilters(tags = setOf("%"))).totalCount)
             }
         }
 

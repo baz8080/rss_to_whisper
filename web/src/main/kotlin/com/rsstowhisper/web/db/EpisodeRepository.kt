@@ -20,11 +20,13 @@ class EpisodeRepository {
 
     private lateinit var conn: Connection
 
-    // In-memory filter cache — single entry, keyed by query string.
-    // Access is serialised by the @Synchronized methods below, so no
-    // additional locking is needed.
+    // In-memory filter cache — single entry, keyed by query string, expiring
+    // after a short TTL so an external reindex by index.py shows up without a
+    // server restart. Access is serialised by the @Synchronized methods below,
+    // so no additional locking is needed.
     private var cachedFilterQuery: String? = null
     private var cachedFilterOptions: FilterOptions? = null
+    private var cachedFilterAtMillis: Long = 0
 
     @PostConstruct
     fun init() {
@@ -42,19 +44,20 @@ class EpisodeRepository {
 
     @Synchronized
     fun search(filters: SearchFilters): SearchResult {
-        val hasQuery = filters.query.isNotBlank()
+        val ftsQuery = safeFtsQuery(filters.query)
+        val hasQuery = ftsQuery != null
         val params = mutableListOf<Any>()
         val whereClauses = mutableListOf<String>()
 
-        if (hasQuery) {
+        if (ftsQuery != null) {
             whereClauses.add("episodes_fts MATCH ?")
-            params.add(filters.query)
+            params.add(ftsQuery)
         }
 
         addDurationFilter(filters, whereClauses, params)
         addSetFilter(filters.podcasts, "e.podcast_title", whereClauses, params)
-        addCollectionsFilter(filters.collections, whereClauses, params)
-        addTagsFilter(filters.tags, whereClauses, params)
+        addCsvContainsFilter(filters.collections, "e.podcast_collections", whereClauses, params)
+        addCsvContainsFilter(filters.tags, "e.all_tags", whereClauses, params)
         addSetFilter(filters.episodeTypes, "e.episode_type", whereClauses, params)
 
         val whereClause = if (whereClauses.isEmpty()) "" else "WHERE ${whereClauses.joinToString(" AND ")}"
@@ -130,9 +133,13 @@ class EpisodeRepository {
 
     @Synchronized
     fun getFilterOptions(query: String): FilterOptions {
-        if (query == cachedFilterQuery) return cachedFilterOptions!!
+        val now = System.currentTimeMillis()
+        if (query == cachedFilterQuery && now - cachedFilterAtMillis < FILTER_CACHE_TTL_MILLIS) {
+            return cachedFilterOptions!!
+        }
 
-        val hasQuery = query.isNotBlank()
+        val ftsQuery = safeFtsQuery(query)
+        val hasQuery = ftsQuery != null
         val fromClause =
             if (hasQuery) {
                 "FROM episodes e JOIN episodes_fts ON e.rowid = episodes_fts.rowid"
@@ -144,7 +151,7 @@ class EpisodeRepository {
         fun queryDistinct(column: String): List<String> {
             val sql = "SELECT DISTINCT $column $fromClause $wherePrefix $column IS NOT NULL ORDER BY $column"
             return conn.prepareStatement(sql).use { stmt ->
-                if (hasQuery) stmt.setString(1, query)
+                if (ftsQuery != null) stmt.setString(1, ftsQuery)
                 stmt.executeQuery().use { rs ->
                     generateSequence { if (rs.next()) rs.getString(1) else null }.toList()
                 }
@@ -154,7 +161,7 @@ class EpisodeRepository {
         fun splitCsv(column: String): List<String> {
             val sql = "SELECT DISTINCT $column $fromClause $wherePrefix $column IS NOT NULL"
             return conn.prepareStatement(sql).use { stmt ->
-                if (hasQuery) stmt.setString(1, query)
+                if (ftsQuery != null) stmt.setString(1, ftsQuery)
                 stmt.executeQuery().use { rs ->
                     generateSequence { if (rs.next()) rs.getString(1) else null }
                         .flatMap { it.split(",").map(String::trim) }
@@ -173,8 +180,36 @@ class EpisodeRepository {
             )
         cachedFilterQuery = query
         cachedFilterOptions = options
+        cachedFilterAtMillis = now
         return options
     }
+
+    // FTS5 MATCH parses its right-hand side as a query language, so raw user
+    // input like `c++` or an unbalanced quote raises a SQLException that would
+    // surface as a 500. Valid queries pass through untouched (keeping phrase
+    // and boolean operators working); anything FTS5 rejects is retried with
+    // each token quoted as a literal. Returns null for blank input.
+    private fun safeFtsQuery(query: String): String? {
+        if (query.isBlank()) return null
+        if (isValidFtsQuery(query)) return query
+
+        val quoted =
+            query
+                .split(Regex("\\s+"))
+                .filter { it.isNotBlank() }
+                .joinToString(" ") { "\"${it.replace("\"", "\"\"")}\"" }
+        return quoted.takeIf { it.isNotBlank() && isValidFtsQuery(it) }
+    }
+
+    // LIMIT 1 rather than LIMIT 0: FTS5 only parses the MATCH expression when
+    // the statement is actually stepped, and LIMIT 0 short-circuits the step.
+    private fun isValidFtsQuery(query: String): Boolean =
+        runCatching {
+            conn.prepareStatement("SELECT 1 FROM episodes_fts WHERE episodes_fts MATCH ? LIMIT 1").use { stmt ->
+                stmt.setString(1, query)
+                stmt.executeQuery().use { it.next() }
+            }
+        }.isSuccess
 
     private fun addDurationFilter(
         filters: SearchFilters,
@@ -207,26 +242,19 @@ class EpisodeRepository {
         params.addAll(values)
     }
 
-    private fun addCollectionsFilter(
+    // Exact element match against a ", "-separated column. Wrapping both sides
+    // in commas stops 'art' matching 'smart', and instr (unlike LIKE) treats
+    // '%' and '_' in the value as literals.
+    private fun addCsvContainsFilter(
         values: Set<String>,
+        column: String,
         clauses: MutableList<String>,
         params: MutableList<Any>,
     ) {
         if (values.isEmpty()) return
-        val conditions = values.map { "e.podcast_collections LIKE ?" }
-        clauses.add("(${conditions.joinToString(" OR ")})")
-        values.forEach { params.add("%$it%") }
-    }
-
-    private fun addTagsFilter(
-        values: Set<String>,
-        clauses: MutableList<String>,
-        params: MutableList<Any>,
-    ) {
-        if (values.isEmpty()) return
-        val conditions = values.map { "e.all_tags LIKE ?" }
-        clauses.add("(${conditions.joinToString(" OR ")})")
-        values.forEach { params.add("%$it%") }
+        val condition = "instr(',' || REPLACE(lower($column), ', ', ',') || ',', lower(?)) > 0"
+        clauses.add("(${values.joinToString(" OR ") { condition }})")
+        values.forEach { params.add(",${it.trim()},") }
     }
 
     private fun setParam(
@@ -267,6 +295,8 @@ class EpisodeRepository {
         )
 
     companion object {
+        private const val FILTER_CACHE_TTL_MILLIS = 60_000L
+
         private const val SEARCH_COLUMNS =
             """e.id, e.podcast_title, e.podcast_image, e.podcast_collections,
                e.episode_title, e.episode_published_on, e.episode_audio_link,
