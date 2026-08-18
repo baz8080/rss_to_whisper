@@ -38,3 +38,44 @@ jobs:
 
       - name: Run tests
         run: ./gradlew test
+
+  indexer:
+    name: Check index.py
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Byte-compile
+        run: python3 -m py_compile index.py
+
+      # Runs against a two-episode fixture generated here -- never the real
+      # corpus. Covers the stdlib-sqlite3 fallback (no pysqlite3 on the runner),
+      # the FTS5 preflight, the missing-_id skip, and a round-trip FTS query.
+      - name: Smoke-test against a synthetic data directory
+        run: |
+          set -euo pipefail
+          mkdir -p fixture/Show/ep1 fixture/Show/ep2
+          cat > fixture/Show/ep1/transcript.json <<'JSON'
+          {"_id": "ep1", "podcast_title": "Show", "episode_title": "Kotlin episode",
+           "episode_transcript": "WEBVTT\n\n00:00:00.000 --> 00:00:02.000\nkotlin coroutines.\n"}
+          JSON
+          cat > fixture/Show/ep2/transcript.json <<'JSON'
+          {"podcast_title": "Show", "episode_title": "Missing id",
+           "episode_transcript": "WEBVTT\n\n00:00:00.000 --> 00:00:02.000\nshould be skipped.\n"}
+          JSON
+          python3 index.py fixture
+          python3 - <<'PY'
+          import sqlite3
+          c = sqlite3.connect("fixture/podcasts.db")
+          ids = [r[0] for r in c.execute("SELECT id FROM episodes")]
+          assert ids == ["ep1"], f"expected only ep1, got {ids}"
+          assert c.execute("SELECT count(*) FROM episodes WHERE id IS NULL").fetchone()[0] == 0
+          hits = c.execute("SELECT episode_title FROM episodes_fts WHERE episodes_fts MATCH 'coroutines'").fetchall()
+          assert hits == [("Kotlin episode",)], f"unexpected FTS result: {hits}"
+          print("index.py smoke test passed")
+          PY
