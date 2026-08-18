@@ -82,7 +82,10 @@ class EpisodeRepository {
         // column_index -1 = search across all columns
         val snippetExpr =
             if (hasQuery) {
-                "snippet(episodes_fts, -1, '<mark>', '</mark>', '…', 40)"
+                // char(1)/char(2) rather than literal <mark> tags: the snippet
+                // is escaped before rendering, so highlight markers must be
+                // something feed text cannot contain. See Episode.snippetHtml.
+                "snippet(episodes_fts, -1, char(1), char(2), '…', 40)"
             } else {
                 "NULL"
             }

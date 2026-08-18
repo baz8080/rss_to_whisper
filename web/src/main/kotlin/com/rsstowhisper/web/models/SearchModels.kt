@@ -1,5 +1,8 @@
 package com.rsstowhisper.web.models
 
+import org.owasp.html.PolicyFactory
+import org.owasp.html.Sanitizers
+
 data class Episode(
     val id: String,
     val podcastTitle: String?,
@@ -29,6 +32,12 @@ data class Episode(
             ?.filter(String::isNotBlank)
             ?: emptyList()
     val audioPath: String? get() = episodeRelativeAudioPath
+
+    // The raw snippet is feed-controlled text (it spans episode_title and
+    // podcast_title as well as the transcript) with sentinel highlight markers.
+    // Escape it, then turn only the sentinels into <mark> -- so a feed cannot
+    // smuggle markup through by containing a literal "<mark>".
+    val snippetHtml: String? get() = snippet?.let { renderSnippet(it) }
 }
 
 data class SearchResult(
@@ -155,6 +164,26 @@ fun parseTranscript(transcript: String): List<TranscriptLine> {
     flush()
     return result
 }
+
+// Sentinel code points wrapped around FTS5 matches by EpisodeRepository. They
+// cannot occur in feed or transcript text, so they survive HTML escaping
+// unambiguously and mark exactly what the search engine matched.
+const val SNIPPET_MARK_START = "\u0001"
+const val SNIPPET_MARK_END = "\u0002"
+
+fun renderSnippet(snippet: String): String =
+    escapeHtml(snippet)
+        .replace(SNIPPET_MARK_START, "<mark>")
+        .replace(SNIPPET_MARK_END, "</mark>")
+
+// Episode summaries arrive as raw HTML from third-party feeds. Anything outside
+// this allow-list (script, iframe, event handlers, javascript: URLs) is dropped.
+private val SUMMARY_POLICY: PolicyFactory =
+    Sanitizers.FORMATTING
+        .and(Sanitizers.BLOCKS)
+        .and(Sanitizers.LINKS)
+
+fun sanitizeHtml(html: String): String = SUMMARY_POLICY.sanitize(html)
 
 private val URL_REGEX = Regex("""https?://[^\s<>"]+""")
 

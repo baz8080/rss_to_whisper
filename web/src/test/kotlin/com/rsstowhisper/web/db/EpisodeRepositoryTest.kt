@@ -1,6 +1,9 @@
 package com.rsstowhisper.web.db
 
+import com.rsstowhisper.web.models.SNIPPET_MARK_END
+import com.rsstowhisper.web.models.SNIPPET_MARK_START
 import com.rsstowhisper.web.models.SearchFilters
+import com.rsstowhisper.web.models.renderSnippet
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -171,6 +174,17 @@ class EpisodeRepositoryTest {
             assertEquals(1, result.totalCount)
             assertEquals("ep1", result.episodes.single().id)
             assertNotNull(result.episodes.single().snippet)
+        }
+
+        @Test
+        fun `snippet highlights with sentinels, not literal mark tags`() {
+            // Pins the contract with Episode.snippetHtml: the repository emits
+            // char(1)/char(2) so the snippet can be HTML-escaped before render.
+            val snippet = repo.search(SearchFilters(query = "kotlin")).episodes.single().snippet!!
+            assertTrue(snippet.contains(SNIPPET_MARK_START), "expected start sentinel in: $snippet")
+            assertTrue(snippet.contains(SNIPPET_MARK_END), "expected end sentinel in: $snippet")
+            assertFalse(snippet.contains("<mark>"))
+            assertTrue(renderSnippet(snippet).contains("<mark>"))
         }
 
         @Test

@@ -202,10 +202,11 @@
                           th:text="${episode.episodeType}"></span>
                 </div>
 
-                <!-- Snippet: use th:utext because it contains <mark> highlight tags -->
+                <!-- Snippet: th:utext is safe here because snippetHtml is HTML-escaped
+                     and only re-introduces the <mark> tags. -->
                 <div class="snippet"
-                     th:if="${episode.snippet != null}"
-                     th:utext="${episode.snippet}"></div>
+                     th:if="${episode.snippetHtml != null}"
+                     th:utext="${episode.snippetHtml}"></div>
 
                 <!-- Tags -->
                 <div th:if="${not episode.tagList.isEmpty()}">

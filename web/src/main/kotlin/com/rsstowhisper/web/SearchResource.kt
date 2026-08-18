@@ -6,6 +6,7 @@ import com.rsstowhisper.web.models.buildSearchUrl
 import com.rsstowhisper.web.models.hasActiveFilters
 import com.rsstowhisper.web.models.linkify
 import com.rsstowhisper.web.models.parseTranscript
+import com.rsstowhisper.web.models.sanitizeHtml
 import io.smallrye.common.annotation.Blocking
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
@@ -105,7 +106,7 @@ class SearchResource {
         val transcriptLines = episode.transcript?.let { parseTranscript(it) } ?: emptyList()
         val linkifiedSummary =
             episode.episodeSummary?.let {
-                if (it.contains('<')) it else linkify(it)
+                if (it.contains('<')) sanitizeHtml(it) else linkify(it)
             }
 
         val ctx =

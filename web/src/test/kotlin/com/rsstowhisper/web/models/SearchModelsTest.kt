@@ -189,6 +189,48 @@ class SearchModelsTest {
     }
 
     @Nested
+    inner class HtmlSafety {
+        @Test
+        fun `sanitizeHtml strips script tags and event handlers`() {
+            val dirty = "<p>Hi</p><script>alert(1)</script><img src=x onerror=alert(2)>"
+            val clean = sanitizeHtml(dirty)
+            assertFalse(clean.contains("script", ignoreCase = true))
+            assertFalse(clean.contains("onerror", ignoreCase = true))
+            assertTrue(clean.contains("Hi"))
+        }
+
+        @Test
+        fun `sanitizeHtml drops javascript URLs but keeps safe links`() {
+            assertFalse(sanitizeHtml("""<a href="javascript:alert(1)">x</a>""").contains("javascript"))
+            assertTrue(sanitizeHtml("""<a href="https://ok.example/">x</a>""").contains("https://ok.example/"))
+        }
+
+        @Test
+        fun `sanitizeHtml keeps ordinary summary formatting`() {
+            val clean = sanitizeHtml("<p>Episode <b>notes</b> and <em>more</em></p>")
+            assertTrue(clean.contains("<b>notes</b>"))
+            assertTrue(clean.contains("<em>more</em>"))
+        }
+
+        @Test
+        fun `renderSnippet escapes markup and converts sentinels to mark`() {
+            val raw = "before ${SNIPPET_MARK_START}hit${SNIPPET_MARK_END} <script>alert(1)</script>"
+            val html = renderSnippet(raw)
+            assertTrue(html.contains("<mark>hit</mark>"))
+            assertFalse(html.contains("<script>"))
+            assertTrue(html.contains("&lt;script&gt;"))
+        }
+
+        @Test
+        fun `renderSnippet does not honour a literal mark tag from feed text`() {
+            // A feed that puts "<mark>" in its title must not get real markup out.
+            val html = renderSnippet("a <mark>fake</mark> highlight")
+            assertFalse(html.contains("<mark>"))
+            assertTrue(html.contains("&lt;mark&gt;"))
+        }
+    }
+
+    @Nested
     inner class BuildSearchUrl {
         @Test
         fun `empty filters produces base URL with no params`() = assertEquals("/search?", buildSearchUrl(SearchFilters()))
@@ -308,6 +350,16 @@ class SearchModelsTest {
 
         @Test
         fun `formattedDuration formats duration correctly`() = assertEquals("1h 0m", episode(duration = 3600).formattedDuration)
+
+        @Test
+        fun `snippetHtml is null when there is no snippet`() = assertNull(episode().snippetHtml)
+
+        @Test
+        fun `snippetHtml renders sentinels as mark tags`() =
+            assertEquals(
+                "a <mark>b</mark> c",
+                episode(snippet = "a ${SNIPPET_MARK_START}b${SNIPPET_MARK_END} c").snippetHtml,
+            )
 
         @Test
         fun `tagList is empty when allTags is null`() = assertTrue(episode().tagList.isEmpty())
