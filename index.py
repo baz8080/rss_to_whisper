@@ -202,6 +202,18 @@ def main():
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.execute("PRAGMA foreign_keys=ON")
 
+    # Collect before dropping anything. The rebuild below is destructive and
+    # episodes_fts is only recreated at the very end, so bailing out after the
+    # drops would leave a previously working database truncated and without its
+    # FTS index -- and every episode can be skipped legitimately (e.g. none of
+    # the transcript.json files carry an _id).
+    episodes = list(collect_episodes(args.data_dir))
+
+    if not episodes:
+        print("Nothing to index; leaving the existing database untouched")
+        conn.close()
+        return
+
     # Use raw sqlite_master to drop FTS table safely — DROP TABLE on a
     # virtual table requires the module to be loaded, which may not be
     # available if the table was created with a different FTS version.
@@ -231,13 +243,6 @@ def main():
     conn.execute("DROP TABLE IF EXISTS episodes")
     conn.execute(SCHEMA_EPISODES)
     conn.commit()
-
-    episodes = list(collect_episodes(args.data_dir))
-
-    if not episodes:
-        print("Nothing to index")
-        conn.close()
-        return
 
     t0 = time.time()
     print(f"Inserting {len(episodes)} episodes...")
