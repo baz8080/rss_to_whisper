@@ -77,14 +77,20 @@ fun SearchFilters.hasActiveFilters(): Boolean =
     query.isNotBlank() || durations.isNotEmpty() || podcasts.isNotEmpty() ||
         collections.isNotEmpty() || tags.isNotEmpty() || episodeTypes.isNotEmpty()
 
+// URLEncoder targets form encoding, where a space becomes '+'. Whether '+' is
+// decoded back to a space in a *query string* is up to the server, so spaces are
+// re-written as %20, which every decoder agrees on. Any '+' left after encoding
+// is an encoded space -- a literal '+' in the input has already become %2B.
+private fun urlEncode(value: String): String = java.net.URLEncoder.encode(value, Charsets.UTF_8).replace("+", "%20")
+
 fun buildSearchUrl(filters: SearchFilters): String {
     val params = mutableListOf<String>()
-    if (filters.query.isNotBlank()) params.add("q=${filters.query}")
-    filters.durations.forEach { params.add("duration=$it") }
-    filters.podcasts.forEach { params.add("podcast=$it") }
-    filters.collections.forEach { params.add("collection=$it") }
-    filters.tags.forEach { params.add("tag=$it") }
-    filters.episodeTypes.forEach { params.add("episodeType=$it") }
+    if (filters.query.isNotBlank()) params.add("q=${urlEncode(filters.query)}")
+    filters.durations.forEach { params.add("duration=${urlEncode(it)}") }
+    filters.podcasts.forEach { params.add("podcast=${urlEncode(it)}") }
+    filters.collections.forEach { params.add("collection=${urlEncode(it)}") }
+    filters.tags.forEach { params.add("tag=${urlEncode(it)}") }
+    filters.episodeTypes.forEach { params.add("episodeType=${urlEncode(it)}") }
     if (filters.page > 1) params.add("page=${filters.page}")
     return "/search?${params.joinToString("&")}"
 }

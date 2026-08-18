@@ -216,6 +216,23 @@ class SearchModelsTest {
             assertTrue(url.contains("duration=SHORT"))
             assertTrue(url.contains("page=2"))
         }
+
+        @Test
+        fun `values are URL-encoded`() {
+            val url = buildSearchUrl(SearchFilters(query = "c++ & more", podcasts = setOf("My Podcast")))
+            assertTrue(url.contains("q=c%2B%2B%20%26%20more"))
+            assertTrue(url.contains("podcast=My%20Podcast"))
+            assertFalse(url.contains("My Podcast"))
+            // Spaces must not round-trip as '+', whose meaning in a query
+            // string is server-dependent.
+            assertFalse(url.contains("+"))
+        }
+
+        @Test
+        fun `ampersand in a filter value cannot split parameters`() {
+            val url = buildSearchUrl(SearchFilters(tags = setOf("rock&roll")))
+            assertTrue(url.contains("tag=rock%26roll"))
+        }
     }
 
     @Nested
