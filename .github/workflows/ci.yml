@@ -2,6 +2,11 @@ name: CI
 
 on: [push, pull_request]
 
+# All three jobs only check out code and run builds, so the default
+# GITHUB_TOKEN is narrowed to read-only at the top level.
+permissions:
+  contents: read
+
 jobs:
   lint:
     name: Lint
