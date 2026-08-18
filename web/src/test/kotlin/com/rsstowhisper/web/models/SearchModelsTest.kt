@@ -213,6 +213,13 @@ class SearchModelsTest {
         }
 
         @Test
+        fun `sanitizeHtml keeps http images but not their handlers`() {
+            val clean = sanitizeHtml("""<p><img src="https://cdn.example/art.jpg" onerror="alert(1)"/>Notes</p>""")
+            assertTrue(clean.contains("https://cdn.example/art.jpg"))
+            assertFalse(clean.contains("onerror", ignoreCase = true))
+        }
+
+        @Test
         fun `renderSnippet escapes markup and converts sentinels to mark`() {
             val raw = "before ${SNIPPET_MARK_START}hit${SNIPPET_MARK_END} <script>alert(1)</script>"
             val html = renderSnippet(raw)

@@ -178,9 +178,12 @@ fun renderSnippet(snippet: String): String =
 
 // Episode summaries arrive as raw HTML from third-party feeds. Anything outside
 // this allow-list (script, iframe, event handlers, javascript: URLs) is dropped.
+// IMAGES is included because show notes routinely embed artwork; it permits
+// <img> only with an http/https src, and no event handlers survive it.
 private val SUMMARY_POLICY: PolicyFactory =
     Sanitizers.FORMATTING
         .and(Sanitizers.BLOCKS)
+        .and(Sanitizers.IMAGES)
         .and(Sanitizers.LINKS)
 
 fun sanitizeHtml(html: String): String = SUMMARY_POLICY.sanitize(html)
