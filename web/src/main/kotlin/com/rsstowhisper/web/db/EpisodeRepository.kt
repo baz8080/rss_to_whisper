@@ -190,22 +190,32 @@ class EpisodeRepository {
     // FTS5 MATCH parses its right-hand side as a query language, so raw user
     // input like `c++` or an unbalanced quote raises a SQLException that would
     // surface as a 500. Valid queries pass through untouched (keeping phrase
-    // and boolean operators working); anything FTS5 rejects is retried with
-    // each token quoted as a literal. Returns null for blank input.
+    // and boolean operators working); anything FTS5 rejects is rewritten with
+    // each token quoted as a literal. Returns null only for blank input.
     private fun safeFtsQuery(query: String): String? {
         if (query.isBlank()) return null
         if (isValidFtsQuery(query)) return query
 
-        val quoted =
-            query
-                .split(Regex("\\s+"))
-                .filter { it.isNotBlank() }
-                .joinToString(" ") { "\"${it.replace("\"", "\"\"")}\"" }
-        return quoted.takeIf { it.isNotBlank() && isValidFtsQuery(it) }
+        // The quoted form is a sequence of FTS5 string literals, so it is always
+        // syntactically valid -- it is returned without a second probe on purpose.
+        // A probe that failed for some reason other than the user's syntax (no
+        // episodes_fts table mid-reindex, a locked or corrupt database) must not
+        // be able to turn into a null here: that would drop the search term and
+        // hand the caller the entire corpus as if it had matched. Letting the
+        // real query raise the underlying error is the honest outcome.
+        return quoteEachToken(query)
     }
+
+    private fun quoteEachToken(query: String): String =
+        query
+            .split(Regex("\\s+"))
+            .filter { it.isNotBlank() }
+            .joinToString(" ") { "\"${it.replace("\"", "\"\"")}\"" }
 
     // LIMIT 1 rather than LIMIT 0: FTS5 only parses the MATCH expression when
     // the statement is actually stepped, and LIMIT 0 short-circuits the step.
+    // A failure here only decides whether to quote; it is never treated as
+    // "this search matched nothing".
     private fun isValidFtsQuery(query: String): Boolean =
         runCatching {
             conn.prepareStatement("SELECT 1 FROM episodes_fts WHERE episodes_fts MATCH ? LIMIT 1").use { stmt ->

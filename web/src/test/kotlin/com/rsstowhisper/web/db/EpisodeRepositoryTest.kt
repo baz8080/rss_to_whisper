@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNotSame
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertSame
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -19,6 +20,7 @@ import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Path
 import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.SQLException
 
 class EpisodeRepositoryTest {
     @TempDir
@@ -227,6 +229,20 @@ class EpisodeRepositoryTest {
         }
 
         @Test
+        fun `an unmatchable query returns no results rather than the whole corpus`() {
+            // safeFtsQuery must never degrade a non-blank query to "no query":
+            // that path silently hands back every episode as if it had matched.
+            val total = repo.search(SearchFilters()).totalCount
+            assertTrue(total > 0, "fixture should have episodes")
+            for (q in listOf("c++", "\"unbalanced", "AND", "kotlin AND", "(open", "*star", "-", "^")) {
+                assertTrue(
+                    repo.search(SearchFilters(query = q)).totalCount < total,
+                    "query '$q' fell back to returning the entire corpus",
+                )
+            }
+        }
+
+        @Test
         fun `getFilterOptions with FTS syntax characters does not throw`() {
             // Falls back to a quoted literal, which matches nothing in the fixtures.
             val options = repo.getFilterOptions("\"unbalanced")
@@ -366,6 +382,31 @@ class EpisodeRepositoryTest {
                 val result = repo.search(SearchFilters(page = 99, pageSize = 10))
                 assertTrue(result.episodes.isEmpty())
                 assertEquals(4, result.totalCount)
+            }
+        }
+    }
+
+    @Nested
+    inner class BrokenFtsTable {
+        // index.py drops episodes_fts at the start of a reindex and only
+        // recreates it at the end, so the web server can meet a database whose
+        // episodes table is populated but whose FTS index is gone. A search must
+        // fail loudly there rather than quietly dropping the term and handing
+        // back every episode as if it had matched.
+        @Test
+        fun `a search against a missing episodes_fts raises instead of returning everything`() {
+            val dbPath = tempDir.resolve("no-fts.db").toAbsolutePath().toString()
+            DriverManager.getConnection("jdbc:sqlite:$dbPath").use { conn ->
+                createSchema(conn)
+                insertFixtures(conn)
+                conn.createStatement().execute("DROP TABLE episodes_fts")
+            }
+            val brokenRepo = EpisodeRepository().apply { this.dbPath = dbPath }
+            brokenRepo.init()
+            try {
+                assertThrows(SQLException::class.java) { brokenRepo.search(SearchFilters(query = "kotlin")) }
+            } finally {
+                brokenRepo.cleanup()
             }
         }
     }
