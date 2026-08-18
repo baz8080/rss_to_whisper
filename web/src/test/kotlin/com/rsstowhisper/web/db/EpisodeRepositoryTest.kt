@@ -1,6 +1,9 @@
 package com.rsstowhisper.web.db
 
+import com.rsstowhisper.web.models.SNIPPET_MARK_END
+import com.rsstowhisper.web.models.SNIPPET_MARK_START
 import com.rsstowhisper.web.models.SearchFilters
+import com.rsstowhisper.web.models.renderSnippet
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -8,6 +11,7 @@ import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNotSame
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.Assertions.assertSame
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -16,6 +20,7 @@ import org.junit.jupiter.api.io.TempDir
 import java.nio.file.Path
 import java.sql.Connection
 import java.sql.DriverManager
+import java.sql.SQLException
 
 class EpisodeRepositoryTest {
     @TempDir
@@ -149,7 +154,7 @@ class EpisodeRepositoryTest {
             stmt.setObject(8, type)
             stmt.setString(9, "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\n$transcriptPlain\n")
             stmt.setString(10, transcriptPlain)
-            stmt.setString(11, "$id/audio.wav")
+            stmt.setString(11, "$id/audio.mp3")
             stmt.execute()
         }
     }
@@ -174,6 +179,17 @@ class EpisodeRepositoryTest {
         }
 
         @Test
+        fun `snippet highlights with sentinels, not literal mark tags`() {
+            // Pins the contract with Episode.snippetHtml: the repository emits
+            // char(1)/char(2) so the snippet can be HTML-escaped before render.
+            val snippet = repo.search(SearchFilters(query = "kotlin")).episodes.single().snippet!!
+            assertTrue(snippet.contains(SNIPPET_MARK_START), "expected start sentinel in: $snippet")
+            assertTrue(snippet.contains(SNIPPET_MARK_END), "expected end sentinel in: $snippet")
+            assertFalse(snippet.contains("<mark>"))
+            assertTrue(renderSnippet(snippet).contains("<mark>"))
+        }
+
+        @Test
         fun `query matching multiple episodes returns all matches`() {
             val result = repo.search(SearchFilters(query = "programming"))
             assertEquals(2, result.totalCount)
@@ -185,6 +201,52 @@ class EpisodeRepositoryTest {
         @Test
         fun `no-query results have null snippet`() {
             assertTrue(repo.search(SearchFilters()).episodes.all { it.snippet == null })
+        }
+
+        @Test
+        fun `query with FTS syntax characters does not throw`() {
+            // Each of these is invalid FTS5 syntax as-is; raw MATCH would raise
+            // a SQLException that surfaced to the user as a 500.
+            for (q in listOf("c++", "\"unbalanced", "AND", "kotlin AND", "(open", "*star")) {
+                val result = repo.search(SearchFilters(query = q))
+                assertTrue(result.totalCount >= 0, "query '$q' should not throw")
+            }
+        }
+
+        @Test
+        fun `quoted fallback still finds matching terms`() {
+            // 'kotlin++' is invalid FTS5; the fallback quotes it as a literal
+            // token, which FTS tokenises back to 'kotlin' and matches ep1.
+            val result = repo.search(SearchFilters(query = "kotlin++"))
+            assertEquals(1, result.totalCount)
+            assertEquals("ep1", result.episodes.single().id)
+        }
+
+        @Test
+        fun `valid boolean queries keep working`() {
+            val result = repo.search(SearchFilters(query = "kotlin OR java"))
+            assertEquals(2, result.totalCount)
+        }
+
+        @Test
+        fun `an unmatchable query returns no results rather than the whole corpus`() {
+            // safeFtsQuery must never degrade a non-blank query to "no query":
+            // that path silently hands back every episode as if it had matched.
+            val total = repo.search(SearchFilters()).totalCount
+            assertTrue(total > 0, "fixture should have episodes")
+            for (q in listOf("c++", "\"unbalanced", "AND", "kotlin AND", "(open", "*star", "-", "^")) {
+                assertTrue(
+                    repo.search(SearchFilters(query = q)).totalCount < total,
+                    "query '$q' fell back to returning the entire corpus",
+                )
+            }
+        }
+
+        @Test
+        fun `getFilterOptions with FTS syntax characters does not throw`() {
+            // Falls back to a quoted literal, which matches nothing in the fixtures.
+            val options = repo.getFilterOptions("\"unbalanced")
+            assertTrue(options.podcasts.isEmpty())
         }
 
         @Nested
@@ -254,6 +316,17 @@ class EpisodeRepositoryTest {
                 assertTrue("ep1" in ids)
                 assertTrue("ep3" in ids)
             }
+
+            @Test
+            fun `collections filter does not match on substring`() {
+                // 'sci' is a prefix of 'science'; the old LIKE %sci% matched it.
+                assertEquals(0, repo.search(SearchFilters(collections = setOf("sci"))).totalCount)
+            }
+
+            @Test
+            fun `collections filter is case-insensitive`() {
+                assertEquals(2, repo.search(SearchFilters(collections = setOf("Science"))).totalCount)
+            }
         }
 
         @Nested
@@ -263,6 +336,17 @@ class EpisodeRepositoryTest {
                 val result = repo.search(SearchFilters(tags = setOf("kotlin")))
                 assertEquals(1, result.totalCount)
                 assertEquals("ep1", result.episodes.single().id)
+            }
+
+            @Test
+            fun `tags filter does not match on substring`() {
+                // 'ava' is inside 'java'; the old LIKE %ava% matched it.
+                assertEquals(0, repo.search(SearchFilters(tags = setOf("ava"))).totalCount)
+            }
+
+            @Test
+            fun `tags filter treats percent as a literal`() {
+                assertEquals(0, repo.search(SearchFilters(tags = setOf("%"))).totalCount)
             }
         }
 
@@ -298,6 +382,31 @@ class EpisodeRepositoryTest {
                 val result = repo.search(SearchFilters(page = 99, pageSize = 10))
                 assertTrue(result.episodes.isEmpty())
                 assertEquals(4, result.totalCount)
+            }
+        }
+    }
+
+    @Nested
+    inner class BrokenFtsTable {
+        // index.py drops episodes_fts at the start of a reindex and only
+        // recreates it at the end, so the web server can meet a database whose
+        // episodes table is populated but whose FTS index is gone. A search must
+        // fail loudly there rather than quietly dropping the term and handing
+        // back every episode as if it had matched.
+        @Test
+        fun `a search against a missing episodes_fts raises instead of returning everything`() {
+            val dbPath = tempDir.resolve("no-fts.db").toAbsolutePath().toString()
+            DriverManager.getConnection("jdbc:sqlite:$dbPath").use { conn ->
+                createSchema(conn)
+                insertFixtures(conn)
+                conn.createStatement().execute("DROP TABLE episodes_fts")
+            }
+            val brokenRepo = EpisodeRepository().apply { this.dbPath = dbPath }
+            brokenRepo.init()
+            try {
+                assertThrows(SQLException::class.java) { brokenRepo.search(SearchFilters(query = "kotlin")) }
+            } finally {
+                brokenRepo.cleanup()
             }
         }
     }

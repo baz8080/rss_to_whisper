@@ -43,13 +43,14 @@ open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
         }
     }
 
+    /** Downloads [url] to [targetPath]. Returns true when the file is present on disk. */
     open fun downloadAudio(
         url: String,
         targetPath: Path,
-    ) {
+    ): Boolean {
         if (Files.exists(targetPath)) {
             logger.debug("Audio is already downloaded")
-            return
+            return true
         }
 
         logger.debug("Downloading audio")
@@ -67,13 +68,13 @@ open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
             httpClient.newCall(request).execute().use { response ->
                 if (!response.isSuccessful) {
                     logger.error("Error saving file response: ${response.code}")
-                    return
+                    return false
                 }
 
                 val body = response.body
                 if (body == null) {
                     logger.error("No response body for $url")
-                    return
+                    return false
                 }
 
                 logger.debug("Writing... {}", targetPath)
@@ -85,8 +86,10 @@ open class FeedService(private val httpClient: OkHttpClient = OkHttpClient()) {
             }
 
             Files.move(partialPath, targetPath, StandardCopyOption.ATOMIC_MOVE)
+            return true
         } catch (e: Exception) {
             logger.error("Failed to download $url", e)
+            return false
         } finally {
             runCatching { Files.deleteIfExists(partialPath) }
         }

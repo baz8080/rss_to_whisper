@@ -1,5 +1,8 @@
 package com.rsstowhisper.web.models
 
+import org.owasp.html.PolicyFactory
+import org.owasp.html.Sanitizers
+
 data class Episode(
     val id: String,
     val podcastTitle: String?,
@@ -29,6 +32,12 @@ data class Episode(
             ?.filter(String::isNotBlank)
             ?: emptyList()
     val audioPath: String? get() = episodeRelativeAudioPath
+
+    // The raw snippet is feed-controlled text (it spans episode_title and
+    // podcast_title as well as the transcript) with sentinel highlight markers.
+    // Escape it, then turn only the sentinels into <mark> -- so a feed cannot
+    // smuggle markup through by containing a literal "<mark>".
+    val snippetHtml: String? get() = snippet?.let { renderSnippet(it) }
 }
 
 data class SearchResult(
@@ -77,14 +86,20 @@ fun SearchFilters.hasActiveFilters(): Boolean =
     query.isNotBlank() || durations.isNotEmpty() || podcasts.isNotEmpty() ||
         collections.isNotEmpty() || tags.isNotEmpty() || episodeTypes.isNotEmpty()
 
+// URLEncoder targets form encoding, where a space becomes '+'. Whether '+' is
+// decoded back to a space in a *query string* is up to the server, so spaces are
+// re-written as %20, which every decoder agrees on. Any '+' left after encoding
+// is an encoded space -- a literal '+' in the input has already become %2B.
+private fun urlEncode(value: String): String = java.net.URLEncoder.encode(value, Charsets.UTF_8).replace("+", "%20")
+
 fun buildSearchUrl(filters: SearchFilters): String {
     val params = mutableListOf<String>()
-    if (filters.query.isNotBlank()) params.add("q=${filters.query}")
-    filters.durations.forEach { params.add("duration=$it") }
-    filters.podcasts.forEach { params.add("podcast=$it") }
-    filters.collections.forEach { params.add("collection=$it") }
-    filters.tags.forEach { params.add("tag=$it") }
-    filters.episodeTypes.forEach { params.add("episodeType=$it") }
+    if (filters.query.isNotBlank()) params.add("q=${urlEncode(filters.query)}")
+    filters.durations.forEach { params.add("duration=${urlEncode(it)}") }
+    filters.podcasts.forEach { params.add("podcast=${urlEncode(it)}") }
+    filters.collections.forEach { params.add("collection=${urlEncode(it)}") }
+    filters.tags.forEach { params.add("tag=${urlEncode(it)}") }
+    filters.episodeTypes.forEach { params.add("episodeType=${urlEncode(it)}") }
     if (filters.page > 1) params.add("page=${filters.page}")
     return "/search?${params.joinToString("&")}"
 }
@@ -149,6 +164,29 @@ fun parseTranscript(transcript: String): List<TranscriptLine> {
     flush()
     return result
 }
+
+// Sentinel code points wrapped around FTS5 matches by EpisodeRepository. They
+// cannot occur in feed or transcript text, so they survive HTML escaping
+// unambiguously and mark exactly what the search engine matched.
+const val SNIPPET_MARK_START = "\u0001"
+const val SNIPPET_MARK_END = "\u0002"
+
+fun renderSnippet(snippet: String): String =
+    escapeHtml(snippet)
+        .replace(SNIPPET_MARK_START, "<mark>")
+        .replace(SNIPPET_MARK_END, "</mark>")
+
+// Episode summaries arrive as raw HTML from third-party feeds. Anything outside
+// this allow-list (script, iframe, event handlers, javascript: URLs) is dropped.
+// IMAGES is included because show notes routinely embed artwork; it permits
+// <img> only with an http/https src, and no event handlers survive it.
+private val SUMMARY_POLICY: PolicyFactory =
+    Sanitizers.FORMATTING
+        .and(Sanitizers.BLOCKS)
+        .and(Sanitizers.IMAGES)
+        .and(Sanitizers.LINKS)
+
+fun sanitizeHtml(html: String): String = SUMMARY_POLICY.sanitize(html)
 
 private val URL_REGEX = Regex("""https?://[^\s<>"]+""")
 

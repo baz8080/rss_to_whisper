@@ -2,6 +2,9 @@
 .gradle/
 build/
 
+# Kotlin compiler working directory
+.kotlin/
+
 # Kotlin/JVM
 *.class
 *.jar

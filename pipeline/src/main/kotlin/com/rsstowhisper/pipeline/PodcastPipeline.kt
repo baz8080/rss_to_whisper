@@ -116,7 +116,10 @@ class PodcastPipeline(
                     continue
                 }
 
-                feedService.downloadAudio(mp3Info.url, mp3Info.filePath)
+                if (!feedService.downloadAudio(mp3Info.url, mp3Info.filePath)) {
+                    logger.warn("Could not download audio for $title. Skipping")
+                    continue
+                }
                 val vtt = transcribeEpisode(mp3Info, episodeDirPath)
                 writeEpisodeJson(feed, entry, mp3Info, episodeDirPath, podcast.collections, vtt)
             } catch (e: Exception) {
@@ -136,7 +139,10 @@ class PodcastPipeline(
     ) {
         val jsonPath = episodeDirPath.resolve("transcript.json")
         if (Files.exists(jsonPath)) return
-        if (vtt.isBlank()) return
+        if (vtt.isBlank()) {
+            logger.warn("Transcription for ${entry.title} came back empty; not writing transcript.json")
+            return
+        }
 
         val episodeDict =
             buildEpisodeDict(feed, entry, vtt, mp3Info.localFilePath, collections)
@@ -201,35 +207,15 @@ class PodcastPipeline(
             episodePath: Path,
             dataDir: String,
         ): Mp3Info? {
-            for (enclosure in entry.enclosures) {
-                if (enclosure.type in AUDIO_MP3_TYPES) {
-                    val filePath = episodePath.resolve("audio.mp3")
-                    val relativePath = Path.of(dataDir).relativize(filePath).toString()
+            val source = findAudioSource(entry) ?: return null
+            val filePath = episodePath.resolve("audio.mp3")
 
-                    return Mp3Info(
-                        url = enclosure.url,
-                        filePath = filePath,
-                        length = enclosure.length,
-                        localFilePath = relativePath,
-                    )
-                }
-            }
-
-            for (link in entry.links) {
-                if (link.type in AUDIO_MP3_TYPES) {
-                    val filePath = episodePath.resolve("audio.mp3")
-                    val relativePath = Path.of(dataDir).relativize(filePath).toString()
-
-                    return Mp3Info(
-                        url = link.href,
-                        filePath = filePath,
-                        length = link.length,
-                        localFilePath = relativePath,
-                    )
-                }
-            }
-
-            return null
+            return Mp3Info(
+                url = source.url,
+                filePath = filePath,
+                length = source.length,
+                localFilePath = Path.of(dataDir).relativize(filePath).toString(),
+            )
         }
 
         fun buildEpisodeDict(
@@ -292,13 +278,33 @@ class PodcastPipeline(
             }
         }
 
-        private fun findAudioLink(entry: SyndEntry): String? =
+        private data class AudioSource(val url: String, val length: Long)
+
+        // Single source of truth for locating an episode's audio, in strict
+        // preference order: mp3 enclosure, then mp3-typed link, then a link that
+        // declares itself an enclosure without saying what it is. Keeping one
+        // predicate means findAudioLink and getMp3Info can never disagree about
+        // whether an episode has audio.
+        //
+        // The last fallback is deliberately limited to *untyped* links. A link
+        // that says rel="enclosure" type="video/mp4" is telling us it is not
+        // audio; downloading it as audio.mp3 would leave a file whisper cannot
+        // decode on disk, and since the file's presence is what marks a download
+        // as done, every later run would re-upload and re-transcribe it forever.
+        private fun findAudioSource(entry: SyndEntry): AudioSource? {
             entry.enclosures
                 .firstOrNull { it.type in AUDIO_MP3_TYPES }
-                ?.url
-                ?: entry.links
-                    .firstOrNull { it.rel == "enclosure" }
-                    ?.href
+                ?.let { return AudioSource(it.url, it.length) }
+
+            val links = entry.links.orEmpty()
+            val link =
+                links.firstOrNull { it.type in AUDIO_MP3_TYPES }
+                    ?: links.firstOrNull { it.rel == "enclosure" && it.type.isNullOrBlank() }
+
+            return link?.let { AudioSource(it.href, it.length) }
+        }
+
+        private fun findAudioLink(entry: SyndEntry): String? = findAudioSource(entry)?.url
 
         private fun collectTags(
             feed: SyndFeed,

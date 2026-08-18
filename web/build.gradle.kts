@@ -26,6 +26,10 @@ dependencies {
     // SQLite JDBC — not in Quarkus BOM; used directly without Agroal
     implementation("org.xerial:sqlite-jdbc:3.49.1.0")
 
+    // Episode summaries are third-party RSS content rendered as raw HTML, so
+    // they are sanitised against an allow-list before reaching the template.
+    implementation("com.googlecode.owasp-java-html-sanitizer:owasp-java-html-sanitizer:20240325.1")
+
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.mockk:mockk:1.13.12")
 }

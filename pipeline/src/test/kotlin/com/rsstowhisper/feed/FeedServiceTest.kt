@@ -104,15 +104,46 @@ class FeedServiceTest {
     }
 
     @Test
-    fun `downloadAudio writes body to target path`(
+    fun `downloadAudio writes body to target path and returns true`(
         @TempDir tmp: Path,
     ) {
         val target = tmp.resolve("episode.mp3")
-        FeedService(clientReturning(body = "audio-bytes")).downloadAudio("https://example.com/ep.mp3", target)
+        val ok = FeedService(clientReturning(body = "audio-bytes")).downloadAudio("https://example.com/ep.mp3", target)
 
+        assertTrue(ok)
         assertTrue(Files.exists(target))
         assertEquals("audio-bytes", Files.readString(target))
         assertTrue(Files.notExists(tmp.resolve("episode.mp3.part")))
+    }
+
+    @Test
+    fun `downloadAudio returns true without a request when file already present`(
+        @TempDir tmp: Path,
+    ) {
+        val target = tmp.resolve("episode.mp3")
+        Files.writeString(target, "existing")
+
+        assertTrue(FeedService(clientReturning(responseCode = 500)).downloadAudio("https://example.com/ep.mp3", target))
+    }
+
+    @Test
+    fun `downloadAudio returns false on non-200 response`(
+        @TempDir tmp: Path,
+    ) {
+        val target = tmp.resolve("episode.mp3")
+        val ok = FeedService(clientReturning(responseCode = 503)).downloadAudio("https://example.com/ep.mp3", target)
+        assertEquals(false, ok)
+    }
+
+    @Test
+    fun `downloadAudio returns false on network exception`(
+        @TempDir tmp: Path,
+    ) {
+        val target = tmp.resolve("episode.mp3")
+        val ok =
+            FeedService(clientThrowing(IOException("connection reset")))
+                .downloadAudio("https://example.com/ep.mp3", target)
+        assertEquals(false, ok)
     }
 
     /**

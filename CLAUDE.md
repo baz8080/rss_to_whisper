@@ -42,7 +42,8 @@ No external tools are required on `PATH` — transcription is HTTP-only against 
 python3 index.py /path/to/data_directory [--db /path/to/podcasts.db]
 ```
 
-Requires `pysqlite3` (the system `sqlite3` may lack FTS5 support).
+Requires an FTS5-capable SQLite. The script prefers `pysqlite3` and falls back to the
+stdlib `sqlite3` module, exiting with a clear error if neither build has FTS5.
 
 Run this after the pipeline has produced new transcripts.
 

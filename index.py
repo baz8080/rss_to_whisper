@@ -13,9 +13,15 @@ import argparse
 import json
 import os
 import re
-import pysqlite3 as sqlite3
 import sys
 import time
+
+try:
+    import pysqlite3 as sqlite3
+except ImportError:
+    # Fall back to the stdlib module — fine anywhere its SQLite has FTS5
+    # (checked at startup in main()).
+    import sqlite3
 
 
 SCHEMA_EPISODES = """
@@ -129,6 +135,9 @@ def collect_episodes(data_dir):
                 continue
 
             episode_id = episode.get("_id")
+            if not episode_id:
+                print(f"  WARNING: Skipping {json_path}: missing _id", file=sys.stderr)
+                continue
 
             yield {
                 "id": episode_id,
@@ -177,9 +186,33 @@ def main():
     print(f"Database: {db_path}")
 
     conn = sqlite3.connect(db_path)
+
+    try:
+        conn.execute("CREATE VIRTUAL TABLE IF NOT EXISTS _fts5_check USING fts5(x)")
+        conn.execute("DROP TABLE IF EXISTS _fts5_check")
+    except sqlite3.OperationalError:
+        print(
+            "ERROR: This SQLite build has no FTS5 support. Install pysqlite3: pip install pysqlite3",
+            file=sys.stderr,
+        )
+        conn.close()
+        sys.exit(1)
+
     conn.execute("PRAGMA journal_mode=WAL")
     conn.execute("PRAGMA synchronous=NORMAL")
     conn.execute("PRAGMA foreign_keys=ON")
+
+    # Collect before dropping anything. The rebuild below is destructive and
+    # episodes_fts is only recreated at the very end, so bailing out after the
+    # drops would leave a previously working database truncated and without its
+    # FTS index -- and every episode can be skipped legitimately (e.g. none of
+    # the transcript.json files carry an _id).
+    episodes = list(collect_episodes(args.data_dir))
+
+    if not episodes:
+        print("Nothing to index; leaving the existing database untouched")
+        conn.close()
+        return
 
     # Use raw sqlite_master to drop FTS table safely — DROP TABLE on a
     # virtual table requires the module to be loaded, which may not be
@@ -190,24 +223,26 @@ def main():
     if fts_exists:
         try:
             conn.execute("DROP TABLE IF EXISTS episodes_fts")
-        except sqlite3.OperationalError:
-            # FTS module not available; delete shadow tables and master entry manually.
-            # FTS5 shadow suffixes: data, idx, content, docsize, config
-            # FTS4 shadow suffixes (kept for legacy dbs): segments, segdir, stat
-            for suffix in ["data", "idx", "content", "docsize", "config",
-                           "segments", "segdir", "stat"]:
-                conn.execute(f"DROP TABLE IF EXISTS episodes_fts_{suffix}")
-            conn.execute("DELETE FROM sqlite_master WHERE name='episodes_fts'")
+        except sqlite3.OperationalError as e:
+            # The existing episodes_fts was built by an FTS module this SQLite
+            # cannot load (e.g. a legacy FTS4 table under an FTS5-only build),
+            # so DROP TABLE cannot take it apart. Editing sqlite_master by hand
+            # is not an option: the Python sqlite3 module refuses writes to it
+            # even with PRAGMA writable_schema=ON (unlike the sqlite3 CLI), and
+            # dropping only the shadow tables would leave a dangling schema
+            # entry that breaks the CREATE VIRTUAL TABLE below. Rebuilding from
+            # scratch is safe here -- the database is derived data, rebuilt in
+            # full on every run.
+            print(
+                f"ERROR: Cannot drop the existing episodes_fts table: {e}\n"
+                f"       Delete {db_path} and re-run to rebuild from scratch.",
+                file=sys.stderr,
+            )
+            conn.close()
+            sys.exit(1)
     conn.execute("DROP TABLE IF EXISTS episodes")
     conn.execute(SCHEMA_EPISODES)
     conn.commit()
-
-    episodes = list(collect_episodes(args.data_dir))
-
-    if not episodes:
-        print("Nothing to index")
-        conn.close()
-        return
 
     t0 = time.time()
     print(f"Inserting {len(episodes)} episodes...")

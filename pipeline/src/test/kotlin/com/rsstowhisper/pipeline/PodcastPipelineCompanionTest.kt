@@ -209,6 +209,40 @@ class PodcastPipelineCompanionTest {
     }
 
     @Test
+    fun `getMp3Info falls back to rel enclosure link with no type`() {
+        // Same fallback buildEpisodeDict uses — the two must agree, or the
+        // pipeline downloads an episode it then refuses to write json for.
+        val e = entry(links = listOf(link("https://cdn/ep.mp3", rel = "enclosure", length = 42L)))
+        val result = PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data")
+        assertEquals("https://cdn/ep.mp3", result?.url)
+        assertEquals(42L, result?.length)
+    }
+
+    @Test
+    fun `getMp3Info ignores a typed non-audio enclosure link`() {
+        // A link that declares itself video is not audio. Downloading it as
+        // audio.mp3 would park an undecodable file on disk, and its presence
+        // marks the download as done, so every later run would re-transcribe it.
+        val e = entry(links = listOf(link("https://cdn/ep.mp4", type = "video/mp4", rel = "enclosure")))
+        assertNull(PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data"))
+    }
+
+    @Test
+    fun `getMp3Info prefers an mp3 link over an earlier untyped enclosure link`() {
+        val e =
+            entry(
+                links =
+                    listOf(
+                        link("https://cdn/notes.html", rel = "enclosure"),
+                        link("https://cdn/ep.mp3", type = "audio/mpeg", length = 99L),
+                    ),
+            )
+        val result = PodcastPipeline.getMp3Info(e, Path.of("/data/show/ep"), "/data")
+        assertEquals("https://cdn/ep.mp3", result?.url)
+        assertEquals(99L, result?.length)
+    }
+
+    @Test
     fun `getMp3Info prefers enclosure over link when both match`() {
         val e =
             entry(
