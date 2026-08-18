@@ -280,18 +280,28 @@ class PodcastPipeline(
 
         private data class AudioSource(val url: String, val length: Long)
 
-        // Single source of truth for locating an episode's audio: mp3 enclosure
-        // first, then a link that is either mp3-typed or rel="enclosure". Keeping
-        // one predicate means findAudioLink and getMp3Info can never disagree
-        // about whether an episode has audio.
+        // Single source of truth for locating an episode's audio, in strict
+        // preference order: mp3 enclosure, then mp3-typed link, then a link that
+        // declares itself an enclosure without saying what it is. Keeping one
+        // predicate means findAudioLink and getMp3Info can never disagree about
+        // whether an episode has audio.
+        //
+        // The last fallback is deliberately limited to *untyped* links. A link
+        // that says rel="enclosure" type="video/mp4" is telling us it is not
+        // audio; downloading it as audio.mp3 would leave a file whisper cannot
+        // decode on disk, and since the file's presence is what marks a download
+        // as done, every later run would re-upload and re-transcribe it forever.
         private fun findAudioSource(entry: SyndEntry): AudioSource? {
             entry.enclosures
                 .firstOrNull { it.type in AUDIO_MP3_TYPES }
                 ?.let { return AudioSource(it.url, it.length) }
 
-            return entry.links
-                .firstOrNull { it.type in AUDIO_MP3_TYPES || it.rel == "enclosure" }
-                ?.let { AudioSource(it.href, it.length) }
+            val links = entry.links.orEmpty()
+            val link =
+                links.firstOrNull { it.type in AUDIO_MP3_TYPES }
+                    ?: links.firstOrNull { it.rel == "enclosure" && it.type.isNullOrBlank() }
+
+            return link?.let { AudioSource(it.href, it.length) }
         }
 
         private fun findAudioLink(entry: SyndEntry): String? = findAudioSource(entry)?.url
