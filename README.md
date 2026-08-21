@@ -5,10 +5,12 @@ Transcribe podcast episodes from RSS feeds using the [whisper.cpp](https://githu
 ## Modules
 
 ### `pipeline` (Kotlin)
-Walks one or more RSS feeds, downloads each episode's MP3, and POSTs it to a running whisper.cpp HTTP server. The server decodes and resamples the audio itself, so no local transcoding step is needed and the MP3 is what gets kept on disk. The server returns a [WebVTT](https://www.w3.org/TR/webvtt1/) transcript, which is stored in a `transcript.json` file alongside the audio. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
+Walks one or more RSS feeds, downloads each episode's MP3, and POSTs it to a running whisper.cpp HTTP server. The server decodes and resamples the audio itself, so no local transcoding step is needed and the MP3 is what gets kept on disk. It returns `verbose_json`, from which the pipeline renders a [WebVTT](https://www.w3.org/TR/webvtt1/) transcript into `transcript.json` and writes the per-word timings alongside as `words.jsonl.gz`. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
 
 ### `web` (Kotlin)
 A Quarkus HTTP server that serves a full-text search interface over the SQLite database produced by `index.py`. Supports filtering by podcast, collection, episode type, and duration. Search results are ranked by BM25 relevance. The episode detail page shows a clickable transcript synced to the audio player. Runs on port 8080 by default.
+
+> **Note:** whisper-server also defaults to 8080. They are rarely up at the same time, but if they are, move one — `--port` on whisper-server, `quarkus.http.port` on the web module.
 
 ## Python scripts
 
@@ -31,8 +33,7 @@ pip install pysqlite3
 - Python 3 with an FTS5-capable SQLite (for the indexing script; `pip install pysqlite3` if the system build lacks FTS5)
 
 No `ffmpeg` is required. MP3s are uploaded as-is and the whisper.cpp server decodes them with its
-built-in miniaudio decoder, resampling to 16 kHz mono internally. The one exception is starting the
-server with `--convert`, which shells out to `ffmpeg` on the server host — don't use that flag.
+built-in miniaudio decoder, resampling to 16 kHz mono internally.
 
 ## Building
 
@@ -42,90 +43,65 @@ server with `--convert`, which shells out to `ffmpeg` on the server host — don
 
 ## Running the whisper.cpp server
 
-The pipeline POSTs audio to the whisper.cpp `/inference` endpoint. Start the server before running the pipeline:
-
-```bash
-./server \
-  --model /path/to/models/ggml-large-v3-turbo.bin \
-  --host 0.0.0.0 \
-  --port 8080
-```
-
-The `server` binary is built alongside `whisper-cli` when you compile whisper.cpp. Set `PIPELINE_WHISPER_SERVER_URL` in `pipeline/.env` to the server's base URL (e.g. `http://localhost:8080`).
-
-### Choosing a model
-
-whisper.cpp uses its own GGML model format (`.bin` files), **not** the OpenAI Python `.pt` files.
-
-Download models from HuggingFace:
-
-```bash
-# Tiny model (~75 MB) - fastest, lowest quality
-curl -L -o ggml-tiny.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-tiny.bin
-
-# Large v3 turbo (~809 MB) - recommended balance of speed and quality
-curl -L -o ggml-large-v3-turbo.bin https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3-turbo.bin
-```
-
-You will need the corresponding .mlmodelc file for your model, for example: 
-
-```
-# For the large v3 turbo model. Download, unzip, and put int the same directory as the bin model.
-curl -L -o ggml-large-v3-turbo-encoder.mlmodelc.zip https://huggingface.co/ggerganov/whisper.cpp/blob/main/ggml-large-v3-turbo-encoder.mlmodelc.zip
-```
-
-A [VAD model](https://github.com/ggml-org/whisper.cpp?ref=shadowfinder.com#voice-activity-detection-vad) is **not** used by this pipeline and launching with `--vad` has no effect on it: the pipeline sends `vad=false` with every request, and whisper.cpp lets a request override the launch flags.
-
-That is deliberate. With VAD on, whisper.cpp keeps token timestamps in VAD-compressed time while remapping segment timestamps to real time, so the word timestamps in `words.jsonl.gz` would drift further out of step the longer the episode runs.
-
-
+The pipeline POSTs audio to the whisper.cpp `/inference` endpoint. It does not
+start or manage the server — start it yourself and leave it up for the run:
 
 ```bash
 whisper-server \
-  -m models/ggml-large-v3.bin
+  -m /path/to/models/ggml-large-v3.bin \
+  --port 8080
 ```
 
-#### Model: large-v3, not large-v3-turbo
+The `whisper-server` binary is built alongside `whisper-cli` when you compile
+whisper.cpp. Set `PIPELINE_WHISPER_SERVER_URL` in `pipeline/.env` to its base
+URL.
 
-Turbo prunes the **decoder** and keeps the encoder, and with Core ML the encoder
-runs on the Neural Engine — which is where most of the wall clock goes. Measured
-over 13 episodes, large-v3 costs **1.36x** turbo's decode time, not the 2-3x that
-"turbo for speed" assumes, and it produced a usable transcript on 10 of 13
-episodes that turbo could not decode at all.
+**Only the model is chosen at launch.** Everything else that matters is a
+per-request form field, and `server.cpp` overrides launch defaults with
+whatever a request actually sends. So the pipeline's own settings win, and the
+only knob you pick when starting the server is `-m`.
 
-Put `ggml-large-v3-encoder.mlmodelc` next to the `.bin` or the encoder silently
-falls back off the ANE and the speed gap gets much worse.
+Do not pass `--convert` (it shells out to `ffmpeg` on the server host — MP3s are
+uploaded as-is and decoded internally), and do not pass `-nt`, which would
+suppress the timestamps the pipeline exists to capture.
 
-#### Why
+### Choosing a model
 
-Whisper occasionally settles into a degraded decoding mode for a whole episode and produces text with **no punctuation and no capitals at all**. The words are mostly right, but Whisper segments on sentence structure, and with no full stops there is nothing to break on, so cue
-boundaries stop tracking speech. Anything downstream that needs a timestamp to land in the right place is then working from fiction.
+whisper.cpp uses its own GGML model format (`.bin` files), **not** the OpenAI
+Python `.pt` files. Download from HuggingFace:
 
-VAD also reduces cue fragmentation on music-heavy shows. Treat it as a fix for non-speech-driven
-fragmentation, not for fragmentation in general.
+```bash
+curl -L -o ggml-large-v3.bin \
+  https://huggingface.co/ggerganov/whisper.cpp/resolve/main/ggml-large-v3.bin
+```
 
-Leave `vad_threshold` at the 0.5 default
+Put the matching `ggml-large-v3-encoder.mlmodelc` next to the `.bin`, or the
+encoder silently falls off the Neural Engine and everything gets much slower.
 
-This is worth stating because tuning it is the obvious next move and it is a trap. A fair A/B — 14 random healthy episodes, same audio, both thresholds, nothing written — found **zero failures at either**. On typical material the two
-are indistinguishable. (n=14, so this shows equivalence between thresholds, not that failures are rare.)
+#### large-v3, not large-v3-turbo
 
-The threshold only matters in the tail, and **the optimum is episode-dependent**:
+Turbo prunes the **decoder** and keeps the encoder, and under Core ML the
+encoder is where most of the wall clock goes. Measured over 13 episodes,
+large-v3 costs **1.36x** turbo's decode time — not the 2-3x that "turbo for
+speed" implies — and produced a usable transcript on 10 of 13 episodes turbo
+could not decode at all.
 
-|                        | 0.2        | 0.5 (default) |
-|------------------------|------------|---------------|
-| loop-damaged episodes  | **better** | worse         |
-| unpunctuated episodes  | worse — 87 of 654 stayed broken | **better** |
+It also fixes a failure nothing else touches. Turbo shreds some episodes into
+runs of one- and two-word cues: 1,256 episodes in one corpus. An A/B on 4
+shredded episodes across 4 arms took fragmentation to zero in **all sixteen
+cells, including the no-prompt no-VAD control**. That is a model difference,
+and neither the prompt nor VAD substitutes for it.
 
-It is not VAD as such. On one episode, threshold 0.2 gave 0.0000 punctuation-per-word and 0.5 gave 0.1982 — and VAD *off* also gave 0.0000. More non-speech reaching the decoder makes the degraded mode likelier, and how much non-speech an episode contains varies.
+## What the pipeline sends, and why
 
-**Do not tune per show.** 
+These are the request fields in `Transcriber.kt`. Each one is load-bearing.
 
-#### Set an initial prompt
+### `prompt` and `carry_initial_prompt` — the single biggest lever
 
 Whisper intermittently decodes an entire episode with **no punctuation and no
-capitals**. It is not cosmetic: whisper segments on sentence structure, so with
-no full stops the cue boundaries stop tracking speech and every timestamp
-derived from them is unreliable. 654 episodes were hit, and 13 resisted every
+capitals**. That is not cosmetic: whisper segments on sentence structure, so
+with no full stops the cue boundaries stop tracking speech and every timestamp
+derived from them is fiction. 654 episodes were hit, and 13 resisted every
 attempt to re-decode them.
 
 An `initial_prompt` of ordinary punctuated prose fixed **all 13**:
@@ -133,44 +109,87 @@ An `initial_prompt` of ordinary punctuated prose fixed **all 13**:
 | approach | fixed |
 |---|---|
 | **initial_prompt** | **13 / 13** |
-| whisper large-v3 | 10 / 13 |
+| large-v3 | 10 / 13 |
 | best VAD parameter | 9 / 13 |
 | Silero VAD v6.2.0 | 6 / 13 |
-| re-decode at another threshold | 0 / 13 |
+| re-decode at another VAD threshold | 0 / 13 |
 
-This is a **decoder** mode, not a segmentation problem, which is why no VAD
-setting touched it — VAD only changes what audio reaches the decoder, while a
-prompt conditions the decoder itself, and punctuation is a style.
+It works because this is a **decoder** mode, not a segmentation problem. VAD
+only changes what audio reaches the decoder; a prompt conditions the decoder
+itself, and punctuation is a style. It also prevents runaway repetition loops —
+without it, 4 of 4 test decodes collapsed, one returning 539 usable words out of
+10,660, and ran 2.5x slower because a looping decode burns tokens.
 
-Send `carry_initial_prompt=true` as well. Without it the prompt conditions only
-the first window and an episode that degrades later still degrades (13/13 with,
+`carry_initial_prompt=true` matters: without it only the first window is
+conditioned, and an episode that degrades later still degrades (13/13 with,
 12/13 without).
 
-Keep the prompt generic. An initial prompt biases **vocabulary** as well as
-style, so anything domain-specific will contaminate transcripts. The default in
-`Transcriber.kt` was checked on a repaired episode: zero occurrences of any
-prompt fragment, word count within 5% of the original.
+Keep the prompt generic. It biases **vocabulary** as well as style, so anything
+domain-specific contaminates transcripts. The default in `Transcriber.kt` was
+checked against a repaired episode — zero occurrences of any prompt fragment,
+word count within 5% of the original.
 
-#### TODO: Detect and retry instead
+### `vad=false` — sent explicitly, and off
 
-Since there is no correct threshold, do not pick one — decode, measure, and retry the failures at the other value, keeping whichever verifies better. That is threshold-agnostic, self-correcting, and about fifteen lines.
+Not merely omitted. A request that omits `vad` inherits whatever the server was
+launched with, silently, which is how one corpus ended up with no record of its
+own VAD state.
 
-Both `vad` and `vad_threshold` are **per-request form fields**, so the retry needs no server restart and no second server.
+It has to be off because VAD breaks word timestamps. whisper.cpp keeps token
+timestamps in VAD-compressed time while remapping segment timestamps to real
+time, so the two drift apart by however much silence VAD removed:
 
-Gist for `Transcriber.kt` after the POST returns:
+| | offset, first word vs its own segment |
+|---|---|
+| VAD on | −1.79s at the start, **−6.51s** by the end |
+| VAD off | +0.00s to +0.20s |
 
-```kotlin
-val vtt = response.body
-if (punctPerWord(vtt) < 0.03) {
-    val alt = transcribe(audio, vadThreshold = 0.2)   // the other value
-    if (punctPerWord(alt) > punctPerWord(vtt)) return alt
-}
-return vtt
+Same episode, same model, same fields — on a *six-minute* episode. Every word
+time would be early by a growing, episode-dependent, invisible amount.
+
+Nothing is lost by turning it off. VAD's real value was suppressing the
+unpunctuated collapse, and the prompt does that better (13/13 against 9/13).
+
+### `response_format=verbose_json`
+
+The server can return WebVTT directly. It is derived from the JSON here instead,
+because per-word `start`/`end` come only from `verbose_json` and the decode
+computes them either way — rendering to VTT throws them away.
+
+Both artifacts come from one parse of one response. Asking for both formats
+would mean two decodes, and whisper is not deterministic across runs, so their
+cues and words could disagree in ways nothing downstream could detect.
+
+Output per episode:
+
+```
+transcript.json     metadata plus the WebVTT string
+words.jsonl.gz      {"w":" Doritos","s":1423.44,"e":1423.79,"p":0.94,"seg":118}
 ```
 
-Rewrite only when the new decode **beats** the old on an ordered test. Looping is worse than unreadable, which is worse than losing a few words. A retry that  overwrites unconditionally will eventually replace a good decode with a bad one.
+`p` is the decoder's own confidence and `seg` the cue the word came from, so the
+sidecar joins back to the WebVTT without re-alignment. Roughly 274 KB per
+episode before compression.
 
-### Platform acceleration
+### `token_timestamps`, `max_len`, `split_on_word`
+
+whisper.cpp only applies `max_len` when `token_timestamps` is on — the wrap call
+is nested inside `if (params.token_timestamps)` in `whisper_full`, so sending
+`max_len` alone is silently ignored. Without them a whole episode can come back
+as a single cue; 139 episodes in one corpus did, the worst covering over 7,200
+seconds. A cue that long cannot carry a usable timestamp.
+
+`split_on_word` cuts at word boundaries rather than mid-token.
+
+### No `beam_size` — the decode is greedy
+
+whisper-server defaults to greedy and whisper-cli to `beam_size=5`; both run
+`strategy = beam_size > 1 ? BEAM_SEARCH : GREEDY`. Greedy is deliberate here.
+Beam is worth reaching for when repairing an already-collapsed decode, but it
+has not been shown to help a healthy one, and changing it during a bulk run
+means never knowing which change did what.
+
+## Platform acceleration
 
 Acceleration is determined by how the whisper.cpp `server` binary was compiled:
 
@@ -267,6 +286,12 @@ next to an installed distribution).
 - `skip_after_consecutive` — stop walking a feed once this many consecutive already-transcribed episodes are seen (optional, default `20`)
 - `podcasts` — list of RSS feeds to process, each with `name`, `url`, optional `collections`, and optional `excludes`
 
+`name` becomes the show's directory name, so changing it moves every episode of
+that feed. Re-capitalising it used to create a *second* directory for the same
+show; the pipeline now reuses a directory that differs only by case, and logs
+when it does. Renaming it any other way still starts a fresh directory and
+re-transcribes the feed.
+
 ### Skip heuristic
 
 Feeds are typically ordered newest-first. Rather than stat'ing every episode directory (expensive for feeds with thousands of entries), the transcriber walks the feed and stops on a podcast once it sees `skip_after_consecutive` transcribed episodes in a row. The counter resets on any gap, so a cancelled run that left untranscribed holes will be picked up on the next invocation.
@@ -276,12 +301,24 @@ Feeds are typically ordered newest-first. Rather than stat'ing every episode dir
 For each episode, the following files are created:
 
 ```
-{data_directory}/{podcast_name}/{YYYY-MM-DD-episode-title}/
+{data_directory}/{podcast_name}/{YYYY-MM-DD-<hex8>-episode-title}/
     audio.mp3                      # Downloaded audio, kept as-is and served by the web module
     transcript.json                # Full metadata + WebVTT transcript
+    words.jsonl.gz                 # One line per word, with its own start/end
 ```
 
-The `episode_transcript` field in `transcript.json` is a raw WebVTT string, as returned by the whisper.cpp server.
+The `episode_transcript` field in `transcript.json` is a raw WebVTT string,
+rendered from the same `verbose_json` response that produced `words.jsonl.gz`.
+
+`words.jsonl.gz` is written **before** `transcript.json`, because the latter
+existing is what marks an episode done — so a crash between the two leaves the
+episode to be redone rather than permanently without its sidecar. A sidecar
+write failure is logged and not fatal: the transcript is the artifact the
+pipeline exists to produce.
+
+The `<hex8>` in the directory name is `md5(entry.uri)` truncated to 8
+characters. It is part of a path, not a unique key: date and title slug
+disambiguate it.
 
 ## Testing
 
