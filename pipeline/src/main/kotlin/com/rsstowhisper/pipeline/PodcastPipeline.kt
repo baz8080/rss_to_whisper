@@ -10,7 +10,9 @@ import com.rometools.rome.feed.synd.SyndFeed
 import com.rsstowhisper.AppConfig
 import com.rsstowhisper.PodcastConfig
 import com.rsstowhisper.createPath
+import com.rsstowhisper.escapeFilename
 import com.rsstowhisper.external.Transcriber
+import com.rsstowhisper.external.WhisperTranscription
 import com.rsstowhisper.feed.FeedService
 import com.rsstowhisper.timeToSeconds
 import okhttp3.OkHttpClient
@@ -120,8 +122,8 @@ class PodcastPipeline(
                     logger.warn("Could not download audio for $title. Skipping")
                     continue
                 }
-                val vtt = transcribeEpisode(mp3Info, episodeDirPath)
-                writeEpisodeJson(feed, entry, mp3Info, episodeDirPath, podcast.collections, vtt)
+                val transcription = WhisperTranscription.parse(transcribeEpisode(mp3Info, episodeDirPath))
+                writeEpisodeJson(feed, entry, mp3Info, episodeDirPath, podcast.collections, transcription)
             } catch (e: Exception) {
                 logger.error("Couldn't process episode entry: ${entry.title}")
                 logger.error(e.message, e)
@@ -135,20 +137,43 @@ class PodcastPipeline(
         mp3Info: Mp3Info,
         episodeDirPath: Path,
         collections: List<String>,
-        vtt: String,
+        transcription: WhisperTranscription,
     ) {
         val jsonPath = episodeDirPath.resolve("transcript.json")
         if (Files.exists(jsonPath)) return
-        if (vtt.isBlank()) {
+        if (transcription.isEmpty) {
             logger.warn("Transcription for ${entry.title} came back empty; not writing transcript.json")
             return
         }
 
         val episodeDict =
-            buildEpisodeDict(feed, entry, vtt, mp3Info.localFilePath, collections)
+            buildEpisodeDict(feed, entry, transcription.vtt, mp3Info.localFilePath, collections)
 
         if (episodeDict != null) {
+            // Words FIRST. transcript.json existing is what marks an episode
+            // done, both here and for anything reading the tree, so writing it
+            // last means a crash in between leaves the episode to be redone
+            // rather than leaving it permanently without its sidecar.
+            writeWords(transcription, episodeDirPath, entry)
             Files.writeString(jsonPath, jsonMapper.writeValueAsString(episodeDict))
+        }
+    }
+
+    private fun writeWords(
+        transcription: WhisperTranscription,
+        episodeDirPath: Path,
+        entry: SyndEntry,
+    ) {
+        if (transcription.words.isEmpty()) {
+            logger.warn("No word timestamps for ${entry.title}; is token_timestamps still set?")
+            return
+        }
+        try {
+            transcription.writeWords(episodeDirPath.resolve(WhisperTranscription.WORDS_FILENAME))
+        } catch (e: Exception) {
+            // Not fatal. The transcript is the artifact the pipeline exists to
+            // produce; the sidecar is an enrichment and can be rebuilt.
+            logger.error("Could not write word timestamps for ${entry.title}", e)
         }
     }
 
@@ -191,7 +216,22 @@ class PodcastPipeline(
             return "$date-${episodeId(entry)}"
         }
 
-        fun getEpisodeDirName(entry: SyndEntry): String = "${episodeStablePrefix(entry)}-${entry.title ?: "unknown"}"
+        /**
+         * A directory name with no `-<hex8>-` component cannot be resolved back
+         * to its audio: 97 episodes once stored one, and the keys pointed at
+         * nothing until a repair pass derived them from disk. Nothing about the
+         * construction below can produce that today, which is exactly why it is
+         * worth asserting -- a silent recurrence costs a re-ingest to find.
+         */
+        internal val EPISODE_DIR_PREFIX = Regex("^\\d{4}-\\d{2}-\\d{2}-[0-9a-f]{8}-")
+
+        fun getEpisodeDirName(entry: SyndEntry): String {
+            val name = "${episodeStablePrefix(entry)}-${entry.title ?: "unknown"}"
+            require(EPISODE_DIR_PREFIX.containsMatchIn(escapeFilename(name))) {
+                "Episode directory name is missing its date-id prefix: $name"
+            }
+            return name
+        }
 
         fun findExistingEpisodeDir(
             podPath: Path,

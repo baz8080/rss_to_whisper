@@ -59,6 +59,7 @@ class TranscriberTest {
         assertTrue(partNames.any { it.contains("name=\"file\"") })
         assertTrue(partNames.any { it.contains("name=\"language\"") })
         assertTrue(partNames.any { it.contains("name=\"response_format\"") })
+        assertTrue(partNames.any { it.contains("name=\"vad\"") })
     }
 
     /**
