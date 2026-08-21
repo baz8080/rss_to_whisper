@@ -40,7 +40,39 @@ fun createPath(
     parentPath: Path,
     directoryName: String,
 ): Path {
-    val pathToCreate = parentPath.resolve(escapeFilename(directoryName))
+    val escaped = escapeFilename(directoryName)
+    val existing = findCaseInsensitive(parentPath, escaped)
+    if (existing != null) return existing
+    val pathToCreate = parentPath.resolve(escaped)
     Files.createDirectories(pathToCreate)
     return pathToCreate
+}
+
+/**
+ * `escapeFilename` preserves case, so re-capitalising a podcast's name in
+ * `pods.yaml` used to produce a SECOND directory for the same show. It
+ * happened: one feed shipped as both `HBR-Ideacast` (635 episodes) and
+ * `HBR-IdeaCast` (34). Downstream, train/test splits group on the first path
+ * component, so one show sat on both sides of the split boundary and leaked
+ * its hosts, jingles and recurring sponsors across it.
+ *
+ * Reusing the existing directory rather than case-folding the stored name:
+ * 17,750 directories exist, and renaming them is a migration in its own right.
+ * The defect is that a second directory can appear, not that the first has
+ * capitals.
+ */
+private fun findCaseInsensitive(
+    parentPath: Path,
+    name: String,
+): Path? {
+    if (!Files.isDirectory(parentPath)) return null
+    val match =
+        parentPath.toFile()
+            .listFiles()
+            ?.firstOrNull { it.isDirectory && it.name.equals(name, ignoreCase = true) }
+            ?: return null
+    if (match.name != name) {
+        logger.info("Reusing existing directory ${match.name} for $name (differs only by case)")
+    }
+    return match.toPath()
 }

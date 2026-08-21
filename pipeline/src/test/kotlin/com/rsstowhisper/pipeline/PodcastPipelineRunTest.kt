@@ -20,7 +20,15 @@ import kotlin.test.assertTrue
 
 private const val FAKE_SERVER_URL = "http://localhost:9000"
 
-private val MINIMAL_VTT = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\n Hello world.\n"
+// The transcriber now returns verbose_json and the pipeline renders the WebVTT
+// from it, so a stub has to speak the same language the server does.
+private fun whisperJson(vararg cues: Triple<Double, Double, String>): String =
+    cues.joinToString(",", prefix = """{"task":"transcribe","segments":[""", postfix = "]}") { (start, end, text) ->
+        """{"id":0,"start":$start,"end":$end,"text":" $text",""" +
+            """"words":[{"word":" $text","start":$start,"end":$end,"probability":0.9}]}"""
+    }
+
+private val MINIMAL_VTT = whisperJson(Triple(0.0, 1.0, "Hello world."))
 
 class PodcastPipelineRunTest {
     private open class FakeFeedService(private val feeds: Map<String, SyndFeed?>) : FeedService() {
@@ -410,9 +418,10 @@ class PodcastPipelineRunTest {
         @TempDir tempDir: Path,
     ) {
         val vtt =
-            "WEBVTT\n\n" +
-                "00:00:00.000 --> 00:00:01.500\n First sentence.\n\n" +
-                "00:00:01.500 --> 00:00:03.000\n Second sentence.\n"
+            whisperJson(
+                Triple(0.0, 1.5, "First sentence."),
+                Triple(1.5, 3.0, "Second sentence."),
+            )
         val feed = makeFeed(makeEntry("Episode"))
         val (pipeline, _, _) =
             buildPipeline(

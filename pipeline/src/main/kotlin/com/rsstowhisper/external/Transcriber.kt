@@ -72,7 +72,25 @@ open class Transcriber(
                     audioPath.toFile().asRequestBody("audio/mpeg".toMediaType()),
                 )
                 .addFormDataPart("language", "en")
-                .addFormDataPart("response_format", "vtt")
+                // verbose_json rather than vtt: per-word start/end are gated on
+                // token_timestamps, which is already on below, so the decode
+                // ALREADY computes these times and VTT discards them. A cue is
+                // the finest a span boundary can be placed, and 13.4% of the
+                // labelled advertisement airtime downstream currently sits in a
+                // cue too long to resolve. Word times take that to ~0.2s.
+                .addFormDataPart("response_format", "verbose_json")
+                // Explicit, and off. server.cpp:833 overrides only the fields a
+                // request actually sends, so omitting this silently inherits
+                // whatever the server was launched with -- which is how the
+                // corpus ended up with no record of its own VAD state.
+                //
+                // It has to be off: with VAD on, token timestamps stay in
+                // VAD-compressed time while segment timestamps are remapped to
+                // real time. Measured on one episode, the two drift apart from
+                // -1.79s at the start to -6.51s by the end, the gap being the
+                // silence VAD removed. Every word time would be early by a
+                // growing, episode-dependent, invisible amount.
+                .addFormDataPart("vad", "false")
                 // whisper.cpp only applies max_len when token_timestamps is on:
                 // the wrap call is nested inside `if (params.token_timestamps)`
                 // in whisper_full. Sending max_len alone is silently ignored.

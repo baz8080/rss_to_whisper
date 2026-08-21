@@ -74,12 +74,15 @@ You will need the corresponding .mlmodelc file for your model, for example:
 curl -L -o ggml-large-v3-turbo-encoder.mlmodelc.zip https://huggingface.co/ggerganov/whisper.cpp/blob/main/ggml-large-v3-turbo-encoder.mlmodelc.zip
 ```
 
-It is highly recommended to also download a [VAD model](https://github.com/ggml-org/whisper.cpp?ref=shadowfinder.com#voice-activity-detection-vad). 
+A [VAD model](https://github.com/ggml-org/whisper.cpp?ref=shadowfinder.com#voice-activity-detection-vad) is **not** used by this pipeline and launching with `--vad` has no effect on it: the pipeline sends `vad=false` with every request, and whisper.cpp lets a request override the launch flags.
+
+That is deliberate. With VAD on, whisper.cpp keeps token timestamps in VAD-compressed time while remapping segment timestamps to real time, so the word timestamps in `words.jsonl.gz` would drift further out of step the longer the episode runs.
+
+
 
 ```bash
 whisper-server \
-  -m models/ggml-large-v3.bin \
-  --vad -vm models/ggml-silero-v5.1.2.bin
+  -m models/ggml-large-v3.bin
 ```
 
 #### Model: large-v3, not large-v3-turbo
