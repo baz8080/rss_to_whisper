@@ -5,10 +5,12 @@ Transcribe podcast episodes from RSS feeds using the [whisper.cpp](https://githu
 ## Modules
 
 ### `pipeline` (Kotlin)
-Walks one or more RSS feeds, downloads each episode's MP3, and POSTs it to a running whisper.cpp HTTP server. The server decodes and resamples the audio itself, so no local transcoding step is needed and the MP3 is what gets kept on disk. The server returns a [WebVTT](https://www.w3.org/TR/webvtt1/) transcript, which is stored in a `transcript.json` file alongside the audio. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
+Walks one or more RSS feeds, downloads each episode's MP3, and POSTs it to a running whisper.cpp HTTP server. The server decodes and resamples the audio itself, so no local transcoding step is needed and the MP3 is what gets kept on disk. It returns `verbose_json`, from which the pipeline renders a [WebVTT](https://www.w3.org/TR/webvtt1/) transcript into `transcript.json` and writes the per-word timings alongside as `words.jsonl.gz`. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
 
 ### `web` (Kotlin)
 A Quarkus HTTP server that serves a full-text search interface over the SQLite database produced by `index.py`. Supports filtering by podcast, collection, episode type, and duration. Search results are ranked by BM25 relevance. The episode detail page shows a clickable transcript synced to the audio player. Runs on port 8080 by default.
+
+> **Note:** whisper-server also defaults to 8080. They are rarely up at the same time, but if they are, move one — `--port` on whisper-server, `quarkus.http.port` on the web module.
 
 ## Python scripts
 
@@ -31,8 +33,7 @@ pip install pysqlite3
 - Python 3 with an FTS5-capable SQLite (for the indexing script; `pip install pysqlite3` if the system build lacks FTS5)
 
 No `ffmpeg` is required. MP3s are uploaded as-is and the whisper.cpp server decodes them with its
-built-in miniaudio decoder, resampling to 16 kHz mono internally. The one exception is starting the
-server with `--convert`, which shells out to `ffmpeg` on the server host — don't use that flag.
+built-in miniaudio decoder, resampling to 16 kHz mono internally.
 
 ## Building
 
@@ -284,6 +285,12 @@ next to an installed distribution).
 - `verbose` — enable debug logging (optional, default `false`; overridden by `PIPELINE_VERBOSE` when that is set)
 - `skip_after_consecutive` — stop walking a feed once this many consecutive already-transcribed episodes are seen (optional, default `20`)
 - `podcasts` — list of RSS feeds to process, each with `name`, `url`, optional `collections`, and optional `excludes`
+
+`name` becomes the show's directory name, so changing it moves every episode of
+that feed. Re-capitalising it used to create a *second* directory for the same
+show; the pipeline now reuses a directory that differs only by case, and logs
+when it does. Renaming it any other way still starts a fresh directory and
+re-transcribes the feed.
 
 ### Skip heuristic
 
