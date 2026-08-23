@@ -325,6 +325,20 @@ episodes need the floor lifted per podcast:
   min_episode_duration_seconds: 0
 ```
 
+### Duplicate GUIDs
+
+`_id` is `md5(guid)[:8]`, and the episode table is keyed on it. Publishers do
+occasionally ship two entries under one GUID — HBR IdeaCast has two such pairs —
+which under `INSERT OR REPLACE` silently collapsed them into a single row, losing
+one episode from search while its transcript sat on disk.
+
+`index.py` now suffixes the later members of a clashing group (`<id>-2`, `-3`, …),
+ordered by audio path so the ids are stable across re-indexes, and warns on stderr
+naming every episode involved. Both episodes stay searchable and keep a working
+`/episode/{id}` permalink. Widening the hash would fix nothing here — the inputs
+really are identical — and would rename every episode directory, forcing a full
+re-transcription.
+
 ### Skip heuristic
 
 Feeds are typically ordered newest-first. Rather than stat'ing every episode directory (expensive for feeds with thousands of entries), the transcriber walks the feed and stops on a podcast once it sees `skip_after_consecutive` transcribed episodes in a row. The counter resets on any gap, so a cancelled run that left untranscribed holes will be picked up on the next invocation.
