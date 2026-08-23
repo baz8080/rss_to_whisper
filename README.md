@@ -304,9 +304,14 @@ match on `repeat` also swallows "Repeating FRB Mystery", and on `archives` it sw
 "Inside the Archives", an actual interview series. The default list is trailers,
 cross-promos and repeat markers: `trailer`, `introducing`, `encore`, `classic episode`,
 `rewind`, `re-release`, `re-run`, `rerun`, `rebroadcast`, `best of`, `repeat`, `replay`,
-`coming soon`, `from the archives`. Setting the key replaces the list rather than adding
-to it; the per-podcast `excludes` list is separate, still a plain substring match, and
-still applies on top.
+`from the archives`. Setting the key replaces the list rather than adding to it; the
+per-podcast `excludes` list is separate, still a plain substring match, and still applies
+on top.
+
+`coming soon` is deliberately *not* in the default list. It reads as a safe global term
+but matches Planetary Radio's "2012 DA14--Coming Soon to a Planet Near You!", a real
+29-minute episode. Every genuine hit for it sits in one of two feeds, so it belongs in
+their `excludes` rather than the global list.
 
 `min_episode_duration_seconds` uses the feed's `itunes:duration`. An episode whose feed
 omits the tag is never filtered on length. The `150` default sits at the point where

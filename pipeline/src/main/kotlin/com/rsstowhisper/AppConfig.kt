@@ -35,7 +35,6 @@ data class AppConfig(
                 "best of",
                 "repeat",
                 "replay",
-                "coming soon",
                 "from the archives",
             )
 
