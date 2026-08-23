@@ -39,9 +39,8 @@ podcasts:
   excludes:
   - introducing
 
-# Short-form Q&A feeds need the global length floor lifted.
-- name: Universe Today Podcast
-  url: https://universetoday.libsyn.com/rss
-  collections:
-  - space
+# Feeds that publish genuine short-form episodes need the length floor lifted,
+# or the global default eats their back catalogue.
+- name: A Short-Form Show
+  url: https://example.com/feed.rss
   min_episode_duration_seconds: 0

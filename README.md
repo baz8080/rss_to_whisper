@@ -315,8 +315,8 @@ trailers, hiatus notices and "coming soon" stubs. Feeds that publish genuine sho
 episodes need the floor lifted per podcast:
 
 ```yaml
-- name: Universe Today Podcast
-  url: https://universetoday.libsyn.com/rss
+- name: A Short-Form Show
+  url: https://example.com/feed.rss
   min_episode_duration_seconds: 0
 ```
 
