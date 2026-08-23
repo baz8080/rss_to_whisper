@@ -284,13 +284,60 @@ next to an installed distribution).
 
 - `verbose` — enable debug logging (optional, default `false`; overridden by `PIPELINE_VERBOSE` when that is set)
 - `skip_after_consecutive` — stop walking a feed once this many consecutive already-transcribed episodes are seen (optional, default `20`)
-- `podcasts` — list of RSS feeds to process, each with `name`, `url`, optional `collections`, and optional `excludes`
+- `exclude_title_keywords` — titles matching any of these are skipped for every feed (optional, see [Non-content exclusions](#non-content-exclusions); set to `[]` to disable)
+- `min_episode_duration_seconds` — skip episodes shorter than this (optional, default `150`; set to `0` to disable)
+- `podcasts` — list of RSS feeds to process, each with `name`, `url`, optional `collections`, optional `excludes`, and an optional `min_episode_duration_seconds` that overrides the global floor
 
 `name` becomes the show's directory name, so changing it moves every episode of
 that feed. Re-capitalising it used to create a *second* directory for the same
 show; the pipeline now reuses a directory that differs only by case, and logs
 when it does. Renaming it any other way still starts a fresh directory and
 re-transcribes the feed.
+
+### Non-content exclusions
+
+Two filters run before an episode is downloaded, so excluded episodes cost nothing.
+
+`exclude_title_keywords` matches whole words, case-insensitively, against the episode
+title. Whole-word matching is what makes the list safe to apply globally: a substring
+match on `repeat` also swallows "Repeating FRB Mystery", and on `archives` it swallows
+"Inside the Archives", an actual interview series. The default list is trailers,
+cross-promos and repeat markers: `trailer`, `introducing`, `encore`, `classic episode`,
+`rewind`, `re-release`, `re-run`, `rerun`, `rebroadcast`, `best of`, `repeat`, `replay`,
+`from the archives`. Setting the key replaces the list rather than adding to it; the
+per-podcast `excludes` list is separate, still a plain substring match, and still applies
+on top.
+
+`coming soon` is deliberately *not* in the default list. It reads as a safe global term
+but matches Planetary Radio's "2012 DA14--Coming Soon to a Planet Near You!", a real
+29-minute episode. Every genuine hit for it sits in one of two feeds, so it belongs in
+their `excludes` rather than the global list.
+
+`min_episode_duration_seconds` uses the feed's `itunes:duration`. An episode whose feed
+omits the tag is never filtered on length. The `150` default sits at the point where
+short-form content starts to outnumber promos — below it a feed is almost entirely
+trailers, hiatus notices and "coming soon" stubs. Feeds that publish genuine short-form
+episodes need the floor lifted per podcast:
+
+```yaml
+- name: A Short-Form Show
+  url: https://example.com/feed.rss
+  min_episode_duration_seconds: 0
+```
+
+### Duplicate GUIDs
+
+`_id` is `md5(guid)[:8]`, and the episode table is keyed on it. Publishers do
+occasionally ship two entries under one GUID — HBR IdeaCast has two such pairs —
+which under `INSERT OR REPLACE` silently collapsed them into a single row, losing
+one episode from search while its transcript sat on disk.
+
+`index.py` now suffixes the later members of a clashing group (`<id>-2`, `-3`, …),
+ordered by audio path so the ids are stable across re-indexes, and warns on stderr
+naming every episode involved. Both episodes stay searchable and keep a working
+`/episode/{id}` permalink. Widening the hash would fix nothing here — the inputs
+really are identical — and would rename every episode directory, forcing a full
+re-transcription.
 
 ### Skip heuristic
 

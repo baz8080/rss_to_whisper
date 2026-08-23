@@ -105,6 +105,36 @@ def join_list(value):
     return ", ".join(str(item) for item in value if item is not None)
 
 
+def disambiguate_ids(episodes):
+    """Make the id column unique, warning about every clash.
+
+    _id is md5(guid)[:8], so two feed entries sharing a GUID -- which
+    publishers do get wrong -- collapse into one row under INSERT OR REPLACE
+    and the loser silently vanishes from search. Suffix the later ones instead
+    so both stay reachable, ordered by audio path so the ids are stable across
+    re-indexes.
+    """
+    by_id = {}
+    for ep in episodes:
+        by_id.setdefault(ep["id"], []).append(ep)
+
+    clashes = 0
+    for episode_id, group in by_id.items():
+        if len(group) == 1:
+            continue
+        clashes += 1
+        group.sort(key=lambda e: e["episode_relative_audio_path"] or "")
+        print(f"  WARNING: {len(group)} episodes share _id {episode_id}:", file=sys.stderr)
+        for n, ep in enumerate(group, start=1):
+            if n > 1:
+                ep["id"] = f"{episode_id}-{n}"
+            print(f"    {ep['id']}  {ep['episode_relative_audio_path']}", file=sys.stderr)
+
+    if clashes:
+        print(f"  {clashes} duplicate _id group(s) disambiguated", file=sys.stderr)
+    return episodes
+
+
 def collect_episodes(data_dir):
     """Walk the data directory and yield episode dicts."""
     count = 0
@@ -207,7 +237,7 @@ def main():
     # drops would leave a previously working database truncated and without its
     # FTS index -- and every episode can be skipped legitimately (e.g. none of
     # the transcript.json files carry an _id).
-    episodes = list(collect_episodes(args.data_dir))
+    episodes = disambiguate_ids(list(collect_episodes(args.data_dir)))
 
     if not episodes:
         print("Nothing to index; leaving the existing database untouched")

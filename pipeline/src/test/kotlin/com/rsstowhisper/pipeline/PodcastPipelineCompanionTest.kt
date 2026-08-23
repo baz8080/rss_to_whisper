@@ -414,7 +414,7 @@ class PodcastPipelineCompanionTest {
         assertEquals(7, dict["episode_number"])
         assertEquals(2, dict["episode_season"])
         assertEquals("full", dict["episode_type"])
-        assertEquals(90L, dict["episode_duration"]) // 90000 / 1000
+        assertEquals(90, dict["episode_duration"]) // 90000 / 1000
         assertEquals("transcript", dict["episode_transcript"])
         assertEquals("pod/ep/audio.mp3", dict["episode_relative_audio_path"])
     }

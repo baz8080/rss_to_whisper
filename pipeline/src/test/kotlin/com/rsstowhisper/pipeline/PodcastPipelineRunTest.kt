@@ -1,5 +1,8 @@
 package com.rsstowhisper.pipeline
 
+import com.rometools.modules.itunes.EntryInformationImpl
+import com.rometools.modules.itunes.types.Duration
+import com.rometools.rome.feed.module.Module
 import com.rometools.rome.feed.synd.SyndEnclosureImpl
 import com.rometools.rome.feed.synd.SyndEntryImpl
 import com.rometools.rome.feed.synd.SyndFeed
@@ -70,9 +73,18 @@ class PodcastPipelineRunTest {
         audioUrl: String? = "https://cdn/ep.mp3",
         publishedDate: Date? = Date(1_700_000_000_000L),
         guid: String? = "https://example.com/guid/$title",
+        durationSeconds: Int? = null,
     ): SyndEntryImpl =
         SyndEntryImpl().apply {
             this.title = title
+            if (durationSeconds != null) {
+                modules =
+                    mutableListOf<Module>(
+                        EntryInformationImpl().apply {
+                            duration = Duration(durationSeconds * 1000L)
+                        },
+                    )
+            }
             this.link = "https://example.com/ep"
             this.publishedDate = publishedDate
             this.uri = guid
@@ -105,12 +117,14 @@ class PodcastPipelineRunTest {
         vtt: String = MINIMAL_VTT,
         feedUrl: String = "https://feed",
         skipAfterConsecutive: Int = 20,
+        minEpisodeDurationSeconds: Int = 150,
     ): Triple<PodcastPipeline, FakeTranscriber, FakeFeedService> {
         val config =
             AppConfig(
                 dataDirectory = dataDir.toAbsolutePath().toString(),
                 whisperServerUrl = FAKE_SERVER_URL,
                 skipAfterConsecutive = skipAfterConsecutive,
+                minEpisodeDurationSeconds = minEpisodeDurationSeconds,
                 podcasts = podcasts,
             )
         val feedSvc = FakeFeedService(mapOf(feedUrl to feed))
@@ -237,6 +251,66 @@ class PodcastPipelineRunTest {
         val episodes = Files.list(tempDir.resolve("Show")).use { it.toList() }
         assertEquals(1, episodes.size)
         assertTrue(episodes[0].fileName.toString().contains("Real-Content"))
+    }
+
+    @Test
+    fun `run skips entries matching the global keyword list on whole words only`(
+        @TempDir tempDir: Path,
+    ) {
+        val feed =
+            makeFeed(
+                makeEntry("Season 3, Trailer"),
+                makeEntry("Curb Cuts (Repeat)"),
+                makeEntry("Jack the Ripper [From the Archives]"),
+                makeEntry("Another Repeater Found"),
+                makeEntry("Inside the Archives"),
+            )
+        val (pipeline, txSvc, _) =
+            buildPipeline(tempDir, listOf(PodcastConfig(name = "Show", url = "https://feed")), feed)
+
+        pipeline.run()
+
+        assertEquals(2, txSvc.calls.size)
+        val kept = Files.list(tempDir.resolve("Show")).use { it.toList() }.map { it.fileName.toString() }
+        assertTrue(kept.any { it.contains("Repeater") })
+        assertTrue(kept.any { it.contains("Inside-the-Archives") })
+    }
+
+    @Test
+    fun `run skips entries under the minimum duration but keeps ones with no duration`(
+        @TempDir tempDir: Path,
+    ) {
+        val feed =
+            makeFeed(
+                makeEntry("Short Promo", durationSeconds = 90),
+                makeEntry("Real Episode", durationSeconds = 1800),
+                makeEntry("Unknown Length"),
+            )
+        val (pipeline, txSvc, _) =
+            buildPipeline(tempDir, listOf(PodcastConfig(name = "Show", url = "https://feed")), feed)
+
+        pipeline.run()
+
+        assertEquals(2, txSvc.calls.size)
+        val kept = Files.list(tempDir.resolve("Show")).use { it.toList() }.map { it.fileName.toString() }
+        assertFalse(kept.any { it.contains("Short-Promo") })
+    }
+
+    @Test
+    fun `run lets a podcast override the global minimum duration`(
+        @TempDir tempDir: Path,
+    ) {
+        val feed = makeFeed(makeEntry("Quick Answer", durationSeconds = 90))
+        val (pipeline, txSvc, _) =
+            buildPipeline(
+                tempDir,
+                listOf(PodcastConfig(name = "Show", url = "https://feed", minEpisodeDurationSeconds = 0)),
+                feed,
+            )
+
+        pipeline.run()
+
+        assertEquals(1, txSvc.calls.size)
     }
 
     @Test

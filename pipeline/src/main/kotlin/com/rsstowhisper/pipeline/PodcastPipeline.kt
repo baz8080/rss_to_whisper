@@ -36,6 +36,14 @@ class PodcastPipeline(
     private val feedService: FeedService = FeedService(httpClient),
     private val transcriber: Transcriber = Transcriber(config.whisperServerUrl),
 ) {
+    // Anchored on word boundaries so "repeat" does not also swallow "repeating".
+    private val excludeKeywordRegex: Regex? =
+        config.excludeTitleKeywords
+            .filter { it.isNotBlank() }
+            .takeIf { it.isNotEmpty() }
+            ?.joinToString("|") { """\b${Regex.escape(it.trim())}\b""" }
+            ?.toRegex(RegexOption.IGNORE_CASE)
+
     private val jsonMapper =
         ObjectMapper().apply {
             enable(SerializationFeature.INDENT_OUTPUT)
@@ -71,6 +79,7 @@ class PodcastPipeline(
 
         val podPath = createPath(Path.of(dataDir), podcast.name)
         val skipThreshold = config.skipAfterConsecutive
+        val minDuration = podcast.minEpisodeDurationSeconds ?: config.minEpisodeDurationSeconds
         var consecutiveTranscribed = 0
 
         for (entry in feed.entries) {
@@ -78,6 +87,18 @@ class PodcastPipeline(
 
             if (podcast.excludes.any { exclude -> exclude.lowercase() in title.lowercase() }) {
                 logger.debug("Skipping podcast entry because of excludes match")
+                continue
+            }
+
+            if (excludeKeywordRegex?.containsMatchIn(title) == true) {
+                logger.debug("Skipping $title because of a global keyword match")
+                continue
+            }
+
+            // A feed that omits itunes:duration must not be filtered out on a guess.
+            val duration = parseDuration(entry.getModule(ITunes.URI) as? EntryInformation)
+            if (duration != null && duration < minDuration) {
+                logger.debug("Skipping $title because it is ${duration}s, under the ${minDuration}s minimum")
                 continue
             }
 
@@ -283,7 +304,7 @@ class PodcastPipeline(
                 val feedItunes = feed.getModule(ITunes.URI) as? FeedInformation
                 val entryItunes = entry.getModule(ITunes.URI) as? EntryInformation
 
-                mapOf(
+                mapOf<String, Any?>(
                     "_id" to episodeId(entry),
                     "podcast_collections" to (collections ?: emptyList()),
                     "podcast_title" to feed.title,
@@ -365,11 +386,11 @@ class PodcastPipeline(
             entryItunes?.imageUri
                 ?: entry.foreignMarkup?.find { it.name == "image" }?.getAttributeValue("href")
 
-        private fun parseDuration(entryItunes: EntryInformation?): Any? =
+        internal fun parseDuration(entryItunes: EntryInformation?): Int? =
             entryItunes?.duration?.let { duration ->
                 val ms = duration.milliseconds
                 if (ms > 0) {
-                    ms / 1000
+                    (ms / 1000).toInt()
                 } else {
                     val durationStr = duration.toString()
                     if (":" in durationStr) timeToSeconds(durationStr) else null

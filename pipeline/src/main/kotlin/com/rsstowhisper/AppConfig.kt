@@ -14,9 +14,30 @@ data class AppConfig(
     val dataDirectory: String = "",
     val whisperServerUrl: String = "",
     val skipAfterConsecutive: Int = 20,
+    val excludeTitleKeywords: List<String> = DEFAULT_EXCLUDE_TITLE_KEYWORDS,
+    val minEpisodeDurationSeconds: Int = 150,
     val podcasts: List<PodcastConfig> = emptyList(),
 ) {
     companion object {
+        // Whole-word matches only: a substring match on "repeat" also swallows
+        // "Repeating FRB Mystery", and "archives" swallows "Inside the Archives".
+        val DEFAULT_EXCLUDE_TITLE_KEYWORDS =
+            listOf(
+                "trailer",
+                "introducing",
+                "encore",
+                "classic episode",
+                "rewind",
+                "re-release",
+                "re-run",
+                "rerun",
+                "rebroadcast",
+                "best of",
+                "repeat",
+                "replay",
+                "from the archives",
+            )
+
         private val mapper =
             ObjectMapper(YAMLFactory())
                 .registerModule(KotlinModule.Builder().build())
@@ -72,4 +93,5 @@ data class PodcastConfig(
     val url: String,
     val collections: List<String> = emptyList(),
     val excludes: List<String> = emptyList(),
+    val minEpisodeDurationSeconds: Int? = null,
 )

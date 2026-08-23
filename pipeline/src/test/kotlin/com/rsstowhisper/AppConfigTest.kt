@@ -82,9 +82,13 @@ class AppConfigTest {
             )
 
         assertEquals(20, config.skipAfterConsecutive)
-        assertEquals(1, config.podcasts.size)
+        assertEquals(150, config.minEpisodeDurationSeconds)
+        assertEquals(AppConfig.DEFAULT_EXCLUDE_TITLE_KEYWORDS, config.excludeTitleKeywords)
+        assertEquals(2, config.podcasts.size)
         assertEquals("Ask a Spaceman", config.podcasts[0].name)
         assertEquals(listOf("science", "space", "astrophysics"), config.podcasts[0].collections)
+        assertEquals(null, config.podcasts[0].minEpisodeDurationSeconds)
+        assertEquals(0, config.podcasts[1].minEpisodeDurationSeconds)
     }
 
     @Test
