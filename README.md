@@ -322,11 +322,16 @@ below supply the three required values.
 Precedence is argument, then `.env`, then `pods.yaml`. A flag that is not passed falls
 through, so `--whisper-url` alone leaves everything else coming from `.env`.
 
-Under Gradle the flags go through `--args`:
+Under Gradle the flags go through `--args`. Gradle splits that string itself rather than
+handing it to a shell, so write `$HOME` or an absolute path — a `~` inside the quotes
+arrives at the pipeline literally and the config file is not found:
 
 ```bash
-./gradlew :pipeline:run --args="--config ~/pods-a.yaml --whisper-url http://localhost:8081"
+./gradlew :pipeline:run --args="--config $HOME/pods-a.yaml --whisper-url http://localhost:8081"
 ```
+
+A bad flag exits `2`, unusable configuration exits `1`, and both messages go to stderr, so
+a wrapper script can tell a failed launch from a run that found nothing to do.
 
 ### `pods.yaml`
 
