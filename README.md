@@ -198,18 +198,50 @@ Acceleration is determined by how the whisper.cpp `server` binary was compiled:
 
 ## Transcribing
 
-All pipeline configuration comes from `pipeline/.env` — there are no command-line arguments (see [Pipeline configuration](#pipeline-configuration) below).
+With `pipeline/.env` filled in (see [Pipeline configuration](#pipeline-configuration) below), no arguments are needed:
 
 ```bash
-./gradlew :pipeline:run
+./transcribe
 ```
 
-Or build and run the distribution:
+`./transcribe` builds the distribution and runs it, so a source change can never leave you
+running a stale binary. It passes its arguments straight through and exits with the
+pipeline's own status, and it resolves `.env` and relative paths against your current
+directory — it is the long form below with the path memorised for you:
 
 ```bash
 ./gradlew :pipeline:installDist
 ./pipeline/build/install/pipeline/bin/pipeline
 ```
+
+`./gradlew :pipeline:run` also works, with the caveats under
+[Arguments](#arguments) below.
+
+Every `.env` setting also has a flag, which takes precedence over it — run
+`./transcribe --help` for the list.
+
+### Running two instances at once
+
+Give each instance its own `pods.yaml` and its own whisper.cpp server. In one terminal:
+
+```bash
+./transcribe --config ~/pods-a.yaml --whisper-url http://localhost:8081
+```
+
+and in another:
+
+```bash
+./transcribe --config ~/pods-b.yaml --whisper-url http://localhost:8082
+```
+
+Don't use `./gradlew :pipeline:run` for this — two concurrent Gradle invocations in one
+checkout serialise on the project lock. `./transcribe` takes that lock only for its build
+and has released it by the time the pipeline starts, so a second launch waits a second at
+most.
+
+Both can share one data directory, but nothing coordinates them: list a show in only one
+of the two files. If both walk the same feed they will download the same episode to the
+same `audio.mp3.part` staging file, and whichever finishes first deletes the other's.
 
 ## Indexing
 
@@ -278,7 +310,33 @@ than `true` counts as `false`, so `PIPELINE_VERBOSE=false` will override `verbos
 
 The `.env` file is resolved relative to the working directory: `pipeline/.env` is tried
 first (running from the repo root), then `./.env` (running from inside `pipeline/`, or
-next to an installed distribution).
+next to an installed distribution). A missing `.env` is fine as long as the arguments
+below supply the three required values.
+
+### Arguments
+
+| Flag | Overrides |
+| --- | --- |
+| `--config <path>` | `PIPELINE_CONFIG_PATH` |
+| `--data-dir <path>` | `PIPELINE_DATA_DIRECTORY` |
+| `--whisper-url <url>` | `PIPELINE_WHISPER_SERVER_URL` |
+| `--verbose` / `--no-verbose` | `PIPELINE_VERBOSE` |
+
+Precedence is argument, then `.env`, then `pods.yaml`. A flag that is not passed falls
+through, so `--whisper-url` alone leaves everything else coming from `.env`.
+
+Under Gradle the flags go through `--args`. Gradle splits that string itself rather than
+handing it to a shell, so write `$HOME` or an absolute path — a `~` inside the quotes
+arrives at the pipeline literally and the config file is not found:
+
+```bash
+./gradlew :pipeline:run --args="--config $HOME/pods-a.yaml --whisper-url http://localhost:8081"
+```
+
+A bad flag exits `2` with its message on stderr. Unusable configuration exits `1` — that
+covers a missing `--config` as well as a data directory that is missing or not writable. A
+run that found nothing new to transcribe exits `0`, so a wrapper script can tell a failed
+launch from a quiet one.
 
 ### `pods.yaml`
 

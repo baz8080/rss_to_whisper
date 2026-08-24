@@ -139,6 +139,30 @@ class PodcastPipelineRunTest {
     }
 
     @Test
+    fun `run returns false when the data dir is missing`(
+        @TempDir tempDir: Path,
+    ) {
+        val (pipeline, _, feedSvc) =
+            buildPipeline(
+                tempDir.resolve("not-created"),
+                listOf(PodcastConfig(name = "Show", url = "https://feed")),
+                makeFeed(makeEntry("My Episode")),
+            )
+
+        assertFalse(pipeline.run())
+        assertTrue(feedSvc.requestedUrls.isEmpty())
+    }
+
+    @Test
+    fun `run returns true when there is nothing to do`(
+        @TempDir tempDir: Path,
+    ) {
+        val (pipeline, _, _) = buildPipeline(tempDir, emptyList(), makeFeed())
+
+        assertTrue(pipeline.run())
+    }
+
+    @Test
     fun `run transcribes episode and writes json output`(
         @TempDir tempDir: Path,
     ) {

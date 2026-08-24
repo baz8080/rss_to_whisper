@@ -4,14 +4,28 @@ import ch.qos.logback.classic.Level
 import ch.qos.logback.classic.LoggerContext
 import com.rsstowhisper.pipeline.PodcastPipeline
 import org.slf4j.LoggerFactory
+import kotlin.system.exitProcess
 
-fun main() {
+fun main(argv: Array<String>) {
+    val args: Args =
+        try {
+            parseArgs(argv)
+        } catch (e: IllegalStateException) {
+            System.err.println(e.message)
+            exitProcess(2)
+        }
+
+    if (args.help) {
+        println(USAGE)
+        return
+    }
+
     val config: AppConfig =
         try {
-            AppConfig.load()
+            AppConfig.load(args)
         } catch (e: Exception) {
-            println("Cannot load configuration: ${e.message}")
-            return
+            System.err.println("Cannot load configuration: ${e.message}")
+            exitProcess(1)
         }
 
     if (config.verbose) {
@@ -20,5 +34,7 @@ fun main() {
     }
 
     val pipeline = PodcastPipeline(config)
-    pipeline.run()
+    if (!pipeline.run()) {
+        exitProcess(1)
+    }
 }
