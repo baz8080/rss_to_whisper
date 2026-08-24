@@ -24,11 +24,18 @@ Three-stage pipeline for podcast transcription and full-text search:
 ./gradlew :pipeline:run
 ```
 
-All configuration comes from `pipeline/.env` — copy `pipeline/.env.example` and fill in:
+Configuration comes from `pipeline/.env` — copy `pipeline/.env.example` and fill in:
 - `PIPELINE_CONFIG_PATH` — path to your `pods.yaml`
 - `PIPELINE_DATA_DIRECTORY` — where audio and transcripts are stored
 - `PIPELINE_WHISPER_SERVER_URL` — URL of the whisper HTTP server
 - `PIPELINE_VERBOSE` — set to `true` to enable debug logging
+
+Each of those has a command-line equivalent that takes precedence (`--config`, `--data-dir`,
+`--whisper-url`, `--verbose`/`--no-verbose`), which is how two instances run side by side:
+
+```bash
+./pipeline/build/install/pipeline/bin/pipeline --config ~/pods-b.yaml --whisper-url http://localhost:8082
+```
 
 Configure `pods.yaml` with:
 - `podcasts` — list of RSS feeds with `name`, `url`, and `collections` tags

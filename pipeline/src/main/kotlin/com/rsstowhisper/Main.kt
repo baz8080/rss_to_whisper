@@ -5,10 +5,23 @@ import ch.qos.logback.classic.LoggerContext
 import com.rsstowhisper.pipeline.PodcastPipeline
 import org.slf4j.LoggerFactory
 
-fun main() {
+fun main(argv: Array<String>) {
+    val args: Args =
+        try {
+            parseArgs(argv)
+        } catch (e: IllegalStateException) {
+            println(e.message)
+            return
+        }
+
+    if (args.help) {
+        println(USAGE)
+        return
+    }
+
     val config: AppConfig =
         try {
-            AppConfig.load()
+            AppConfig.load(args)
         } catch (e: Exception) {
             println("Cannot load configuration: ${e.message}")
             return

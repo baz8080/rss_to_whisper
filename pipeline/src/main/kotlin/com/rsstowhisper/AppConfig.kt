@@ -22,27 +22,35 @@ data class AppConfig(
                 .registerModule(KotlinModule.Builder().build())
                 .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
 
-        fun load(): AppConfig = load(loadDotEnv())
+        internal fun load(args: Args): AppConfig = load(args, loadDotEnv())
 
-        internal fun load(env: Map<String, String>): AppConfig {
+        internal fun load(env: Map<String, String>): AppConfig = load(Args(), env)
+
+        internal fun load(
+            args: Args,
+            env: Map<String, String>,
+        ): AppConfig {
             val configPath =
-                env["PIPELINE_CONFIG_PATH"]
-                    ?: error("PIPELINE_CONFIG_PATH must be set in .env")
+                args.configPath
+                    ?: env["PIPELINE_CONFIG_PATH"]
+                    ?: error("PIPELINE_CONFIG_PATH must be set in .env, or passed as --config")
             val dataDirectory =
-                env["PIPELINE_DATA_DIRECTORY"]
-                    ?: error("PIPELINE_DATA_DIRECTORY must be set in .env")
+                args.dataDirectory
+                    ?: env["PIPELINE_DATA_DIRECTORY"]
+                    ?: error("PIPELINE_DATA_DIRECTORY must be set in .env, or passed as --data-dir")
             val whisperServerUrl =
-                env["PIPELINE_WHISPER_SERVER_URL"]
-                    ?: error("PIPELINE_WHISPER_SERVER_URL must be set in .env")
+                args.whisperServerUrl
+                    ?: env["PIPELINE_WHISPER_SERVER_URL"]
+                    ?: error("PIPELINE_WHISPER_SERVER_URL must be set in .env, or passed as --whisper-url")
             // Blank means "not set" -- an empty PIPELINE_VERBOSE= line must fall
             // through to pods.yaml rather than forcing it off via toBoolean().
-            val verbose = env["PIPELINE_VERBOSE"]?.takeIf { it.isNotBlank() }?.toBoolean()
+            val envVerbose = env["PIPELINE_VERBOSE"]?.takeIf { it.isNotBlank() }?.toBoolean()
 
             val raw: AppConfig = mapper.readValue(File(configPath))
             return raw.copy(
                 dataDirectory = dataDirectory,
                 whisperServerUrl = whisperServerUrl,
-                verbose = verbose ?: raw.verbose,
+                verbose = args.verbose ?: envVerbose ?: raw.verbose,
             )
         }
 

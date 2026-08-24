@@ -198,7 +198,7 @@ Acceleration is determined by how the whisper.cpp `server` binary was compiled:
 
 ## Transcribing
 
-All pipeline configuration comes from `pipeline/.env` — there are no command-line arguments (see [Pipeline configuration](#pipeline-configuration) below).
+With `pipeline/.env` filled in (see [Pipeline configuration](#pipeline-configuration) below), no arguments are needed:
 
 ```bash
 ./gradlew :pipeline:run
@@ -210,6 +210,35 @@ Or build and run the distribution:
 ./gradlew :pipeline:installDist
 ./pipeline/build/install/pipeline/bin/pipeline
 ```
+
+Every `.env` setting also has a flag, which takes precedence over it — run
+`pipeline --help` for the list.
+
+### Running two instances at once
+
+Give each instance its own `pods.yaml` and its own whisper.cpp server. Use the installed
+distribution rather than `./gradlew :pipeline:run` twice: two concurrent Gradle
+invocations in one checkout serialise on the project lock.
+
+```bash
+./gradlew :pipeline:installDist
+```
+
+Then, in one terminal:
+
+```bash
+./pipeline/build/install/pipeline/bin/pipeline --config ~/pods-a.yaml --whisper-url http://localhost:8081
+```
+
+and in another:
+
+```bash
+./pipeline/build/install/pipeline/bin/pipeline --config ~/pods-b.yaml --whisper-url http://localhost:8082
+```
+
+Both can share one data directory, but nothing coordinates them: list a show in only one
+of the two files. If both walk the same feed they will download the same episode to the
+same `audio.mp3.part` staging file, and whichever finishes first deletes the other's.
 
 ## Indexing
 
@@ -278,7 +307,26 @@ than `true` counts as `false`, so `PIPELINE_VERBOSE=false` will override `verbos
 
 The `.env` file is resolved relative to the working directory: `pipeline/.env` is tried
 first (running from the repo root), then `./.env` (running from inside `pipeline/`, or
-next to an installed distribution).
+next to an installed distribution). A missing `.env` is fine as long as the arguments
+below supply the three required values.
+
+### Arguments
+
+| Flag | Overrides |
+| --- | --- |
+| `--config <path>` | `PIPELINE_CONFIG_PATH` |
+| `--data-dir <path>` | `PIPELINE_DATA_DIRECTORY` |
+| `--whisper-url <url>` | `PIPELINE_WHISPER_SERVER_URL` |
+| `--verbose` / `--no-verbose` | `PIPELINE_VERBOSE` |
+
+Precedence is argument, then `.env`, then `pods.yaml`. A flag that is not passed falls
+through, so `--whisper-url` alone leaves everything else coming from `.env`.
+
+Under Gradle the flags go through `--args`:
+
+```bash
+./gradlew :pipeline:run --args="--config ~/pods-a.yaml --whisper-url http://localhost:8081"
+```
 
 ### `pods.yaml`
 
