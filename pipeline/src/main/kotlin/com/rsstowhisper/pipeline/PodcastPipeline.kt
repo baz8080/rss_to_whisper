@@ -42,17 +42,19 @@ class PodcastPipeline(
             configure(SerializationFeature.ORDER_MAP_ENTRIES_BY_KEYS, true)
         }
 
-    fun run() {
+    /** False when the run never started, so a supervisor sees a failed launch rather than a quiet no-op. */
+    fun run(): Boolean {
         val dataDir = config.dataDirectory
 
         if (!Files.isWritable(Path.of(dataDir))) {
             logger.error("The data_dir is missing, or not writable. Cannot continue")
-            return
+            return false
         }
 
         for (podcast in config.podcasts) {
             processPodcast(podcast, dataDir)
         }
+        return true
     }
 
     private fun processPodcast(

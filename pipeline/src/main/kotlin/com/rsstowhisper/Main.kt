@@ -34,5 +34,7 @@ fun main(argv: Array<String>) {
     }
 
     val pipeline = PodcastPipeline(config)
-    pipeline.run()
+    if (!pipeline.run()) {
+        exitProcess(1)
+    }
 }

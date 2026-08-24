@@ -330,8 +330,10 @@ arrives at the pipeline literally and the config file is not found:
 ./gradlew :pipeline:run --args="--config $HOME/pods-a.yaml --whisper-url http://localhost:8081"
 ```
 
-A bad flag exits `2`, unusable configuration exits `1`, and both messages go to stderr, so
-a wrapper script can tell a failed launch from a run that found nothing to do.
+A bad flag exits `2` with its message on stderr. Unusable configuration exits `1` — that
+covers a missing `--config` as well as a data directory that is missing or not writable. A
+run that found nothing new to transcribe exits `0`, so a wrapper script can tell a failed
+launch from a quiet one.
 
 ### `pods.yaml`
 
