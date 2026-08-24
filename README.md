@@ -201,40 +201,43 @@ Acceleration is determined by how the whisper.cpp `server` binary was compiled:
 With `pipeline/.env` filled in (see [Pipeline configuration](#pipeline-configuration) below), no arguments are needed:
 
 ```bash
-./gradlew :pipeline:run
+./transcribe
 ```
 
-Or build and run the distribution:
+`./transcribe` builds the distribution and runs it, so a source change can never leave you
+running a stale binary. It passes its arguments straight through and exits with the
+pipeline's own status, and it resolves `.env` and relative paths against your current
+directory — it is the long form below with the path memorised for you:
 
 ```bash
 ./gradlew :pipeline:installDist
 ./pipeline/build/install/pipeline/bin/pipeline
 ```
 
+`./gradlew :pipeline:run` also works, with the caveats under
+[Arguments](#arguments) below.
+
 Every `.env` setting also has a flag, which takes precedence over it — run
-`pipeline --help` for the list.
+`./transcribe --help` for the list.
 
 ### Running two instances at once
 
-Give each instance its own `pods.yaml` and its own whisper.cpp server. Use the installed
-distribution rather than `./gradlew :pipeline:run` twice: two concurrent Gradle
-invocations in one checkout serialise on the project lock.
+Give each instance its own `pods.yaml` and its own whisper.cpp server. In one terminal:
 
 ```bash
-./gradlew :pipeline:installDist
-```
-
-Then, in one terminal:
-
-```bash
-./pipeline/build/install/pipeline/bin/pipeline --config ~/pods-a.yaml --whisper-url http://localhost:8081
+./transcribe --config ~/pods-a.yaml --whisper-url http://localhost:8081
 ```
 
 and in another:
 
 ```bash
-./pipeline/build/install/pipeline/bin/pipeline --config ~/pods-b.yaml --whisper-url http://localhost:8082
+./transcribe --config ~/pods-b.yaml --whisper-url http://localhost:8082
 ```
+
+Don't use `./gradlew :pipeline:run` for this — two concurrent Gradle invocations in one
+checkout serialise on the project lock. `./transcribe` takes that lock only for its build
+and has released it by the time the pipeline starts, so a second launch waits a second at
+most.
 
 Both can share one data directory, but nothing coordinates them: list a show in only one
 of the two files. If both walk the same feed they will download the same episode to the

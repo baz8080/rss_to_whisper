@@ -21,8 +21,11 @@ Three-stage pipeline for podcast transcription and full-text search:
 ### Pipeline (transcription)
 
 ```bash
-./gradlew :pipeline:run
+./transcribe
 ```
+
+`./transcribe` is a wrapper that runs `:pipeline:installDist` and execs the launcher,
+passing arguments through. `./gradlew :pipeline:run` still works for a single instance.
 
 Configuration comes from `pipeline/.env` — copy `pipeline/.env.example` and fill in:
 - `PIPELINE_CONFIG_PATH` — path to your `pods.yaml`
@@ -34,7 +37,7 @@ Each of those has a command-line equivalent that takes precedence (`--config`, `
 `--whisper-url`, `--verbose`/`--no-verbose`), which is how two instances run side by side:
 
 ```bash
-./pipeline/build/install/pipeline/bin/pipeline --config ~/pods-b.yaml --whisper-url http://localhost:8082
+./transcribe --config ~/pods-b.yaml --whisper-url http://localhost:8082
 ```
 
 Configure `pods.yaml` with:

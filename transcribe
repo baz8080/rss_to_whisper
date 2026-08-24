@@ -1,0 +1,11 @@
+#!/bin/sh
+# Build first, so a source change can never leave you running a stale binary.
+set -e
+
+root=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+"$root/gradlew" --quiet --project-dir "$root" :pipeline:installDist
+
+# exec from the caller's directory: .env discovery and relative --config paths
+# are resolved against it, exactly as for the launcher itself.
+exec "$root/pipeline/build/install/pipeline/bin/pipeline" "$@"
