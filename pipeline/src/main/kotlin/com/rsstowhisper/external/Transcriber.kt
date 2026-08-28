@@ -54,6 +54,34 @@ open class Transcriber(
      * word count within 5% of the original.
      */
     private val initialPrompt: String = DEFAULT_INITIAL_PROMPT,
+    /**
+     * Beam width. whisper.cpp runs
+     * `strategy = beam_size > 1 ? BEAM_SEARCH : GREEDY`, and the server
+     * defaults to greedy while whisper-cli defaults to 5 -- so adopting the
+     * server silently put this pipeline on greedy decoding.
+     *
+     * Greedy's characteristic failure here is repetition: it locks onto a
+     * phrase and emits it for minutes. Measured across the first eleven
+     * regenerated shows it hits 0.7%-5.0% of episodes per show, and the repair
+     * pass that cleans them up runs beam. That pass has now fixed **57 of 57**
+     * such episodes, most on its first attempt.
+     *
+     * A paired trial on one show -- same audio, same model, same fields, only
+     * this value moved -- found beam equal or better on healthy material:
+     *
+     *   median punctuation/word   0.1546 -> 0.1611
+     *   sub-threshold loops       5 of 5 cleared
+     *   a shredded episode        0.74 s/cue -> 2.42, punctuation 0.109 -> 0.208
+     *   clamped / unpunctuated    0 either way
+     *
+     * The costs are real but small: roughly 30% more decode time, and about
+     * 12% fewer cues. Coarser cues used to matter because the cue was the
+     * floor on how precisely a span boundary could be placed; with per-word
+     * times in `words.jsonl.gz` it no longer is.
+     *
+     * Set to 1 for greedy.
+     */
+    private val beamSize: Int = DEFAULT_BEAM_SIZE,
 ) {
     private val logger = LoggerFactory.getLogger(Transcriber::class.java)
 
@@ -98,6 +126,7 @@ open class Transcriber(
                 .addFormDataPart("max_len", maxLen.toString())
                 // Cut on word boundaries rather than mid-token.
                 .addFormDataPart("split_on_word", "true")
+                .addFormDataPart("beam_size", beamSize.toString())
 
         if (initialPrompt.isNotBlank()) {
             bodyBuilder.addFormDataPart("prompt", initialPrompt)
@@ -128,6 +157,9 @@ open class Transcriber(
 
     companion object {
         const val DEFAULT_MAX_LEN = 200
+
+        /** See [beamSize]. 1 is greedy, which is what the server defaults to. */
+        const val DEFAULT_BEAM_SIZE = 5
 
         /** See [initialPrompt]. Ordinary punctuated prose, nothing domain-specific. */
         const val DEFAULT_INITIAL_PROMPT =
