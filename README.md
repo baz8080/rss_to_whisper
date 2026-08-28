@@ -181,13 +181,34 @@ seconds. A cue that long cannot carry a usable timestamp.
 
 `split_on_word` cuts at word boundaries rather than mid-token.
 
-### No `beam_size` — the decode is greedy
+### `beam_size=5` — not the server's greedy default
 
 whisper-server defaults to greedy and whisper-cli to `beam_size=5`; both run
-`strategy = beam_size > 1 ? BEAM_SEARCH : GREEDY`. Greedy is deliberate here.
-Beam is worth reaching for when repairing an already-collapsed decode, but it
-has not been shown to help a healthy one, and changing it during a bulk run
-means never knowing which change did what.
+`strategy = beam_size > 1 ? BEAM_SEARCH : GREEDY`. Adopting the server without
+sending this field silently put the pipeline on greedy.
+
+Greedy's characteristic failure is repetition: it locks onto a phrase and emits
+it for minutes. It hit 0.7%–5.0% of episodes per show across the first eleven
+regenerated shows, and a repair pass running beam has fixed **57 of 57** of
+them, most on the first attempt.
+
+A paired trial on one show — same audio, same model, same fields, only
+`beam_size` moved — found beam equal or better on healthy material too:
+
+| | greedy | beam |
+|---|---:|---:|
+| median punctuation/word | 0.1546 | 0.1611 |
+| sub-threshold loops cleared | — | 5 of 5 |
+| clamped / unpunctuated episodes | 0 | 0 |
+
+and it rescued a shredded episode outright, 0.74 s/cue to 2.42 with punctuation
+0.109 → 0.208.
+
+The costs are real but small: roughly 30% more decode time, and about 12% fewer
+cues. Coarser cues used to matter because the cue was the floor on boundary
+precision; with per-word times in `words.jsonl.gz` it no longer is.
+
+Set `beamSize = 1` for greedy.
 
 ## Platform acceleration
 

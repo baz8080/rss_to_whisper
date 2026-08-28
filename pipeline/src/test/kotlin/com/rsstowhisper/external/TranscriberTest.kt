@@ -33,6 +33,35 @@ class TranscriberTest {
 
     private fun mp3File(tmp: Path): Path = tmp.resolve("audio.mp3").also { Files.writeString(it, "fake-mp3-data") }
 
+    private fun partValue(
+        request: okhttp3.Request,
+        name: String,
+    ): String {
+        val body = request.body as okhttp3.MultipartBody
+        val part = body.parts.single { it.headers!!["Content-Disposition"]!!.contains("name=\"$name\"") }
+        val sink = okio.Buffer()
+        part.body.writeTo(sink)
+        return sink.readUtf8()
+    }
+
+    @Test
+    fun `transcribe sends the configured beam size, and 1 means greedy`(
+        @TempDir tmp: Path,
+    ) {
+        val requests = mutableListOf<okhttp3.Request>()
+        Transcriber("http://whisper-server", clientReturning("{}", captureRequests = requests))
+            .transcribe(mp3File(tmp))
+        assertEquals(
+            Transcriber.DEFAULT_BEAM_SIZE.toString(),
+            partValue(requests.single(), "beam_size"),
+        )
+
+        val greedy = mutableListOf<okhttp3.Request>()
+        Transcriber("http://whisper-server", beamSize = 1, httpClient = clientReturning("{}", captureRequests = greedy))
+            .transcribe(mp3File(tmp))
+        assertEquals("1", partValue(greedy.single(), "beam_size"))
+    }
+
     @Test
     fun `transcribe posts to the inference endpoint`(
         @TempDir tmp: Path,
@@ -60,6 +89,7 @@ class TranscriberTest {
         assertTrue(partNames.any { it.contains("name=\"language\"") })
         assertTrue(partNames.any { it.contains("name=\"response_format\"") })
         assertTrue(partNames.any { it.contains("name=\"vad\"") })
+        assertTrue(partNames.any { it.contains("name=\"beam_size\"") })
     }
 
     /**
