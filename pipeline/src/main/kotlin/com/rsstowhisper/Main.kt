@@ -33,8 +33,14 @@ fun main(argv: Array<String>) {
         loggerContext.getLogger("com.rsstowhisper").level = Level.DEBUG
     }
 
+    val logPath = installErrorLog(config.dataDirectory)
+    val tally = installRunTally()
+
     val pipeline = PodcastPipeline(config)
-    if (!pipeline.run()) {
+    val ok = pipeline.run()
+
+    println(tally.summary(logPath))
+    if (!ok) {
         exitProcess(1)
     }
 }
