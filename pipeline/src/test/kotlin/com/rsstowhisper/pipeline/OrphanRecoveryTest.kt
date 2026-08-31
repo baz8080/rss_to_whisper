@@ -438,6 +438,9 @@ class OrphanRecoveryTest {
         assertTrue(tx.calls.isEmpty(), "shadowed episodes are reported, never recovered degraded")
         val shadowed = errors().single { "skip threshold stopped before them" in it }
         assertTrue("37 episodes" in shadowed, shadowed)
+        // Every shadowed entry does have a directory, so the missing-directory report --
+        // the same set arithmetic minus one term -- must stay silent.
+        assertTrue(errors().none { "have no directory" in it }, errors().toString())
     }
 
     @Test
@@ -459,5 +462,82 @@ class OrphanRecoveryTest {
         assertEquals(1, tx.calls.size)
         assertEquals("""{"_id":"other"}""", Files.readString(orphan.resolve("transcript.json")))
         assertFalse(Files.exists(orphan.resolve("words.jsonl.gz")), "the sidecar must not be clobbered either")
+    }
+
+    @Test
+    fun `errors when the skip threshold left an eligible entry with no directory at all`(
+        @TempDir dataDir: Path,
+    ) {
+        val entries = (1..4).map { makeEntry("Episode $it", guid = "guid-$it") }
+        // The first three are done, so the threshold breaks before entry four is ever
+        // looked at -- and entry four has no directory on disk to show for itself.
+        entries.take(3).forEach { entry ->
+            orphanDir(
+                dataDir,
+                PodcastPipeline.getEpisodeDirName(entry).replace(' ', '-'),
+                "audio.mp3" to "bytes",
+                "transcript.json" to "{}",
+            )
+        }
+
+        val (pipeline, _, _) =
+            buildPipeline(dataDir, listOf(podcast), makeFeed(*entries.toTypedArray()), skipAfterConsecutive = 3)
+        pipeline.run()
+
+        val missing = errors().single { "have no directory and were never" in it }
+        assertTrue("1 eligible feed entries" in missing, missing)
+        assertTrue(
+            PodcastPipeline.episodeStablePrefix(entries[3]) in missing,
+            "the report should name the entry it could not find: $missing",
+        )
+    }
+
+    @Test
+    fun `logs no missing-directory error when the threshold never fires`(
+        @TempDir dataDir: Path,
+    ) {
+        val entries = (1..3).map { makeEntry("Episode $it", guid = "guid-$it") }
+        val (pipeline, _, _) =
+            buildPipeline(dataDir, listOf(podcast), makeFeed(*entries.toTypedArray()), skipAfterConsecutive = 20)
+        pipeline.run()
+        assertTrue(errors().isEmpty(), "unexpected errors: ${errors()}")
+    }
+
+    @Test
+    fun `stops opening candidate directories once the limit is spent`(
+        @TempDir dataDir: Path,
+    ) {
+        val orphans =
+            listOf("2015-01-01-aaaaaaaa-Oldest", "2018-01-01-bbbbbbbb-Middle", "2021-01-01-cccccccc-Newest")
+                .map { orphanDir(dataDir, it, "audio.mp3" to "bytes") }
+
+        val (pipeline, tx, _) =
+            buildPipeline(dataDir, listOf(podcast), settledFeed(dataDir), orphanRecoveryLimit = 1)
+        pipeline.run()
+
+        assertEquals(listOf(orphans[2].resolve("audio.mp3")), tx.calls)
+        // The two it did not recover were never opened either.
+        assertTrue(
+            logged.list.any { it.level == Level.INFO && "2 left for a later run" in it.formattedMessage },
+            logged.list.map { it.formattedMessage }.toString(),
+        )
+    }
+
+    @Test
+    fun `the recovery limit applies per run, not per pipeline instance`(
+        @TempDir dataDir: Path,
+    ) {
+        val first = orphanDir(dataDir, "2021-01-01-cccccccc-Newest", "audio.mp3" to "bytes")
+        val second = orphanDir(dataDir, "2018-01-01-bbbbbbbb-Middle", "audio.mp3" to "bytes")
+
+        val (pipeline, tx, _) =
+            buildPipeline(dataDir, listOf(podcast), settledFeed(dataDir), orphanRecoveryLimit = 1)
+
+        pipeline.run()
+        assertEquals(listOf(first.resolve("audio.mp3")), tx.calls)
+
+        // A second run gets its own budget; a counter that never reset would recover nothing.
+        pipeline.run()
+        assertEquals(listOf(first.resolve("audio.mp3"), second.resolve("audio.mp3")), tx.calls)
     }
 }

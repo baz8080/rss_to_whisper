@@ -57,6 +57,7 @@ class PodcastPipeline(
     /** False when the run never started, so a supervisor sees a failed launch rather than a quiet no-op. */
     fun run(): Boolean {
         val dataDir = config.dataDirectory
+        orphansRecovered = 0
 
         if (!Files.isWritable(Path.of(dataDir))) {
             logger.error("The data_dir is missing, or not writable. Cannot continue")
@@ -283,10 +284,16 @@ class PodcastPipeline(
         var recovered = 0
         var withoutAudio = 0
         var alreadyDone = 0
-        var pending = 0
+        var seen = 0
 
         // Newest first: the directory name leads with the publication date.
-        for (parsed in candidates.sortedByDescending { it.dirName }) {
+        val ordered = candidates.sortedByDescending { it.dirName }
+        for (parsed in ordered) {
+            // Tested before the readdir. Opening the rest of the backlog just to count it
+            // costs seconds of network I/O per podcast, and the count is arithmetic.
+            if (budgetSpent()) break
+            seen++
+
             val episodeDirPath = podPath.resolve(parsed.dirName)
             val contents =
                 try {
@@ -306,7 +313,6 @@ class PodcastPipeline(
                     withoutAudio++
                     logger.debug("Cannot recover ${parsed.dirName}: no audio, and it is no longer in the feed")
                 }
-                orphansRecovered >= config.orphanRecoveryLimit && config.orphanRecoveryLimit > 0 -> pending++
                 else -> {
                     if (recovered == 0) {
                         logger.info("${podcast.name}: recovering episodes that are no longer in the feed")
@@ -323,17 +329,21 @@ class PodcastPipeline(
             }
         }
 
+        val pending = ordered.size - seen
         if (withoutAudio > 0) {
             logger.warn("${podcast.name}: $withoutAudio directories have neither audio nor a transcript")
         }
         if (pending > 0) {
-            logger.info("${podcast.name}: $pending orphans left for a later run; --orphan-limit reached")
+            logger.info("${podcast.name}: $pending left for a later run; --orphan-limit reached")
         }
         logger.info(
             "${podcast.name}: ${candidates.size} directories absent from the feed " +
-                "($recovered recovered, $alreadyDone already settled, $withoutAudio without audio)",
+                "($recovered recovered, $alreadyDone already settled, $withoutAudio without audio, " +
+                "$pending not examined)",
         )
     }
+
+    private fun budgetSpent(): Boolean = config.orphanRecoveryLimit > 0 && orphansRecovered >= config.orphanRecoveryLimit
 
     /** An eligible entry with no directory at all, in the tail the skip threshold never reached. */
     private fun reportMissingFromDisk(
