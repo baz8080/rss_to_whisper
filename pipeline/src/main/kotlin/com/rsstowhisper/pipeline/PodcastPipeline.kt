@@ -247,9 +247,9 @@ class PodcastPipeline(
                 return
             }
 
-        val diskPrefixes = onDisk.mapTo(HashSet()) { it.stablePrefix }
-        reportMissingFromDisk(podcast, prefixes, examined, diskPrefixes)
-        if (brokeEarly) reportShadowedByThreshold(podcast, podPath, prefixes, examined, diskPrefixes)
+        val byPrefix = onDisk.associateBy { it.stablePrefix }
+        reportMissingFromDisk(podcast, prefixes, examined, byPrefix.keys)
+        if (brokeEarly) reportShadowedByThreshold(podcast, podPath, prefixes, examined, byPrefix)
 
         val candidates = mutableListOf<EpisodeDirName>()
         for (parsed in onDisk) {
@@ -361,13 +361,14 @@ class PodcastPipeline(
         podPath: Path,
         prefixes: FeedPrefixes,
         examined: Set<String>,
-        diskPrefixes: Set<String>,
+        byPrefix: Map<String, EpisodeDirName>,
     ) {
-        val shadowed = (prefixes.eligible - examined).intersect(diskPrefixes)
+        // Resolved through the listing the scan already has. findExistingEpisodeDir would
+        // re-list the whole podcast directory for every prefix.
         val unprocessed =
-            shadowed.filterNot { prefix ->
-                val dir = findExistingEpisodeDir(podPath, prefix) ?: return@filterNot false
-                Files.exists(dir.resolve(TRANSCRIPT_FILENAME))
+            (prefixes.eligible - examined).filter { prefix ->
+                val dirName = byPrefix[prefix]?.dirName ?: return@filter false
+                !Files.exists(podPath.resolve(dirName).resolve(TRANSCRIPT_FILENAME))
             }
         if (unprocessed.isEmpty()) return
         logger.error(
@@ -464,15 +465,21 @@ class PodcastPipeline(
         transcription: WhisperTranscription,
         episodeDict: Map<String, Any?>,
     ) {
+        // Re-checked here rather than only at the callers: transcription takes minutes,
+        // and a second instance over the same data directory may have finished this
+        // episode while this one was decoding it.
+        val jsonPath = episodeDirPath.resolve(TRANSCRIPT_FILENAME)
+        if (Files.exists(jsonPath)) {
+            logger.warn("$label was transcribed by something else while this run was working on it")
+            return
+        }
+
         // Words FIRST. transcript.json existing is what marks an episode
         // done, both here and for anything reading the tree, so writing it
         // last means a crash in between leaves the episode to be redone
         // rather than leaving it permanently without its sidecar.
         writeWords(transcription, episodeDirPath, label)
-        Files.writeString(
-            episodeDirPath.resolve(TRANSCRIPT_FILENAME),
-            jsonMapper.writeValueAsString(episodeDict),
-        )
+        Files.writeString(jsonPath, jsonMapper.writeValueAsString(episodeDict))
     }
 
     private fun writeWords(

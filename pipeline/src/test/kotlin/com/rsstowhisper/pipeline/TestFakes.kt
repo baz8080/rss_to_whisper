@@ -53,11 +53,14 @@ internal class FakeTranscriber(
     serverUrl: String,
     private val vtt: String,
     private val failWith: (() -> Nothing)? = null,
+    /** Runs mid-transcription, so a test can simulate another instance finishing first. */
+    private val onCall: ((Path) -> Unit)? = null,
 ) : Transcriber(serverUrl) {
     val calls = mutableListOf<Path>()
 
     override fun transcribe(audioPath: Path): String {
         calls.add(audioPath)
+        onCall?.invoke(audioPath)
         failWith?.invoke()
         return vtt
     }
@@ -116,6 +119,7 @@ internal fun buildPipeline(
     recoverOrphans: Boolean = true,
     orphanRecoveryLimit: Int = 0,
     transcriberFails: (() -> Nothing)? = null,
+    onTranscribe: ((Path) -> Unit)? = null,
 ): Triple<PodcastPipeline, FakeTranscriber, FakeFeedService> {
     val config =
         AppConfig(
@@ -128,7 +132,7 @@ internal fun buildPipeline(
             podcasts = podcasts,
         )
     val feedSvc = FakeFeedService(mapOf(feedUrl to feed))
-    val txSvc = FakeTranscriber(FAKE_SERVER_URL, vtt, transcriberFails)
+    val txSvc = FakeTranscriber(FAKE_SERVER_URL, vtt, transcriberFails, onTranscribe)
     val pipeline =
         PodcastPipeline(
             config = config,

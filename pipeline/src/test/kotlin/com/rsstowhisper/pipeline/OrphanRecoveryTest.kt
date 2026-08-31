@@ -409,4 +409,55 @@ class OrphanRecoveryTest {
         assertTrue(json["_id"].asText().isNotBlank())
         assertTrue(json["episode_transcript"].asText().contains("WEBVTT"))
     }
+
+    /**
+     * The check used to call findExistingEpisodeDir per prefix, re-listing the whole
+     * podcast directory each time. Sized so the quadratic version would be visible.
+     */
+    @Test
+    fun `reports every shadowed episode the skip threshold walked past`(
+        @TempDir dataDir: Path,
+    ) {
+        val entries = (1..40).map { makeEntry("Episode %02d".format(it), guid = "guid-$it") }
+        entries.take(3).forEach { entry ->
+            orphanDir(
+                dataDir,
+                PodcastPipeline.getEpisodeDirName(entry).replace(' ', '-'),
+                "audio.mp3" to "bytes",
+                "transcript.json" to "{}",
+            )
+        }
+        entries.drop(3).forEach { entry ->
+            orphanDir(dataDir, PodcastPipeline.getEpisodeDirName(entry).replace(' ', '-'), "audio.mp3" to "bytes")
+        }
+
+        val (pipeline, tx, _) =
+            buildPipeline(dataDir, listOf(podcast), makeFeed(*entries.toTypedArray()), skipAfterConsecutive = 3)
+        pipeline.run()
+
+        assertTrue(tx.calls.isEmpty(), "shadowed episodes are reported, never recovered degraded")
+        val shadowed = errors().single { "skip threshold stopped before them" in it }
+        assertTrue("37 episodes" in shadowed, shadowed)
+    }
+
+    @Test
+    fun `does not overwrite a transcript another instance wrote while this one decoded`(
+        @TempDir dataDir: Path,
+    ) {
+        val orphan = orphanDir(dataDir, "2019-01-01-deadbeef-An-Old-Episode", "audio.mp3" to "bytes")
+        val (pipeline, tx, _) =
+            buildPipeline(
+                dataDir,
+                listOf(podcast),
+                settledFeed(dataDir),
+                // The other instance finishes while this one is still talking to whisper.
+                onTranscribe = { Files.writeString(orphan.resolve("transcript.json"), """{"_id":"other"}""") },
+            )
+
+        pipeline.run()
+
+        assertEquals(1, tx.calls.size)
+        assertEquals("""{"_id":"other"}""", Files.readString(orphan.resolve("transcript.json")))
+        assertFalse(Files.exists(orphan.resolve("words.jsonl.gz")), "the sidecar must not be clobbered either")
+    }
 }

@@ -42,6 +42,14 @@ class RunTally : AppenderBase<ILoggingEvent>() {
  */
 fun installErrorLog(dataDirectory: String): Path? {
     val context = LoggerFactory.getILoggerFactory() as LoggerContext
+
+    // createDirectories would create the data directory too, and an unmounted volume or a
+    // mistyped --data-dir has to stay the error the run refuses to start on.
+    if (!Files.isDirectory(Path.of(dataDirectory))) {
+        System.err.println("No error log: the data directory $dataDirectory does not exist")
+        return null
+    }
+
     val logPath =
         try {
             val logDir = Path.of(dataDirectory).resolve("logs")

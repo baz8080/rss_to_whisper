@@ -11,6 +11,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -90,5 +91,16 @@ class LoggingTest {
         assertTrue(
             RunTally().summary(Path.of("/tmp/pipeline-errors.log")).endsWith("/tmp/pipeline-errors.log"),
         )
+    }
+
+    @Test
+    fun `installErrorLog never creates the data directory itself`(
+        @TempDir parent: Path,
+    ) {
+        // An unmounted volume or a mistyped --data-dir must stay an error, not become a
+        // fresh empty tree that then looks writable to the run.
+        val missing = parent.resolve("not-mounted")
+        trackNewRootAppenders { assertNull(installErrorLog(missing.toString())) }
+        assertFalse(Files.exists(missing), "the data directory was created")
     }
 }
