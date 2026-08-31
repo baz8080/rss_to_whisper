@@ -533,4 +533,81 @@ class PodcastPipelineCompanionTest {
         assertTrue(dict.containsKey("episode_published_on"))
         assertNull(dict["episode_published_on"])
     }
+
+    private fun recoveredDir(dirName: String = "2019-01-01-deadbeef-An-Old-Episode") = EpisodeDirName.parse(dirName)!!
+
+    @Test
+    fun `buildRecoveredEpisodeDict has the same keys as buildEpisodeDict plus the marker`() {
+        val feed = feedWithItunes()
+        val fromFeed = PodcastPipeline.buildEpisodeDict(feed, entryWithItunes(), "t", "p.mp3")!!
+        val recovered = PodcastPipeline.buildRecoveredEpisodeDict(feed, recoveredDir(), "t", "p.mp3", null)!!
+
+        assertEquals(fromFeed.keys + "episode_metadata_recovered", recovered.keys)
+        assertEquals(25, recovered.size)
+    }
+
+    @Test
+    fun `buildRecoveredEpisodeDict shares the podcast fields with buildEpisodeDict`() {
+        val feed = feedWithItunes(author = "Someone", imageUrl = "https://img/pod.png")
+        val fromFeed = PodcastPipeline.buildEpisodeDict(feed, entryWithItunes(), "t", "p.mp3", listOf("science"))!!
+        val recovered =
+            PodcastPipeline.buildRecoveredEpisodeDict(feed, recoveredDir(), "t", "p.mp3", null, listOf("science"))!!
+
+        PodcastPipeline.podcastFields(feed, listOf("science")).keys.forEach { key ->
+            assertEquals(fromFeed[key], recovered[key], key)
+        }
+    }
+
+    @Test
+    fun `buildRecoveredEpisodeDict recovers what the directory name carries`() {
+        val dict =
+            PodcastPipeline.buildRecoveredEpisodeDict(
+                feedWithItunes(),
+                recoveredDir("2019-01-01-deadbeef-An-Old-Episode"),
+                "transcript text",
+                "Pod/2019-01-01-deadbeef-An-Old-Episode/audio.mp3",
+                1830,
+            )!!
+
+        assertEquals("deadbeef", dict["_id"])
+        assertEquals("2019-01-01", dict["episode_published_on"])
+        assertEquals("An Old Episode", dict["episode_title"])
+        assertEquals(1830, dict["episode_duration"])
+        assertEquals("transcript text", dict["episode_transcript"])
+        assertEquals("Pod/2019-01-01-deadbeef-An-Old-Episode/audio.mp3", dict["episode_relative_audio_path"])
+        assertEquals(true, dict["episode_metadata_recovered"])
+    }
+
+    @Test
+    fun `buildRecoveredEpisodeDict nulls every field only the feed entry could supply`() {
+        val dict = PodcastPipeline.buildRecoveredEpisodeDict(feedWithItunes(), recoveredDir(), "t", "p.mp3", null)!!
+
+        listOf(
+            "episode_audio_link", "episode_web_link", "episode_image", "episode_summary",
+            "episode_subtitle", "episode_authors", "episode_number", "episode_season", "episode_type",
+        ).forEach { key ->
+            assertTrue(dict.containsKey(key), "$key is missing")
+            // Not emptyList() either: index.py turns that into "", which passes a null guard.
+            assertNull(dict[key], key)
+        }
+    }
+
+    @Test
+    fun `buildRecoveredEpisodeDict title is null when the directory carries no title`() {
+        val dict =
+            PodcastPipeline.buildRecoveredEpisodeDict(feedWithItunes(), recoveredDir("2019-01-01-deadbeef-"), "t", "p.mp3", null)!!
+        assertNull(dict["episode_title"])
+    }
+
+    @Test
+    fun `buildRecoveredEpisodeDict tags come from the feed only, normalised`() {
+        val feed = feedWithItunes(categories = listOf("  Science  ", "SCIENCE", "History", "ok"))
+        val dict = PodcastPipeline.buildRecoveredEpisodeDict(feed, recoveredDir(), "t", "p.mp3", null)!!
+        assertEquals(listOf("science", "history"), dict["all_tags"])
+    }
+
+    @Test
+    fun `buildRecoveredEpisodeDict returns null for an empty transcript`() {
+        assertNull(PodcastPipeline.buildRecoveredEpisodeDict(feedWithItunes(), recoveredDir(), "", "p.mp3", null))
+    }
 }

@@ -10,6 +10,9 @@ internal val USAGE =
       --whisper-url <url>    Base URL of the whisper.cpp server (PIPELINE_WHISPER_SERVER_URL)
       --verbose              Enable debug logging               (PIPELINE_VERBOSE)
       --no-verbose           Force debug logging off
+      --recover-orphans      Transcribe episodes that aged out of their feed (default)
+      --no-recover-orphans   Follow the feed only
+      --orphan-limit <n>     Recover at most n orphans this run; 0 means no limit
       -h, --help             Show this message
 
     Options override .env, which overrides pods.yaml. Give a second instance its
@@ -22,6 +25,8 @@ internal data class Args(
     val dataDirectory: String? = null,
     val whisperServerUrl: String? = null,
     val verbose: Boolean? = null,
+    val recoverOrphans: Boolean? = null,
+    val orphanRecoveryLimit: Int? = null,
     val help: Boolean = false,
 )
 
@@ -37,6 +42,9 @@ internal fun parseArgs(argv: Array<String>): Args {
                 "--whisper-url" -> args.copy(whisperServerUrl = valueFor(flag, argv, ++i))
                 "--verbose" -> args.copy(verbose = true)
                 "--no-verbose" -> args.copy(verbose = false)
+                "--recover-orphans" -> args.copy(recoverOrphans = true)
+                "--no-recover-orphans" -> args.copy(recoverOrphans = false)
+                "--orphan-limit" -> args.copy(orphanRecoveryLimit = intValueFor(flag, argv, ++i))
                 "-h", "--help" -> args.copy(help = true)
                 else ->
                     if (flag.startsWith("-")) {
@@ -49,6 +57,14 @@ internal fun parseArgs(argv: Array<String>): Args {
     }
     return args
 }
+
+private fun intValueFor(
+    flag: String,
+    argv: Array<String>,
+    index: Int,
+): Int =
+    valueFor(flag, argv, index).toIntOrNull()?.takeIf { it >= 0 }
+        ?: error("$flag needs a non-negative whole number (try --help)")
 
 private fun valueFor(
     flag: String,

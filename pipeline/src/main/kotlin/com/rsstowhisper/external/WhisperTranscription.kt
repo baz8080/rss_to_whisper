@@ -37,8 +37,22 @@ data class Word(
 data class WhisperTranscription(
     val vtt: String,
     val words: List<Word>,
+    val lastCueEnd: Double? = null,
 ) {
     val isEmpty: Boolean get() = vtt.isBlank() || vtt.trim() == VTT_HEADER
+
+    /**
+     * Where the decoded speech ends, in whole seconds. Not the file's duration --
+     * it undershoots trailing silence -- but the feed carries no duration for an
+     * episode that has aged out of it, and null drops the episode out of the web
+     * module's duration filters entirely.
+     */
+    val durationSeconds: Int?
+        get() =
+            listOfNotNull(words.lastOrNull()?.end, lastCueEnd)
+                .filter { it.isFinite() && it > 0 }
+                .maxOrNull()
+                ?.toInt()
 
     /** Newline-delimited JSON, gzipped. ~274 KB per episode before compression. */
     fun writeWords(path: Path) {
@@ -74,16 +88,18 @@ data class WhisperTranscription(
 
             val vtt = StringBuilder(VTT_HEADER).append("\n\n")
             val words = mutableListOf<Word>()
+            var lastCueEnd: Double? = null
             segments.forEachIndexed { index, segment ->
                 val start = segment.path("start").asDouble()
                 val end = segment.path("end").asDouble()
+                lastCueEnd = end
                 vtt.append(timestamp(start)).append(" --> ").append(timestamp(end)).append('\n')
                 vtt.append(segment.path("text").asText()).append("\n\n")
                 segment.path("words").forEach { word ->
                     words += word.toWord(index) ?: return@forEach
                 }
             }
-            return WhisperTranscription(vtt.toString(), words)
+            return WhisperTranscription(vtt.toString(), words, lastCueEnd)
         }
 
         /**
