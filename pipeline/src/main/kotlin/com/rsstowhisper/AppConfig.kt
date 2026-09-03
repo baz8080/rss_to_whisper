@@ -16,6 +16,9 @@ data class AppConfig(
     val skipAfterConsecutive: Int = 20,
     val excludeTitleKeywords: List<String> = DEFAULT_EXCLUDE_TITLE_KEYWORDS,
     val minEpisodeDurationSeconds: Int = 150,
+    val recoverOrphans: Boolean = true,
+    /** 0 means no limit. Counted across the whole run, not per podcast. */
+    val orphanRecoveryLimit: Int = 0,
     val podcasts: List<PodcastConfig> = emptyList(),
 ) {
     companion object {
@@ -72,6 +75,8 @@ data class AppConfig(
                 dataDirectory = dataDirectory,
                 whisperServerUrl = whisperServerUrl,
                 verbose = args.verbose ?: envVerbose ?: raw.verbose,
+                recoverOrphans = args.recoverOrphans ?: raw.recoverOrphans,
+                orphanRecoveryLimit = args.orphanRecoveryLimit ?: raw.orphanRecoveryLimit,
             )
         }
 

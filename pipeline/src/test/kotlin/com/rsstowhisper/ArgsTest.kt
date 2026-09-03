@@ -72,4 +72,25 @@ class ArgsTest {
         val ex = assertFailsWith<IllegalStateException> { parseArgs(arrayOf("--config", "--verbose")) }
         assertEquals("--config needs a value (try --help)", ex.message)
     }
+
+    @Test
+    fun `recover orphan flags are absent unless given`() {
+        assertNull(parseArgs(arrayOf()).recoverOrphans)
+        assertNull(parseArgs(arrayOf()).orphanRecoveryLimit)
+        assertEquals(true, parseArgs(arrayOf("--recover-orphans")).recoverOrphans)
+        assertEquals(false, parseArgs(arrayOf("--no-recover-orphans")).recoverOrphans)
+    }
+
+    @Test
+    fun `orphan limit reads a non-negative number`() {
+        assertEquals(25, parseArgs(arrayOf("--orphan-limit", "25")).orphanRecoveryLimit)
+        assertEquals(0, parseArgs(arrayOf("--orphan-limit", "0")).orphanRecoveryLimit)
+    }
+
+    @Test
+    fun `orphan limit rejects a missing or non-numeric value`() {
+        assertFailsWith<IllegalStateException> { parseArgs(arrayOf("--orphan-limit")) }
+        assertFailsWith<IllegalStateException> { parseArgs(arrayOf("--orphan-limit", "lots")) }
+        assertFailsWith<IllegalStateException> { parseArgs(arrayOf("--orphan-limit", "-1")) }
+    }
 }

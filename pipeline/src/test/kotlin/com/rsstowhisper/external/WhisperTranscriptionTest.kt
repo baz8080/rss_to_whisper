@@ -7,6 +7,7 @@ import java.nio.file.Path
 import java.util.zip.GZIPInputStream
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class WhisperTranscriptionTest {
@@ -104,5 +105,30 @@ class WhisperTranscriptionTest {
         assertTrue(lines[0].contains("\"s\":1.79"))
         assertTrue(lines[0].contains("\"seg\":0"))
         assertTrue(lines[2].contains("\"seg\":1"))
+    }
+
+    @Test
+    fun `durationSeconds is the end of the last word`() {
+        val json =
+            """{"segments":[
+               {"start":0.0,"end":10.0,"text":" one",
+                "words":[{"word":" one","start":0.0,"end":9.5,"probability":0.9}]},
+               {"start":10.0,"end":1830.9,"text":" two",
+                "words":[{"word":" two","start":10.0,"end":1830.5,"probability":0.9}]}]}"""
+        assertEquals(1830, WhisperTranscription.parse(json).durationSeconds)
+    }
+
+    @Test
+    fun `durationSeconds falls back to the last cue when words carry no times`() {
+        val json =
+            """{"segments":[{"start":0.0,"end":42.7,"text":" hello",
+               "words":[{"word":" hello","probability":0.9}]}]}"""
+        assertEquals(42, WhisperTranscription.parse(json).durationSeconds)
+    }
+
+    @Test
+    fun `durationSeconds is null when the response has no segments`() {
+        assertNull(WhisperTranscription.parse("""{"segments":[]}""").durationSeconds)
+        assertNull(WhisperTranscription.parse("""{}""").durationSeconds)
     }
 }

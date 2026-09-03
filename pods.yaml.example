@@ -5,6 +5,16 @@ verbose: false
 # cheaply. Raise it (e.g. 5000) to force a full-feed walk when backfilling.
 skip_after_consecutive: 20
 
+# Episodes downloaded but never transcribed before their feed entry aged out are
+# stranded -- no later run looks at them again. Recovery transcribes them in place
+# using what the directory name and the feed still carry. Set to false to follow
+# the feed and nothing else.
+recover_orphans: true
+
+# Cap how many orphans one run will transcribe, across all podcasts, so a large
+# backlog cannot crowd out new episodes. 0 means no limit.
+orphan_recovery_limit: 0
+
 # Titles matching any of these are skipped for every feed. Matching is
 # case-insensitive and on whole words, so "repeat" does not hit "repeating".
 # Omit the key to accept the defaults below; set it to [] to disable.

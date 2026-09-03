@@ -43,6 +43,11 @@ Each of those has a command-line equivalent that takes precedence (`--config`, `
 Configure `pods.yaml` with:
 - `podcasts` — list of RSS feeds with `name`, `url`, and `collections` tags
 - `skip_after_consecutive` — stop processing a feed after N already-transcribed episodes in a row (default: 20)
+- `recover_orphans` — transcribe episodes that aged out of the feed before being processed (default: true)
+- `orphan_recovery_limit` — cap orphan recoveries per run across all podcasts (default: 0, no limit)
+
+Warnings and errors are mirrored to `<data-dir>/logs/pipeline-errors.log`, and the run
+prints a warning/error count when it finishes.
 
 No external tools are required on `PATH` — transcription is HTTP-only against the whisper.cpp server, which handles audio decoding itself.
 

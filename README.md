@@ -342,6 +342,8 @@ below supply the three required values.
 | `--data-dir <path>` | `PIPELINE_DATA_DIRECTORY` |
 | `--whisper-url <url>` | `PIPELINE_WHISPER_SERVER_URL` |
 | `--verbose` / `--no-verbose` | `PIPELINE_VERBOSE` |
+| `--recover-orphans` / `--no-recover-orphans` | `recover_orphans` in `pods.yaml` |
+| `--orphan-limit <n>` | `orphan_recovery_limit` in `pods.yaml` |
 
 Precedence is argument, then `.env`, then `pods.yaml`. A flag that is not passed falls
 through, so `--whisper-url` alone leaves everything else coming from `.env`.
@@ -365,6 +367,8 @@ launch from a quiet one.
 - `skip_after_consecutive` — stop walking a feed once this many consecutive already-transcribed episodes are seen (optional, default `20`)
 - `exclude_title_keywords` — titles matching any of these are skipped for every feed (optional, see [Non-content exclusions](#non-content-exclusions); set to `[]` to disable)
 - `min_episode_duration_seconds` — skip episodes shorter than this (optional, default `150`; set to `0` to disable)
+- `recover_orphans` — transcribe episodes that aged out of their feed before they were processed (optional, default `true`; see [Orphan recovery](#orphan-recovery))
+- `orphan_recovery_limit` — at most this many orphans per run, across all podcasts (optional, default `0`, meaning no limit)
 - `podcasts` — list of RSS feeds to process, each with `name`, `url`, optional `collections`, optional `excludes`, and an optional `min_episode_duration_seconds` that overrides the global floor
 
 `name` becomes the show's directory name, so changing it moves every episode of
@@ -422,6 +426,59 @@ re-transcription.
 
 Feeds are typically ordered newest-first. Rather than stat'ing every episode directory (expensive for feeds with thousands of entries), the transcriber walks the feed and stops on a podcast once it sees `skip_after_consecutive` transcribed episodes in a row. The counter resets on any gap, so a cancelled run that left untranscribed holes will be picked up on the next invocation.
 
+### Orphan recovery
+
+The pipeline only transcribes what the feed offers, and publishers age entries out on hard
+caps or date cutoffs. An episode downloaded but not yet transcribed when that happens is
+stranded: its directory holds an `audio.mp3` no later run will ever look at. 659 of 17,517
+episode directories were in that state when this was written.
+
+After walking a feed, the pipeline lists the podcast's directory once and compares each
+episode directory's `YYYY-MM-DD-<hex8>` prefix against the feed. Directories whose prefix
+is absent are opened and, if they hold audio but no transcript, transcribed in place —
+newest first, and never renamed, because indexed rows already point at the existing path.
+
+The feed still describes the show, so every `podcast_*` field is accurate. The entry is
+gone, so only what the directory name carries can be recovered:
+
+| Recovered | Source |
+| --- | --- |
+| `_id` | the `<hex8>` in the directory name — the same id the episode always had |
+| `episode_published_on` | the date in the directory name |
+| `episode_title` | the rest of the directory name, dashes back to spaces (lossy: punctuation is gone) |
+| `episode_duration` | where the decoded speech ends — approximate, and short of the file by any trailing silence |
+| `all_tags` | feed-level categories only |
+| `episode_metadata_recovered` | `true`, present only on recovered files |
+
+`episode_audio_link`, `episode_web_link`, `episode_image`, `episode_summary`,
+`episode_subtitle`, `episode_authors`, `episode_number`, `episode_season` and
+`episode_type` are written as `null`. The web UI hides a null field and would render an
+empty string as a dead link, so the distinction matters.
+
+Audio that decodes to nothing leaves a `recovery-failed` marker in the directory. Without
+it the file would be re-uploaded to whisper on every run forever — an orphan has no feed
+entry whose download could fail and stop it. A transcriber *error* (server down, timeout)
+writes no marker and is retried.
+
+Two situations are reported as errors rather than recovered, because the feed entry has
+better metadata than the directory name ever could:
+
+- a directory whose id is in the feed under a **different date** — a publisher re-issued or
+  re-dated an old episode
+- an episode still in the feed, still untranscribed, that `skip_after_consecutive` stopped
+  before reaching. Raise the threshold to pick it up.
+
+Recovery is on by default and costs about 20 seconds across a full run, because only the
+directories absent from the feed are opened. `--no-recover-orphans` turns it off;
+`--orphan-limit <n>` bounds how many a single run will transcribe, which is worth setting
+when the backlog is large enough to crowd out new episodes.
+
+### Error log
+
+Warnings and errors are mirrored to `<data-dir>/logs/pipeline-errors.log`, rolling daily
+and keeping two weeks, and the run prints a count of both when it finishes. A 13,000-episode
+run otherwise buries its failures in scrollback.
+
 ## Output structure
 
 For each episode, the following files are created:
@@ -431,6 +488,7 @@ For each episode, the following files are created:
     audio.mp3                      # Downloaded audio, kept as-is and served by the web module
     transcript.json                # Full metadata + WebVTT transcript
     words.jsonl.gz                 # One line per word, with its own start/end
+    recovery-failed                # Only when recovery found no speech in the audio
 ```
 
 The `episode_transcript` field in `transcript.json` is a raw WebVTT string,

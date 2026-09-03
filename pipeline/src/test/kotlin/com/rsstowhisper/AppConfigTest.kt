@@ -6,6 +6,8 @@ import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class AppConfigTest {
     @Test
@@ -83,6 +85,8 @@ class AppConfigTest {
 
         assertEquals(20, config.skipAfterConsecutive)
         assertEquals(150, config.minEpisodeDurationSeconds)
+        assertTrue(config.recoverOrphans)
+        assertEquals(0, config.orphanRecoveryLimit)
         assertEquals(AppConfig.DEFAULT_EXCLUDE_TITLE_KEYWORDS, config.excludeTitleKeywords)
         assertEquals(2, config.podcasts.size)
         assertEquals("Ask a Spaceman", config.podcasts[0].name)
@@ -313,5 +317,27 @@ class AppConfigTest {
                 )
             }
         assertEquals("PIPELINE_WHISPER_SERVER_URL must be set in .env, or passed as --whisper-url", ex.message)
+    }
+
+    @Test
+    fun `orphan recovery is on unless pods yaml or a flag turns it off`(
+        @TempDir tempDir: Path,
+    ) {
+        val yaml = tempDir.resolve("pods.yaml").toFile()
+        yaml.writeText("recover_orphans: false\norphan_recovery_limit: 25\n")
+        val env =
+            mapOf(
+                "PIPELINE_CONFIG_PATH" to yaml.absolutePath,
+                "PIPELINE_DATA_DIRECTORY" to "/data",
+                "PIPELINE_WHISPER_SERVER_URL" to "http://whisper",
+            )
+
+        assertFalse(AppConfig.load(env).recoverOrphans)
+        assertEquals(25, AppConfig.load(env).orphanRecoveryLimit)
+
+        // The flag wins over pods.yaml, same as every other setting.
+        val overridden = AppConfig.load(Args(recoverOrphans = true, orphanRecoveryLimit = 5), env)
+        assertTrue(overridden.recoverOrphans)
+        assertEquals(5, overridden.orphanRecoveryLimit)
     }
 }
