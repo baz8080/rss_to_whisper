@@ -8,7 +8,9 @@ Transcribe podcast episodes from RSS feeds using the [whisper.cpp](https://githu
 Walks one or more RSS feeds, downloads each episode's MP3, and POSTs it to a running whisper.cpp HTTP server. The server decodes and resamples the audio itself, so no local transcoding step is needed and the MP3 is what gets kept on disk. It returns `verbose_json`, from which the pipeline renders a [WebVTT](https://www.w3.org/TR/webvtt1/) transcript into `transcript.json` and writes the per-word timings alongside as `words.jsonl.gz`. Designed to run on a schedule (e.g. cron) to keep transcripts up to date.
 
 ### `web` (Kotlin)
-A Quarkus HTTP server that serves a full-text search interface over the SQLite database produced by `index.py`. Supports filtering by podcast, collection, episode type, and duration. Search results are ranked by BM25 relevance. The episode detail page shows a clickable transcript synced to the audio player. Runs on port 8080 by default.
+A Quarkus HTTP server that serves a full-text search interface over the SQLite database produced by `index.py`. Supports filtering by podcast, collection, episode type, and duration. Search results are ranked by BM25 relevance. The episode detail page shows a clickable transcript synced to the audio player. Opened from a search result it carries the query along (`/episode/{id}?q=…`), highlights every cue the query matches, scrolls to the first, and steps between them with Prev/Next or the `n`/`p` keys. Runs on port 8080 by default.
+
+The FTS index is one row per episode, so SQLite reports *which* episodes match but not *where*. The episode page re-applies the query cue by cue, reading it the way FTS5 does: quoted phrases stay whole, `AND`/`OR`/`NOT`/`NEAR` are operators only in upper case, a trailing `*` is a prefix, and words are compared case-insensitively with diacritics removed, as the unicode61 tokenizer indexed them.
 
 > **Note:** whisper-server also defaults to 8080. They are rarely up at the same time, but if they are, move one — `--port` on whisper-server, `quarkus.http.port` on the web module.
 

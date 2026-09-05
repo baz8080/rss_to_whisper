@@ -75,10 +75,23 @@ enum class DurationCategory(val label: String, val maxSeconds: Int?) {
 }
 
 // Transcript line — passed to Thymeleaf as a list for the episode detail page.
-data class TranscriptLine(val millis: Long, val text: String) {
+// highlightedHtml is set only on lines the search query matched: escaped text
+// with the matched words wrapped in <mark>, ready for th:utext.
+data class TranscriptLine(
+    val millis: Long,
+    val text: String,
+    val highlightedHtml: String? = null,
+) {
     val seconds: Double get() = millis / 1000.0
     val display: String get() = formatTimestamp(millis)
+    val matched: Boolean get() = highlightedHtml != null
 }
+
+/**
+ * One term of a search query, as FTS5 would see it: a run of words that must
+ * appear consecutively, the last of which may be a prefix (`quant*`).
+ */
+data class SearchTerm(val words: List<String>, val prefix: Boolean = false)
 
 // --- Utility functions ---
 
@@ -91,6 +104,9 @@ fun SearchFilters.hasActiveFilters(): Boolean =
 // re-written as %20, which every decoder agrees on. Any '+' left after encoding
 // is an encoded space -- a literal '+' in the input has already become %2B.
 private fun urlEncode(value: String): String = java.net.URLEncoder.encode(value, Charsets.UTF_8).replace("+", "%20")
+
+/** What to append to an episode link so the transcript can jump to the matches: empty without a query. */
+fun episodeQuerySuffix(query: String): String = if (query.isBlank()) "" else "?q=${urlEncode(query.trim())}"
 
 fun buildSearchUrl(filters: SearchFilters): String {
     val params = mutableListOf<String>()
@@ -187,6 +203,147 @@ private val SUMMARY_POLICY: PolicyFactory =
         .and(Sanitizers.LINKS)
 
 fun sanitizeHtml(html: String): String = SUMMARY_POLICY.sanitize(html)
+
+// --- Query term matching ---
+//
+// The FTS index is one row per episode, so SQLite can say an episode matches
+// but not where. To take the reader to the passage, the query is re-applied
+// cue by cue here, imitating what the unicode61 tokenizer did at index time:
+// a word is a run of letters and digits, compared case-insensitively with
+// diacritics removed. "don't" is two words to both, so the two agree.
+
+private val WORD_REGEX = Regex("""[\p{L}\p{N}]+""")
+private val COMBINING_MARKS = Regex("""\p{M}+""")
+private val COLUMN_FILTER_PREFIX = Regex("""^[A-Za-z_]\w*:""")
+private val FTS_OPERATORS = setOf("AND", "OR", "NOT", "NEAR")
+private val NEAR_DISTANCE = Regex("""(NEAR\s*\([^)]*?),\s*\d+\s*(\))""")
+private val PLUS_JOIN = Regex("""\s*\+\s*""")
+
+private fun foldWord(word: String): String =
+    COMBINING_MARKS.replace(java.text.Normalizer.normalize(word, java.text.Normalizer.Form.NFD), "").lowercase()
+
+private fun words(text: String): List<String> = WORD_REGEX.findAll(text).map { foldWord(it.value) }.toList()
+
+/**
+ * The terms a query asks for, in FTS5's own reading of it.
+ *
+ * Quoted phrases are kept whole, so "climate change" highlights the pair and
+ * not every "change"; so are words joined with `+`, which is FTS5's other
+ * phrase syntax. Bare words are single terms. AND, OR, NOT and NEAR are
+ * operators to FTS5 only when upper-case, and are dropped on the same rule,
+ * along with NEAR's distance argument; everything else -- column filters,
+ * `^`, parentheses -- is stripped rather than matched, since it constrains
+ * where a term appears, not what it is.
+ */
+fun searchTerms(query: String): List<SearchTerm> {
+    val terms = mutableListOf<SearchTerm>()
+    // NEAR(a b, 10): the 10 is a distance, not a word.
+    val cleaned = NEAR_DISTANCE.replace(query, "$1$2")
+
+    fun add(
+        raw: String,
+        prefix: Boolean,
+    ) {
+        val ws = words(raw)
+        if (ws.isNotEmpty()) terms += SearchTerm(ws, prefix)
+    }
+
+    fun addBare(chunk: String) {
+        // "a + b" is one phrase to FTS5. Pulled together here so it stays one
+        // token, whose words() then split on the '+' like any other punctuation.
+        val joined = PLUS_JOIN.replace(chunk, "+")
+        joined.split(Regex("""[\s()]+""")).forEach { token ->
+            if (token.isEmpty() || token in FTS_OPERATORS) return@forEach
+            var t = COLUMN_FILTER_PREFIX.replace(token.removePrefix("^"), "")
+            val prefix = t.endsWith("*")
+            if (prefix) t = t.trimEnd('*')
+            add(t, prefix)
+        }
+    }
+
+    val bare = StringBuilder()
+    var i = 0
+    while (i < cleaned.length) {
+        if (cleaned[i] != '"') {
+            bare.append(cleaned[i++])
+            continue
+        }
+        addBare(bare.toString())
+        bare.clear()
+
+        // Inside a phrase a doubled quote is a literal one, as in SQL.
+        val phrase = StringBuilder()
+        i++
+        while (i < cleaned.length) {
+            if (cleaned[i] == '"') {
+                if (i + 1 < cleaned.length && cleaned[i + 1] == '"') {
+                    phrase.append('"')
+                    i += 2
+                    continue
+                }
+                break
+            }
+            phrase.append(cleaned[i++])
+        }
+        i++ // past the closing quote, or one past the end of an unterminated phrase
+        val prefix = i < cleaned.length && cleaned[i] == '*'
+        if (prefix) i++
+        add(phrase.toString(), prefix)
+    }
+    addBare(bare.toString())
+
+    return terms.distinct()
+}
+
+/**
+ * [text] escaped for HTML with every occurrence of a term wrapped in `<mark>`,
+ * or null when no term occurs -- so a caller can tell a matched line from an
+ * unmatched one without parsing the result.
+ */
+fun highlightMatches(
+    text: String,
+    terms: List<SearchTerm>,
+): String? {
+    if (terms.isEmpty()) return null
+
+    val tokens = WORD_REGEX.findAll(text).map { Triple(foldWord(it.value), it.range.first, it.range.last + 1) }.toList()
+
+    val hits = mutableListOf<IntRange>()
+    for (start in tokens.indices) {
+        for (term in terms) {
+            val n = term.words.size
+            if (start + n > tokens.size) continue
+            val matches =
+                term.words.withIndex().all { (k, word) ->
+                    val token = tokens[start + k].first
+                    if (k == n - 1 && term.prefix) token.startsWith(word) else token == word
+                }
+            if (matches) hits += tokens[start].second until tokens[start + n - 1].third
+        }
+    }
+    if (hits.isEmpty()) return null
+
+    // Overlapping hits ("climate change" and "change") become one mark.
+    val merged = mutableListOf<IntRange>()
+    for (hit in hits.sortedBy { it.first }) {
+        val last = merged.lastOrNull()
+        if (last != null && hit.first <= last.last + 1) {
+            merged[merged.lastIndex] = last.first..maxOf(last.last, hit.last)
+        } else {
+            merged += hit
+        }
+    }
+
+    val out = StringBuilder()
+    var pos = 0
+    for (range in merged) {
+        out.append(escapeHtml(text.substring(pos, range.first)))
+        out.append("<mark>").append(escapeHtml(text.substring(range.first, range.last + 1))).append("</mark>")
+        pos = range.last + 1
+    }
+    out.append(escapeHtml(text.substring(pos)))
+    return out.toString()
+}
 
 private val URL_REGEX = Regex("""https?://[^\s<>"]+""")
 

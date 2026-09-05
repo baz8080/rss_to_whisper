@@ -187,7 +187,7 @@
                 <div class="podcast-name"
                      th:text="${episode.podcastTitle != null ? episode.podcastTitle : 'Unknown Podcast'}"></div>
                 <h3>
-                    <a th:href="'/episode/' + ${episode.id}"
+                    <a th:href="'/episode/' + ${episode.id} + ${episodeQuerySuffix}"
                        th:text="${episode.episodeTitle != null ? episode.episodeTitle : 'Untitled'}"></a>
                 </h3>
                 <div class="meta">

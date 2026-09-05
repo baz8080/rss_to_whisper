@@ -3,10 +3,13 @@ package com.rsstowhisper.web
 import com.rsstowhisper.web.db.EpisodeRepository
 import com.rsstowhisper.web.models.SearchFilters
 import com.rsstowhisper.web.models.buildSearchUrl
+import com.rsstowhisper.web.models.episodeQuerySuffix
 import com.rsstowhisper.web.models.hasActiveFilters
+import com.rsstowhisper.web.models.highlightMatches
 import com.rsstowhisper.web.models.linkify
 import com.rsstowhisper.web.models.parseTranscript
 import com.rsstowhisper.web.models.sanitizeHtml
+import com.rsstowhisper.web.models.searchTerms
 import io.smallrye.common.annotation.Blocking
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
@@ -78,6 +81,8 @@ class SearchResource {
                 setVariable("prevUrl", buildSearchUrl(filters.copy(page = filters.page - 1)))
                 setVariable("nextUrl", buildSearchUrl(filters.copy(page = filters.page + 1)))
                 setVariable("clearUrl", buildSearchUrl(SearchFilters(query = filters.query)))
+                // Result links carry the query so the episode page can jump to the matches.
+                setVariable("episodeQuerySuffix", episodeQuerySuffix(filters.query))
             }
 
         // HTMX partial request: return only the #app fragment so the browser
@@ -94,6 +99,7 @@ class SearchResource {
     @Produces(MediaType.TEXT_HTML)
     fun episode(
         @PathParam("id") id: String,
+        @QueryParam("q") @DefaultValue("") query: String,
     ): Response {
         val episode =
             repository.getEpisodeById(id)
@@ -103,7 +109,11 @@ class SearchResource {
                     .build()
 
         val base = audioBaseUrl.trimEnd('/')
-        val transcriptLines = episode.transcript?.let { parseTranscript(it) } ?: emptyList()
+        val terms = searchTerms(query)
+        val transcriptLines =
+            episode.transcript?.let { parseTranscript(it) }.orEmpty().map { line ->
+                line.copy(highlightedHtml = highlightMatches(line.text, terms))
+            }
         val linkifiedSummary =
             episode.episodeSummary?.let {
                 if (it.contains('<')) sanitizeHtml(it) else linkify(it)
@@ -115,6 +125,8 @@ class SearchResource {
                 setVariable("audioBaseUrl", base)
                 setVariable("transcriptLines", transcriptLines)
                 setVariable("linkifiedSummary", linkifiedSummary)
+                setVariable("query", query.trim())
+                setVariable("matchCount", transcriptLines.count { it.matched })
             }
 
         return Response.ok(templateEngine.process("episode", ctx), MediaType.TEXT_HTML).build()
