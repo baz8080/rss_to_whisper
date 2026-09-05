@@ -389,7 +389,145 @@ class SearchModelsTest {
     }
 
     @Nested
+    inner class SearchTerms {
+        private fun term(
+            vararg words: String,
+            prefix: Boolean = false,
+        ) = SearchTerm(words.toList(), prefix)
+
+        @Test
+        fun `blank query has no terms`() = assertTrue(searchTerms("   ").isEmpty())
+
+        @Test
+        fun `bare words are separate terms`() = assertEquals(listOf(term("climate"), term("change")), searchTerms("climate change"))
+
+        @Test
+        fun `words are lower-cased`() = assertEquals(listOf(term("kotlin")), searchTerms("Kotlin"))
+
+        @Test
+        fun `quoted phrase is one term`() = assertEquals(listOf(term("climate", "change")), searchTerms("\"climate change\""))
+
+        @Test
+        fun `phrase and bare words mix`() =
+            assertEquals(listOf(term("hot"), term("climate", "change"), term("now")), searchTerms("hot \"climate change\" now"))
+
+        @Test
+        fun `unterminated phrase runs to the end`() = assertEquals(listOf(term("a", "b")), searchTerms("\"a b"))
+
+        @Test
+        fun `doubled quote inside a phrase is literal and separates nothing`() =
+            assertEquals(listOf(term("say", "hi")), searchTerms("\"say \"\"hi\"\"\""))
+
+        @Test
+        fun `upper-case operators are dropped`() =
+            assertEquals(listOf(term("cats"), term("dogs")), searchTerms("cats AND dogs OR NOT NEAR"))
+
+        @Test
+        fun `lower-case operator words are ordinary terms`() =
+            assertEquals(listOf(term("cats"), term("and"), term("dogs")), searchTerms("cats and dogs"))
+
+        @Test
+        fun `trailing star marks a prefix term`() = assertEquals(listOf(term("quant", prefix = true)), searchTerms("quant*"))
+
+        @Test
+        fun `star after a phrase marks the phrase as prefix`() =
+            assertEquals(listOf(term("quantum", "comp", prefix = true)), searchTerms("\"quantum comp\"*"))
+
+        @Test
+        fun `column filter and initial-token caret are stripped`() =
+            assertEquals(listOf(term("kotlin"), term("first")), searchTerms("episode_title:kotlin ^first"))
+
+        @Test
+        fun `parentheses and plus are separators`() = assertEquals(listOf(term("a"), term("b")), searchTerms("(a + b)"))
+
+        @Test
+        fun `punctuation splits a word the way the tokenizer does`() = assertEquals(listOf(term("don", "t")), searchTerms("don't"))
+
+        @Test
+        fun `symbol-only tokens produce no term`() = assertEquals(listOf(term("c")), searchTerms("c++ --"))
+
+        @Test
+        fun `duplicate terms collapse`() = assertEquals(listOf(term("a")), searchTerms("a a \"a\""))
+    }
+
+    @Nested
+    inner class HighlightMatches {
+        private val climate = listOf(SearchTerm(listOf("climate")))
+
+        @Test
+        fun `no terms gives null`() = assertNull(highlightMatches("anything", emptyList()))
+
+        @Test
+        fun `no occurrence gives null`() = assertNull(highlightMatches("nothing to see", climate))
+
+        @Test
+        fun `single word is marked case-insensitively`() =
+            assertEquals("The <mark>Climate</mark> is changing", highlightMatches("The Climate is changing", climate))
+
+        @Test
+        fun `every occurrence is marked`() =
+            assertEquals("<mark>climate</mark>, <mark>climate</mark>!", highlightMatches("climate, climate!", climate))
+
+        @Test
+        fun `a word is not matched inside a longer word`() = assertNull(highlightMatches("climates", climate))
+
+        @Test
+        fun `prefix term matches a longer word`() =
+            assertEquals("<mark>climates</mark> vary", highlightMatches("climates vary", listOf(SearchTerm(listOf("clim"), prefix = true))))
+
+        @Test
+        fun `phrase must be consecutive`() {
+            val phrase = listOf(SearchTerm(listOf("climate", "change")))
+            assertEquals("on <mark>climate change</mark> now", highlightMatches("on climate change now", phrase))
+            assertNull(highlightMatches("climate and change", phrase))
+        }
+
+        @Test
+        fun `phrase spans punctuation between its words`() =
+            assertEquals(
+                "<mark>don't</mark> stop",
+                highlightMatches("don't stop", listOf(SearchTerm(listOf("don", "t")))),
+            )
+
+        @Test
+        fun `overlapping hits merge into one mark`() {
+            val terms = listOf(SearchTerm(listOf("climate", "change")), SearchTerm(listOf("change")))
+            assertEquals("<mark>climate change</mark>", highlightMatches("climate change", terms))
+        }
+
+        @Test
+        fun `diacritics are ignored like the index does`() =
+            assertEquals("<mark>café</mark> au lait", highlightMatches("café au lait", listOf(SearchTerm(listOf("cafe")))))
+
+        @Test
+        fun `text is HTML-escaped around and inside the marks`() =
+            assertEquals(
+                "a &lt;b&gt; &amp; <mark>climate</mark>",
+                highlightMatches("a <b> & climate", climate),
+            )
+
+        @Test
+        fun `a literal mark tag in the transcript is not honoured`() =
+            assertEquals("&lt;mark&gt;x&lt;/mark&gt; <mark>climate</mark>", highlightMatches("<mark>x</mark> climate", climate))
+    }
+
+    @Nested
+    inner class EpisodeQuerySuffix {
+        @Test
+        fun `blank query gives nothing`() = assertEquals("", episodeQuerySuffix("  "))
+
+        @Test
+        fun `query is trimmed and encoded`() = assertEquals("?q=c%2B%2B%20%26%20more", episodeQuerySuffix(" c++ & more "))
+    }
+
+    @Nested
     inner class TranscriptLineProperties {
+        @Test
+        fun `matched is false without highlighted html`() = assertFalse(TranscriptLine(0L, "text").matched)
+
+        @Test
+        fun `matched is true with highlighted html`() = assertTrue(TranscriptLine(0L, "text", "<mark>text</mark>").matched)
+
         @Test
         fun `seconds converts milliseconds correctly`() {
             assertEquals(1.5, TranscriptLine(1500L, "text").seconds, 0.001)

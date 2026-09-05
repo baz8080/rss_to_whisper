@@ -5,6 +5,7 @@ import com.rsstowhisper.web.models.Episode
 import com.rsstowhisper.web.models.FilterOptions
 import com.rsstowhisper.web.models.SearchFilters
 import com.rsstowhisper.web.models.SearchResult
+import com.rsstowhisper.web.models.TranscriptLine
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
@@ -93,7 +94,7 @@ class SearchResourceTest {
     fun `episode returns 404 when episode not found`() {
         every { repository.getEpisodeById("missing") } returns null
 
-        val response = resource.episode("missing")
+        val response = resource.episode("missing", "")
 
         assertEquals(Response.Status.NOT_FOUND.statusCode, response.status)
     }
@@ -103,7 +104,7 @@ class SearchResourceTest {
         every { repository.getEpisodeById("ep1") } returns minimalEpisode()
         every { templateEngine.process("episode", any<IContext>()) } returns "<html>episode</html>"
 
-        val response = resource.episode("ep1")
+        val response = resource.episode("ep1", "")
 
         assertEquals(Response.Status.OK.statusCode, response.status)
         assertEquals("<html>episode</html>", response.entity)
@@ -116,7 +117,7 @@ class SearchResourceTest {
         val ctxSlot = slot<IContext>()
         every { templateEngine.process("episode", capture(ctxSlot)) } returns ""
 
-        resource.episode("ep1")
+        resource.episode("ep1", "")
 
         val linkifiedSummary = ctxSlot.captured.getVariable("linkifiedSummary") as String
         assertTrue(
@@ -133,7 +134,7 @@ class SearchResourceTest {
         val ctxSlot = slot<IContext>()
         every { templateEngine.process("episode", capture(ctxSlot)) } returns ""
 
-        resource.episode("ep1")
+        resource.episode("ep1", "")
 
         val linkifiedSummary = ctxSlot.captured.getVariable("linkifiedSummary") as String
         assertEquals(htmlSummary, linkifiedSummary)
@@ -146,7 +147,7 @@ class SearchResourceTest {
         val ctxSlot = slot<IContext>()
         every { templateEngine.process("episode", capture(ctxSlot)) } returns ""
 
-        resource.episode("ep1")
+        resource.episode("ep1", "")
 
         val audioBaseUrl = ctxSlot.captured.getVariable("audioBaseUrl") as String
         assertEquals("http://audio.example.com", audioBaseUrl)
@@ -159,7 +160,7 @@ class SearchResourceTest {
         val ctxSlot = slot<IContext>()
         every { templateEngine.process("episode", capture(ctxSlot)) } returns ""
 
-        resource.episode("ep1")
+        resource.episode("ep1", "")
 
         @Suppress("UNCHECKED_CAST")
         val transcriptLines = ctxSlot.captured.getVariable("transcriptLines") as List<*>
@@ -174,11 +175,72 @@ class SearchResourceTest {
         val ctxSlot = slot<IContext>()
         every { templateEngine.process("episode", capture(ctxSlot)) } returns ""
 
-        resource.episode("ep1")
+        resource.episode("ep1", "")
 
         @Suppress("UNCHECKED_CAST")
         val transcriptLines = ctxSlot.captured.getVariable("transcriptLines") as List<*>
         assertEquals(2, transcriptLines.size)
+    }
+
+    @Test
+    fun `episode highlights the lines a query matches and counts them`() {
+        val vtt =
+            "WEBVTT\n\n" +
+                "00:00:00.000 --> 00:00:01.000\nHello there\n\n" +
+                "00:00:01.000 --> 00:00:02.000\nNothing here\n\n" +
+                "00:00:02.000 --> 00:00:03.000\nHello again & goodbye\n"
+        every { repository.getEpisodeById("ep1") } returns minimalEpisode(transcript = vtt)
+
+        val ctxSlot = slot<IContext>()
+        every { templateEngine.process("episode", capture(ctxSlot)) } returns ""
+
+        resource.episode("ep1", " hello ")
+
+        @Suppress("UNCHECKED_CAST")
+        val lines = ctxSlot.captured.getVariable("transcriptLines") as List<TranscriptLine>
+        assertEquals(listOf(true, false, true), lines.map { it.matched })
+        assertEquals("<mark>Hello</mark> again &amp; goodbye", lines[2].highlightedHtml)
+        assertEquals(2, ctxSlot.captured.getVariable("matchCount"))
+        assertEquals("hello", ctxSlot.captured.getVariable("query"))
+    }
+
+    @Test
+    fun `episode without a query highlights nothing`() {
+        val vtt = "WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nHello\n"
+        every { repository.getEpisodeById("ep1") } returns minimalEpisode(transcript = vtt)
+
+        val ctxSlot = slot<IContext>()
+        every { templateEngine.process("episode", capture(ctxSlot)) } returns ""
+
+        resource.episode("ep1", "")
+
+        @Suppress("UNCHECKED_CAST")
+        val lines = ctxSlot.captured.getVariable("transcriptLines") as List<TranscriptLine>
+        assertTrue(lines.none { it.matched })
+        assertEquals(0, ctxSlot.captured.getVariable("matchCount"))
+        assertEquals("", ctxSlot.captured.getVariable("query"))
+    }
+
+    @Test
+    fun `search passes the query on to episode links`() {
+        stubSearchDependencies()
+        val ctxSlot = slot<IContext>()
+        every { templateEngine.process("search", capture(ctxSlot)) } returns ""
+
+        resource.search("climate change", emptyList(), emptyList(), emptyList(), emptyList(), emptyList(), 1, null)
+
+        assertEquals("?q=climate%20change", ctxSlot.captured.getVariable("episodeQuerySuffix"))
+    }
+
+    @Test
+    fun `search without a query leaves episode links bare`() {
+        stubSearchDependencies()
+        val ctxSlot = slot<IContext>()
+        every { templateEngine.process("search", capture(ctxSlot)) } returns ""
+
+        resource.search("", emptyList(), emptyList(), emptyList(), emptyList(), emptyList(), 1, null)
+
+        assertEquals("", ctxSlot.captured.getVariable("episodeQuerySuffix"))
     }
 
     // --- helpers ---

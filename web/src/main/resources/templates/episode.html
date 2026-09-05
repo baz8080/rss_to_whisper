@@ -75,15 +75,34 @@
         </tbody>
     </table>
 
-    <!-- Audio player -->
-    <div class="audio-player" th:if="${episode.audioPath != null}">
-        <audio id="episode-audio"
-               controls="controls"
-               preload="none"
-               th:src="${audioBaseUrl + '/' + episode.audioPath}">
-            <track id="episode-track" kind="captions" srclang="en" label="English" default="default"/>
-            Your browser does not support audio.
-        </audio>
+    <!-- Sticky: the audio player and, when the page was reached from a search, the match navigator -->
+    <div class="playback-header" th:if="${episode.audioPath != null or not #strings.isEmpty(query)}">
+        <div class="audio-player" th:if="${episode.audioPath != null}">
+            <audio id="episode-audio"
+                   controls="controls"
+                   preload="none"
+                   th:src="${audioBaseUrl + '/' + episode.audioPath}">
+                <track id="episode-track" kind="captions" srclang="en" label="English" default="default"/>
+                Your browser does not support audio.
+            </audio>
+        </div>
+
+        <!-- Match navigator: the lines the search query matched, with previous/next -->
+        <div class="match-nav" id="match-nav" th:if="${not #strings.isEmpty(query)}">
+            <span class="match-summary">
+                <th:block th:if="${matchCount > 0}">
+                    <span id="match-position">1</span> of <span th:text="${matchCount}"></span>
+                    <span th:text="${matchCount == 1 ? 'match' : 'matches'}"></span>
+                </th:block>
+                <th:block th:if="${matchCount == 0}">No matches in the transcript</th:block>
+                for &#x201C;<span th:text="${query}"></span>&#x201D;
+            </span>
+            <span class="match-buttons" th:if="${matchCount > 1}">
+                <button type="button" onclick="gotoMatch(currentMatch - 1)" title="Previous match (p)">&#x2191; Prev</button>
+                <button type="button" onclick="gotoMatch(currentMatch + 1)" title="Next match (n)">&#x2193; Next</button>
+            </span>
+            <a th:href="'/episode/' + ${episode.id}" class="match-clear" title="Show the transcript without highlights">Clear</a>
+        </div>
     </div>
 
     <!-- Transcript — parsed into timestamped lines by SearchResource -->
@@ -92,12 +111,15 @@
         <div class="transcript" id="transcript">
             <div class="transcript-line"
                  th:each="line : ${transcriptLines}"
+                 th:classappend="${line.matched} ? 'match'"
                  th:data-start-ms="${line.millis}">
                 <span class="transcript-time"
                       th:onclick="'seekAudio(' + ${line.seconds} + ')'"
                       th:title="'Jump to ' + ${line.display}"
                       th:text="${line.display}"></span>
-                <span class="transcript-text" th:text="${line.text}"></span>
+                <!--/* highlightedHtml is escaped by highlightMatches; only its <mark> tags are markup */-->
+                <span class="transcript-text" th:if="${line.matched}" th:utext="${line.highlightedHtml}"></span>
+                <span class="transcript-text" th:unless="${line.matched}" th:text="${line.text}"></span>
             </div>
         </div>
     </div>
@@ -159,9 +181,37 @@
             return result;
         }
 
+        // Match navigation: the lines the search query hit, in transcript order.
+        const matchEls = Array.from(document.querySelectorAll('.transcript-line.match'));
+        let currentMatch = -1;
+
+        function gotoMatch(index) {
+            if (matchEls.length === 0) return;
+            index = ((index % matchEls.length) + matchEls.length) % matchEls.length;
+            if (currentMatch >= 0) matchEls[currentMatch].classList.remove('current-match');
+            currentMatch = index;
+            const el = matchEls[currentMatch];
+            el.classList.add('current-match');
+            // Centred, so the sticky player never covers the line.
+            el.scrollIntoView({block: 'center', behavior: 'smooth'});
+            const position = document.getElementById('match-position');
+            if (position) position.textContent = String(currentMatch + 1);
+        }
+
+        if (matchEls.length > 0) gotoMatch(0);
+
         document.addEventListener('keydown', function (e) {
             const tag = document.activeElement.tagName;
             if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+            if (e.key === 'n' && matchEls.length > 0) {
+                e.preventDefault();
+                gotoMatch(currentMatch + 1);
+                return;
+            } else if (e.key === 'p' && matchEls.length > 0) {
+                e.preventDefault();
+                gotoMatch(currentMatch - 1);
+                return;
+            }
             if (!audioEl) return;
             if (e.key === ' ') {
                 e.preventDefault();
