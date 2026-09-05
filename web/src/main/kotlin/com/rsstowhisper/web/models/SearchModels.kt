@@ -216,6 +216,8 @@ private val WORD_REGEX = Regex("""[\p{L}\p{N}]+""")
 private val COMBINING_MARKS = Regex("""\p{M}+""")
 private val COLUMN_FILTER_PREFIX = Regex("""^[A-Za-z_]\w*:""")
 private val FTS_OPERATORS = setOf("AND", "OR", "NOT", "NEAR")
+private val NEAR_DISTANCE = Regex("""(NEAR\s*\([^)]*?),\s*\d+\s*(\))""")
+private val PLUS_JOIN = Regex("""\s*\+\s*""")
 
 private fun foldWord(word: String): String =
     COMBINING_MARKS.replace(java.text.Normalizer.normalize(word, java.text.Normalizer.Form.NFD), "").lowercase()
@@ -226,13 +228,17 @@ private fun words(text: String): List<String> = WORD_REGEX.findAll(text).map { f
  * The terms a query asks for, in FTS5's own reading of it.
  *
  * Quoted phrases are kept whole, so "climate change" highlights the pair and
- * not every "change". Bare words are single terms. AND, OR, NOT and NEAR are
- * operators to FTS5 only when upper-case, and are dropped on the same rule;
- * everything else -- column filters, `^`, parentheses -- is stripped rather
- * than matched, since it constrains where a term appears, not what it is.
+ * not every "change"; so are words joined with `+`, which is FTS5's other
+ * phrase syntax. Bare words are single terms. AND, OR, NOT and NEAR are
+ * operators to FTS5 only when upper-case, and are dropped on the same rule,
+ * along with NEAR's distance argument; everything else -- column filters,
+ * `^`, parentheses -- is stripped rather than matched, since it constrains
+ * where a term appears, not what it is.
  */
 fun searchTerms(query: String): List<SearchTerm> {
     val terms = mutableListOf<SearchTerm>()
+    // NEAR(a b, 10): the 10 is a distance, not a word.
+    val cleaned = NEAR_DISTANCE.replace(query, "$1$2")
 
     fun add(
         raw: String,
@@ -243,7 +249,10 @@ fun searchTerms(query: String): List<SearchTerm> {
     }
 
     fun addBare(chunk: String) {
-        chunk.split(Regex("""[\s()+]+""")).forEach { token ->
+        // "a + b" is one phrase to FTS5. Pulled together here so it stays one
+        // token, whose words() then split on the '+' like any other punctuation.
+        val joined = PLUS_JOIN.replace(chunk, "+")
+        joined.split(Regex("""[\s()]+""")).forEach { token ->
             if (token.isEmpty() || token in FTS_OPERATORS) return@forEach
             var t = COLUMN_FILTER_PREFIX.replace(token.removePrefix("^"), "")
             val prefix = t.endsWith("*")
@@ -254,9 +263,9 @@ fun searchTerms(query: String): List<SearchTerm> {
 
     val bare = StringBuilder()
     var i = 0
-    while (i < query.length) {
-        if (query[i] != '"') {
-            bare.append(query[i++])
+    while (i < cleaned.length) {
+        if (cleaned[i] != '"') {
+            bare.append(cleaned[i++])
             continue
         }
         addBare(bare.toString())
@@ -265,19 +274,19 @@ fun searchTerms(query: String): List<SearchTerm> {
         // Inside a phrase a doubled quote is a literal one, as in SQL.
         val phrase = StringBuilder()
         i++
-        while (i < query.length) {
-            if (query[i] == '"') {
-                if (i + 1 < query.length && query[i + 1] == '"') {
+        while (i < cleaned.length) {
+            if (cleaned[i] == '"') {
+                if (i + 1 < cleaned.length && cleaned[i + 1] == '"') {
                     phrase.append('"')
                     i += 2
                     continue
                 }
                 break
             }
-            phrase.append(query[i++])
+            phrase.append(cleaned[i++])
         }
         i++ // past the closing quote, or one past the end of an unterminated phrase
-        val prefix = i < query.length && query[i] == '*'
+        val prefix = i < cleaned.length && cleaned[i] == '*'
         if (prefix) i++
         add(phrase.toString(), prefix)
     }

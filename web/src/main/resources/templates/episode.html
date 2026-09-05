@@ -203,6 +203,8 @@
         document.addEventListener('keydown', function (e) {
             const tag = document.activeElement.tagName;
             if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+            // Ctrl+P is print and Alt+Left is back; the browser keeps those.
+            if (e.ctrlKey || e.metaKey || e.altKey) return;
             if (e.key === 'n' && matchEls.length > 0) {
                 e.preventDefault();
                 gotoMatch(currentMatch + 1);

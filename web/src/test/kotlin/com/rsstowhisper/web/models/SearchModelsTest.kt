@@ -438,7 +438,19 @@ class SearchModelsTest {
             assertEquals(listOf(term("kotlin"), term("first")), searchTerms("episode_title:kotlin ^first"))
 
         @Test
-        fun `parentheses and plus are separators`() = assertEquals(listOf(term("a"), term("b")), searchTerms("(a + b)"))
+        fun `parentheses are separators`() = assertEquals(listOf(term("a"), term("b")), searchTerms("(a) (b)"))
+
+        @Test
+        fun `plus joins words into a phrase`() {
+            assertEquals(listOf(term("climate", "change")), searchTerms("climate + change"))
+            assertEquals(listOf(term("climate", "change"), term("now")), searchTerms("climate+change now"))
+        }
+
+        @Test
+        fun `NEAR distance is not a term`() {
+            assertEquals(listOf(term("climate"), term("change")), searchTerms("NEAR(climate change, 10)"))
+            assertEquals(listOf(term("climate", "change"), term("now")), searchTerms("NEAR(\"climate change\" now, 5)"))
+        }
 
         @Test
         fun `punctuation splits a word the way the tokenizer does`() = assertEquals(listOf(term("don", "t")), searchTerms("don't"))
