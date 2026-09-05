@@ -88,6 +88,11 @@ APP_AUDIO_BASE_URL=http://your-audio-server:port
 - `pipeline` JVM heap is set to 4GB by default (`-Xmx4g`) to handle large whisper model loads
 - Thymeleaf is used as a plain library in `web` (no Quarkiverse extension) via a hand-rolled CDI producer
 
+## Planned work
+
+`docs/ROADMAP.md` describes the features planned next for each module, with the files,
+design, tests and gotchas for each. Pick from it rather than re-deriving the list.
+
 ## Git workflow
 
 - Always create a feature branch from `main` before making changes — never commit directly to `main`
